@@ -1,0 +1,78 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "instruction": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "input": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "output": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "metadata": {
+      "batch_generated": {
+        "dtype": "bool",
+        "_type": "Value"
+      },
+      "batch_processed": {
+        "dtype": "bool",
+        "_type": "Value"
+      },
+      "category": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "evolution_type": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "example_type": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "generated_utc": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "hinglish_translation": {
+        "dtype": "bool",
+        "_type": "Value"
+      },
+      "language": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "original_instruction": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "regenerated": {
+        "dtype": "bool",
+        "_type": "Value"
+      },
+      "regenerated_utc": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "rule_id": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "source_book": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "source_language": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    }
+  },
+  "homepage": "",
+  "license": ""
+}

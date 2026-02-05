@@ -1,0 +1,36 @@
+# Core ML/DL frameworks
+torch>=2.1.0
+transformers>=4.36.0
+datasets>=2.16.0
+accelerate>=0.25.0
+peft>=0.7.1
+bitsandbytes>=0.41.3
+
+# Optimization and quantization
+scipy>=1.11.0
+sentencepiece>=0.1.99
+protobuf>=4.25.0
+unsloth>=2024.1  # For 8-bit quantization
+optimum>=1.16.0
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0
+tqdm>=4.66.0
+numpy>=1.24.0
+
+# RAG and embeddings
+pinecone-client>=3.0.0
+openai>=1.0.0  # For text-embedding-3-large (RAG queries)
+
+# Monitoring (optional)
+tensorboard>=2.15.0
+wandb>=0.16.0
+
+# Inference serving
+vllm>=0.2.7
+uvicorn>=0.25.0
+fastapi>=0.108.0
+
+# HuggingFace CLI
+huggingface-hub>=0.20.0

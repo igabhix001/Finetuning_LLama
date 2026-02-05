@@ -1,0 +1,55 @@
+# SFT Training Configuration for RTX 6000 Ada (48GB VRAM)
+# Supervised Fine-Tuning with LoRA (on top of DAPT LoRA)
+
+# Model paths
+model_name: "meta-llama/Llama-3.1-8B-Instruct"  # Base model
+dapt_lora_path: "./checkpoints/dapt_lora/final/"  # DAPT LoRA adapters
+output_dir: "./checkpoints/sft_lora/"
+logging_dir: "./logs/sft/"
+
+# Dataset
+train_data: "./data/sft_train/"
+eval_data: "./data/sft_validation/"
+
+# Training hyperparameters
+num_train_epochs: 3
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 4
+gradient_accumulation_steps: 4  # Effective batch size: 16
+learning_rate: 2.0e-4
+warmup_ratio: 0.03
+weight_decay: 0.01
+
+# Logging and checkpointing
+logging_steps: 10
+eval_steps: 100
+save_steps: 500
+save_total_limit: 3
+evaluation_strategy: "steps"
+load_best_model_at_end: true
+metric_for_best_model: "eval_loss"
+greater_is_better: false
+
+# Optimization for RTX 6000 Ada
+fp16: true
+bf16: false  # Use fp16 for Ada architecture
+gradient_checkpointing: true
+optim: "paged_adamw_32bit"  # Memory-efficient optimizer
+lr_scheduler_type: "cosine"
+max_grad_norm: 1.0
+
+# Context and tokenization
+max_seq_length: 2048
+dataloader_num_workers: 4
+dataloader_pin_memory: true
+
+# Memory optimization
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+
+# Early stopping
+early_stopping_patience: 3
+early_stopping_threshold: 0.001
+
+# Reporting
+report_to: "tensorboard"

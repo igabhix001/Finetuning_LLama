@@ -1,0 +1,25 @@
+# LoRA Configuration for DAPT
+# Optimized for RTX 6000 Ada (48GB VRAM)
+
+# LoRA parameters
+r: 16  # Rank
+lora_alpha: 32  # Scaling factor
+lora_dropout: 0.05
+
+# Target modules for Llama 3.1 (all linear layers for DAPT)
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+
+# LoRA settings
+bias: "none"
+task_type: "CAUSAL_LM"
+inference_mode: false
+
+# Memory optimization
+modules_to_save: null

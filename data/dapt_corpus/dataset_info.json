@@ -1,0 +1,30 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "text": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "metadata": {
+      "doc_id": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "source_book": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "source_pages": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "token_estimate": {
+        "dtype": "int64",
+        "_type": "Value"
+      }
+    }
+  },
+  "homepage": "",
+  "license": ""
+}
