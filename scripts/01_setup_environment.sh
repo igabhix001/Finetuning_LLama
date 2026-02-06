@@ -1,6 +1,9 @@
 #!/bin/bash
 # Setup environment on RunPod for training
 # Run this first after cloning the repository
+#
+# IMPORTANT: Do NOT install flash-attn from source — it uses 30-40GB system RAM
+# and will OOM-kill the container. Use prebuilt wheels or skip it.
 
 set -e  # Exit on error
 
@@ -14,41 +17,61 @@ if [ ! -d "/workspace" ]; then
     echo "This script is designed for RunPod environment"
 fi
 
-# Update pip
+# Step 1: Keep existing PyTorch (RunPod images ship with a working version)
 echo ""
-echo "1. Updating pip..."
-pip install --upgrade pip
+echo "1. Checking existing PyTorch..."
+python -c "import torch; print(f'PyTorch {torch.__version__} with CUDA {torch.version.cuda} — keeping as-is')" 2>/dev/null || {
+    echo "   PyTorch not found, installing..."
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+}
 
-# Install PyTorch with CUDA support
+# Step 2: Install training dependencies (lightweight, no compilation)
 echo ""
-echo "2. Installing PyTorch with CUDA 12.1..."
-pip install torch==2.1.2 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+echo "2. Installing training dependencies..."
+pip install --no-cache-dir \
+    transformers>=4.36.0 \
+    datasets>=2.16.0 \
+    accelerate>=0.25.0 \
+    peft>=0.7.1 \
+    bitsandbytes>=0.41.3 \
+    scipy>=1.11.0 \
+    sentencepiece>=0.1.99 \
+    protobuf>=4.25.0 \
+    python-dotenv>=1.0.0 \
+    pyyaml>=6.0 \
+    tqdm>=4.66.0 \
+    numpy>=1.24.0 \
+    tensorboard>=2.15.0 \
+    huggingface-hub>=0.20.0
 
-# Install requirements
+# Step 3: Try to install flash-attn from prebuilt wheel (NO source compile)
 echo ""
-echo "3. Installing dependencies from requirements.txt..."
-pip install -r requirements.txt
+echo "3. Installing flash-attention (prebuilt wheel only)..."
+pip install flash-attn --no-build-isolation --no-cache-dir 2>/dev/null && \
+    echo "✅ flash-attn installed" || \
+    echo "⚠️  flash-attn prebuilt wheel not available — training will use sdpa attention instead (still fast)"
 
-# Verify installations
+# Step 4: Verify installations
 echo ""
 echo "4. Verifying installations..."
 python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}'); print(f'CUDA version: {torch.version.cuda}')"
 python -c "import transformers; print(f'Transformers: {transformers.__version__}')"
 python -c "import datasets; print(f'Datasets: {datasets.__version__}')"
 python -c "import peft; print(f'PEFT: {peft.__version__}')"
+python -c "import bitsandbytes; print(f'bitsandbytes: {bitsandbytes.__version__}')"
 
-# Check GPU
+# Step 5: Check GPU
 echo ""
 echo "5. Checking GPU..."
 nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader
 
-# Login to HuggingFace
+# Step 6: Login to HuggingFace
 echo ""
 echo "6. Setting up HuggingFace authentication..."
 if [ -f ".env" ]; then
-    source .env
+    export $(grep -v '^#' .env | xargs)
     if [ -n "$HF_TOKEN" ]; then
-        echo "$HF_TOKEN" | huggingface-cli login --token
+        huggingface-cli login --token "$HF_TOKEN"
         echo "✅ HuggingFace authentication successful"
     else
         echo "⚠️  HF_TOKEN not found in .env file"
@@ -59,21 +82,24 @@ else
     echo "Please create .env from .env.example and add your tokens"
 fi
 
-# Create necessary directories
+# Step 7: Create necessary directories
 echo ""
 echo "7. Creating directory structure..."
-mkdir -p checkpoints/dapt checkpoints/sft
+mkdir -p checkpoints/dapt_lora checkpoints/sft_lora
 mkdir -p logs/dapt logs/sft
-mkdir -p models/base models/dapt models/sft models/quantized
+mkdir -p models/base models/merged models/quantized
 
 echo ""
 echo "========================================================================"
 echo "ENVIRONMENT SETUP COMPLETE"
 echo "========================================================================"
 echo ""
+echo "Memory usage:"
+free -h | head -2
+echo ""
 echo "Next steps:"
-echo "  1. Verify .env file has PINECONE_API_KEY and HF_TOKEN"
-echo "  2. Run: python scripts/02_upload_pinecone.py (optional, for RAG)"
-echo "  3. Run: python scripts/03_train_dapt.py (start DAPT training)"
+echo "  1. Verify .env file has correct HF_TOKEN"
+echo "  2. Run: python scripts/03_train_dapt.py (start DAPT training)"
+echo "  3. After DAPT: python scripts/04_train_sft.py"
 echo ""
 echo "========================================================================"

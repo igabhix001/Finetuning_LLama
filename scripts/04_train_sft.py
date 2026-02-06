@@ -71,13 +71,23 @@ try:
     else:
         model_dtype = torch.float32
 
+    # Use flash_attention_2 if available, otherwise fall back to sdpa
+    attn_impl = "eager"
+    try:
+        import flash_attn
+        attn_impl = "flash_attention_2"
+        print(f"   Using flash_attention_2 (saves VRAM)")
+    except ImportError:
+        attn_impl = "sdpa"
+        print(f"   flash-attn not installed, using sdpa attention (still efficient)")
+
     model = AutoModelForCausalLM.from_pretrained(
         config['model_name'],
         token=hf_token,
         torch_dtype=model_dtype,
         device_map="auto",
         trust_remote_code=True,
-        attn_implementation="flash_attention_2"  # Saves VRAM on Ada GPUs
+        attn_implementation=attn_impl
     )
 except Exception as e:
     print(f"❌ Failed to load base model: {e}")
