@@ -44,12 +44,11 @@ pip install --no-cache-dir \
     tensorboard>=2.15.0 \
     huggingface-hub>=0.20.0
 
-# Step 3: Try to install flash-attn from prebuilt wheel (NO source compile)
+# Step 3: Check for flash-attn (do NOT install — source compile uses 30-40GB RAM and kills the pod)
 echo ""
-echo "3. Installing flash-attention (prebuilt wheel only)..."
-pip install flash-attn --no-build-isolation --no-cache-dir 2>/dev/null && \
-    echo "✅ flash-attn installed" || \
-    echo "⚠️  flash-attn prebuilt wheel not available — training will use sdpa attention instead (still fast)"
+echo "3. Checking flash-attention..."
+python -c "import flash_attn; print(f'✅ flash-attn {flash_attn.__version__} already installed')" 2>/dev/null || \
+    echo "ℹ️  flash-attn not installed — training will use PyTorch SDPA attention (built-in, efficient, no extra install needed)"
 
 # Step 4: Verify installations
 echo ""
