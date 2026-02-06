@@ -31,6 +31,11 @@ wheels/
 .env.local
 .env.*.local
 
+# SSH keys
+sshkey
+sshkey.pub
+*.pem
+
 # Model files (too large for git)
 models/
 checkpoints/

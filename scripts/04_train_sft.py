@@ -63,12 +63,21 @@ try:
         token=hf_token,
         trust_remote_code=True
     )
+    # Select dtype: bf16 preferred on Ada GPUs, fp16 fallback
+    if config.get('bf16', False):
+        model_dtype = torch.bfloat16
+    elif config.get('fp16', False):
+        model_dtype = torch.float16
+    else:
+        model_dtype = torch.float32
+
     model = AutoModelForCausalLM.from_pretrained(
         config['model_name'],
         token=hf_token,
-        torch_dtype=torch.float16 if config['fp16'] else torch.float32,
+        torch_dtype=model_dtype,
         device_map="auto",
-        trust_remote_code=True
+        trust_remote_code=True,
+        attn_implementation="flash_attention_2"  # Saves VRAM on Ada GPUs
     )
 except Exception as e:
     print(f"❌ Failed to load base model: {e}")
