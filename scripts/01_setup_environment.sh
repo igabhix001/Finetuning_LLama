@@ -29,20 +29,20 @@ python -c "import torch; print(f'PyTorch {torch.__version__} with CUDA {torch.ve
 echo ""
 echo "2. Installing training dependencies..."
 pip install --no-cache-dir \
-    transformers>=4.36.0 \
-    datasets>=2.16.0 \
-    accelerate>=0.25.0 \
-    peft>=0.7.1 \
-    bitsandbytes>=0.41.3 \
-    scipy>=1.11.0 \
-    sentencepiece>=0.1.99 \
-    protobuf>=4.25.0 \
-    python-dotenv>=1.0.0 \
-    pyyaml>=6.0 \
-    tqdm>=4.66.0 \
-    numpy>=1.24.0 \
-    tensorboard>=2.15.0 \
-    huggingface-hub>=0.20.0
+    "transformers>=4.36.0" \
+    "datasets>=2.16.0" \
+    "accelerate>=0.25.0" \
+    "peft>=0.7.1" \
+    "bitsandbytes>=0.41.3" \
+    "scipy>=1.11.0" \
+    "sentencepiece>=0.1.99" \
+    "protobuf>=4.25.0" \
+    "python-dotenv>=1.0.0" \
+    "pyyaml>=6.0" \
+    "tqdm>=4.66.0" \
+    "numpy>=1.24.0" \
+    "tensorboard>=2.15.0" \
+    "huggingface-hub>=0.20.0"
 
 # Step 3: Check for flash-attn (do NOT install — source compile uses 30-40GB RAM and kills the pod)
 echo ""

@@ -10,11 +10,11 @@ logging_dir: "./logs/dapt/"
 train_data: "./data/dapt_corpus/"
 
 # Training hyperparameters
-num_train_epochs: 1
+num_train_epochs: 3  # Small corpus needs multiple passes
 per_device_train_batch_size: 1
 gradient_accumulation_steps: 16  # Effective batch size: 16
-learning_rate: 2.0e-4  # Higher LR for LoRA
-warmup_steps: 100
+learning_rate: 3.0e-5  # Conservative for DAPT (domain adaptation, not SFT)
+warmup_steps: 20  # ~15% of total steps
 weight_decay: 0.01
 
 # Logging and checkpointing
