@@ -284,12 +284,69 @@ def _compact_chart_data(raw: str) -> str:
     return result
 
 
+def _chart_summary(raw: str) -> str:
+    """Extract key KP values from chart JSON into plain-text summary for the model.
+
+    The model struggles to parse raw JSON autonomously. This function pre-extracts
+    the most important values so they appear as readable text in the prompt.
+    """
+    try:
+        d = json.loads(raw.strip())
+    except (json.JSONDecodeError, ValueError):
+        return ""
+
+    lines = []
+    name = d.get("name", "Unknown")
+    bd = d.get("birthDetails", {})
+    lines.append(f"Native: {name}, DOB: {bd.get('date','?')}, TOB: {bd.get('time','?')}, "
+                 f"Lagna: {bd.get('lagna','?')} ({bd.get('lagnaLord','?')})")
+
+    # Key cusp sub-lords (most asked about: 1,2,6,7,10,11)
+    ckp = d.get("cuspKP", {})
+    if ckp:
+        lines.append("KEY CUSP SUB-LORDS:")
+        for c in ["1", "2", "6", "7", "10", "11", "12"]:
+            cp = ckp.get(c, {})
+            if cp:
+                lines.append(f"  Cusp {c}: sub={cp.get('sub','?')}, "
+                             f"nak={cp.get('nakshatra','?')}({cp.get('nakshatraLord','?')}), "
+                             f"rashi={cp.get('rashi','?')}, degree={cp.get('degree','?')}")
+
+    # Planet significations (critical for analysis)
+    psig = d.get("planetSignifications", {})
+    if psig:
+        lines.append("PLANET SIGNIFICATIONS (houses each planet signifies):")
+        for planet in ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Rahu", "Ketu"]:
+            houses = psig.get(planet, [])
+            if houses:
+                lines.append(f"  {planet}: houses {houses}")
+
+    # Current dasha
+    dashas = d.get("dashas", {})
+    db = dashas.get("dashaBalance", {})
+    if db:
+        lines.append(f"DASHA BALANCE: {db.get('lord','?')} "
+                     f"{db.get('years',0)}Y {db.get('months',0)}M {db.get('days',0)}D remaining")
+    dlist = dashas.get("dashas", dashas.get("mahadashas", []))
+    if dlist:
+        lines.append("MAHADASHA PERIODS:")
+        for dd in dlist[:5]:  # first 5 only
+            lines.append(f"  {dd.get('lord','?')}: {dd.get('startDate','?')[:10]} to "
+                         f"{dd.get('endDate','?')[:10]} ({dd.get('period','?')})")
+
+    return "\n".join(lines)
+
+
 def predict(message, history, chart_data):
     """Stream a response from the vLLM server with RAG-augmented context + chart data."""
     # 0. Compact chart data (auto-parse large JSON from computation engine)
     chart_data = _compact_chart_data(chart_data or "")
     if chart_data:
-        full_question = f"Chart Data from computation engine:\n{chart_data}\n\nQuestion: {message}"
+        # Auto-surface key values so model doesn't need to parse JSON
+        summary = _chart_summary(chart_data)
+        full_question = (f"Chart Data (JSON):\n{chart_data}\n\n"
+                         f"Pre-extracted Chart Summary:\n{summary}\n\n"
+                         f"Question: {message}")
     else:
         full_question = message
 
