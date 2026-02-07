@@ -25,6 +25,7 @@ import json
 import os
 import re
 import csv
+import random
 from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -356,24 +357,52 @@ def _chart_summary(raw: str) -> str:
 
 def _postprocess(text):
     """Strip ALL markdown formatting, robotic headers, confidence lines, leaked tokens, filler."""
+    # 1. Remove leaked internal tokens
     for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>"]:
         text = text.replace(token, "")
+    # 2. Remove hallucinated page numbers
     text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
-    # Strip ALL **bold** markdown — convert **text** to just text (universal fix)
+    # 3. Strip ALL **bold** markdown — convert **text** to just text (universal fix)
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    # Strip remaining * emphasis markers
+    # 4. Strip remaining * emphasis markers
     text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # Remove rules_used / KP rule IDs ANYWHERE in text (not just line start)
+    # 5. Remove rules_used / KP rule IDs ANYWHERE in text (not just line start)
     text = re.sub(r'rules_used:\s*[A-Z_0-9,\s]+', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\bKP_[A-Z]{2,4}_\d{3,5}\b', '', text)
-    # Remove ALL "Confidence: xxx" lines entirely
-    text = re.sub(r'(?:^|\n)\s*[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)\s*', '', text)
-    # Remove labeled sections the model adds despite instructions
-    text = re.sub(r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:\s*', '', text, flags=re.IGNORECASE)
+    # 5b. Remove [rule_id] references in brackets like [KP_TIM_0660]
+    text = re.sub(r'\[KP_[A-Z_0-9]+\]', '', text)
+    text = re.sub(r'\[rule_id\]', '', text, flags=re.IGNORECASE)
+    # 6. Remove ALL "Confidence: xxx" lines/phrases entirely
+    text = re.sub(r'[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)(?:\s*\([^)]*\))?', '', text)
+    # 7. Remove robotic section headers the model generates (from client feedback)
+    _robotic_headers = [
+        r'Marriage\s+Timing\s+Analysis\s+using\s+KP\s+Principles',
+        r'(?:Analysis|Conclusion|Application|Critical\s+Finding|Key\s+findings?|Summary)\s*:',
+        r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:',
+        r'(?:Remedial\s+Measures|Remedy|Timing|Digestive\s+System|Immune\s+System)\s*:',
+        r'According\s+to\s+rule\s+\[?KP[_A-Z0-9]*\]?\s*[:,]',
+        r'Based\s+on\s+the\s+(?:given|extracted)\s+chart\s+(?:data|details|summary)',
+        r'The\s+key\s+findings?\s+show\s+that\s*:',
+        r'In\s+this\s+case,?\s+we\s+need\s+to',
+        r'For\s+accurate\s+prediction,?\s+analyze',
+        r'(?:House|Cusp)\s+\d+\s*(?:\([^)]*\))?\s*:\s*(?:sub\s*=|Sub-lord)',
+    ]
+    for pat in _robotic_headers:
+        text = re.sub(pat, '', text, flags=re.IGNORECASE)
+    # 8. Remove numbered list items (1. 2. 3.) and bullet points
+    text = re.sub(r'(?:^|\n)\s*\d+\.\s+', '\n', text)
+    text = re.sub(r'(?:^|\n)\s*[-•]\s+', '\n', text)
+    # 9. Replace "The native has/is" with "Aap" for conversational tone
+    text = re.sub(r'\bThe\s+native\s+has\b', 'Aapke paas', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bThe\s+native\s+is\b', 'Aap', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bThe\s+native\b', 'Aap', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bthe\s+native\b', 'aap', text)
+    # 10. Remove metadata and filler lines
     lines = text.split("\n")
     cleaned = []
     for line in lines:
         stripped = line.strip().lower()
+        # Skip metadata lines
         if stripped.startswith("rules_used:") or stripped.startswith("rules used:"):
             continue
         if stripped.startswith("level:") or stripped.startswith("answer_end"):
@@ -384,34 +413,103 @@ def _postprocess(text):
             "additional recommendations", "professional competence",
             "theoretical understanding alone", "practical application validate",
             "absolute faith display", "considerable research effort",
+            "let me analyze this situation systematically",
+            "we need to identify planets signifying",
+            "pending deeper analysis",
         ]):
             continue
         # Skip lines that are ONLY a short label/header (no real content)
-        if stripped.endswith(":") and len(stripped) < 40 and not any(c.isdigit() for c in stripped):
+        if stripped.endswith(":") and len(stripped) < 50 and not any(c.isdigit() for c in stripped):
+            continue
+        # Skip empty or near-empty lines after stripping
+        if len(stripped) < 3:
+            cleaned.append("")
             continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
+    # 11. Clean up multiple blank lines
     result = re.sub(r'\n{3,}', '\n\n', result)
-    # Truncate to max ~4 paragraphs
+    # 12. Truncate to max ~4 paragraphs (split on double newline, keep first 4)
     paragraphs = [p.strip() for p in result.split("\n\n") if p.strip()]
     if len(paragraphs) > 4:
         result = "\n\n".join(paragraphs[:4])
+    # 13. Remove trailing incomplete sentences (cut off by token limit)
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
-        if last_period > len(result) * 0.4:
+        if last_period > len(result) * 0.4:  # trim if we keep >40%
             result = result[:last_period + 1]
     return result
+
+
+# ── Hindi motivational quotes pool ───────────────────────────────────────────
+HINDI_QUOTES = [
+    "Jab samay aayega, sab kuch apne aap ho jayega.",
+    "Andhera jitna gehra ho, subah utni roshan hoti hai.",
+    "Sabr ka phal meetha hota hai.",
+    "Jab tak todenge nahi, tab tak chodenge nahi — yahi hausla zaroori hai.",
+    "Graho ki chaal badal sakti hai, lekin aapka irada nahi badalna chahiye.",
+    "Mushkilein waqti hain, lekin aapki himmat daimi hai.",
+    "Waqt sabka aata hai, bas bharosa rakhiye.",
+    "Har raat ke baad savera aata hai, aur aapka savera bhi aayega.",
+    "Kismat likhne wala bhi wahi hai, aur badalne wala bhi aap hain.",
+    "Jab niyat saaf ho, toh naseeb bhi saath deta hai.",
+]
+
+
+def _enrich_response(text, product_text=""):
+    """Append Hindi quote and product recommendation if model didn't include them."""
+    text_lower = text.lower()
+
+    # Check if model already included a Hindi/Hinglish quote-like phrase
+    has_quote = any(q[:20].lower() in text_lower for q in HINDI_QUOTES)
+    if not has_quote:
+        quote_indicators = ["jab samay", "andhera jitna", "sabr ka phal", "har raat ke baad",
+                           "mushkilein waqti", "waqt sabka", "kismat likhne"]
+        has_quote = any(ind in text_lower for ind in quote_indicators)
+
+    # Check if model already mentioned a product
+    has_product = any(kw in text_lower for kw in [
+        "pendant", "bracelet", "mala", "rudraksha", "kavach", "necklace",
+        "gemstone", "neelam", "pukhraj", "moonga", "panna", "manik",
+        "gomed", "pearl", "moti", "diamond", "sapphire", "coral",
+        "emerald", "ruby", "hessonite", "cat eye", "hamara", "hamare",
+    ])
+
+    additions = []
+
+    if not has_quote:
+        quote = random.choice(HINDI_QUOTES)
+        additions.append(quote)
+
+    if not has_product and product_text:
+        first_line = product_text.split("\n")[0] if product_text else ""
+        match = re.match(r'-\s*(.+?)\s*\(SKU:', first_line)
+        if match:
+            product_name = match.group(1).strip()
+            additions.append(
+                f"Is samay ke liye hamara {product_name} try karein — yeh aapke planetary energies ko balance karne mein madad karega."
+            )
+
+    if additions:
+        text = text.rstrip()
+        if text and text[-1] not in '.!?':
+            text += '.'
+        text += "\n\n" + " ".join(additions)
+
+    return text
 
 
 def _extract_prediction(answer: str) -> Optional[str]:
     """Extract specific date/time predictions from the answer text."""
     # Look for date patterns like "March 2026", "2026-2027", "April 2026 to August 2026"
     date_patterns = [
-        r'(?:between|from|during|by|after|before|till|until)\s+\w+\s+\d{4}\s+(?:to|and|till|-)\s+\w+\s+\d{4}',
+        r'(?:between|from|during|by|after|before|till|until)\s+\w+\s+\d{4}\s+(?:to|and|till|se|-)\s+\w+\s+\d{4}',
         r'(?:between|from|during|by|after|before|till|until)\s+\w+\s+\d{4}',
-        r'(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s+(?:to|and|till|-)\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}',
+        r'(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s+(?:to|and|till|se|-)\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}',
         r'(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}',
-        r'\d{4}\s*(?:to|-)\s*\d{4}',
+        r'\d{4}-\d{2}\s+(?:to|se|tak)\s+\d{4}-\d{2}',
+        r'\d{4}-\d{2}-\d{2}\s+(?:to|se|tak)\s+\d{4}-\d{2}-\d{2}',
+        r'\d{4}\s*(?:to|se|-)\s*\d{4}',
     ]
     predictions = []
     for pattern in date_patterns:
@@ -510,6 +608,9 @@ def _generate_response(question: str, chart_data: str = ""):
 
     raw_answer = response.choices[0].message.content or ""
     answer = _postprocess(raw_answer)
+
+    # Enrich: append Hindi quote + product if model didn't include them
+    answer = _enrich_response(answer, product_text=product_prompt_text)
 
     # Extract prediction
     prediction = _extract_prediction(answer)
