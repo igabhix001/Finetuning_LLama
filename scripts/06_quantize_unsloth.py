@@ -90,9 +90,22 @@ output_path.mkdir(parents=True, exist_ok=True)
 
 try:
     if use_unsloth:
-        # Unsloth save
-        model.save_pretrained(str(output_path))
-        tokenizer.save_pretrained(str(output_path))
+        # Unsloth save — use save_pretrained_merged to avoid JSON serialization errors
+        try:
+            model.save_pretrained_merged(str(output_path), tokenizer, save_method="merged_16bit")
+            print(f"✓ Quantized model saved via Unsloth merged save to: {output_path}")
+        except Exception as e1:
+            print(f"   Unsloth merged save failed ({e1}), trying standard save...")
+            # Fallback: save with state_dict to avoid function serialization
+            try:
+                model.save_pretrained(str(output_path), safe_serialization=True, state_dict=model.state_dict())
+                tokenizer.save_pretrained(str(output_path))
+                print(f"✓ Model saved via standard save to: {output_path}")
+            except Exception as e2:
+                print(f"   Standard save also failed ({e2}), saving state_dict directly...")
+                torch.save(model.state_dict(), str(output_path / "model.pt"))
+                tokenizer.save_pretrained(str(output_path))
+                print(f"✓ Model state_dict saved to: {output_path}/model.pt")
     else:
         # Standard save
         model.save_pretrained(
@@ -100,8 +113,8 @@ try:
             safe_serialization=True
         )
         tokenizer.save_pretrained(str(output_path))
+        print(f"✓ Quantized model saved to: {output_path}")
     
-    print(f"✓ Quantized model saved to: {output_path}")
 except Exception as e:
     print(f"❌ Failed to save model: {e}")
     sys.exit(1)
