@@ -82,33 +82,21 @@ SYSTEM_NO_RAG = (
 )
 
 
-# ── Context-window budget constants ───────────────────────────────────────────
+# ── Context-window budget ─────────────────────────────────────────────────────
+# Calibrated from actual vLLM errors:
+#   ~1450 chars of content → 1865 actual tokens (ratio ≈ 0.78 chars/token)
+#   Llama 3.1 chat template adds ~100 tokens overhead per conversation
+# Strategy: use HARD CHARACTER BUDGET instead of unreliable token estimates.
 MAX_MODEL_LEN = 2048
-CHARS_PER_TOKEN = 2          # conservative: overestimates token count
-MSG_OVERHEAD = 15            # special tokens per chat message (template)
-GLOBAL_OVERHEAD = 50         # BOS + generation prompt + safety margin
-DEFAULT_OUTPUT_TOKENS = 300  # solid KP answer with quote
-MIN_OUTPUT_TOKENS = 64
-MAX_HISTORY_TURNS = 0        # no history — maximize RAG context + output budget
+OUTPUT_TOKENS = 200          # safe output budget
+INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100  # 100 for template
+MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)  # ≈ 1362 chars total input
 
 
-def _est_tok(text):
-    """Conservative token estimate (~2 chars/token for Llama 3.1)."""
-    return len(text) // CHARS_PER_TOKEN + 1
-
-
-def _est_msgs_tok(messages):
-    """Estimate total tokens for a list of chat messages including template overhead."""
-    total = GLOBAL_OVERHEAD
-    for m in messages:
-        total += _est_tok(m["content"]) + MSG_OVERHEAD
-    return total
-
-
-def _retrieve_rag_context(question, top_k=5, max_chars=900):
-    """Retrieve relevant KP book chunks from Pinecone via OpenAI embedding."""
+def _retrieve_rag_chunks(question, top_k=5):
+    """Retrieve relevant KP book chunks from Pinecone. Returns list of formatted strings."""
     if not rag_index or not openai_client:
-        return ""
+        return []
     try:
         resp = openai_client.embeddings.create(
             model=EMBEDDING_MODEL, input=question, dimensions=EMBEDDING_DIM
@@ -116,81 +104,57 @@ def _retrieve_rag_context(question, top_k=5, max_chars=900):
         qvec = resp.data[0].embedding
         results = rag_index.query(vector=qvec, top_k=top_k, include_metadata=True)
         chunks = []
-        total_chars = 0
         for m in results["matches"]:
             txt = m["metadata"].get("text", "").strip()
             refs = m["metadata"].get("rule_refs", [])
-            cat = m["metadata"].get("category", "")
-            score = m["score"]
             ref_str = ",".join(refs) if refs else "no_id"
-            entry = f"[{ref_str}|{cat}|{score:.2f}] {txt}"
-            if total_chars + len(entry) > max_chars:
-                break
-            chunks.append(entry)
-            total_chars += len(entry)
-        return "\n".join(chunks)
+            chunks.append(f"[{ref_str}] {txt}")
+        return chunks
     except Exception as e:
         print(f"RAG retrieval error: {e}")
-        return ""
+        return []
 
 
 def predict(message, history):
     """Stream a response from the vLLM server with RAG-augmented context."""
-    # 1. Retrieve relevant KP book passages
-    rag_context = _retrieve_rag_context(message, top_k=args.top_k, max_chars=900)
+    # 1. Retrieve RAG chunks
+    rag_chunks = _retrieve_rag_chunks(message, top_k=args.top_k)
 
-    # 2. Build system prompt with or without RAG context
-    if rag_context:
-        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_context}"
+    # 2. Build prompt with adaptive RAG trimming to fit character budget
+    #    Fixed parts: SYSTEM_BASE + user message
+    fixed_chars = len(SYSTEM_BASE) + len(message) + 30  # 30 for labels
+    rag_budget = MAX_INPUT_CHARS - fixed_chars
+
+    # Add RAG chunks one by one until budget is exhausted
+    selected_chunks = []
+    used_chars = 0
+    for chunk in rag_chunks:
+        if used_chars + len(chunk) + 1 > rag_budget:
+            break
+        selected_chunks.append(chunk)
+        used_chars += len(chunk) + 1  # +1 for newline
+
+    if selected_chunks:
+        rag_text = "\n".join(selected_chunks)
+        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_text}"
     else:
         sys_content = SYSTEM_NO_RAG
 
-    # 3. Parse history into pairs of (user_msg, assistant_msg)
-    pairs = []
-    if history:
-        pending_user = None
-        for h in history:
-            if isinstance(h, dict):
-                if h["role"] == "user":
-                    pending_user = h["content"]
-                elif h["role"] == "assistant" and pending_user is not None:
-                    pairs.append((pending_user, h["content"]))
-                    pending_user = None
-            elif isinstance(h, (list, tuple)) and len(h) == 2:
-                if h[0] and h[1]:
-                    pairs.append((h[0], h[1]))
+    # 3. Build messages (no history — every question gets fresh RAG)
+    messages = [
+        {"role": "system", "content": sys_content},
+        {"role": "user", "content": message},
+    ]
 
-    # 4. Keep only the most recent turn
-    pairs = pairs[-MAX_HISTORY_TURNS:]
+    # 4. Final safety: compute actual char total and adjust output tokens
+    total_chars = sum(len(m["content"]) for m in messages)
+    est_input_tokens = int(total_chars / 0.78) + 100  # +100 for template
+    available = MAX_MODEL_LEN - est_input_tokens
+    max_tokens = max(64, min(OUTPUT_TOKENS, available))
 
-    # 5. Build messages list
-    messages = [{"role": "system", "content": sys_content}]
-    for u, a in pairs:
-        messages.append({"role": "user", "content": u})
-        messages.append({"role": "assistant", "content": a})
-    messages.append({"role": "user", "content": message})
-
-    # 6. Token budget: compute available output
-    input_est = _est_msgs_tok(messages)
-    available = MAX_MODEL_LEN - input_est
-    max_tokens = max(MIN_OUTPUT_TOKENS, min(DEFAULT_OUTPUT_TOKENS, available))
-
-    # 7. If too tight, drop history
-    while available < MIN_OUTPUT_TOKENS and pairs:
-        pairs.pop(0)
-        messages = [{"role": "system", "content": sys_content}]
-        for u, a in pairs:
-            messages.append({"role": "user", "content": u})
-            messages.append({"role": "assistant", "content": a})
-        messages.append({"role": "user", "content": message})
-        input_est = _est_msgs_tok(messages)
-        available = MAX_MODEL_LEN - input_est
-        max_tokens = max(MIN_OUTPUT_TOKENS, min(DEFAULT_OUTPUT_TOKENS, available))
-
-    # 8. Final guard
-    if available < MIN_OUTPUT_TOKENS:
-        yield ("Your message is too long for the model's context window (2048 tokens). "
-               "Please ask a shorter or more specific question.")
+    if max_tokens < 64:
+        yield ("Your message is too long for the model's 2048-token context. "
+               "Please ask a shorter question.")
         return
 
     try:
