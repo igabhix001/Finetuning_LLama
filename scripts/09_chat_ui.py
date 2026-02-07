@@ -334,10 +334,10 @@ def _postprocess(text):
     result = "\n".join(cleaned).rstrip()
     # 11. Clean up multiple blank lines
     result = re.sub(r'\n{3,}', '\n\n', result)
-    # 12. Truncate to max ~4 paragraphs (split on double newline, keep first 4)
+    # 12. Truncate to max ~3 paragraphs (enrichment adds 1 more with quote+product = 4 total)
     paragraphs = [p.strip() for p in result.split("\n\n") if p.strip()]
-    if len(paragraphs) > 4:
-        result = "\n\n".join(paragraphs[:4])
+    if len(paragraphs) > 3:
+        result = "\n\n".join(paragraphs[:3])
     # 13. Remove trailing incomplete sentences (cut off by token limit)
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
