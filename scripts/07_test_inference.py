@@ -12,18 +12,22 @@ print("TESTING MODEL INFERENCE")
 print("="*80)
 
 # Try quantized model first, fallback to merged model
-quantized_path = Path("./models/quantized/")
-merged_path = Path("./models/sft/")
+quantized_path = Path("./models/quantized_8bit/")
+merged_path = Path("./models/merged/")
 
-if quantized_path.exists():
+# Check which path has actual model files (not just empty dirs)
+def has_model_files(p):
+    return p.exists() and any(p.glob("*.safetensors")) or any(p.glob("model.pt"))
+
+if has_model_files(quantized_path):
     model_path = quantized_path
     print(f"Using quantized model: {model_path}")
-elif merged_path.exists():
+elif has_model_files(merged_path):
     model_path = merged_path
     print(f"Using merged model: {model_path}")
 else:
     print("❌ No trained model found")
-    print("Please run training first")
+    print("Please run merge script first: python scripts/05_merge_adapters.py")
     sys.exit(1)
 
 # Load model
@@ -33,10 +37,10 @@ try:
     model = AutoModelForCausalLM.from_pretrained(
         str(model_path),
         device_map="auto",
-        torch_dtype=torch.float16
+        torch_dtype=torch.bfloat16,
     )
-    print(f"✓ Model loaded")
-    print(f"   Device: {model.device}")
+    print(f"✓ Model loaded from: {model_path}")
+    print(f"   Device: {next(model.parameters()).device}")
     print(f"   Memory: {torch.cuda.memory_allocated() / 1024**3:.2f} GB")
 except Exception as e:
     print(f"❌ Failed to load model: {e}")
