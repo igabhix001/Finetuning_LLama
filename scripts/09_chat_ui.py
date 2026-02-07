@@ -46,6 +46,7 @@ client = OpenAI(base_url=args.vllm_url, api_key="not-needed")
 
 # ── RAG: Pinecone + OpenAI embeddings ────────────────────────────────────────
 rag_index = None
+product_index = None
 openai_client = None
 EMBEDDING_MODEL = "text-embedding-3-large"
 EMBEDDING_DIM = 3072
@@ -56,13 +57,22 @@ if not args.no_rag:
         pc_key = os.getenv("PINECONE_API_KEY")
         oai_key = os.getenv("OPENAI_API_KEY")
         idx_name = os.getenv("PINECONE_INDEX_NAME", "kp-astrology-kb")
+        prod_idx_name = os.getenv("PINECONE_PRODUCT_INDEX", "kp-products")
 
         if pc_key and oai_key and oai_key != "your-openai-api-key-here":
             pc = Pinecone(api_key=pc_key)
-            rag_index = pc.Index(idx_name)
             openai_client = OpenAI(api_key=oai_key)
+            # KP Astrology Knowledge Base index
+            rag_index = pc.Index(idx_name)
             stats = rag_index.describe_index_stats()
             print(f"  RAG:    Pinecone '{idx_name}' ({stats['total_vector_count']} vectors)")
+            # Product recommendations index
+            try:
+                product_index = pc.Index(prod_idx_name)
+                pstats = product_index.describe_index_stats()
+                print(f"  Products (Pinecone): '{prod_idx_name}' ({pstats['total_vector_count']} vectors)")
+            except Exception as pe:
+                print(f"  Products (Pinecone): DISABLED ({pe})")
         else:
             print("  RAG:    DISABLED (missing PINECONE_API_KEY or OPENAI_API_KEY)")
     except Exception as e:
@@ -178,10 +188,33 @@ def _retrieve_rag_chunks(question, top_k=5):
 
 
 def _get_product_recommendations(question, chart_summary="", max_items=3):
-    """Find relevant products based on question + chart context (planets involved)."""
+    """Find relevant products using Pinecone semantic search (primary) or CSV keyword fallback."""
+    # ── Method 1: Pinecone kp-products semantic search (preferred) ──
+    if product_index and openai_client:
+        try:
+            search_query = f"{question} {chart_summary[:200]}"[:500]
+            resp = openai_client.embeddings.create(
+                model=EMBEDDING_MODEL, input=search_query, dimensions=EMBEDDING_DIM
+            )
+            qvec = resp.data[0].embedding
+            results = product_index.query(vector=qvec, top_k=max_items, include_metadata=True)
+            if results["matches"]:
+                lines = []
+                for m in results["matches"]:
+                    meta = m["metadata"]
+                    title = meta.get("title", "")
+                    sku = meta.get("sku", "")
+                    price = meta.get("price", "")
+                    if title:
+                        lines.append(f"- {title} (SKU: {sku}, Rs.{price})")
+                if lines:
+                    return "\n".join(lines)
+        except Exception as e:
+            print(f"  Product Pinecone search error: {e}")
+
+    # ── Method 2: CSV keyword fallback ──
     if not PRODUCT_CATALOG:
         return ""
-    # Search across both question and chart summary for planet/topic matches
     search_text = (question + " " + chart_summary).lower()
     planet_product_map = {
         "venus": ["diamond", "opal", "white", "zircon", "shukra", "venus"],
@@ -194,7 +227,6 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
         "rahu": ["hessonite", "gomed", "garnet", "rahu"],
         "ketu": ["cat eye", "lehsunia", "vaidurya", "ketu"],
     }
-    # Topic-based product keywords
     topic_product_map = {
         "marriage": ["venus", "shukra", "diamond", "opal", "love"],
         "career": ["ruby", "manik", "surya", "sun"],
@@ -212,7 +244,6 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
         if topic in search_text:
             keywords.update(terms)
     if not keywords:
-        # Default: recommend general protection items
         keywords = {"rudraksha", "kavach", "chakra"}
     matches = []
     for p in PRODUCT_CATALOG:
