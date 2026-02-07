@@ -229,7 +229,7 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
 
 
 def _postprocess(text):
-    """Strip ALL markdown formatting, robotic headers, confidence lines, leaked tokens."""
+    """Strip ALL markdown formatting, robotic headers, confidence lines, leaked tokens, filler."""
     # 1. Remove leaked internal tokens
     for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>"]:
         text = text.replace(token, "")
@@ -239,9 +239,15 @@ def _postprocess(text):
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
     # 4. Strip remaining * emphasis markers
     text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # 5. Remove ALL "Confidence: xxx" lines entirely
+    # 5. Remove rules_used / KP rule IDs ANYWHERE in text (not just line start)
+    text = re.sub(r'rules_used:\s*[A-Z_0-9,\s]+', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bKP_[A-Z]{2,4}_\d{3,5}\b', '', text)
+    # 6. Remove ALL "Confidence: xxx" lines entirely
     text = re.sub(r'(?:^|\n)\s*[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)\s*', '', text)
-    # 6. Remove metadata and robotic label lines
+    # 7. Remove labeled sections the model adds despite instructions
+    #    e.g. "Motivational Quote: ...", "Recommended Product: ...", "Hindi Quote: ..."
+    text = re.sub(r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:\s*', '', text, flags=re.IGNORECASE)
+    # 8. Remove metadata and filler lines
     lines = text.split("\n")
     cleaned = []
     for line in lines:
@@ -251,17 +257,29 @@ def _postprocess(text):
             continue
         if stripped.startswith("level:") or stripped.startswith("answer_end"):
             continue
+        # Skip self-referential filler lines
+        if any(filler in stripped for filler in [
+            "considerably enhanced", "enhanced answer", "proper format",
+            "additional recommendations", "professional competence",
+            "theoretical understanding alone", "practical application validate",
+            "absolute faith display", "considerable research effort",
+        ]):
+            continue
         # Skip lines that are ONLY a short label/header (no real content)
         if stripped.endswith(":") and len(stripped) < 40 and not any(c.isdigit() for c in stripped):
             continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
-    # 7. Clean up multiple blank lines
+    # 9. Clean up multiple blank lines
     result = re.sub(r'\n{3,}', '\n\n', result)
-    # 8. Remove trailing incomplete sentences (cut off by token limit)
+    # 10. Truncate to max ~4 paragraphs (split on double newline, keep first 4)
+    paragraphs = [p.strip() for p in result.split("\n\n") if p.strip()]
+    if len(paragraphs) > 4:
+        result = "\n\n".join(paragraphs[:4])
+    # 11. Remove trailing incomplete sentences (cut off by token limit)
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
-        if last_period > len(result) * 0.5:  # trim if we keep >50%
+        if last_period > len(result) * 0.4:  # trim if we keep >40%
             result = result[:last_period + 1]
     return result
 
