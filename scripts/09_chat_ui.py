@@ -30,8 +30,8 @@ parser.add_argument("--share", action="store_true",
                     help="Create a public Gradio share link")
 parser.add_argument("--no-rag", action="store_true",
                     help="Disable Pinecone RAG retrieval")
-parser.add_argument("--top-k", type=int, default=3,
-                    help="Number of RAG chunks to retrieve (default: 3)")
+parser.add_argument("--top-k", type=int, default=5,
+                    help="Number of RAG chunks to retrieve (default: 5)")
 args = parser.parse_args()
 
 # ── Connect to vLLM backend ──────────────────────────────────────────────────
@@ -63,16 +63,23 @@ if not args.no_rag:
 else:
     print("  RAG:    DISABLED (--no-rag flag)")
 
-SYSTEM_BASE = ("You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
-              "Answer using ONLY the KP book excerpts provided below. "
-              "Cite the exact rule ID (e.g. KP_MAR_0673) from the excerpts. "
-              "If the excerpts don't cover the question, say so honestly. "
-              "Include confidence level. Use KP terminology. Be concise.")
+SYSTEM_BASE = (
+    "You are an expert KP (Krishnamurti Paddhati) Astrology assistant.\n"
+    "STRICT RULES:\n"
+    "1. Answer using ONLY the KP Book Excerpts below. Quote the exact text.\n"
+    "2. Cite only rule IDs that appear in the excerpts (e.g. [KP_MAR_0673]).\n"
+    "3. NEVER invent page numbers, chapter numbers, or book locations.\n"
+    "4. If the excerpts do not contain the answer, say: 'The retrieved excerpts do not cover this. Low confidence.'\n"
+    "5. Do NOT repeat yourself. End your answer after the conclusion.\n"
+    "6. Format: Answer → Exact quote → Rule ID → Confidence (high/medium/low)."
+)
 
-SYSTEM_NO_RAG = ("You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
-                 "Cite KP rules when applicable. Include confidence level. "
-                 "Use KP terminology: sub-lord, cusp, significator, nakshatra, dasha-bhukti. "
-                 "Be concise and step-by-step.")
+SYSTEM_NO_RAG = (
+    "You are an expert KP (Krishnamurti Paddhati) Astrology assistant.\n"
+    "Cite KP rules when applicable. Include confidence level.\n"
+    "Use KP terminology: sub-lord, cusp, significator, nakshatra, dasha-bhukti.\n"
+    "NEVER invent page numbers or book locations. Be concise. Do NOT repeat yourself."
+)
 
 
 # ── Context-window budget constants ───────────────────────────────────────────
@@ -80,9 +87,9 @@ MAX_MODEL_LEN = 2048
 CHARS_PER_TOKEN = 2          # conservative: overestimates token count
 MSG_OVERHEAD = 15            # special tokens per chat message (template)
 GLOBAL_OVERHEAD = 50         # BOS + generation prompt + safety margin
-DEFAULT_OUTPUT_TOKENS = 256  # enough for a solid KP answer
+DEFAULT_OUTPUT_TOKENS = 300  # solid KP answer with quote
 MIN_OUTPUT_TOKENS = 64
-MAX_HISTORY_TURNS = 1        # keep only last 1 pair to leave room for RAG context
+MAX_HISTORY_TURNS = 0        # no history — maximize RAG context + output budget
 
 
 def _est_tok(text):
@@ -98,7 +105,7 @@ def _est_msgs_tok(messages):
     return total
 
 
-def _retrieve_rag_context(question, top_k=3, max_chars=600):
+def _retrieve_rag_context(question, top_k=5, max_chars=900):
     """Retrieve relevant KP book chunks from Pinecone via OpenAI embedding."""
     if not rag_index or not openai_client:
         return ""
@@ -111,10 +118,12 @@ def _retrieve_rag_context(question, top_k=3, max_chars=600):
         chunks = []
         total_chars = 0
         for m in results["matches"]:
-            txt = m["metadata"].get("text", "")
+            txt = m["metadata"].get("text", "").strip()
             refs = m["metadata"].get("rule_refs", [])
+            cat = m["metadata"].get("category", "")
+            score = m["score"]
             ref_str = ",".join(refs) if refs else "no_id"
-            entry = f"[{ref_str}] {txt}"
+            entry = f"[{ref_str}|{cat}|{score:.2f}] {txt}"
             if total_chars + len(entry) > max_chars:
                 break
             chunks.append(entry)
@@ -128,7 +137,7 @@ def _retrieve_rag_context(question, top_k=3, max_chars=600):
 def predict(message, history):
     """Stream a response from the vLLM server with RAG-augmented context."""
     # 1. Retrieve relevant KP book passages
-    rag_context = _retrieve_rag_context(message, top_k=args.top_k)
+    rag_context = _retrieve_rag_context(message, top_k=args.top_k, max_chars=900)
 
     # 2. Build system prompt with or without RAG context
     if rag_context:
@@ -189,8 +198,9 @@ def predict(message, history):
             model="kp-astrology-llama",
             messages=messages,
             max_tokens=max_tokens,
-            temperature=0.7,
+            temperature=0.4,
             top_p=0.9,
+            repetition_penalty=1.15,
             stream=True,
         )
         partial = ""
