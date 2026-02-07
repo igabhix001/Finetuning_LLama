@@ -1,95 +1,86 @@
 """
-Serve the quantized model using vLLM for production inference
-Optimized for RTX 3090 (24GB VRAM)
+Serve the fine-tuned KP Astrology model using vLLM's OpenAI-compatible API.
+
+Usage:
+  python scripts/08_serve_vllm.py
+  python scripts/08_serve_vllm.py --model-path ./models/merged/ --port 8000
+
+The server exposes an OpenAI-compatible API at http://host:port/v1
 """
 
 import sys
-import argparse
+import os
+import subprocess
 from pathlib import Path
 
-print("="*80)
-print("vLLM INFERENCE SERVER")
-print("="*80)
-print("Optimized for RTX 3090 (24GB VRAM)")
-print("="*80)
+# ── Configuration ──────────────────────────────────────────────────────────────
+MODEL_PATH = os.environ.get("MODEL_PATH", "./models/merged/")
+HOST = os.environ.get("VLLM_HOST", "0.0.0.0")
+PORT = os.environ.get("VLLM_PORT", "8000")
+MAX_MODEL_LEN = os.environ.get("MAX_MODEL_LEN", "2048")
+GPU_MEM_UTIL = os.environ.get("GPU_MEM_UTIL", "0.90")
 
-# Parse arguments
+# Override from CLI args
+import argparse
 parser = argparse.ArgumentParser(description="Serve KP Astrology model with vLLM")
-parser.add_argument("--model-path", type=str, default="./models/quantized_8bit/", help="Path to quantized model")
-parser.add_argument("--host", type=str, default="0.0.0.0", help="Host to bind to")
-parser.add_argument("--port", type=int, default=8000, help="Port to bind to")
-parser.add_argument("--max-model-len", type=int, default=2048, help="Maximum sequence length")
-parser.add_argument("--gpu-memory-utilization", type=float, default=0.9, help="GPU memory utilization (0-1)")
+parser.add_argument("--model-path", type=str, default=MODEL_PATH)
+parser.add_argument("--host", type=str, default=HOST)
+parser.add_argument("--port", type=str, default=PORT)
+parser.add_argument("--max-model-len", type=str, default=MAX_MODEL_LEN)
+parser.add_argument("--gpu-memory-utilization", type=str, default=GPU_MEM_UTIL)
 args = parser.parse_args()
 
-# Verify model exists
+# ── Validate model path ───────────────────────────────────────────────────────
 model_path = Path(args.model_path)
-if not model_path.exists():
-    print(f"❌ Model not found: {model_path}")
-    print("Please run quantization first: python scripts/06_quantize_unsloth.py")
-    sys.exit(1)
+if not model_path.exists() or not any(model_path.glob("*.safetensors")):
+    # Try fallback paths
+    for fallback in ["./models/quantized_8bit/", "./models/merged/"]:
+        fp = Path(fallback)
+        if fp.exists() and any(fp.glob("*.safetensors")):
+            model_path = fp
+            break
+    else:
+        print("No model found. Run training + merge first.")
+        sys.exit(1)
 
-print(f"\n📦 Model: {model_path}")
-print(f"🌐 Server: {args.host}:{args.port}")
-print(f"📏 Max length: {args.max_model_len}")
-print(f"💾 GPU memory: {args.gpu_memory_utilization * 100}%")
-
-# Try to import vLLM
-try:
-    from vllm import LLM, SamplingParams
-    from vllm.entrypoints.openai.api_server import run_server
-    print("\n✓ vLLM imported successfully")
-except ImportError:
-    print("\n❌ vLLM not installed")
-    print("\nInstall with:")
-    print("  pip install vllm")
-    sys.exit(1)
-
-# Start vLLM server
-print("\n" + "="*80)
-print("STARTING vLLM SERVER")
 print("="*80)
-print("\nServer will be available at:")
-print(f"  OpenAI-compatible API: http://{args.host}:{args.port}/v1")
-print(f"  Health check: http://{args.host}:{args.port}/health")
-print(f"  Docs: http://{args.host}:{args.port}/docs")
-print("\nPress Ctrl+C to stop the server")
-print("="*80 + "\n")
+print("vLLM INFERENCE SERVER — KP Astrology Model")
+print("="*80)
+print(f"  Model:      {model_path}")
+print(f"  Server:     http://{args.host}:{args.port}/v1")
+print(f"  Max length: {args.max_model_len}")
+print(f"  GPU memory: {float(args.gpu_memory_utilization)*100:.0f}%")
+print("="*80)
+print()
+print("Endpoints:")
+print(f"  POST http://{args.host}:{args.port}/v1/chat/completions")
+print(f"  POST http://{args.host}:{args.port}/v1/completions")
+print(f"  GET  http://{args.host}:{args.port}/health")
+print()
+print("Example curl:")
+print(f"""  curl http://localhost:{args.port}/v1/chat/completions \\
+    -H "Content-Type: application/json" \\
+    -d '{{"model": "{model_path}", "messages": [{{"role": "user", "content": "What is the 7th house sub-lord significance in KP astrology?"}}]}}'""")
+print()
+print("Press Ctrl+C to stop.")
+print("="*80)
+
+# ── Launch vLLM via CLI (most reliable across versions) ───────────────────────
+cmd = [
+    sys.executable, "-m", "vllm.entrypoints.openai.api_server",
+    "--model", str(model_path),
+    "--host", args.host,
+    "--port", args.port,
+    "--max-model-len", args.max_model_len,
+    "--gpu-memory-utilization", args.gpu_memory_utilization,
+    "--dtype", "bfloat16",
+    "--trust-remote-code",
+    "--served-model-name", "kp-astrology-llama",
+]
 
 try:
-    # Run vLLM server with OpenAI-compatible API
-    import uvicorn
-    from vllm.entrypoints.openai.api_server import app, init_app_state
-    
-    # Initialize vLLM engine
-    init_app_state(
-        engine_args={
-            "model": str(model_path),
-            "tokenizer": str(model_path),
-            "max_model_len": args.max_model_len,
-            "gpu_memory_utilization": args.gpu_memory_utilization,
-            "dtype": "float16",
-            "quantization": "bitsandbytes",  # For 8-bit model
-            "trust_remote_code": True,
-        }
-    )
-    
-    # Start server
-    uvicorn.run(
-        app,
-        host=args.host,
-        port=args.port,
-        log_level="info"
-    )
-    
+    proc = subprocess.run(cmd)
+    sys.exit(proc.returncode)
 except KeyboardInterrupt:
-    print("\n\n⚠️  Server stopped by user")
+    print("\nServer stopped.")
     sys.exit(0)
-except Exception as e:
-    print(f"\n❌ Server failed: {e}")
-    print("\nTroubleshooting:")
-    print("  1. Check model path is correct")
-    print("  2. Ensure sufficient GPU memory")
-    print("  3. Verify vLLM installation: pip install vllm")
-    print("  4. Check port is not already in use")
-    sys.exit(1)
