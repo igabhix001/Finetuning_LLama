@@ -102,7 +102,8 @@ if args.products_csv and os.path.isfile(args.products_csv):
 #   Llama 3.1 chat template adds ~100 tokens overhead per conversation
 # Strategy: use HARD CHARACTER BUDGET instead of unreliable token estimates.
 MAX_MODEL_LEN = args.max_model_len
-OUTPUT_TOKENS = min(400, MAX_MODEL_LEN // 4)  # scale with context window
+# Output tokens: 400 for ≤4096, 1024 for larger contexts (KP answers rarely need more)
+OUTPUT_TOKENS = 400 if MAX_MODEL_LEN <= 4096 else min(1024, MAX_MODEL_LEN // 8)
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100  # 100 for template
 MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
 print(f"  Budget:  max_model_len={MAX_MODEL_LEN}, output={OUTPUT_TOKENS}, input_chars≈{MAX_INPUT_CHARS}")
@@ -195,15 +196,16 @@ def _postprocess(text):
     return result
 
 
-MAX_CHART_CHARS = 1800  # keep chart data compact to fit in 4096-token context
+MAX_CHART_CHARS = 8000  # safety cap for compacted JSON
 
 
 def _compact_chart_data(raw: str) -> str:
-    """Parse computation-engine JSON and return a compact KP-essential summary.
+    """Parse computation-engine JSON and return a compact version preserving JSON structure.
 
-    Keeps: birthDetails, planetKP (sign/nak/sub), cuspKP (sign/nak/sub),
-           significators, planetSignifications, dashaBalance.
-    Discards: raw positions, debug, full dasha tree (antardashas/pratyantars).
+    Keeps (in original JSON format): name, gender, birthDetails, planetKP, cuspKP,
+        significators, planetSignifications, dashaBalance, top-level mahadasha periods.
+    Discards: planetaryPositions, cuspalPositions, debug, ayanamsa, subSub fields,
+        and the massive nested antarDasha/pratyantarDasha trees (~90% of file size).
     If input is not valid JSON, truncate to MAX_CHART_CHARS.
     """
     raw = raw.strip()
@@ -219,80 +221,48 @@ def _compact_chart_data(raw: str) -> str:
             return raw[:MAX_CHART_CHARS] + "\n[...chart data truncated]"
         return raw
 
-    lines = []
+    # Build a slim copy keeping only KP-essential fields in original JSON format
+    slim = {}
+    for key in ("name", "gender"):
+        if key in d:
+            slim[key] = d[key]
 
-    # 1. Birth details
-    bd = d.get("birthDetails", {})
-    name = d.get("name", "Unknown")
-    gender = d.get("gender", "")
-    lines.append(f"Native: {name}, {gender}")
-    lines.append(f"DOB: {bd.get('date','?')}, TOB: {bd.get('time','?')}, "
-                 f"Place: {bd.get('place','?')}")
-    lines.append(f"Lagna: {bd.get('lagna','?')} ({bd.get('lagnaLord','?')}), "
-                 f"Rasi: {bd.get('rasi','?')} ({bd.get('rasiLord','?')}), "
-                 f"Nakshatra: {bd.get('nakshatra','?')} ({bd.get('nakshatraLord','?')})")
+    if "birthDetails" in d:
+        slim["birthDetails"] = d["birthDetails"]
 
-    # 2. Planet KP table (compact: sign, nak lord, sub lord, houses)
-    pkp = d.get("planetKP", {})
-    psig = d.get("planetSignifications", {})
-    if pkp:
-        lines.append("\nPLANET KP TABLE:")
-        for planet in ["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn","Rahu","Ketu"]:
-            p = pkp.get(planet, {})
-            if not p:
-                continue
-            deg = p.get("degree", "?")
-            if isinstance(deg, float):
-                deg = f"{deg:.2f}"
-            houses = psig.get(planet, [])
-            h_str = ",".join(str(h) for h in houses) if houses else "?"
-            lines.append(f"  {planet}: {deg}° {p.get('rashi','?')}, "
-                         f"Nak={p.get('nakshatra','?')}({p.get('nakshatraLord','?')}), "
-                         f"Sub={p.get('sub','?')}, houses=[{h_str}]")
+    # planetKP — keep all fields except subSub (not needed for predictions)
+    if "planetKP" in d:
+        slim["planetKP"] = {}
+        for planet, pdata in d["planetKP"].items():
+            slim["planetKP"][planet] = {k: v for k, v in pdata.items() if k != "subSub"}
 
-    # 3. Cusp KP table (compact)
-    ckp = d.get("cuspKP", {})
-    if ckp:
-        lines.append("\nCUSP KP TABLE:")
-        for c in [str(i) for i in range(1, 13)]:
-            cp = ckp.get(c, {})
-            if not cp:
-                continue
-            deg = cp.get("degree", "?")
-            if isinstance(deg, float):
-                deg = f"{deg:.2f}"
-            lines.append(f"  Cusp {c}: {deg}° {cp.get('rashi','?')}, "
-                         f"Nak={cp.get('nakshatra','?')}({cp.get('nakshatraLord','?')}), "
-                         f"Sub={cp.get('sub','?')}")
+    # cuspKP — keep all fields except subSub
+    if "cuspKP" in d:
+        slim["cuspKP"] = {}
+        for cusp, cdata in d["cuspKP"].items():
+            slim["cuspKP"][cusp] = {k: v for k, v in cdata.items() if k != "subSub"}
 
-    # 4. House significators
-    sig = d.get("significators", {})
-    if sig:
-        lines.append("\nHOUSE SIGNIFICATORS:")
-        for h in [str(i) for i in range(1, 13)]:
-            planets = sig.get(h, [])
-            if planets:
-                lines.append(f"  House {h}: {','.join(planets)}")
+    # significators and planetSignifications — keep as-is (small)
+    for key in ("significators", "planetSignifications"):
+        if key in d:
+            slim[key] = d[key]
 
-    # 5. Dasha balance (top-level only, no nested tree)
-    dashas = d.get("dashas", {})
-    db = dashas.get("dashaBalance", {})
-    if db:
-        lines.append(f"\nDASHA BALANCE: {db.get('lord','?')} "
-                     f"{db.get('years',0)}Y {db.get('months',0)}M {db.get('days',0)}D")
-    # Top-level dasha periods (lord + dates only, no antar/pratyantars)
-    dlist = dashas.get("dashas", [])
-    if dlist:
-        lines.append("MAHADASHA PERIODS:")
-        for dd in dlist:
-            lines.append(f"  {dd.get('lord','?')}: "
-                         f"{dd.get('startDate','?')[:10]} to {dd.get('endDate','?')[:10]} "
-                         f"({dd.get('period','?')})")
+    # dashas — keep only dashaBalance + top-level mahadasha periods (no nested tree)
+    if "dashas" in d:
+        slim["dashas"] = {}
+        if "dashaBalance" in d["dashas"]:
+            slim["dashas"]["dashaBalance"] = d["dashas"]["dashaBalance"]
+        if "dashas" in d["dashas"]:
+            slim["dashas"]["mahadashas"] = [
+                {"lord": dd.get("lord"), "startDate": dd.get("startDate", "")[:10],
+                 "endDate": dd.get("endDate", "")[:10], "period": dd.get("period")}
+                for dd in d["dashas"]["dashas"]
+            ]
 
-    result = "\n".join(lines)
+    result = json.dumps(slim, indent=1, ensure_ascii=False)
     # Final safety truncation
     if len(result) > MAX_CHART_CHARS:
-        result = result[:MAX_CHART_CHARS] + "\n[...chart data truncated]"
+        result = result[:MAX_CHART_CHARS] + "\n...}"
     return result
 
 
