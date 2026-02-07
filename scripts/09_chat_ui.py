@@ -71,30 +71,37 @@ else:
     print("  RAG:    DISABLED (--no-rag flag)")
 
 SYSTEM_BASE = (
-    "You are a KP astrology expert. Answer in same language as user (English or Hinglish).\n"
-    "CRITICAL RULES:\n"
-    "1. If Chart Data JSON is provided, you MUST read and cite EXACT values from it. "
-    "For example: state the exact degree, rashi, nakshatra lord, sub-lord, and house significations "
-    "by looking them up in the JSON fields 'cuspKP', 'planetKP', 'planetSignifications', 'significators'.\n"
-    "2. Use ONLY the KP Book Excerpts below for rules. Quote exact text with [rule_id].\n"
-    "3. If source/page shown in excerpts, cite it. NEVER invent page numbers or chapter numbers.\n"
-    "4. If the question is not covered by excerpts, say so honestly.\n"
-    "5. No repetition. Keep answer concise and structured.\n"
-    "6. Format: Analysis (citing chart values) → KP Rule Application → Conclusion → Confidence(high/med/low).\n"
-    "7. If no chart data is provided but the question asks about a specific chart, "
-    "say 'Please paste your chart data in the left panel first.'\n"
+    "You are a warm, experienced KP astrologer speaking directly to the person sitting in front of you. "
+    "Talk like a real astrologer — conversational, confident, compassionate. Use Hinglish naturally. "
+    "Sprinkle in motivational Hindi sayings/quotes where appropriate.\n\n"
+    "STYLE RULES:\n"
+    "- Talk TO the person: 'Your 7th house lord...', 'You will see...', NOT 'The native has...'\n"
+    "- Give SPECIFIC time predictions: actual months, years, date ranges derived from dasha periods in the chart. "
+    "Example: 'Marriage yoga is forming between March 2026 to August 2026.' NOT vague theory.\n"
+    "- When chart has dasha data, CALCULATE which dasha/bhukti period covers the event and state the dates.\n"
+    "- Keep it SHORT and punchy — 4-6 sentences max. No long academic paragraphs.\n"
+    "- NEVER use robotic headers like 'Analysis:', 'Conclusion:', 'Confidence: medium'. "
+    "Just speak naturally like a human astrologer.\n"
+    "- If a remedy product is relevant, weave it naturally: 'To strengthen Venus, wear our Shukra Kavach Pendant.'\n"
+    "- Add a Hindi/Hinglish quote naturally: 'Jab samay aayega, rishta khud chalkar aayega.'\n\n"
+    "DATA RULES:\n"
+    "1. If Chart Data is provided, READ the Pre-extracted Chart Summary carefully. "
+    "Use exact values: cusp sub-lords, planet significations, dasha periods, degrees.\n"
+    "2. Use KP Book Excerpts below for rules. You may reference [rule_id] briefly but don't make it the focus.\n"
+    "3. NEVER invent page numbers or chapter numbers.\n"
+    "4. If no chart data is provided, say 'Please share your birth chart so I can give you an accurate reading.'\n"
+    "5. No repetition. Be direct and specific.\n"
 )
 
 SYSTEM_NO_RAG = (
-    "You are a KP astrology expert. Answer in same language as user (English or Hinglish).\n"
-    "CRITICAL RULES:\n"
-    "1. If Chart Data JSON is provided, you MUST read and cite EXACT values from it "
-    "(degrees, sub-lords, significations etc.).\n"
-    "2. Cite KP rules by name. NEVER invent page numbers.\n"
-    "3. Use KP terms: sub-lord, cusp, significator, nakshatra, dasha-bhukti.\n"
-    "4. Be concise. No repetition.\n"
-    "5. If no chart data is provided but the question asks about a specific chart, "
-    "say 'Please paste your chart data in the left panel first.'\n"
+    "You are a warm, experienced KP astrologer speaking directly to the person. "
+    "Talk conversationally in Hinglish. Give SPECIFIC dates/months/years from dasha data.\n\n"
+    "RULES:\n"
+    "1. If Chart Data is provided, use exact values from the Pre-extracted Chart Summary.\n"
+    "2. Give specific time predictions from dasha periods — not vague theory.\n"
+    "3. Talk TO the person: 'Your Venus is strong...', 'You will see improvement by March 2026...'\n"
+    "4. Keep it short, warm, and punchy. No robotic headers. Add Hindi quotes naturally.\n"
+    "5. NEVER invent page numbers. If no chart data, ask them to share their birth chart.\n"
 )
 
 # ── Product catalog (for remedy recommendations) ─────────────────────────────
@@ -148,28 +155,43 @@ def _retrieve_rag_chunks(question, top_k=5):
         return []
 
 
-def _get_product_recommendations(question, max_items=3):
-    """Find relevant products based on question keywords."""
+def _get_product_recommendations(question, chart_summary="", max_items=3):
+    """Find relevant products based on question + chart context (planets involved)."""
     if not PRODUCT_CATALOG:
         return ""
-    q_lower = question.lower()
+    # Search across both question and chart summary for planet/topic matches
+    search_text = (question + " " + chart_summary).lower()
     planet_product_map = {
-        "venus": ["diamond", "opal", "white", "zircon"],
-        "saturn": ["blue sapphire", "neelam", "karungali", "iron"],
-        "jupiter": ["yellow sapphire", "pukhraj", "topaz", "rudraksha"],
-        "mars": ["coral", "moonga", "red"],
-        "mercury": ["emerald", "panna", "green"],
-        "moon": ["pearl", "moti", "chandra"],
-        "sun": ["ruby", "manik", "surya"],
-        "rahu": ["hessonite", "gomed", "garnet"],
-        "ketu": ["cat eye", "lehsunia", "vaidurya"],
+        "venus": ["diamond", "opal", "white", "zircon", "shukra", "venus"],
+        "saturn": ["blue sapphire", "neelam", "karungali", "iron", "shani", "saturn"],
+        "jupiter": ["yellow sapphire", "pukhraj", "topaz", "rudraksha", "guru", "jupiter"],
+        "mars": ["coral", "moonga", "red", "mangal", "mars", "hanuman"],
+        "mercury": ["emerald", "panna", "green", "budh", "mercury"],
+        "moon": ["pearl", "moti", "chandra", "moon"],
+        "sun": ["ruby", "manik", "surya", "sun"],
+        "rahu": ["hessonite", "gomed", "garnet", "rahu"],
+        "ketu": ["cat eye", "lehsunia", "vaidurya", "ketu"],
     }
-    keywords = []
+    # Topic-based product keywords
+    topic_product_map = {
+        "marriage": ["venus", "shukra", "diamond", "opal", "love"],
+        "career": ["ruby", "manik", "surya", "sun"],
+        "financial": ["yellow sapphire", "pukhraj", "lakshmi"],
+        "health": ["rudraksha", "healing", "chakra"],
+        "obstacle": ["karungali", "shani", "protection", "kavach"],
+        "luck": ["rudraksha", "navratna", "kavach", "sudarshan"],
+        "protect": ["kavach", "evil eye", "protection", "karungali"],
+    }
+    keywords = set()
     for planet, terms in planet_product_map.items():
-        if planet in q_lower:
-            keywords.extend(terms)
+        if planet in search_text:
+            keywords.update(terms)
+    for topic, terms in topic_product_map.items():
+        if topic in search_text:
+            keywords.update(terms)
     if not keywords:
-        return ""
+        # Default: recommend general protection items
+        keywords = {"rudraksha", "kavach", "chakra"}
     matches = []
     for p in PRODUCT_CATALOG:
         title_lower = p.get("Title", "").lower()
@@ -178,9 +200,9 @@ def _get_product_recommendations(question, max_items=3):
     if not matches:
         return ""
     matches = matches[:max_items]
-    lines = ["\nRelevant Remedies (from store):"]
+    lines = []
     for p in matches:
-        lines.append(f"- {p['Title']} (SKU: {p['SKU']}, Rs.{p['Sale Price']})")
+        lines.append(f"- {p['Title']} (SKU: {p.get('SKU','')}, Rs.{p.get('Sale Price','')})")
     return "\n".join(lines)
 
 
@@ -214,7 +236,7 @@ def _postprocess(text):
     return result
 
 
-MAX_CHART_CHARS = 8000  # safety cap for compacted JSON
+MAX_CHART_CHARS = 12000  # safety cap for compacted JSON (includes antardasha for timing)
 
 
 def _compact_chart_data(raw: str) -> str:
@@ -265,17 +287,30 @@ def _compact_chart_data(raw: str) -> str:
         if key in d:
             slim[key] = d[key]
 
-    # dashas — keep only dashaBalance + top-level mahadasha periods (no nested tree)
+    # dashas — keep dashaBalance + mahadasha + antardasha (for month-level timing)
     if "dashas" in d:
         slim["dashas"] = {}
         if "dashaBalance" in d["dashas"]:
             slim["dashas"]["dashaBalance"] = d["dashas"]["dashaBalance"]
         if "dashas" in d["dashas"]:
-            slim["dashas"]["mahadashas"] = [
-                {"lord": dd.get("lord"), "startDate": dd.get("startDate", "")[:10],
-                 "endDate": dd.get("endDate", "")[:10], "period": dd.get("period")}
-                for dd in d["dashas"]["dashas"]
-            ]
+            slim["dashas"]["mahadashas"] = []
+            for dd in d["dashas"]["dashas"]:
+                maha = {
+                    "lord": dd.get("lord"),
+                    "startDate": dd.get("startDate", "")[:10],
+                    "endDate": dd.get("endDate", "")[:10],
+                    "period": dd.get("period"),
+                }
+                # Include antardasha (bhukti) periods for specific timing
+                if "antarDashas" in dd:
+                    maha["antarDashas"] = [
+                        {"lord": ad.get("lord"),
+                         "startDate": ad.get("startDate", "")[:10],
+                         "endDate": ad.get("endDate", "")[:10],
+                         "period": ad.get("period")}
+                        for ad in dd["antarDashas"]
+                    ]
+                slim["dashas"]["mahadashas"].append(maha)
 
     result = json.dumps(slim, indent=1, ensure_ascii=False)
     # Final safety truncation
@@ -321,7 +356,7 @@ def _chart_summary(raw: str) -> str:
             if houses:
                 lines.append(f"  {planet}: houses {houses}")
 
-    # Current dasha
+    # Current dasha with antardasha for specific timing
     dashas = d.get("dashas", {})
     db = dashas.get("dashaBalance", {})
     if db:
@@ -329,10 +364,17 @@ def _chart_summary(raw: str) -> str:
                      f"{db.get('years',0)}Y {db.get('months',0)}M {db.get('days',0)}D remaining")
     dlist = dashas.get("dashas", dashas.get("mahadashas", []))
     if dlist:
-        lines.append("MAHADASHA PERIODS:")
-        for dd in dlist[:5]:  # first 5 only
-            lines.append(f"  {dd.get('lord','?')}: {dd.get('startDate','?')[:10]} to "
+        lines.append("MAHADASHA & ANTARDASHA PERIODS (use these for specific date predictions):")
+        for dd in dlist[:3]:  # first 3 mahadashas
+            lines.append(f"  {dd.get('lord','?')} Mahadasha: {dd.get('startDate','?')[:10]} to "
                          f"{dd.get('endDate','?')[:10]} ({dd.get('period','?')})")
+            # Include antardasha sub-periods for month-level timing
+            antardashas = dd.get("antarDashas", [])
+            if antardashas:
+                for ad in antardashas:
+                    lines.append(f"    → {dd.get('lord','?')}-{ad.get('lord','?')} bhukti: "
+                                 f"{ad.get('startDate','?')[:10]} to {ad.get('endDate','?')[:10]} "
+                                 f"({ad.get('period','?')})")
 
     return "\n".join(lines)
 
@@ -341,6 +383,7 @@ def predict(message, history, chart_data):
     """Stream a response from the vLLM server with RAG-augmented context + chart data."""
     # 0. Compact chart data (auto-parse large JSON from computation engine)
     chart_data = _compact_chart_data(chart_data or "")
+    summary = ""
     if chart_data:
         # Auto-surface key values so model doesn't need to parse JSON
         summary = _chart_summary(chart_data)
@@ -353,8 +396,18 @@ def predict(message, history, chart_data):
     # 1. Retrieve RAG chunks (search using original question for better retrieval)
     rag_chunks = _retrieve_rag_chunks(message, top_k=args.top_k)
 
-    # 2. Build prompt with adaptive RAG trimming to fit character budget
-    fixed_chars = len(SYSTEM_BASE) + len(full_question) + 30
+    # 2. Product recommendations — inject into system prompt so model weaves them naturally
+    product_text = _get_product_recommendations(message, chart_summary=summary)
+    product_instruction = ""
+    if product_text:
+        product_instruction = (
+            f"\n\nRELEVANT PRODUCTS (weave ONE naturally into your answer as a remedy suggestion):\n"
+            f"{product_text}\n"
+            f"Example: 'To strengthen [planet], I'd recommend our [Product Name].'"
+        )
+
+    # 3. Build prompt with adaptive RAG trimming to fit character budget
+    fixed_chars = len(SYSTEM_BASE) + len(full_question) + len(product_instruction) + 30
     rag_budget = MAX_INPUT_CHARS - fixed_chars
 
     selected_chunks = []
@@ -367,17 +420,17 @@ def predict(message, history, chart_data):
 
     if selected_chunks:
         rag_text = "\n".join(selected_chunks)
-        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_text}"
+        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_text}{product_instruction}"
     else:
-        sys_content = SYSTEM_NO_RAG
+        sys_content = f"{SYSTEM_NO_RAG}{product_instruction}"
 
-    # 3. Build messages (no history — every question gets fresh RAG)
+    # 4. Build messages (no history — every question gets fresh RAG)
     messages = [
         {"role": "system", "content": sys_content},
         {"role": "user", "content": full_question},
     ]
 
-    # 4. Final safety: compute actual char total and adjust output tokens
+    # 5. Final safety: compute actual char total and adjust output tokens
     total_chars = sum(len(m["content"]) for m in messages)
     est_input_tokens = int(total_chars / 0.78) + 100
     available = MAX_MODEL_LEN - est_input_tokens
@@ -388,15 +441,12 @@ def predict(message, history, chart_data):
                "Please shorten the chart data or question.")
         return
 
-    # 5. Product recommendations
-    product_text = _get_product_recommendations(message)
-
     try:
         stream = client.chat.completions.create(
             model="kp-astrology-llama",
             messages=messages,
             max_tokens=max_tokens,
-            temperature=0.4,
+            temperature=0.5,
             top_p=0.9,
             stream=True,
             extra_body={"repetition_penalty": 1.2},
@@ -407,9 +457,6 @@ def predict(message, history, chart_data):
             if delta:
                 partial += delta
                 yield _postprocess(partial)
-        if product_text:
-            partial += "\n" + product_text
-            yield _postprocess(partial)
     except Exception as e:
         yield f"Error: {e}\n\nMake sure vLLM is running: python scripts/08_serve_vllm.py"
 
