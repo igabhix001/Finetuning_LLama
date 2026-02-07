@@ -42,7 +42,9 @@ pip install --no-cache-dir \
     "tqdm>=4.66.0" \
     "numpy>=1.24.0" \
     "tensorboard>=2.15.0" \
-    "huggingface-hub>=0.20.0"
+    "huggingface-hub>=0.20.0" \
+    "pinecone>=3.0.0" \
+    "openai>=1.0.0"
 
 # Step 3: Check for flash-attn (do NOT install — source compile uses 30-40GB RAM and kills the pod)
 echo ""
