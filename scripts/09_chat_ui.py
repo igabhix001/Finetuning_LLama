@@ -40,13 +40,18 @@ Guidelines:
 
 
 def predict(message, history):
-    """Stream a response from the vLLM server."""
+    """Stream a response from the vLLM server using Gradio 6 messages format."""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    for user_msg, bot_msg in history:
-        if user_msg:
-            messages.append({"role": "user", "content": user_msg})
-        if bot_msg:
-            messages.append({"role": "assistant", "content": bot_msg})
+    # Gradio 6 passes history as list of {"role":..., "content":...} dicts
+    if history:
+        for h in history:
+            if isinstance(h, dict):
+                messages.append({"role": h["role"], "content": h["content"]})
+            elif isinstance(h, (list, tuple)) and len(h) == 2:
+                if h[0]:
+                    messages.append({"role": "user", "content": h[0]})
+                if h[1]:
+                    messages.append({"role": "assistant", "content": h[1]})
     messages.append({"role": "user", "content": message})
 
     try:
@@ -78,95 +83,19 @@ EXAMPLES = [
     "Describe the Mahadasha-Antardasha system in KP astrology.",
 ]
 
-# ── Build Gradio UI ──────────────────────────────────────────────────────────
-with gr.Blocks(
+# ── Build Gradio UI (Gradio 6 compatible) ────────────────────────────────────
+demo = gr.ChatInterface(
+    fn=predict,
+    type="messages",
     title="KP Astrology AI Assistant",
-    theme=gr.themes.Soft(primary_hue="indigo", secondary_hue="amber"),
-    css="""
-    .gradio-container { max-width: 900px !important; margin: auto; }
-    footer { display: none !important; }
-    """
-) as demo:
-    gr.Markdown(
-        """
-        # 🔮 KP Astrology AI Assistant
-        ### Powered by fine-tuned Llama 3.1 8B — trained on Krishnamurti Paddhati texts
-
-        Ask any question about KP astrology — marriage timing, career predictions,
-        horary analysis, dasha periods, and more.
-        """
-    )
-
-    chatbot = gr.Chatbot(
-        height=500,
-        show_label=False,
-        avatar_images=(None, "https://em-content.zobj.net/source/twitter/376/crystal-ball_1f52e.png"),
-    )
-
-    with gr.Row():
-        msg = gr.Textbox(
-            placeholder="Ask a KP astrology question...",
-            show_label=False,
-            scale=9,
-            container=False,
-        )
-        submit_btn = gr.Button("Send", variant="primary", scale=1)
-
-    with gr.Row():
-        clear_btn = gr.Button("🗑️ Clear Chat", size="sm")
-        retry_btn = gr.Button("🔄 Retry", size="sm")
-
-    gr.Markdown("### 💡 Try these questions:")
-    with gr.Row():
-        for i in range(0, len(EXAMPLES), 2):
-            with gr.Column():
-                for ex in EXAMPLES[i:i+2]:
-                    gr.Button(ex, size="sm").click(
-                        fn=lambda e=ex: e, outputs=msg
-                    ).then(
-                        fn=predict,
-                        inputs=[msg, chatbot],
-                        outputs=chatbot,
-                    ).then(
-                        fn=lambda: "", outputs=msg
-                    )
-
-    # Wire up main chat
-    def user_submit(message, history):
-        return "", history + [[message, None]]
-
-    def bot_respond(history):
-        message = history[-1][0]
-        history[-1][1] = ""
-        for partial in predict(message, history[:-1]):
-            history[-1][1] = partial
-            yield history
-
-    msg.submit(user_submit, [msg, chatbot], [msg, chatbot], queue=False).then(
-        bot_respond, chatbot, chatbot
-    )
-    submit_btn.click(user_submit, [msg, chatbot], [msg, chatbot], queue=False).then(
-        bot_respond, chatbot, chatbot
-    )
-    clear_btn.click(lambda: [], outputs=chatbot)
-
-    def retry_last(history):
-        if history and history[-1][0]:
-            history[-1][1] = ""
-            for partial in predict(history[-1][0], history[:-1]):
-                history[-1][1] = partial
-                yield history
-
-    retry_btn.click(retry_last, chatbot, chatbot)
-
-    gr.Markdown(
-        """
-        ---
-        *Model: Llama 3.1 8B fine-tuned on KP astrology corpus (DAPT + SFT) •
-        RAG: 1,207 KP rules indexed in Pinecone •
-        Serving: vLLM on RunPod*
-        """
-    )
+    description=(
+        "**Powered by fine-tuned Llama 3.1 8B** — trained on Krishnamurti Paddhati texts\n\n"
+        "Ask any question about KP astrology — marriage timing, career predictions, "
+        "horary analysis, dasha periods, and more."
+    ),
+    examples=EXAMPLES,
+    cache_examples=False,
+)
 
 print(f"\n{'='*60}")
 print(f"  KP Astrology Chat UI")
@@ -176,7 +105,6 @@ if args.share:
 print(f"  vLLM:   {args.vllm_url}")
 print(f"{'='*60}\n")
 
-demo.queue()
 demo.launch(
     server_name="0.0.0.0",
     server_port=args.port,
