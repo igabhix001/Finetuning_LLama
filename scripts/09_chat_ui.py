@@ -71,18 +71,30 @@ else:
     print("  RAG:    DISABLED (--no-rag flag)")
 
 SYSTEM_BASE = (
-    "KP astrology expert. Answer in same language as user (English or Hinglish). "
-    "RULES: Use ONLY excerpts below. Quote exact text with [rule_id]. "
-    "If source/page shown, cite it. NEVER invent pages/chapters. "
-    "If not covered, say so. No repetition. "
-    "Format: Answer, Quote, Rule ID, Source, Confidence(high/med/low)."
+    "You are a KP astrology expert. Answer in same language as user (English or Hinglish).\n"
+    "CRITICAL RULES:\n"
+    "1. If Chart Data JSON is provided, you MUST read and cite EXACT values from it. "
+    "For example: state the exact degree, rashi, nakshatra lord, sub-lord, and house significations "
+    "by looking them up in the JSON fields 'cuspKP', 'planetKP', 'planetSignifications', 'significators'.\n"
+    "2. Use ONLY the KP Book Excerpts below for rules. Quote exact text with [rule_id].\n"
+    "3. If source/page shown in excerpts, cite it. NEVER invent page numbers or chapter numbers.\n"
+    "4. If the question is not covered by excerpts, say so honestly.\n"
+    "5. No repetition. Keep answer concise and structured.\n"
+    "6. Format: Analysis (citing chart values) → KP Rule Application → Conclusion → Confidence(high/med/low).\n"
+    "7. If no chart data is provided but the question asks about a specific chart, "
+    "say 'Please paste your chart data in the left panel first.'\n"
 )
 
 SYSTEM_NO_RAG = (
-    "KP astrology expert. Answer in same language as user (English or Hinglish). "
-    "Cite KP rules. Include confidence. "
-    "Use KP terms: sub-lord, cusp, significator, nakshatra, dasha-bhukti. "
-    "NEVER invent pages. Be concise. No repetition."
+    "You are a KP astrology expert. Answer in same language as user (English or Hinglish).\n"
+    "CRITICAL RULES:\n"
+    "1. If Chart Data JSON is provided, you MUST read and cite EXACT values from it "
+    "(degrees, sub-lords, significations etc.).\n"
+    "2. Cite KP rules by name. NEVER invent page numbers.\n"
+    "3. Use KP terms: sub-lord, cusp, significator, nakshatra, dasha-bhukti.\n"
+    "4. Be concise. No repetition.\n"
+    "5. If no chart data is provided but the question asks about a specific chart, "
+    "say 'Please paste your chart data in the left panel first.'\n"
 )
 
 # ── Product catalog (for remedy recommendations) ─────────────────────────────
@@ -173,8 +185,13 @@ def _get_product_recommendations(question, max_items=3):
 
 
 def _postprocess(text):
-    """Strip duplicate confidence/metadata blocks that the model sometimes repeats."""
-    # Remove duplicate "Confidence: xxx" lines (keep first)
+    """Strip duplicate confidence/metadata blocks and leaked internal tokens."""
+    # 1. Remove leaked internal tokens
+    for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>"]:
+        text = text.replace(token, "")
+    # 2. Remove hallucinated page numbers like "page_no=1234567890" or "source: page_no=..."
+    text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
+    # 3. Remove duplicate "Confidence: xxx" lines (keep first)
     seen_conf = False
     lines = text.split("\n")
     cleaned = []
@@ -182,13 +199,14 @@ def _postprocess(text):
         stripped = line.strip().lower()
         is_conf = stripped.startswith("confidence:") or stripped.startswith("**confidence")
         is_rules = stripped.startswith("rules_used:") or stripped.startswith("rules used:")
-        if is_conf or is_rules:
+        is_meta = stripped.startswith("level:") or stripped.startswith("answer_end")
+        if is_conf or is_rules or is_meta:
             if seen_conf:
                 continue  # skip duplicate
             seen_conf = True
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
-    # Remove trailing incomplete sentences (cut off by token limit)
+    # 4. Remove trailing incomplete sentences (cut off by token limit)
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
         if last_period > len(result) * 0.7:  # only trim if we keep >70%
@@ -324,7 +342,7 @@ def predict(message, history, chart_data):
             temperature=0.4,
             top_p=0.9,
             stream=True,
-            extra_body={"repetition_penalty": 1.3},
+            extra_body={"repetition_penalty": 1.2},
         )
         partial = ""
         for chunk in stream:
