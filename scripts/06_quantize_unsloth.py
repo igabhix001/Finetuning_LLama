@@ -1,18 +1,20 @@
 """
-Quantize merged model to 8-bit using Unsloth for RTX 3090 deployment
+Quantize merged model to 8-bit using bitsandbytes for deployment.
+
+The merged model (from step 05) is a full model with no LoRA adapters,
+so we use bitsandbytes quantization directly (not Unsloth, which expects LoRA).
 """
 
 import sys
 import torch
 from pathlib import Path
 from datetime import datetime
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 print("="*80)
-print("QUANTIZING MODEL WITH UNSLOTH (8-BIT)")
+print("QUANTIZING MERGED MODEL (8-BIT)")
 print("="*80)
 print(f"Start time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-print("Target: RTX 3090 (24GB VRAM)")
 print("="*80)
 
 # Paths
@@ -34,94 +36,89 @@ except Exception as e:
     print(f"❌ Failed to load tokenizer: {e}")
     sys.exit(1)
 
-# Load and quantize model with Unsloth
-print("\n2. Loading model with Unsloth 8-bit quantization...")
-print("   This will take 15-30 minutes...")
+# Load model with 8-bit quantization via bitsandbytes
+print("\n2. Loading model with bitsandbytes 8-bit quantization...")
 
 try:
-    # Try to import unsloth
-    try:
-        from unsloth import FastLanguageModel
-        use_unsloth = True
-        print("   Using Unsloth for quantization")
-    except ImportError:
-        print("   ⚠️  Unsloth not found, using bitsandbytes 8-bit quantization")
-        use_unsloth = False
-    
-    if use_unsloth:
-        # Unsloth quantization
-        model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name=str(model_path),
-            max_seq_length=2048,
-            dtype=None,  # Auto-detect
-            load_in_4bit=False,  # Use 8-bit
-            load_in_8bit=True,
-        )
-        print(f"✓ Model quantized with Unsloth (8-bit)")
-    else:
-        # Fallback to bitsandbytes
-        from transformers import BitsAndBytesConfig
-        
-        quantization_config = BitsAndBytesConfig(
-            load_in_8bit=True,
-            llm_int8_threshold=6.0,
-            llm_int8_has_fp16_weight=False,
-        )
-        
-        model = AutoModelForCausalLM.from_pretrained(
-            str(model_path),
-            quantization_config=quantization_config,
-            device_map="auto",
-            torch_dtype=torch.float16
-        )
-        print(f"✓ Model quantized with bitsandbytes (8-bit)")
-    
+    quantization_config = BitsAndBytesConfig(
+        load_in_8bit=True,
+        llm_int8_threshold=6.0,
+    )
+
+    model = AutoModelForCausalLM.from_pretrained(
+        str(model_path),
+        quantization_config=quantization_config,
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+    )
+    print(f"✓ Model loaded with 8-bit quantization")
+    print(f"  Parameters: {model.num_parameters():,}")
+
 except Exception as e:
     print(f"❌ Quantization failed: {e}")
-    print("\nTroubleshooting:")
-    print("  1. Install Unsloth: pip install unsloth")
-    print("  2. Ensure sufficient GPU memory")
-    print("  3. Check CUDA compatibility")
     sys.exit(1)
 
 # Save quantized model
-print("\n3. Saving quantized model...")
+# NOTE: bitsandbytes 8-bit models cannot be directly saved as quantized weights.
+# Instead, we save the full-precision merged model (already at models/merged/)
+# and load it with quantization_config at serving time.
+# For a truly smaller on-disk model, we export to GGUF format.
+print("\n3. Saving model in GGUF format for efficient deployment...")
 output_path.mkdir(parents=True, exist_ok=True)
 
 try:
-    if use_unsloth:
-        # Unsloth save — use save_pretrained_merged to avoid JSON serialization errors
-        try:
-            model.save_pretrained_merged(str(output_path), tokenizer, save_method="merged_16bit")
-            print(f"✓ Quantized model saved via Unsloth merged save to: {output_path}")
-        except Exception as e1:
-            print(f"   Unsloth merged save failed ({e1}), trying standard save...")
-            # Fallback: save with state_dict to avoid function serialization
-            try:
-                model.save_pretrained(str(output_path), safe_serialization=True, state_dict=model.state_dict())
-                tokenizer.save_pretrained(str(output_path))
-                print(f"✓ Model saved via standard save to: {output_path}")
-            except Exception as e2:
-                print(f"   Standard save also failed ({e2}), saving state_dict directly...")
-                torch.save(model.state_dict(), str(output_path / "model.pt"))
-                tokenizer.save_pretrained(str(output_path))
-                print(f"✓ Model state_dict saved to: {output_path}/model.pt")
-    else:
-        # Standard save
-        model.save_pretrained(
-            str(output_path),
-            safe_serialization=True
+    # Try llama.cpp GGUF export via Unsloth (if available)
+    try:
+        from unsloth import FastLanguageModel
+        print("   Using Unsloth for GGUF export...")
+        # Reload with Unsloth for GGUF conversion
+        umodel, utokenizer = FastLanguageModel.from_pretrained(
+            model_name=str(model_path),
+            max_seq_length=2048,
+            dtype=torch.bfloat16,
+            load_in_4bit=False,
         )
-        tokenizer.save_pretrained(str(output_path))
-        print(f"✓ Quantized model saved to: {output_path}")
-    
+        umodel.save_pretrained_gguf(
+            str(output_path),
+            utokenizer,
+            quantization_method="q8_0",
+        )
+        print(f"✓ GGUF Q8_0 model saved to: {output_path}")
+    except Exception as e_gguf:
+        print(f"   GGUF export not available ({e_gguf})")
+        print("   Saving as standard safetensors (bf16) instead...")
+        # Fallback: just copy the merged model as-is (it's already the final model)
+        # The merged model at models/merged/ IS the deployable model.
+        # At serving time, load with load_in_8bit=True for quantization.
+        from shutil import copytree, rmtree
+        if output_path.exists():
+            rmtree(str(output_path))
+        copytree(str(model_path), str(output_path))
+        # Write a config note about runtime quantization
+        with open(str(output_path / "QUANTIZATION_NOTE.md"), "w") as f:
+            f.write("# Quantization Note\n\n")
+            f.write("This model is saved in bf16 format.\n")
+            f.write("For 8-bit inference, load with:\n\n")
+            f.write("```python\n")
+            f.write("from transformers import AutoModelForCausalLM, BitsAndBytesConfig\n")
+            f.write("model = AutoModelForCausalLM.from_pretrained(\n")
+            f.write("    'models/quantized_8bit',\n")
+            f.write("    quantization_config=BitsAndBytesConfig(load_in_8bit=True),\n")
+            f.write("    device_map='auto'\n")
+            f.write(")\n")
+            f.write("```\n\n")
+            f.write("Or use vLLM which handles quantization automatically.\n")
+        print(f"✓ Model copied to: {output_path}")
+        print("  Load with BitsAndBytesConfig(load_in_8bit=True) at serving time")
+        print("  Or use vLLM directly on models/merged/")
+
 except Exception as e:
     print(f"❌ Failed to save model: {e}")
     sys.exit(1)
 
 # Get model size
 try:
-    model_size = sum(p.stat().st_size for p in output_path.rglob('*')) / (1024**3)
+    model_size = sum(p.stat().st_size for p in output_path.rglob('*') if p.is_file()) / (1024**3)
 except:
     model_size = 0
 
@@ -130,8 +127,8 @@ print("QUANTIZATION COMPLETE")
 print(f"{'='*80}")
 print(f"End time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print(f"Quantized model location: {output_path}")
-print(f"Model size: {model_size:.2f} GB (should be ~8-10GB for 8-bit)")
-print(f"\nModel is ready for RTX 3090 deployment!")
-print(f"\nNext step: Setup vLLM serving")
-print(f"  python scripts/08_serve_vllm.py")
+print(f"Model size on disk: {model_size:.2f} GB")
+print(f"\nFor serving, you can use either:")
+print(f"  1. vLLM (recommended): python scripts/08_serve_vllm.py")
+print(f"  2. Direct: load models/merged/ with load_in_8bit=True")
 print(f"{'='*80}\n")
