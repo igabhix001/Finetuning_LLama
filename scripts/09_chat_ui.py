@@ -39,65 +39,81 @@ Guidelines:
 - Be respectful and professional"""
 
 
+# ── Context-window budget constants ───────────────────────────────────────────
+# Llama 3.1 tokenizer: ~2 chars/token for mixed English+KP text.
+# Chat template adds ~15 special tokens per message (header, EOS, etc.)
+# plus ~10 tokens for the overall BOS / generation prompt.
 MAX_MODEL_LEN = 2048
-CHARS_PER_TOKEN = 3  # conservative estimate
-MIN_OUTPUT_TOKENS = 128
-MAX_OUTPUT_TOKENS = 512
+CHARS_PER_TOKEN = 2          # conservative: overestimates token count
+MSG_OVERHEAD = 15            # special tokens per chat message (template)
+GLOBAL_OVERHEAD = 50         # BOS + generation prompt + safety margin
+DEFAULT_OUTPUT_TOKENS = 256  # enough for a solid KP answer
+MIN_OUTPUT_TOKENS = 64
+MAX_HISTORY_TURNS = 2        # keep only last N user+assistant pairs
 
 
 def _estimate_tokens(text):
-    """Rough token count (~3 chars/token for English + KP terminology)."""
-    return len(text) // CHARS_PER_TOKEN
+    """Conservative token estimate (~2 chars/token for Llama 3.1)."""
+    return len(text) // CHARS_PER_TOKEN + 1
 
 
-def _trim_history(history_msgs, budget_tokens):
-    """Keep the most recent history turns that fit within budget_tokens."""
-    kept = []
-    total = 0
-    for msg in reversed(history_msgs):
-        t = _estimate_tokens(msg["content"])
-        if total + t > budget_tokens:
-            break
-        kept.insert(0, msg)
-        total += t
-    return kept
+def _estimate_messages_tokens(messages):
+    """Estimate total tokens for a list of chat messages including template overhead."""
+    total = GLOBAL_OVERHEAD
+    for m in messages:
+        total += _estimate_tokens(m["content"]) + MSG_OVERHEAD
+    return total
 
 
 def predict(message, history):
     """Stream a response from the vLLM server. Handles both dict and tuple history formats."""
-    # Build raw history list
-    hist_msgs = []
-    for h in history:
-        if isinstance(h, dict):
-            hist_msgs.append({"role": h["role"], "content": h["content"]})
-        elif isinstance(h, (list, tuple)) and len(h) == 2:
-            if h[0]:
-                hist_msgs.append({"role": "user", "content": h[0]})
-            if h[1]:
-                hist_msgs.append({"role": "assistant", "content": h[1]})
+    # 1. Parse history into pairs of (user_msg, assistant_msg)
+    pairs = []
+    if history:
+        pending_user = None
+        for h in history:
+            if isinstance(h, dict):
+                if h["role"] == "user":
+                    pending_user = h["content"]
+                elif h["role"] == "assistant" and pending_user is not None:
+                    pairs.append((pending_user, h["content"]))
+                    pending_user = None
+            elif isinstance(h, (list, tuple)) and len(h) == 2:
+                if h[0] and h[1]:
+                    pairs.append((h[0], h[1]))
 
-    # Token budget: system + user message are fixed; history is flexible
-    sys_tokens = _estimate_tokens(SYSTEM_PROMPT)
-    user_tokens = _estimate_tokens(message)
-    fixed_tokens = sys_tokens + user_tokens + 20  # 20 token safety margin
+    # 2. Keep only the most recent turns
+    pairs = pairs[-MAX_HISTORY_TURNS:]
 
-    # Reserve space for output, then give rest to history
-    output_budget = MAX_OUTPUT_TOKENS
-    history_budget = MAX_MODEL_LEN - fixed_tokens - output_budget
-    if history_budget < 0:
-        history_budget = 0
-        output_budget = max(MIN_OUTPUT_TOKENS, MAX_MODEL_LEN - fixed_tokens - 10)
-
-    trimmed_hist = _trim_history(hist_msgs, history_budget)
-
+    # 3. Build messages list
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    messages.extend(trimmed_hist)
+    for u, a in pairs:
+        messages.append({"role": "user", "content": u})
+        messages.append({"role": "assistant", "content": a})
     messages.append({"role": "user", "content": message})
 
-    # Recalculate actual max_tokens to be safe
-    total_input_est = sum(_estimate_tokens(m["content"]) for m in messages) + 20
-    max_tokens = min(output_budget, MAX_MODEL_LEN - total_input_est)
-    max_tokens = max(max_tokens, MIN_OUTPUT_TOKENS)
+    # 4. Token budget: input estimate → available output
+    input_est = _estimate_messages_tokens(messages)
+    available = MAX_MODEL_LEN - input_est
+    max_tokens = max(MIN_OUTPUT_TOKENS, min(DEFAULT_OUTPUT_TOKENS, available))
+
+    # 5. If still too tight, drop history one pair at a time
+    while available < MIN_OUTPUT_TOKENS and pairs:
+        pairs.pop(0)
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+        for u, a in pairs:
+            messages.append({"role": "user", "content": u})
+            messages.append({"role": "assistant", "content": a})
+        messages.append({"role": "user", "content": message})
+        input_est = _estimate_messages_tokens(messages)
+        available = MAX_MODEL_LEN - input_est
+        max_tokens = max(MIN_OUTPUT_TOKENS, min(DEFAULT_OUTPUT_TOKENS, available))
+
+    # 6. Final guard: if even without history it won't fit, tell user
+    if available < MIN_OUTPUT_TOKENS:
+        yield ("Your message is too long for the model's context window (2048 tokens). "
+               "Please ask a shorter or more specific question.")
+        return
 
     try:
         stream = client.chat.completions.create(
