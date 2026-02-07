@@ -15,23 +15,100 @@ Usage:
 """
 
 import json
+import os
 import sys
 import time
 import argparse
 from datetime import datetime
 from pathlib import Path
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(description="KP Model Test Suite")
 parser.add_argument("--vllm-url", default="http://localhost:8000/v1")
 parser.add_argument("--output", default="./results/kp_test_results.json")
 parser.add_argument("--md-output", default="./results/kp_test_results.md")
-parser.add_argument("--temperature", type=float, default=0.3)
+parser.add_argument("--temperature", type=float, default=0.4)
 parser.add_argument("--max-model-len", type=int, default=2048)
+parser.add_argument("--no-rag", action="store_true", help="Disable RAG retrieval")
+parser.add_argument("--top-k", type=int, default=5, help="RAG chunks to retrieve")
 args = parser.parse_args()
 
 client = OpenAI(base_url=args.vllm_url, api_key="not-needed")
+
+# ── RAG: Pinecone + OpenAI embeddings (mirrors 09_chat_ui.py) ────────────────
+rag_index = None
+openai_client = None
+EMBEDDING_MODEL = "text-embedding-3-large"
+EMBEDDING_DIM = 3072
+
+if not args.no_rag:
+    try:
+        from pinecone import Pinecone
+        pc_key = os.getenv("PINECONE_API_KEY")
+        oai_key = os.getenv("OPENAI_API_KEY")
+        idx_name = os.getenv("PINECONE_INDEX_NAME", "kp-astrology-kb")
+        if pc_key and oai_key and oai_key != "your-openai-api-key-here":
+            pc = Pinecone(api_key=pc_key)
+            rag_index = pc.Index(idx_name)
+            openai_client = OpenAI(api_key=oai_key)
+            stats = rag_index.describe_index_stats()
+            print(f"  RAG:    Pinecone '{idx_name}' ({stats['total_vector_count']} vectors)")
+        else:
+            print("  RAG:    DISABLED (missing keys)")
+    except Exception as e:
+        print(f"  RAG:    DISABLED ({e})")
+else:
+    print("  RAG:    DISABLED (--no-rag)")
+
+# ── Context budget (calibrated from vLLM errors: 0.78 chars/token) ───────────
+MAX_MODEL_LEN = args.max_model_len
+OUTPUT_TOKENS = 200
+INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100
+MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
+
+SYSTEM_BASE = (
+    "You are an expert KP (Krishnamurti Paddhati) Astrology assistant.\n"
+    "STRICT RULES:\n"
+    "1. Answer using ONLY the KP Book Excerpts below. Quote the exact text.\n"
+    "2. Cite only rule IDs that appear in the excerpts (e.g. [KP_MAR_0673]).\n"
+    "3. NEVER invent page numbers, chapter numbers, or book locations.\n"
+    "4. If the excerpts do not contain the answer, say: 'The retrieved excerpts do not cover this. Low confidence.'\n"
+    "5. Do NOT repeat yourself. End your answer after the conclusion.\n"
+    "6. Format: Answer -> Exact quote -> Rule ID -> Confidence (high/medium/low)."
+)
+
+SYSTEM_NO_RAG = (
+    "You are an expert KP (Krishnamurti Paddhati) Astrology assistant.\n"
+    "Cite KP rules when applicable. Include confidence level.\n"
+    "Use KP terminology: sub-lord, cusp, significator, nakshatra, dasha-bhukti.\n"
+    "NEVER invent page numbers or book locations. Be concise. Do NOT repeat yourself."
+)
+
+
+def _retrieve_rag_chunks(question, top_k=5):
+    """Retrieve relevant KP book chunks from Pinecone."""
+    if not rag_index or not openai_client:
+        return []
+    try:
+        resp = openai_client.embeddings.create(
+            model=EMBEDDING_MODEL, input=question, dimensions=EMBEDDING_DIM
+        )
+        qvec = resp.data[0].embedding
+        results = rag_index.query(vector=qvec, top_k=top_k, include_metadata=True)
+        chunks = []
+        for m in results["matches"]:
+            txt = m["metadata"].get("text", "").strip()
+            refs = m["metadata"].get("rule_refs", [])
+            ref_str = ",".join(refs) if refs else "no_id"
+            chunks.append(f"[{ref_str}] {txt}")
+        return chunks
+    except Exception as e:
+        print(f"  RAG error: {e}")
+        return []
 
 # ── Test questions (compact — only relevant chart data per question) ──────────
 TESTS = [
@@ -254,17 +331,40 @@ What is your confidence the cited rule content matches original KP text?""",
 
 # ── Run tests ─────────────────────────────────────────────────────────────────
 def run_test(test):
-    """Send a test question to vLLM and collect the response."""
-    sys_msg = ("You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
-               "Cite KP rules. Include confidence level. Use KP terminology. Be concise.")
+    """Send a test question to vLLM with RAG context (mirrors chat UI)."""
+    question = test["question"]
+
+    # Retrieve RAG chunks
+    rag_chunks = _retrieve_rag_chunks(question, top_k=args.top_k)
+
+    # Build system prompt with adaptive RAG trimming
+    fixed_chars = len(SYSTEM_BASE) + len(question) + 30
+    rag_budget = MAX_INPUT_CHARS - fixed_chars
+
+    selected_chunks = []
+    used_chars = 0
+    for chunk in rag_chunks:
+        if used_chars + len(chunk) + 1 > rag_budget:
+            break
+        selected_chunks.append(chunk)
+        used_chars += len(chunk) + 1
+
+    if selected_chunks:
+        rag_text = "\n".join(selected_chunks)
+        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_text}"
+    else:
+        sys_content = SYSTEM_NO_RAG
+
     messages = [
-        {"role": "system", "content": sys_msg},
-        {"role": "user", "content": test["question"]},
+        {"role": "system", "content": sys_content},
+        {"role": "user", "content": question},
     ]
-    # Estimate input tokens (~4 chars per token) and cap max_tokens to fit context
-    est_input = (len(sys_msg) + len(test["question"])) // 3  # conservative estimate
-    max_output = min(768, args.max_model_len - est_input - 50)
-    max_output = max(max_output, 256)  # at least 256 tokens for answer
+
+    # Calibrated token budget
+    total_chars = sum(len(m["content"]) for m in messages)
+    est_input_tokens = int(total_chars / 0.78) + 100
+    available = MAX_MODEL_LEN - est_input_tokens
+    max_output = max(64, min(OUTPUT_TOKENS, available))
 
     try:
         t0 = time.time()
@@ -274,6 +374,7 @@ def run_test(test):
             max_tokens=max_output,
             temperature=args.temperature,
             top_p=0.9,
+            extra_body={"repetition_penalty": 1.15},
         )
         elapsed = time.time() - t0
         answer = resp.choices[0].message.content.strip()
@@ -282,10 +383,11 @@ def run_test(test):
             "answer": answer,
             "latency_s": round(elapsed, 2),
             "tokens": tokens,
+            "rag_chunks": len(selected_chunks),
             "error": None,
         }
     except Exception as e:
-        return {"answer": "", "latency_s": 0, "tokens": 0, "error": str(e)}
+        return {"answer": "", "latency_s": 0, "tokens": 0, "rag_chunks": len(selected_chunks), "error": str(e)}
 
 
 def main():
@@ -296,6 +398,7 @@ def main():
     print(f"vLLM:        {args.vllm_url}")
     print(f"Tests:       {len(TESTS)}")
     print(f"Temperature: {args.temperature}")
+    print(f"RAG:         {'Enabled (top-k=' + str(args.top_k) + ')' if rag_index else 'Disabled'}")
     print(f"Output:      {args.output}")
     print("=" * 80)
 
@@ -312,6 +415,7 @@ def main():
             "model_answer": res["answer"],
             "latency_s": res["latency_s"],
             "tokens": res["tokens"],
+            "rag_chunks": res.get("rag_chunks", 0),
             "error": res["error"],
             # Placeholders for manual scoring
             "book_answer": "",
@@ -328,7 +432,7 @@ def main():
         has_house = any(f"{h}" in answer_lower for h in ["sub-lord", "sub lord", "cusp", "significator"])
 
         status = "OK" if not res["error"] else f"ERROR: {res['error']}"
-        print(f"  Status: {status} | {res['latency_s']}s | {len(res['answer'])} chars")
+        print(f"  Status: {status} | {res['latency_s']}s | {len(res['answer'])} chars | RAG:{res.get('rag_chunks',0)} chunks")
         print(f"  Rule citation: {'Yes' if has_rule else 'NO'} | "
               f"Confidence: {'Yes' if has_confidence else 'NO'} | "
               f"KP terms: {'Yes' if has_house else 'NO'}")
@@ -342,6 +446,8 @@ def main():
                 "timestamp": datetime.now().isoformat(),
                 "vllm_url": args.vllm_url,
                 "temperature": args.temperature,
+                "rag_enabled": rag_index is not None,
+                "top_k": args.top_k,
                 "num_tests": len(TESTS),
                 "chart": "TestUser, 01.01.1990, 10:00, Aquarius Lagna",
             },
@@ -356,18 +462,19 @@ def main():
         f.write(f"**Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  \n")
         f.write(f"**Model:** kp-astrology-llama (Llama 3.1 8B fine-tuned)  \n")
         f.write(f"**Chart:** TestUser, 01.01.1990, 10:00, Aquarius Lagna  \n")
-        f.write(f"**Temperature:** {args.temperature}  \n\n")
+        f.write(f"**Temperature:** {args.temperature}  \n")
+        f.write(f"**RAG:** {'Enabled (top-k=' + str(args.top_k) + ')' if rag_index else 'Disabled'}  \n\n")
 
         f.write("## Summary\n\n")
-        f.write("| # | ID | Category | Weight | Latency | Rule Cited | Confidence | Score |\n")
-        f.write("|---|-----|----------|--------|---------|------------|------------|-------|\n")
+        f.write("| # | ID | Category | Weight | Latency | RAG | Rule Cited | Confidence | Score |\n")
+        f.write("|---|-----|----------|--------|---------|-----|------------|------------|-------|\n")
         for i, r in enumerate(results, 1):
             al = r["model_answer"].lower()
             rule = "Yes" if ("rule" in al or "kp_" in al) else "No"
             conf = "Yes" if "confidence" in al else "No"
             score = r["score"] if r["score"] is not None else "—"
             f.write(f"| {i} | {r['q_id']} | {r['category']} | {r['weight']} | "
-                    f"{r['latency_s']}s | {rule} | {conf} | {score} |\n")
+                    f"{r['latency_s']}s | {r.get('rag_chunks',0)} | {rule} | {conf} | {score} |\n")
 
         f.write("\n## Detailed Results\n\n")
         for i, r in enumerate(results, 1):
