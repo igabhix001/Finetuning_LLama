@@ -39,24 +39,71 @@ Guidelines:
 - Be respectful and professional"""
 
 
+MAX_MODEL_LEN = 2048
+CHARS_PER_TOKEN = 3  # conservative estimate
+MIN_OUTPUT_TOKENS = 128
+MAX_OUTPUT_TOKENS = 512
+
+
+def _estimate_tokens(text):
+    """Rough token count (~3 chars/token for English + KP terminology)."""
+    return len(text) // CHARS_PER_TOKEN
+
+
+def _trim_history(history_msgs, budget_tokens):
+    """Keep the most recent history turns that fit within budget_tokens."""
+    kept = []
+    total = 0
+    for msg in reversed(history_msgs):
+        t = _estimate_tokens(msg["content"])
+        if total + t > budget_tokens:
+            break
+        kept.insert(0, msg)
+        total += t
+    return kept
+
+
 def predict(message, history):
     """Stream a response from the vLLM server. Handles both dict and tuple history formats."""
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    # Build raw history list
+    hist_msgs = []
     for h in history:
         if isinstance(h, dict):
-            messages.append({"role": h["role"], "content": h["content"]})
+            hist_msgs.append({"role": h["role"], "content": h["content"]})
         elif isinstance(h, (list, tuple)) and len(h) == 2:
             if h[0]:
-                messages.append({"role": "user", "content": h[0]})
+                hist_msgs.append({"role": "user", "content": h[0]})
             if h[1]:
-                messages.append({"role": "assistant", "content": h[1]})
+                hist_msgs.append({"role": "assistant", "content": h[1]})
+
+    # Token budget: system + user message are fixed; history is flexible
+    sys_tokens = _estimate_tokens(SYSTEM_PROMPT)
+    user_tokens = _estimate_tokens(message)
+    fixed_tokens = sys_tokens + user_tokens + 20  # 20 token safety margin
+
+    # Reserve space for output, then give rest to history
+    output_budget = MAX_OUTPUT_TOKENS
+    history_budget = MAX_MODEL_LEN - fixed_tokens - output_budget
+    if history_budget < 0:
+        history_budget = 0
+        output_budget = max(MIN_OUTPUT_TOKENS, MAX_MODEL_LEN - fixed_tokens - 10)
+
+    trimmed_hist = _trim_history(hist_msgs, history_budget)
+
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    messages.extend(trimmed_hist)
     messages.append({"role": "user", "content": message})
+
+    # Recalculate actual max_tokens to be safe
+    total_input_est = sum(_estimate_tokens(m["content"]) for m in messages) + 20
+    max_tokens = min(output_budget, MAX_MODEL_LEN - total_input_est)
+    max_tokens = max(max_tokens, MIN_OUTPUT_TOKENS)
 
     try:
         stream = client.chat.completions.create(
             model="kp-astrology-llama",
             messages=messages,
-            max_tokens=768,
+            max_tokens=max_tokens,
             temperature=0.7,
             top_p=0.9,
             stream=True,
