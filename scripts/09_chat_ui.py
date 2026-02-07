@@ -73,45 +73,68 @@ else:
 SYSTEM_BASE = (
     "You are a warm, experienced KP astrologer speaking directly to the person sitting in front of you. "
     "Talk like a real astrologer — conversational, confident, compassionate. Use Hinglish naturally.\n\n"
-    "STRICT FORMAT RULES (MUST follow):\n"
-    "- Write ONLY 3-5 short paragraphs. No more. Be concise like a real astrologer in a consultation.\n"
-    "- NEVER use bold headers, labels, or section titles like **Remedy:**, **Timing:**, **Analysis:**, "
-    "**Conclusion:**, **Hindi Quote:**, **Additional Consideration:**, **Confidence:**. "
-    "These are BANNED. Just speak naturally in flowing paragraphs.\n"
-    "- NEVER write 'Confidence: high/medium/low' anywhere.\n"
-    "- Weave Hindi/Hinglish quotes naturally into sentences without labeling them.\n"
-    "- Weave remedy product suggestions naturally into a sentence, don't put them in a separate labeled section.\n\n"
+    "MANDATORY OUTPUT FORMAT (violating ANY rule = failure):\n"
+    "1. Write EXACTLY 3-4 short paragraphs. No bullet points. No numbered lists. No bold text. No headers.\n"
+    "2. NEVER use **bold**, headers, labels, or section titles. No **Remedy:**, **Timing:**, **Analysis:**, "
+    "**Digestive System:**, **Immune System:**, **Conclusion:**, **Confidence:**. ZERO markdown formatting.\n"
+    "3. NEVER write 'Confidence: high/medium/low' anywhere.\n"
+    "4. MUST include a specific Hindi/Hinglish motivational quote naturally in your response "
+    "(e.g., 'Jab samay aayega, rishta khud chalkar aayega' or 'Andhera jitna gehra ho, subah utni roshan hoti hai').\n"
+    "5. MUST mention specific months and years from the dasha/antardasha dates in the chart. "
+    "Read the MAHADASHA and ANTARDASHA dates and quote them. Example: 'Venus bhukti from 2005-07 to 2006-09 is key.'\n"
+    "6. If RELEVANT PRODUCTS are listed below, MUST weave exactly ONE product naturally into a sentence. "
+    "Example: 'Venus ko strengthen karne ke liye hamara Shukra Kavach Pendant try karein.'\n\n"
     "CONTENT RULES:\n"
-    "- Talk TO the person: 'Aapke 7th house mein...', 'You will see...', NOT 'The native has...'\n"
-    "- Give SPECIFIC time predictions: actual months, years, date ranges from the dasha/antardasha periods. "
-    "Example: 'Venus-Mercury bhukti from March 2026 to August 2026 is your marriage window.'\n"
-    "- When chart has dasha data, CALCULATE which dasha/bhukti covers the event and state exact dates.\n"
+    "- Talk TO the person: 'Aapke 7th house mein...', 'Aapko...', NOT 'The native has...'\n"
+    "- Read the Pre-extracted Chart Summary and use exact cusp sub-lords, planet significations, dasha dates.\n"
     "- Use KP Book Excerpts for rules. Reference [rule_id] briefly if needed.\n"
-    "- NEVER invent page numbers or chapter numbers.\n"
-    "- If Chart Data is provided, READ the Pre-extracted Chart Summary carefully. "
-    "Use exact values: cusp sub-lords, planet significations, dasha periods.\n"
+    "- NEVER invent page numbers or chapter numbers.\n\n"
+    "EXAMPLE of ideal response (follow this style exactly):\n"
+    "Aapke 7th house ka sub-lord Saturn hai jo houses 1,2,3,4,7,9 signify karta hai — yeh marriage ke liye "
+    "positive indication hai. Venus bhukti 2005-07 se 2006-09 tak chal raha hai aur Venus directly 7th aur 11th "
+    "house signify karta hai, toh yeh period marriage ke liye sabse strong window hai. Jab samay aayega, rishta "
+    "khud chalkar aayega. Venus ko aur strengthen karne ke liye hamara Shukra Kavach Pendant try karein.\n"
 )
 
 SYSTEM_NO_RAG = (
     "You are a warm, experienced KP astrologer speaking directly to the person. "
     "Talk conversationally in Hinglish. Give SPECIFIC dates/months/years from dasha data.\n\n"
-    "STRICT RULES:\n"
-    "1. Write ONLY 3-5 short paragraphs. NEVER use bold headers, labels, or 'Confidence:'.\n"
-    "2. If Chart Data is provided, use exact values from the Pre-extracted Chart Summary.\n"
-    "3. Give specific time predictions from dasha periods — not vague theory.\n"
-    "4. Talk TO the person. Weave Hindi quotes and product suggestions naturally into sentences.\n"
-    "5. NEVER invent page numbers. If no chart data, ask them to share their birth chart.\n"
+    "MANDATORY RULES:\n"
+    "1. Write EXACTLY 3-4 short paragraphs. No bold text, no headers, no bullet points, no markdown.\n"
+    "2. MUST include specific months/years from the antardasha dates in the chart summary.\n"
+    "3. MUST include one Hindi motivational quote naturally woven in.\n"
+    "4. If products are listed, MUST mention one product naturally as a remedy suggestion.\n"
+    "5. Talk TO the person. NEVER write 'Confidence:' or use **bold** formatting.\n"
+    "6. NEVER invent page numbers. If no chart data, ask them to share their birth chart.\n"
 )
 
 # ── Product catalog (for remedy recommendations) ─────────────────────────────
 PRODUCT_CATALOG = []
-if args.products_csv and os.path.isfile(args.products_csv):
+_products_path = args.products_csv
+if not _products_path:
+    # Auto-discover product CSV in common locations
+    import glob
+    _search_dirs = [
+        os.path.dirname(os.path.abspath(__file__)),           # scripts/
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."),  # Finetuning_LLama/
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."),  # project root
+        "/workspace",                                          # RunPod default
+    ]
+    for d in _search_dirs:
+        found = glob.glob(os.path.join(d, "products_export*.csv"))
+        if found:
+            _products_path = found[0]
+            print(f"  Products: auto-discovered {_products_path}")
+            break
+if _products_path and os.path.isfile(_products_path):
     try:
-        with open(args.products_csv, encoding="utf-8") as f:
+        with open(_products_path, encoding="utf-8") as f:
             PRODUCT_CATALOG = list(csv.DictReader(f))
-        print(f"  Products: {len(PRODUCT_CATALOG)} items loaded from {args.products_csv}")
+        print(f"  Products: {len(PRODUCT_CATALOG)} items loaded from {_products_path}")
     except Exception as e:
         print(f"  Products: FAILED ({e})")
+else:
+    print("  Products: NONE (no CSV found — pass --products-csv or place products_export*.csv nearby)")
 
 
 # ── Context-window budget ─────────────────────────────────────────────────────
@@ -120,8 +143,8 @@ if args.products_csv and os.path.isfile(args.products_csv):
 #   Llama 3.1 chat template adds ~100 tokens overhead per conversation
 # Strategy: use HARD CHARACTER BUDGET instead of unreliable token estimates.
 MAX_MODEL_LEN = args.max_model_len
-# Output tokens: 400 for ≤4096, 512 for larger contexts (more causes repetition)
-OUTPUT_TOKENS = 400 if MAX_MODEL_LEN <= 4096 else min(512, MAX_MODEL_LEN // 8)
+# Output tokens: 400 for ≤4096, 768 for larger contexts (need enough for 3-4 paragraphs)
+OUTPUT_TOKENS = 400 if MAX_MODEL_LEN <= 4096 else min(768, MAX_MODEL_LEN // 6)
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100  # 100 for template
 MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
 print(f"  Budget:  max_model_len={MAX_MODEL_LEN}, output={OUTPUT_TOKENS}, input_chars≈{MAX_INPUT_CHARS}")
@@ -206,44 +229,39 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
 
 
 def _postprocess(text):
-    """Strip robotic headers, confidence lines, leaked tokens, and duplicate blocks."""
+    """Strip ALL markdown formatting, robotic headers, confidence lines, leaked tokens."""
     # 1. Remove leaked internal tokens
     for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>"]:
         text = text.replace(token, "")
-    # 2. Remove hallucinated page numbers like "page_no=1234567890" or "source: page_no=..."
+    # 2. Remove hallucinated page numbers
     text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
-    # 3. Strip robotic bold headers/labels that model still generates
-    #    e.g. "**Remedy:**", "**Timing:**", "**Hindi Quote:**", "**Marriage Timing Analysis**"
-    robotic_labels = [
-        r'\*\*(?:Remedy|Timing|Timing Recommendation|Hindi Quote|Additional Consideration'
-        r'|Remedial Guidance|Analysis|Conclusion|Key Insight|Important Note'
-        r'|Marriage Timing Analysis|Career Analysis|Financial Analysis'
-        r'|Summary|Recommendation|Warning|Note|Observation):?\*\*:?\s*',
-    ]
-    for pattern in robotic_labels:
-        text = re.sub(pattern, '', text, flags=re.IGNORECASE)
-    # 4. Remove ALL "Confidence: xxx" lines entirely
-    text = re.sub(r'\n\s*\*{0,2}[Cc]onfidence:?\*{0,2}:?\s*(high|medium|low|med)\s*', '', text)
-    # 5. Remove "rules_used:" and similar metadata lines
+    # 3. Strip ALL **bold** markdown — convert **text** to just text (universal fix)
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
+    # 4. Strip remaining * emphasis markers
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)
+    # 5. Remove ALL "Confidence: xxx" lines entirely
+    text = re.sub(r'(?:^|\n)\s*[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)\s*', '', text)
+    # 6. Remove metadata and robotic label lines
     lines = text.split("\n")
     cleaned = []
     for line in lines:
         stripped = line.strip().lower()
+        # Skip metadata lines
         if stripped.startswith("rules_used:") or stripped.startswith("rules used:"):
             continue
         if stripped.startswith("level:") or stripped.startswith("answer_end"):
             continue
-        # Skip lines that are ONLY a bold header with no content
-        if re.match(r'^\s*\*\*[^*]+\*\*\s*$', line.strip()) and len(line.strip()) < 60:
+        # Skip lines that are ONLY a short label/header (no real content)
+        if stripped.endswith(":") and len(stripped) < 40 and not any(c.isdigit() for c in stripped):
             continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
-    # 6. Clean up multiple blank lines
+    # 7. Clean up multiple blank lines
     result = re.sub(r'\n{3,}', '\n\n', result)
-    # 7. Remove trailing incomplete sentences (cut off by token limit)
+    # 8. Remove trailing incomplete sentences (cut off by token limit)
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
-        if last_period > len(result) * 0.7:  # only trim if we keep >70%
+        if last_period > len(result) * 0.5:  # trim if we keep >50%
             result = result[:last_period + 1]
     return result
 
@@ -430,9 +448,10 @@ def predict(message, history, chart_data):
     product_instruction = ""
     if product_text:
         product_instruction = (
-            f"\n\nRELEVANT PRODUCTS (weave ONE naturally into your answer as a remedy suggestion):\n"
+            f"\n\nRELEVANT PRODUCTS — YOU MUST MENTION EXACTLY ONE IN YOUR RESPONSE:\n"
             f"{product_text}\n"
-            f"Example: 'To strengthen [planet], I'd recommend our [Product Name].'"
+            f"Pick the most relevant product and weave it into your last paragraph naturally. "
+            f"Example: 'Is samay [planet] ko strengthen karne ke liye hamara [Product Name] bahut helpful hoga.'"
         )
 
     # 3. Build prompt with adaptive RAG trimming to fit character budget
