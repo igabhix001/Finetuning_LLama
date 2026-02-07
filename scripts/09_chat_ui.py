@@ -192,24 +192,29 @@ def _postprocess(text):
     return result
 
 
-def predict(message, history):
-    """Stream a response from the vLLM server with RAG-augmented context."""
-    # 1. Retrieve RAG chunks
+def predict(message, history, chart_data):
+    """Stream a response from the vLLM server with RAG-augmented context + chart data."""
+    # 0. Prepend chart data to user message if provided
+    chart_data = (chart_data or "").strip()
+    if chart_data:
+        full_question = f"Chart Data from computation engine:\n{chart_data}\n\nQuestion: {message}"
+    else:
+        full_question = message
+
+    # 1. Retrieve RAG chunks (search using original question for better retrieval)
     rag_chunks = _retrieve_rag_chunks(message, top_k=args.top_k)
 
     # 2. Build prompt with adaptive RAG trimming to fit character budget
-    #    Fixed parts: SYSTEM_BASE + user message
-    fixed_chars = len(SYSTEM_BASE) + len(message) + 30  # 30 for labels
+    fixed_chars = len(SYSTEM_BASE) + len(full_question) + 30
     rag_budget = MAX_INPUT_CHARS - fixed_chars
 
-    # Add RAG chunks one by one until budget is exhausted
     selected_chunks = []
     used_chars = 0
     for chunk in rag_chunks:
         if used_chars + len(chunk) + 1 > rag_budget:
             break
         selected_chunks.append(chunk)
-        used_chars += len(chunk) + 1  # +1 for newline
+        used_chars += len(chunk) + 1
 
     if selected_chunks:
         rag_text = "\n".join(selected_chunks)
@@ -220,21 +225,21 @@ def predict(message, history):
     # 3. Build messages (no history — every question gets fresh RAG)
     messages = [
         {"role": "system", "content": sys_content},
-        {"role": "user", "content": message},
+        {"role": "user", "content": full_question},
     ]
 
     # 4. Final safety: compute actual char total and adjust output tokens
     total_chars = sum(len(m["content"]) for m in messages)
-    est_input_tokens = int(total_chars / 0.78) + 100  # +100 for template
+    est_input_tokens = int(total_chars / 0.78) + 100
     available = MAX_MODEL_LEN - est_input_tokens
     max_tokens = max(64, min(OUTPUT_TOKENS, available))
 
     if max_tokens < 64:
         yield (f"Your message is too long for the model's {MAX_MODEL_LEN}-token context. "
-               "Please ask a shorter question.")
+               "Please shorten the chart data or question.")
         return
 
-    # 5. Append product recommendations if relevant
+    # 5. Product recommendations
     product_text = _get_product_recommendations(message)
 
     try:
@@ -253,7 +258,6 @@ def predict(message, history):
             if delta:
                 partial += delta
                 yield _postprocess(partial)
-        # Append product recommendations after model response
         if product_text:
             partial += "\n" + product_text
             yield _postprocess(partial)
@@ -261,29 +265,150 @@ def predict(message, history):
         yield f"Error: {e}\n\nMake sure vLLM is running: python scripts/08_serve_vllm.py"
 
 
-# ── Example questions ─────────────────────────────────────────────────────────
-EXAMPLES = [
-    "What does the 7th house sub-lord signify in marriage timing?",
-    "How to predict career success using KP astrology?",
-    "Explain Venus's role in KP astrology for relationships.",
-    "How do I calculate ruling planets for a horary question?",
-    "What is the 11th cusp sub-lord's significance for financial gains?",
-    "Describe the Mahadasha-Antardasha system in KP astrology.",
+# ── Sample chart template ─────────────────────────────────────────────────────
+SAMPLE_CHART = """{
+  "native": "TestUser",
+  "dob": "01-01-1990",
+  "tob": "10:00",
+  "pob": "Mumbai",
+  "lagna": "Aquarius",
+  "cusps": {
+    "7": {"degree": "122-12-49", "sign": "Leo", "sub_lord": "VEN", "nak_lord": "MON"},
+    "2": {"degree": "42-15-30", "sign": "Taurus", "sub_lord": "JUP"},
+    "11": {"degree": "312-45-10", "sign": "Aquarius", "sub_lord": "MAR"}
+  },
+  "planets": {
+    "VEN": {"degree": "282-37-46", "sign": "Aquarius", "nak": "Dhanishta", "sub": "MAR", "houses_signified": [1,4,6,9,12]},
+    "SUN": {"degree": "256-30-00", "sign": "Sagittarius", "houses_signified": [4,7,9,11,12]},
+    "MER": {"degree": "270-15-20", "sign": "Capricorn", "houses_signified": [5,7,8,9,11,12]},
+    "JUP": {"degree": "85-40-10", "sign": "Gemini", "houses_signified": [2,5,11,12]},
+    "MAR": {"degree": "195-20-30", "sign": "Libra", "houses_signified": [1,3,10,11,12]}
+  },
+  "dasha": {"maha": "Jupiter", "antar": "Ketu", "balance": "MAR 0Y 7M 23D"},
+  "house_significators": {
+    "2": ["JUP","SUN"],
+    "7": ["MER","SUN"],
+    "11": ["JUP","MAR","MER","SAT","SUN"]
+  }
+}"""
+
+EXAMPLE_QUESTIONS = [
+    "Will marriage happen for this native? Analyze the 7th cusp sub-lord.",
+    "What is the best dasha period for marriage in this chart?",
+    "Analyze financial gains — check 11th cusp sub-lord significance.",
+    "Is the current Jupiter-Ketu dasha favorable for career?",
+    "What does Venus signify for relationships in this chart?",
 ]
 
-# ── Build Gradio UI (compatible with Gradio 4.x and 5.x) ────────────────────
+# ── Build Gradio UI with Chart Data panel ─────────────────────────────────────
 rag_status = "with RAG (Pinecone + OpenAI)" if rag_index else "without RAG"
-demo = gr.ChatInterface(
-    fn=predict,
+
+with gr.Blocks(
     title="KP Astrology AI Assistant",
-    description=(
-        f"**Powered by fine-tuned Llama 3.1 8B** — {rag_status}\n\n"
-        "Ask any question about KP astrology — marriage timing, career predictions, "
-        "horary analysis, dasha periods, and more."
-    ),
-    examples=EXAMPLES,
-    cache_examples=False,
-)
+    theme=gr.themes.Soft(),
+    css="""
+    .chart-panel { border-right: 1px solid #e0e0e0; }
+    .main-title { text-align: center; margin-bottom: 0.5em; }
+    .subtitle { text-align: center; color: #666; font-size: 0.9em; }
+    """
+) as demo:
+    gr.Markdown(
+        f"# KP Astrology AI Assistant\n"
+        f"**Powered by fine-tuned Llama 3.1 8B** — {rag_status}",
+        elem_classes="main-title"
+    )
+    gr.Markdown(
+        "Paste your computation engine output (chart data) on the left, "
+        "then ask questions on the right. The model will analyze the specific chart.",
+        elem_classes="subtitle"
+    )
+
+    with gr.Row():
+        # ── Left panel: Chart Data Input ──────────────────────────────────
+        with gr.Column(scale=1, elem_classes="chart-panel"):
+            gr.Markdown("### 📊 Chart Data (from Computation Engine)")
+            chart_input = gr.Textbox(
+                label="Paste chart JSON or text here",
+                placeholder="Paste the output from your computation engine...\n\n"
+                            "Supports JSON format or plain text with planetary positions, "
+                            "cusps, dashas, and house significators.",
+                lines=20,
+                max_lines=30,
+            )
+            with gr.Row():
+                load_sample_btn = gr.Button("📋 Load Sample Chart", size="sm")
+                clear_chart_btn = gr.Button("🗑️ Clear", size="sm")
+
+            gr.Markdown(
+                "**How to use:**\n"
+                "1. Your computation engine outputs chart data (planets, cusps, dashas)\n"
+                "2. Paste that output here (JSON or text)\n"
+                "3. Ask any KP astrology question on the right\n"
+                "4. The model analyzes YOUR specific chart using KP rules"
+            )
+
+        # ── Right panel: Chat ─────────────────────────────────────────────
+        with gr.Column(scale=2):
+            chatbot = gr.Chatbot(
+                label="KP Astrology Chat",
+                height=500,
+                type="messages",
+            )
+            msg_input = gr.Textbox(
+                label="Ask a question about the chart",
+                placeholder="e.g. Will marriage happen? Analyze 7th cusp sub-lord...",
+                lines=2,
+            )
+            with gr.Row():
+                send_btn = gr.Button("Send", variant="primary")
+                clear_btn = gr.Button("Clear Chat")
+
+            gr.Markdown("**Example questions:**")
+            with gr.Row():
+                for eq in EXAMPLE_QUESTIONS[:3]:
+                    gr.Button(eq, size="sm").click(
+                        fn=lambda q=eq: q, outputs=msg_input
+                    )
+            with gr.Row():
+                for eq in EXAMPLE_QUESTIONS[3:]:
+                    gr.Button(eq, size="sm").click(
+                        fn=lambda q=eq: q, outputs=msg_input
+                    )
+
+    # ── Event handlers ────────────────────────────────────────────────────
+    def load_sample():
+        return SAMPLE_CHART
+
+    def clear_chart():
+        return ""
+
+    def user_submit(message, history, chart_data):
+        """Add user message to history and stream bot response."""
+        if not message.strip():
+            yield history, ""
+            return
+        history = history + [{"role": "user", "content": message}]
+        yield history, ""
+        # Stream bot response
+        partial_response = ""
+        for chunk in predict(message, history, chart_data):
+            partial_response = chunk
+            yield history + [{"role": "assistant", "content": partial_response}], ""
+
+    load_sample_btn.click(fn=load_sample, outputs=chart_input)
+    clear_chart_btn.click(fn=clear_chart, outputs=chart_input)
+    clear_btn.click(fn=lambda: [], outputs=chatbot)
+
+    msg_input.submit(
+        fn=user_submit,
+        inputs=[msg_input, chatbot, chart_input],
+        outputs=[chatbot, msg_input],
+    )
+    send_btn.click(
+        fn=user_submit,
+        inputs=[msg_input, chatbot, chart_input],
+        outputs=[chatbot, msg_input],
+    )
 
 print(f"\n{'='*60}")
 print(f"  KP Astrology Chat UI")
