@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import json
 import os
 import re
 import csv
@@ -194,10 +195,111 @@ def _postprocess(text):
     return result
 
 
+MAX_CHART_CHARS = 1800  # keep chart data compact to fit in 4096-token context
+
+
+def _compact_chart_data(raw: str) -> str:
+    """Parse computation-engine JSON and return a compact KP-essential summary.
+
+    Keeps: birthDetails, planetKP (sign/nak/sub), cuspKP (sign/nak/sub),
+           significators, planetSignifications, dashaBalance.
+    Discards: raw positions, debug, full dasha tree (antardashas/pratyantars).
+    If input is not valid JSON, truncate to MAX_CHART_CHARS.
+    """
+    raw = raw.strip()
+    if not raw:
+        return ""
+
+    # ── Try JSON parse ────────────────────────────────────────────────────
+    try:
+        d = json.loads(raw)
+    except (json.JSONDecodeError, ValueError):
+        # Not JSON — just truncate plain text
+        if len(raw) > MAX_CHART_CHARS:
+            return raw[:MAX_CHART_CHARS] + "\n[...chart data truncated]"
+        return raw
+
+    lines = []
+
+    # 1. Birth details
+    bd = d.get("birthDetails", {})
+    name = d.get("name", "Unknown")
+    gender = d.get("gender", "")
+    lines.append(f"Native: {name}, {gender}")
+    lines.append(f"DOB: {bd.get('date','?')}, TOB: {bd.get('time','?')}, "
+                 f"Place: {bd.get('place','?')}")
+    lines.append(f"Lagna: {bd.get('lagna','?')} ({bd.get('lagnaLord','?')}), "
+                 f"Rasi: {bd.get('rasi','?')} ({bd.get('rasiLord','?')}), "
+                 f"Nakshatra: {bd.get('nakshatra','?')} ({bd.get('nakshatraLord','?')})")
+
+    # 2. Planet KP table (compact: sign, nak lord, sub lord, houses)
+    pkp = d.get("planetKP", {})
+    psig = d.get("planetSignifications", {})
+    if pkp:
+        lines.append("\nPLANET KP TABLE:")
+        for planet in ["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn","Rahu","Ketu"]:
+            p = pkp.get(planet, {})
+            if not p:
+                continue
+            deg = p.get("degree", "?")
+            if isinstance(deg, float):
+                deg = f"{deg:.2f}"
+            houses = psig.get(planet, [])
+            h_str = ",".join(str(h) for h in houses) if houses else "?"
+            lines.append(f"  {planet}: {deg}° {p.get('rashi','?')}, "
+                         f"Nak={p.get('nakshatra','?')}({p.get('nakshatraLord','?')}), "
+                         f"Sub={p.get('sub','?')}, houses=[{h_str}]")
+
+    # 3. Cusp KP table (compact)
+    ckp = d.get("cuspKP", {})
+    if ckp:
+        lines.append("\nCUSP KP TABLE:")
+        for c in [str(i) for i in range(1, 13)]:
+            cp = ckp.get(c, {})
+            if not cp:
+                continue
+            deg = cp.get("degree", "?")
+            if isinstance(deg, float):
+                deg = f"{deg:.2f}"
+            lines.append(f"  Cusp {c}: {deg}° {cp.get('rashi','?')}, "
+                         f"Nak={cp.get('nakshatra','?')}({cp.get('nakshatraLord','?')}), "
+                         f"Sub={cp.get('sub','?')}")
+
+    # 4. House significators
+    sig = d.get("significators", {})
+    if sig:
+        lines.append("\nHOUSE SIGNIFICATORS:")
+        for h in [str(i) for i in range(1, 13)]:
+            planets = sig.get(h, [])
+            if planets:
+                lines.append(f"  House {h}: {','.join(planets)}")
+
+    # 5. Dasha balance (top-level only, no nested tree)
+    dashas = d.get("dashas", {})
+    db = dashas.get("dashaBalance", {})
+    if db:
+        lines.append(f"\nDASHA BALANCE: {db.get('lord','?')} "
+                     f"{db.get('years',0)}Y {db.get('months',0)}M {db.get('days',0)}D")
+    # Top-level dasha periods (lord + dates only, no antar/pratyantars)
+    dlist = dashas.get("dashas", [])
+    if dlist:
+        lines.append("MAHADASHA PERIODS:")
+        for dd in dlist:
+            lines.append(f"  {dd.get('lord','?')}: "
+                         f"{dd.get('startDate','?')[:10]} to {dd.get('endDate','?')[:10]} "
+                         f"({dd.get('period','?')})")
+
+    result = "\n".join(lines)
+    # Final safety truncation
+    if len(result) > MAX_CHART_CHARS:
+        result = result[:MAX_CHART_CHARS] + "\n[...chart data truncated]"
+    return result
+
+
 def predict(message, history, chart_data):
     """Stream a response from the vLLM server with RAG-augmented context + chart data."""
-    # 0. Prepend chart data to user message if provided
-    chart_data = (chart_data or "").strip()
+    # 0. Compact chart data (auto-parse large JSON from computation engine)
+    chart_data = _compact_chart_data(chart_data or "")
     if chart_data:
         full_question = f"Chart Data from computation engine:\n{chart_data}\n\nQuestion: {message}"
     else:
@@ -318,10 +420,10 @@ with gr.Blocks(title="KP Astrology AI Assistant") as demo:
         with gr.Column(scale=1):
             gr.Markdown("### 📊 Chart Data (from Computation Engine)")
             chart_input = gr.Textbox(
-                label="Paste chart JSON or text here",
-                placeholder="Paste the output from your computation engine...\n\n"
-                            "Supports JSON format or plain text with planetary positions, "
-                            "cusps, dashas, and house significators.",
+                label="Paste full chart JSON here",
+                placeholder="Paste the FULL JSON from your computation engine.\n"
+                            "Large JSON is auto-compacted — only KP-essential fields "
+                            "(planets, cusps, significators, dasha balance) are kept.",
                 lines=20,
                 max_lines=30,
             )
@@ -332,7 +434,7 @@ with gr.Blocks(title="KP Astrology AI Assistant") as demo:
             gr.Markdown(
                 "**How to use:**\n"
                 "1. Your computation engine outputs chart data (planets, cusps, dashas)\n"
-                "2. Paste that output here (JSON or text)\n"
+                "2. Paste the **full JSON** here — large files are auto-compacted\n"
                 "3. Ask any KP astrology question on the right\n"
                 "4. The model analyzes YOUR specific chart using KP rules"
             )
