@@ -112,8 +112,10 @@ def _retrieve_rag_chunks(question, top_k=5):
     if not rag_index or not openai_client:
         return []
     try:
+        # Truncate to ~500 chars to stay within OpenAI embedding 8192 token limit
+        embed_text = question[:500]
         resp = openai_client.embeddings.create(
-            model=EMBEDDING_MODEL, input=question, dimensions=EMBEDDING_DIM
+            model=EMBEDDING_MODEL, input=embed_text, dimensions=EMBEDDING_DIM
         )
         qvec = resp.data[0].embedding
         results = rag_index.query(vector=qvec, top_k=top_k, include_metadata=True)
@@ -303,29 +305,17 @@ EXAMPLE_QUESTIONS = [
 # ── Build Gradio UI with Chart Data panel ─────────────────────────────────────
 rag_status = "with RAG (Pinecone + OpenAI)" if rag_index else "without RAG"
 
-with gr.Blocks(
-    title="KP Astrology AI Assistant",
-    theme=gr.themes.Soft(),
-    css="""
-    .chart-panel { border-right: 1px solid #e0e0e0; }
-    .main-title { text-align: center; margin-bottom: 0.5em; }
-    .subtitle { text-align: center; color: #666; font-size: 0.9em; }
-    """
-) as demo:
+with gr.Blocks(title="KP Astrology AI Assistant") as demo:
     gr.Markdown(
         f"# KP Astrology AI Assistant\n"
-        f"**Powered by fine-tuned Llama 3.1 8B** — {rag_status}",
-        elem_classes="main-title"
-    )
-    gr.Markdown(
+        f"**Powered by fine-tuned Llama 3.1 8B** — {rag_status}\n\n"
         "Paste your computation engine output (chart data) on the left, "
-        "then ask questions on the right. The model will analyze the specific chart.",
-        elem_classes="subtitle"
+        "then ask questions on the right. The model will analyze the specific chart."
     )
 
     with gr.Row():
         # ── Left panel: Chart Data Input ──────────────────────────────────
-        with gr.Column(scale=1, elem_classes="chart-panel"):
+        with gr.Column(scale=1):
             gr.Markdown("### 📊 Chart Data (from Computation Engine)")
             chart_input = gr.Textbox(
                 label="Paste chart JSON or text here",
@@ -336,8 +326,8 @@ with gr.Blocks(
                 max_lines=30,
             )
             with gr.Row():
-                load_sample_btn = gr.Button("📋 Load Sample Chart", size="sm")
-                clear_chart_btn = gr.Button("🗑️ Clear", size="sm")
+                load_sample_btn = gr.Button("Load Sample Chart")
+                clear_chart_btn = gr.Button("Clear Chart")
 
             gr.Markdown(
                 "**How to use:**\n"
@@ -352,7 +342,6 @@ with gr.Blocks(
             chatbot = gr.Chatbot(
                 label="KP Astrology Chat",
                 height=500,
-                type="messages",
             )
             msg_input = gr.Textbox(
                 label="Ask a question about the chart",
@@ -363,17 +352,16 @@ with gr.Blocks(
                 send_btn = gr.Button("Send", variant="primary")
                 clear_btn = gr.Button("Clear Chat")
 
-            gr.Markdown("**Example questions:**")
+            gr.Markdown("**Example questions** (click to fill):")
+            example_btns = []
             with gr.Row():
                 for eq in EXAMPLE_QUESTIONS[:3]:
-                    gr.Button(eq, size="sm").click(
-                        fn=lambda q=eq: q, outputs=msg_input
-                    )
+                    b = gr.Button(eq, variant="secondary")
+                    example_btns.append((b, eq))
             with gr.Row():
                 for eq in EXAMPLE_QUESTIONS[3:]:
-                    gr.Button(eq, size="sm").click(
-                        fn=lambda q=eq: q, outputs=msg_input
-                    )
+                    b = gr.Button(eq, variant="secondary")
+                    example_btns.append((b, eq))
 
     # ── Event handlers ────────────────────────────────────────────────────
     def load_sample():
@@ -387,17 +375,22 @@ with gr.Blocks(
         if not message.strip():
             yield history, ""
             return
-        history = history + [{"role": "user", "content": message}]
+        history = history + [[message, None]]
         yield history, ""
         # Stream bot response
         partial_response = ""
         for chunk in predict(message, history, chart_data):
             partial_response = chunk
-            yield history + [{"role": "assistant", "content": partial_response}], ""
+            history[-1][1] = partial_response
+            yield history, ""
 
     load_sample_btn.click(fn=load_sample, outputs=chart_input)
     clear_chart_btn.click(fn=clear_chart, outputs=chart_input)
     clear_btn.click(fn=lambda: [], outputs=chatbot)
+
+    # Wire example question buttons
+    for btn, question_text in example_btns:
+        btn.click(fn=lambda q=question_text: q, outputs=msg_input)
 
     msg_input.submit(
         fn=user_submit,
@@ -418,9 +411,14 @@ if args.share:
 print(f"  vLLM:   {args.vllm_url}")
 print(f"{'='*60}\n")
 
-demo.launch(
+launch_kwargs = dict(
     server_name="0.0.0.0",
     server_port=args.port,
     share=args.share,
     show_error=True,
 )
+# Gradio 6+ moved theme to launch(); older versions use Blocks(theme=...)
+try:
+    demo.launch(**launch_kwargs, theme=gr.themes.Soft())
+except TypeError:
+    demo.launch(**launch_kwargs)
