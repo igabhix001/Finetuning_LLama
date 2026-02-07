@@ -200,8 +200,8 @@ def predict(message, history):
             max_tokens=max_tokens,
             temperature=0.4,
             top_p=0.9,
-            repetition_penalty=1.15,
             stream=True,
+            extra_body={"repetition_penalty": 1.15},
         )
         partial = ""
         for chunk in stream:
