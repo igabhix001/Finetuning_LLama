@@ -64,21 +64,18 @@ else:
     print("  RAG:    DISABLED (--no-rag flag)")
 
 SYSTEM_BASE = (
-    "You are an expert KP (Krishnamurti Paddhati) Astrology assistant.\n"
-    "STRICT RULES:\n"
-    "1. Answer using ONLY the KP Book Excerpts below. Quote the exact text.\n"
-    "2. Cite only rule IDs that appear in the excerpts (e.g. [KP_MAR_0673]).\n"
-    "3. NEVER invent page numbers, chapter numbers, or book locations.\n"
-    "4. If the excerpts do not contain the answer, say: 'The retrieved excerpts do not cover this. Low confidence.'\n"
-    "5. Do NOT repeat yourself. End your answer after the conclusion.\n"
-    "6. Format: Answer → Exact quote → Rule ID → Confidence (high/medium/low)."
+    "KP astrology expert. RULES: "
+    "Use ONLY excerpts below. Quote exact text. "
+    "Cite only rule IDs from excerpts. "
+    "NEVER invent pages/chapters. "
+    "If not covered, say so. No repetition. "
+    "Format: Answer, Quote, Rule ID, Confidence(high/med/low)."
 )
 
 SYSTEM_NO_RAG = (
-    "You are an expert KP (Krishnamurti Paddhati) Astrology assistant.\n"
-    "Cite KP rules when applicable. Include confidence level.\n"
-    "Use KP terminology: sub-lord, cusp, significator, nakshatra, dasha-bhukti.\n"
-    "NEVER invent page numbers or book locations. Be concise. Do NOT repeat yourself."
+    "KP astrology expert. Cite KP rules. Include confidence. "
+    "Use KP terms: sub-lord, cusp, significator, nakshatra, dasha-bhukti. "
+    "NEVER invent pages. Be concise. No repetition."
 )
 
 
@@ -88,7 +85,7 @@ SYSTEM_NO_RAG = (
 #   Llama 3.1 chat template adds ~100 tokens overhead per conversation
 # Strategy: use HARD CHARACTER BUDGET instead of unreliable token estimates.
 MAX_MODEL_LEN = 2048
-OUTPUT_TOKENS = 200          # safe output budget
+OUTPUT_TOKENS = 250          # enough for answer + quote + rule ID
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100  # 100 for template
 MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)  # ≈ 1362 chars total input
 
