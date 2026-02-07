@@ -16,6 +16,7 @@ Usage:
 
 import json
 import os
+import re
 import sys
 import time
 import argparse
@@ -66,21 +67,21 @@ else:
 
 # ── Context budget (calibrated from vLLM errors: 0.78 chars/token) ───────────
 MAX_MODEL_LEN = args.max_model_len
-OUTPUT_TOKENS = 250
+OUTPUT_TOKENS = min(400, MAX_MODEL_LEN // 4)  # scale with context window
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100
 MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
 
 SYSTEM_BASE = (
-    "KP astrology expert. RULES: "
-    "Use ONLY excerpts below. Quote exact text. "
-    "Cite only rule IDs from excerpts. "
-    "NEVER invent pages/chapters. "
+    "KP astrology expert. Answer in same language as user (English or Hinglish). "
+    "RULES: Use ONLY excerpts below. Quote exact text with [rule_id]. "
+    "If source/page shown, cite it. NEVER invent pages/chapters. "
     "If not covered, say so. No repetition. "
-    "Format: Answer, Quote, Rule ID, Confidence(high/med/low)."
+    "Format: Answer, Quote, Rule ID, Source, Confidence(high/med/low)."
 )
 
 SYSTEM_NO_RAG = (
-    "KP astrology expert. Cite KP rules. Include confidence. "
+    "KP astrology expert. Answer in same language as user (English or Hinglish). "
+    "Cite KP rules. Include confidence. "
     "Use KP terms: sub-lord, cusp, significator, nakshatra, dasha-bhukti. "
     "NEVER invent pages. Be concise. No repetition."
 )
@@ -101,11 +102,36 @@ def _retrieve_rag_chunks(question, top_k=5):
             txt = m["metadata"].get("text", "").strip()
             refs = m["metadata"].get("rule_refs", [])
             ref_str = ",".join(refs) if refs else "no_id"
-            chunks.append(f"[{ref_str}] {txt}")
+            src = m["metadata"].get("source_book", "")
+            page = m["metadata"].get("source_page", "")
+            loc = f" (Source: {src}, {page})" if src and page else ""
+            chunks.append(f"[{ref_str}]{loc} {txt}")
         return chunks
     except Exception as e:
         print(f"  RAG error: {e}")
         return []
+
+
+def _postprocess(text):
+    """Strip duplicate confidence/metadata blocks that the model sometimes repeats."""
+    seen_conf = False
+    lines = text.split("\n")
+    cleaned = []
+    for line in lines:
+        stripped = line.strip().lower()
+        is_conf = stripped.startswith("confidence:") or stripped.startswith("**confidence")
+        is_rules = stripped.startswith("rules_used:") or stripped.startswith("rules used:")
+        if is_conf or is_rules:
+            if seen_conf:
+                continue
+            seen_conf = True
+        cleaned.append(line)
+    result = "\n".join(cleaned).rstrip()
+    if result and result[-1] not in '.!?"\n)}':
+        last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
+        if last_period > len(result) * 0.7:
+            result = result[:last_period + 1]
+    return result
 
 # ── Test questions (compact — only relevant chart data per question) ──────────
 TESTS = [
@@ -374,7 +400,7 @@ def run_test(test):
             extra_body={"repetition_penalty": 1.15},
         )
         elapsed = time.time() - t0
-        answer = resp.choices[0].message.content.strip()
+        answer = _postprocess(resp.choices[0].message.content.strip())
         tokens = resp.usage.total_tokens if resp.usage else 0
         return {
             "answer": answer,

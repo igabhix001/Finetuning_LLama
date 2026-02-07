@@ -15,6 +15,8 @@ Usage:
 
 import argparse
 import os
+import re
+import csv
 import gradio as gr
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -32,6 +34,10 @@ parser.add_argument("--no-rag", action="store_true",
                     help="Disable Pinecone RAG retrieval")
 parser.add_argument("--top-k", type=int, default=5,
                     help="Number of RAG chunks to retrieve (default: 5)")
+parser.add_argument("--max-model-len", type=int, default=2048,
+                    help="vLLM max model length (default: 2048, use 4096 if GPU allows)")
+parser.add_argument("--products-csv", type=str, default=None,
+                    help="Path to products CSV for remedy recommendations")
 args = parser.parse_args()
 
 # ── Connect to vLLM backend ──────────────────────────────────────────────────
@@ -64,19 +70,29 @@ else:
     print("  RAG:    DISABLED (--no-rag flag)")
 
 SYSTEM_BASE = (
-    "KP astrology expert. RULES: "
-    "Use ONLY excerpts below. Quote exact text. "
-    "Cite only rule IDs from excerpts. "
-    "NEVER invent pages/chapters. "
+    "KP astrology expert. Answer in same language as user (English or Hinglish). "
+    "RULES: Use ONLY excerpts below. Quote exact text with [rule_id]. "
+    "If source/page shown, cite it. NEVER invent pages/chapters. "
     "If not covered, say so. No repetition. "
-    "Format: Answer, Quote, Rule ID, Confidence(high/med/low)."
+    "Format: Answer, Quote, Rule ID, Source, Confidence(high/med/low)."
 )
 
 SYSTEM_NO_RAG = (
-    "KP astrology expert. Cite KP rules. Include confidence. "
+    "KP astrology expert. Answer in same language as user (English or Hinglish). "
+    "Cite KP rules. Include confidence. "
     "Use KP terms: sub-lord, cusp, significator, nakshatra, dasha-bhukti. "
     "NEVER invent pages. Be concise. No repetition."
 )
+
+# ── Product catalog (for remedy recommendations) ─────────────────────────────
+PRODUCT_CATALOG = []
+if args.products_csv and os.path.isfile(args.products_csv):
+    try:
+        with open(args.products_csv, encoding="utf-8") as f:
+            PRODUCT_CATALOG = list(csv.DictReader(f))
+        print(f"  Products: {len(PRODUCT_CATALOG)} items loaded from {args.products_csv}")
+    except Exception as e:
+        print(f"  Products: FAILED ({e})")
 
 
 # ── Context-window budget ─────────────────────────────────────────────────────
@@ -84,10 +100,11 @@ SYSTEM_NO_RAG = (
 #   ~1450 chars of content → 1865 actual tokens (ratio ≈ 0.78 chars/token)
 #   Llama 3.1 chat template adds ~100 tokens overhead per conversation
 # Strategy: use HARD CHARACTER BUDGET instead of unreliable token estimates.
-MAX_MODEL_LEN = 2048
-OUTPUT_TOKENS = 250          # enough for answer + quote + rule ID
+MAX_MODEL_LEN = args.max_model_len
+OUTPUT_TOKENS = min(400, MAX_MODEL_LEN // 4)  # scale with context window
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100  # 100 for template
-MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)  # ≈ 1362 chars total input
+MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
+print(f"  Budget:  max_model_len={MAX_MODEL_LEN}, output={OUTPUT_TOKENS}, input_chars≈{MAX_INPUT_CHARS}")
 
 
 def _retrieve_rag_chunks(question, top_k=5):
@@ -105,11 +122,74 @@ def _retrieve_rag_chunks(question, top_k=5):
             txt = m["metadata"].get("text", "").strip()
             refs = m["metadata"].get("rule_refs", [])
             ref_str = ",".join(refs) if refs else "no_id"
-            chunks.append(f"[{ref_str}] {txt}")
+            src = m["metadata"].get("source_book", "")
+            page = m["metadata"].get("source_page", "")
+            loc = f" (Source: {src}, {page})" if src and page else ""
+            chunks.append(f"[{ref_str}]{loc} {txt}")
         return chunks
     except Exception as e:
         print(f"RAG retrieval error: {e}")
         return []
+
+
+def _get_product_recommendations(question, max_items=3):
+    """Find relevant products based on question keywords."""
+    if not PRODUCT_CATALOG:
+        return ""
+    q_lower = question.lower()
+    planet_product_map = {
+        "venus": ["diamond", "opal", "white", "zircon"],
+        "saturn": ["blue sapphire", "neelam", "karungali", "iron"],
+        "jupiter": ["yellow sapphire", "pukhraj", "topaz", "rudraksha"],
+        "mars": ["coral", "moonga", "red"],
+        "mercury": ["emerald", "panna", "green"],
+        "moon": ["pearl", "moti", "chandra"],
+        "sun": ["ruby", "manik", "surya"],
+        "rahu": ["hessonite", "gomed", "garnet"],
+        "ketu": ["cat eye", "lehsunia", "vaidurya"],
+    }
+    keywords = []
+    for planet, terms in planet_product_map.items():
+        if planet in q_lower:
+            keywords.extend(terms)
+    if not keywords:
+        return ""
+    matches = []
+    for p in PRODUCT_CATALOG:
+        title_lower = p.get("Title", "").lower()
+        if any(kw in title_lower for kw in keywords):
+            matches.append(p)
+    if not matches:
+        return ""
+    matches = matches[:max_items]
+    lines = ["\nRelevant Remedies (from store):"]
+    for p in matches:
+        lines.append(f"- {p['Title']} (SKU: {p['SKU']}, Rs.{p['Sale Price']})")
+    return "\n".join(lines)
+
+
+def _postprocess(text):
+    """Strip duplicate confidence/metadata blocks that the model sometimes repeats."""
+    # Remove duplicate "Confidence: xxx" lines (keep first)
+    seen_conf = False
+    lines = text.split("\n")
+    cleaned = []
+    for line in lines:
+        stripped = line.strip().lower()
+        is_conf = stripped.startswith("confidence:") or stripped.startswith("**confidence")
+        is_rules = stripped.startswith("rules_used:") or stripped.startswith("rules used:")
+        if is_conf or is_rules:
+            if seen_conf:
+                continue  # skip duplicate
+            seen_conf = True
+        cleaned.append(line)
+    result = "\n".join(cleaned).rstrip()
+    # Remove trailing incomplete sentences (cut off by token limit)
+    if result and result[-1] not in '.!?"\n)}':
+        last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
+        if last_period > len(result) * 0.7:  # only trim if we keep >70%
+            result = result[:last_period + 1]
+    return result
 
 
 def predict(message, history):
@@ -150,9 +230,12 @@ def predict(message, history):
     max_tokens = max(64, min(OUTPUT_TOKENS, available))
 
     if max_tokens < 64:
-        yield ("Your message is too long for the model's 2048-token context. "
+        yield (f"Your message is too long for the model's {MAX_MODEL_LEN}-token context. "
                "Please ask a shorter question.")
         return
+
+    # 5. Append product recommendations if relevant
+    product_text = _get_product_recommendations(message)
 
     try:
         stream = client.chat.completions.create(
@@ -169,7 +252,11 @@ def predict(message, history):
             delta = chunk.choices[0].delta.content
             if delta:
                 partial += delta
-                yield partial
+                yield _postprocess(partial)
+        # Append product recommendations after model response
+        if product_text:
+            partial += "\n" + product_text
+            yield _postprocess(partial)
     except Exception as e:
         yield f"Error: {e}\n\nMake sure vLLM is running: python scripts/08_serve_vllm.py"
 
