@@ -40,13 +40,16 @@ Guidelines:
 
 
 def predict(message, history):
-    """Stream a response from the vLLM server. History is list of [user, bot] tuples."""
+    """Stream a response from the vLLM server. Handles both dict and tuple history formats."""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    for user_msg, bot_msg in history:
-        if user_msg:
-            messages.append({"role": "user", "content": user_msg})
-        if bot_msg:
-            messages.append({"role": "assistant", "content": bot_msg})
+    for h in history:
+        if isinstance(h, dict):
+            messages.append({"role": h["role"], "content": h["content"]})
+        elif isinstance(h, (list, tuple)) and len(h) == 2:
+            if h[0]:
+                messages.append({"role": "user", "content": h[0]})
+            if h[1]:
+                messages.append({"role": "assistant", "content": h[1]})
     messages.append({"role": "user", "content": message})
 
     try:
