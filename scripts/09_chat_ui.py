@@ -375,13 +375,17 @@ with gr.Blocks(title="KP Astrology AI Assistant") as demo:
         if not message.strip():
             yield history, ""
             return
-        history = history + [[message, None]]
+        history = history + [{"role": "user", "content": message}]
         yield history, ""
         # Stream bot response
         partial_response = ""
         for chunk in predict(message, history, chart_data):
             partial_response = chunk
-            history[-1][1] = partial_response
+            # Replace or append assistant message
+            if history and history[-1].get("role") == "assistant":
+                history[-1]["content"] = partial_response
+            else:
+                history = history + [{"role": "assistant", "content": partial_response}]
             yield history, ""
 
     load_sample_btn.click(fn=load_sample, outputs=chart_input)
