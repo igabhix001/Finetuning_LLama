@@ -14,8 +14,12 @@ Usage:
 """
 
 import argparse
+import os
 import gradio as gr
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ── CLI args ──────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(description="KP Astrology Chat UI")
@@ -24,50 +28,115 @@ parser.add_argument("--vllm-url", type=str, default="http://localhost:8000/v1",
 parser.add_argument("--port", type=int, default=7860, help="Gradio UI port")
 parser.add_argument("--share", action="store_true",
                     help="Create a public Gradio share link")
+parser.add_argument("--no-rag", action="store_true",
+                    help="Disable Pinecone RAG retrieval")
+parser.add_argument("--top-k", type=int, default=3,
+                    help="Number of RAG chunks to retrieve (default: 3)")
 args = parser.parse_args()
 
 # ── Connect to vLLM backend ──────────────────────────────────────────────────
 client = OpenAI(base_url=args.vllm_url, api_key="not-needed")
 
-SYSTEM_PROMPT = """You are an expert KP (Krishnamurti Paddhati) Astrology assistant. You provide accurate, detailed predictions and explanations based on KP astrology principles.
+# ── RAG: Pinecone + OpenAI embeddings ────────────────────────────────────────
+rag_index = None
+openai_client = None
+EMBEDDING_MODEL = "text-embedding-3-large"
+EMBEDDING_DIM = 3072
 
-Guidelines:
-- Always cite specific KP rules when applicable (e.g., rules_used: KP_MAR_0673)
-- Include a confidence level (high/medium/low) for predictions
-- Use proper KP terminology: sub-lord, cusp, significator, nakshatra, dasha-bhukti
-- Explain the reasoning step by step
-- Be respectful and professional"""
+if not args.no_rag:
+    try:
+        from pinecone import Pinecone
+        pc_key = os.getenv("PINECONE_API_KEY")
+        oai_key = os.getenv("OPENAI_API_KEY")
+        idx_name = os.getenv("PINECONE_INDEX_NAME", "kp-astrology-kb")
+
+        if pc_key and oai_key and oai_key != "your-openai-api-key-here":
+            pc = Pinecone(api_key=pc_key)
+            rag_index = pc.Index(idx_name)
+            openai_client = OpenAI(api_key=oai_key)
+            stats = rag_index.describe_index_stats()
+            print(f"  RAG:    Pinecone '{idx_name}' ({stats['total_vector_count']} vectors)")
+        else:
+            print("  RAG:    DISABLED (missing PINECONE_API_KEY or OPENAI_API_KEY)")
+    except Exception as e:
+        print(f"  RAG:    DISABLED (init error: {e})")
+else:
+    print("  RAG:    DISABLED (--no-rag flag)")
+
+SYSTEM_BASE = ("You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
+              "Answer using ONLY the KP book excerpts provided below. "
+              "Cite the exact rule ID (e.g. KP_MAR_0673) from the excerpts. "
+              "If the excerpts don't cover the question, say so honestly. "
+              "Include confidence level. Use KP terminology. Be concise.")
+
+SYSTEM_NO_RAG = ("You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
+                 "Cite KP rules when applicable. Include confidence level. "
+                 "Use KP terminology: sub-lord, cusp, significator, nakshatra, dasha-bhukti. "
+                 "Be concise and step-by-step.")
 
 
 # ── Context-window budget constants ───────────────────────────────────────────
-# Llama 3.1 tokenizer: ~2 chars/token for mixed English+KP text.
-# Chat template adds ~15 special tokens per message (header, EOS, etc.)
-# plus ~10 tokens for the overall BOS / generation prompt.
 MAX_MODEL_LEN = 2048
 CHARS_PER_TOKEN = 2          # conservative: overestimates token count
 MSG_OVERHEAD = 15            # special tokens per chat message (template)
 GLOBAL_OVERHEAD = 50         # BOS + generation prompt + safety margin
 DEFAULT_OUTPUT_TOKENS = 256  # enough for a solid KP answer
 MIN_OUTPUT_TOKENS = 64
-MAX_HISTORY_TURNS = 2        # keep only last N user+assistant pairs
+MAX_HISTORY_TURNS = 1        # keep only last 1 pair to leave room for RAG context
 
 
-def _estimate_tokens(text):
+def _est_tok(text):
     """Conservative token estimate (~2 chars/token for Llama 3.1)."""
     return len(text) // CHARS_PER_TOKEN + 1
 
 
-def _estimate_messages_tokens(messages):
+def _est_msgs_tok(messages):
     """Estimate total tokens for a list of chat messages including template overhead."""
     total = GLOBAL_OVERHEAD
     for m in messages:
-        total += _estimate_tokens(m["content"]) + MSG_OVERHEAD
+        total += _est_tok(m["content"]) + MSG_OVERHEAD
     return total
 
 
+def _retrieve_rag_context(question, top_k=3, max_chars=600):
+    """Retrieve relevant KP book chunks from Pinecone via OpenAI embedding."""
+    if not rag_index or not openai_client:
+        return ""
+    try:
+        resp = openai_client.embeddings.create(
+            model=EMBEDDING_MODEL, input=question, dimensions=EMBEDDING_DIM
+        )
+        qvec = resp.data[0].embedding
+        results = rag_index.query(vector=qvec, top_k=top_k, include_metadata=True)
+        chunks = []
+        total_chars = 0
+        for m in results["matches"]:
+            txt = m["metadata"].get("text", "")
+            refs = m["metadata"].get("rule_refs", [])
+            ref_str = ",".join(refs) if refs else "no_id"
+            entry = f"[{ref_str}] {txt}"
+            if total_chars + len(entry) > max_chars:
+                break
+            chunks.append(entry)
+            total_chars += len(entry)
+        return "\n".join(chunks)
+    except Exception as e:
+        print(f"RAG retrieval error: {e}")
+        return ""
+
+
 def predict(message, history):
-    """Stream a response from the vLLM server. Handles both dict and tuple history formats."""
-    # 1. Parse history into pairs of (user_msg, assistant_msg)
+    """Stream a response from the vLLM server with RAG-augmented context."""
+    # 1. Retrieve relevant KP book passages
+    rag_context = _retrieve_rag_context(message, top_k=args.top_k)
+
+    # 2. Build system prompt with or without RAG context
+    if rag_context:
+        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_context}"
+    else:
+        sys_content = SYSTEM_NO_RAG
+
+    # 3. Parse history into pairs of (user_msg, assistant_msg)
     pairs = []
     if history:
         pending_user = None
@@ -82,34 +151,34 @@ def predict(message, history):
                 if h[0] and h[1]:
                     pairs.append((h[0], h[1]))
 
-    # 2. Keep only the most recent turns
+    # 4. Keep only the most recent turn
     pairs = pairs[-MAX_HISTORY_TURNS:]
 
-    # 3. Build messages list
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    # 5. Build messages list
+    messages = [{"role": "system", "content": sys_content}]
     for u, a in pairs:
         messages.append({"role": "user", "content": u})
         messages.append({"role": "assistant", "content": a})
     messages.append({"role": "user", "content": message})
 
-    # 4. Token budget: input estimate → available output
-    input_est = _estimate_messages_tokens(messages)
+    # 6. Token budget: compute available output
+    input_est = _est_msgs_tok(messages)
     available = MAX_MODEL_LEN - input_est
     max_tokens = max(MIN_OUTPUT_TOKENS, min(DEFAULT_OUTPUT_TOKENS, available))
 
-    # 5. If still too tight, drop history one pair at a time
+    # 7. If too tight, drop history
     while available < MIN_OUTPUT_TOKENS and pairs:
         pairs.pop(0)
-        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+        messages = [{"role": "system", "content": sys_content}]
         for u, a in pairs:
             messages.append({"role": "user", "content": u})
             messages.append({"role": "assistant", "content": a})
         messages.append({"role": "user", "content": message})
-        input_est = _estimate_messages_tokens(messages)
+        input_est = _est_msgs_tok(messages)
         available = MAX_MODEL_LEN - input_est
         max_tokens = max(MIN_OUTPUT_TOKENS, min(DEFAULT_OUTPUT_TOKENS, available))
 
-    # 6. Final guard: if even without history it won't fit, tell user
+    # 8. Final guard
     if available < MIN_OUTPUT_TOKENS:
         yield ("Your message is too long for the model's context window (2048 tokens). "
                "Please ask a shorter or more specific question.")
@@ -145,11 +214,12 @@ EXAMPLES = [
 ]
 
 # ── Build Gradio UI (compatible with Gradio 4.x and 5.x) ────────────────────
+rag_status = "with RAG (Pinecone + OpenAI)" if rag_index else "without RAG"
 demo = gr.ChatInterface(
     fn=predict,
     title="KP Astrology AI Assistant",
     description=(
-        "**Powered by fine-tuned Llama 3.1 8B** — trained on Krishnamurti Paddhati texts\n\n"
+        f"**Powered by fine-tuned Llama 3.1 8B** — {rag_status}\n\n"
         "Ask any question about KP astrology — marriage timing, career predictions, "
         "horary analysis, dasha periods, and more."
     ),
