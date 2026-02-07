@@ -72,35 +72,34 @@ else:
 
 SYSTEM_BASE = (
     "You are a warm, experienced KP astrologer speaking directly to the person sitting in front of you. "
-    "Talk like a real astrologer — conversational, confident, compassionate. Use Hinglish naturally. "
-    "Sprinkle in motivational Hindi sayings/quotes where appropriate.\n\n"
-    "STYLE RULES:\n"
-    "- Talk TO the person: 'Your 7th house lord...', 'You will see...', NOT 'The native has...'\n"
-    "- Give SPECIFIC time predictions: actual months, years, date ranges derived from dasha periods in the chart. "
-    "Example: 'Marriage yoga is forming between March 2026 to August 2026.' NOT vague theory.\n"
-    "- When chart has dasha data, CALCULATE which dasha/bhukti period covers the event and state the dates.\n"
-    "- Keep it SHORT and punchy — 4-6 sentences max. No long academic paragraphs.\n"
-    "- NEVER use robotic headers like 'Analysis:', 'Conclusion:', 'Confidence: medium'. "
-    "Just speak naturally like a human astrologer.\n"
-    "- If a remedy product is relevant, weave it naturally: 'To strengthen Venus, wear our Shukra Kavach Pendant.'\n"
-    "- Add a Hindi/Hinglish quote naturally: 'Jab samay aayega, rishta khud chalkar aayega.'\n\n"
-    "DATA RULES:\n"
-    "1. If Chart Data is provided, READ the Pre-extracted Chart Summary carefully. "
-    "Use exact values: cusp sub-lords, planet significations, dasha periods, degrees.\n"
-    "2. Use KP Book Excerpts below for rules. You may reference [rule_id] briefly but don't make it the focus.\n"
-    "3. NEVER invent page numbers or chapter numbers.\n"
-    "4. If no chart data is provided, say 'Please share your birth chart so I can give you an accurate reading.'\n"
-    "5. No repetition. Be direct and specific.\n"
+    "Talk like a real astrologer — conversational, confident, compassionate. Use Hinglish naturally.\n\n"
+    "STRICT FORMAT RULES (MUST follow):\n"
+    "- Write ONLY 3-5 short paragraphs. No more. Be concise like a real astrologer in a consultation.\n"
+    "- NEVER use bold headers, labels, or section titles like **Remedy:**, **Timing:**, **Analysis:**, "
+    "**Conclusion:**, **Hindi Quote:**, **Additional Consideration:**, **Confidence:**. "
+    "These are BANNED. Just speak naturally in flowing paragraphs.\n"
+    "- NEVER write 'Confidence: high/medium/low' anywhere.\n"
+    "- Weave Hindi/Hinglish quotes naturally into sentences without labeling them.\n"
+    "- Weave remedy product suggestions naturally into a sentence, don't put them in a separate labeled section.\n\n"
+    "CONTENT RULES:\n"
+    "- Talk TO the person: 'Aapke 7th house mein...', 'You will see...', NOT 'The native has...'\n"
+    "- Give SPECIFIC time predictions: actual months, years, date ranges from the dasha/antardasha periods. "
+    "Example: 'Venus-Mercury bhukti from March 2026 to August 2026 is your marriage window.'\n"
+    "- When chart has dasha data, CALCULATE which dasha/bhukti covers the event and state exact dates.\n"
+    "- Use KP Book Excerpts for rules. Reference [rule_id] briefly if needed.\n"
+    "- NEVER invent page numbers or chapter numbers.\n"
+    "- If Chart Data is provided, READ the Pre-extracted Chart Summary carefully. "
+    "Use exact values: cusp sub-lords, planet significations, dasha periods.\n"
 )
 
 SYSTEM_NO_RAG = (
     "You are a warm, experienced KP astrologer speaking directly to the person. "
     "Talk conversationally in Hinglish. Give SPECIFIC dates/months/years from dasha data.\n\n"
-    "RULES:\n"
-    "1. If Chart Data is provided, use exact values from the Pre-extracted Chart Summary.\n"
-    "2. Give specific time predictions from dasha periods — not vague theory.\n"
-    "3. Talk TO the person: 'Your Venus is strong...', 'You will see improvement by March 2026...'\n"
-    "4. Keep it short, warm, and punchy. No robotic headers. Add Hindi quotes naturally.\n"
+    "STRICT RULES:\n"
+    "1. Write ONLY 3-5 short paragraphs. NEVER use bold headers, labels, or 'Confidence:'.\n"
+    "2. If Chart Data is provided, use exact values from the Pre-extracted Chart Summary.\n"
+    "3. Give specific time predictions from dasha periods — not vague theory.\n"
+    "4. Talk TO the person. Weave Hindi quotes and product suggestions naturally into sentences.\n"
     "5. NEVER invent page numbers. If no chart data, ask them to share their birth chart.\n"
 )
 
@@ -207,28 +206,41 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
 
 
 def _postprocess(text):
-    """Strip duplicate confidence/metadata blocks and leaked internal tokens."""
+    """Strip robotic headers, confidence lines, leaked tokens, and duplicate blocks."""
     # 1. Remove leaked internal tokens
     for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>"]:
         text = text.replace(token, "")
     # 2. Remove hallucinated page numbers like "page_no=1234567890" or "source: page_no=..."
     text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
-    # 3. Remove duplicate "Confidence: xxx" lines (keep first)
-    seen_conf = False
+    # 3. Strip robotic bold headers/labels that model still generates
+    #    e.g. "**Remedy:**", "**Timing:**", "**Hindi Quote:**", "**Marriage Timing Analysis**"
+    robotic_labels = [
+        r'\*\*(?:Remedy|Timing|Timing Recommendation|Hindi Quote|Additional Consideration'
+        r'|Remedial Guidance|Analysis|Conclusion|Key Insight|Important Note'
+        r'|Marriage Timing Analysis|Career Analysis|Financial Analysis'
+        r'|Summary|Recommendation|Warning|Note|Observation):?\*\*:?\s*',
+    ]
+    for pattern in robotic_labels:
+        text = re.sub(pattern, '', text, flags=re.IGNORECASE)
+    # 4. Remove ALL "Confidence: xxx" lines entirely
+    text = re.sub(r'\n\s*\*{0,2}[Cc]onfidence:?\*{0,2}:?\s*(high|medium|low|med)\s*', '', text)
+    # 5. Remove "rules_used:" and similar metadata lines
     lines = text.split("\n")
     cleaned = []
     for line in lines:
         stripped = line.strip().lower()
-        is_conf = stripped.startswith("confidence:") or stripped.startswith("**confidence")
-        is_rules = stripped.startswith("rules_used:") or stripped.startswith("rules used:")
-        is_meta = stripped.startswith("level:") or stripped.startswith("answer_end")
-        if is_conf or is_rules or is_meta:
-            if seen_conf:
-                continue  # skip duplicate
-            seen_conf = True
+        if stripped.startswith("rules_used:") or stripped.startswith("rules used:"):
+            continue
+        if stripped.startswith("level:") or stripped.startswith("answer_end"):
+            continue
+        # Skip lines that are ONLY a bold header with no content
+        if re.match(r'^\s*\*\*[^*]+\*\*\s*$', line.strip()) and len(line.strip()) < 60:
+            continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
-    # 4. Remove trailing incomplete sentences (cut off by token limit)
+    # 6. Clean up multiple blank lines
+    result = re.sub(r'\n{3,}', '\n\n', result)
+    # 7. Remove trailing incomplete sentences (cut off by token limit)
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
         if last_period > len(result) * 0.7:  # only trim if we keep >70%
@@ -384,6 +396,23 @@ def predict(message, history, chart_data):
     # 0. Compact chart data (auto-parse large JSON from computation engine)
     chart_data = _compact_chart_data(chart_data or "")
     summary = ""
+
+    # Hard guard: if no chart data and user asks a personal prediction question,
+    # don't let the model hallucinate — ask for chart data first.
+    if not chart_data:
+        personal_keywords = [
+            "when will", "will i", "my marriage", "my career", "my financial",
+            "my health", "my job", "should i", "am i", "will my", "my kundali",
+            "meri shaadi", "mera career", "when did", "kab hogi", "obstacles",
+            "get married", "change fields", "improve", "facing", "confused",
+        ]
+        msg_lower = message.lower()
+        if any(kw in msg_lower for kw in personal_keywords):
+            yield ("Aapka chart data abhi load nahi hai. Please apni birth chart (JSON) "
+                   "left panel mein paste karein — tabhi main aapko accurate prediction "
+                   "de paunga. Bina chart ke prediction dena galat hoga. 🙏")
+            return
+
     if chart_data:
         # Auto-surface key values so model doesn't need to parse JSON
         summary = _chart_summary(chart_data)
