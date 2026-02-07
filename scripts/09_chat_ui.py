@@ -40,25 +40,20 @@ Guidelines:
 
 
 def predict(message, history):
-    """Stream a response from the vLLM server using Gradio 6 messages format."""
+    """Stream a response from the vLLM server. History is list of [user, bot] tuples."""
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    # Gradio 6 passes history as list of {"role":..., "content":...} dicts
-    if history:
-        for h in history:
-            if isinstance(h, dict):
-                messages.append({"role": h["role"], "content": h["content"]})
-            elif isinstance(h, (list, tuple)) and len(h) == 2:
-                if h[0]:
-                    messages.append({"role": "user", "content": h[0]})
-                if h[1]:
-                    messages.append({"role": "assistant", "content": h[1]})
+    for user_msg, bot_msg in history:
+        if user_msg:
+            messages.append({"role": "user", "content": user_msg})
+        if bot_msg:
+            messages.append({"role": "assistant", "content": bot_msg})
     messages.append({"role": "user", "content": message})
 
     try:
         stream = client.chat.completions.create(
             model="kp-astrology-llama",
             messages=messages,
-            max_tokens=1024,
+            max_tokens=768,
             temperature=0.7,
             top_p=0.9,
             stream=True,
@@ -70,23 +65,22 @@ def predict(message, history):
                 partial += delta
                 yield partial
     except Exception as e:
-        yield f"Error connecting to vLLM server: {e}\n\nMake sure the server is running:\n  python scripts/08_serve_vllm.py"
+        yield f"Error: {e}\n\nMake sure vLLM is running: python scripts/08_serve_vllm.py"
 
 
 # ── Example questions ─────────────────────────────────────────────────────────
 EXAMPLES = [
-    "What does the 7th house sub-lord signify in marriage timing according to KP astrology?",
+    "What does the 7th house sub-lord signify in marriage timing?",
     "How to predict career success using KP astrology?",
-    "Explain the role of Venus in KP astrology for relationships.",
-    "How do I calculate the ruling planets for a horary question?",
-    "What is the significance of the 11th cusp sub-lord for financial gains?",
+    "Explain Venus's role in KP astrology for relationships.",
+    "How do I calculate ruling planets for a horary question?",
+    "What is the 11th cusp sub-lord's significance for financial gains?",
     "Describe the Mahadasha-Antardasha system in KP astrology.",
 ]
 
-# ── Build Gradio UI (Gradio 6 compatible) ────────────────────────────────────
+# ── Build Gradio UI (compatible with Gradio 4.x and 5.x) ────────────────────
 demo = gr.ChatInterface(
     fn=predict,
-    type="messages",
     title="KP Astrology AI Assistant",
     description=(
         "**Powered by fine-tuned Llama 3.1 8B** — trained on Krishnamurti Paddhati texts\n\n"

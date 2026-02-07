@@ -4,12 +4,14 @@ Comprehensive KP Astrology Model Test Suite
 Runs 22 structured test questions against the vLLM server using real chart data
 from chart_schema.json (TestUser, DOB: 01.01.1990, 10:00, Aquarius Lagna).
 
+Each question includes ONLY the relevant chart facts (not the full chart) to stay
+within the vLLM max_model_len=2048 token limit.
+
 Outputs a JSON report + markdown summary for scoring against KP books.
 
 Usage:
   python scripts/10_kp_test_suite.py
   python scripts/10_kp_test_suite.py --vllm-url http://localhost:8000/v1
-  python scripts/10_kp_test_suite.py --output results/kp_test_results.json
 """
 
 import json
@@ -25,435 +27,227 @@ parser = argparse.ArgumentParser(description="KP Model Test Suite")
 parser.add_argument("--vllm-url", default="http://localhost:8000/v1")
 parser.add_argument("--output", default="./results/kp_test_results.json")
 parser.add_argument("--md-output", default="./results/kp_test_results.md")
-parser.add_argument("--temperature", type=float, default=0.3,
-                    help="Lower temp for deterministic evaluation")
+parser.add_argument("--temperature", type=float, default=0.3)
+parser.add_argument("--max-model-len", type=int, default=2048)
 args = parser.parse_args()
 
 client = OpenAI(base_url=args.vllm_url, api_key="not-needed")
 
-# ── Chart data (from chart_schema.json — TestUser) ───────────────────────────
-CHART = {
-    "birth": "01.01.1990, 10:00:00, Lat 28.61N / Lon 77.21E",
-    "lagna": "Aquarius", "lagna_lord": "SAT",
-    "nakshatra": "Dhanishta", "nakshatra_lord": "MAR",
-    "dasa_balance": "MAR 0Y 7M 23D",
-    "cusps": {
-        1: {"deg": "302-12-49", "rashi": "SAT", "nak": "MAR", "sub": "KET", "ss": "MER"},
-        2: {"deg": "343-11-40", "rashi": "JUP", "nak": "SAT", "sub": "MAR", "ss": "KET"},
-        3: {"deg": "016-51-49", "rashi": "MAR", "nak": "VEN", "sub": "MON", "ss": "JUP"},
-        4: {"deg": "043-28-17", "rashi": "VEN", "nak": "MON", "sub": "RAH", "ss": "MER"},
-        5: {"deg": "067-01-45", "rashi": "MER", "nak": "RAH", "sub": "RAH", "ss": "SAT"},
-        6: {"deg": "091-35-47", "rashi": "MON", "nak": "JUP", "sub": "MAR", "ss": "SUN"},
-        7: {"deg": "122-12-49", "rashi": "SUN", "nak": "KET", "sub": "VEN", "ss": "RAH"},
-        8: {"deg": "163-11-40", "rashi": "MER", "nak": "MON", "sub": "RAH", "ss": "JUP"},
-        9: {"deg": "196-51-49", "rashi": "VEN", "nak": "RAH", "sub": "SUN", "ss": "KET"},
-        10: {"deg": "223-28-17", "rashi": "MAR", "nak": "SAT", "sub": "MAR", "ss": "SUN"},
-        11: {"deg": "247-01-45", "rashi": "JUP", "nak": "KET", "sub": "MAR", "ss": "VEN"},
-        12: {"deg": "271-35-47", "rashi": "SAT", "nak": "SUN", "sub": "RAH", "ss": "SAT"},
-    },
-    "planets": {
-        "Sun":     {"deg": "256-51-52", "rashi": "JUP", "nak": "VEN", "sub": "MON", "ss": "JUP"},
-        "Moon":    {"deg": "305-26-12", "rashi": "SAT", "nak": "MAR", "sub": "MON", "ss": "MAR"},
-        "Mars":    {"deg": "226-08-56", "rashi": "MAR", "nak": "SAT", "sub": "JUP", "ss": "SUN"},
-        "Mercury": {"deg": "272-07-26", "rashi": "SAT", "nak": "SUN", "sub": "RAH", "ss": "SUN"},
-        "Jupiter": {"deg": "071-33-35", "rashi": "MER", "nak": "RAH", "sub": "MER", "ss": "VEN"},
-        "Venus":   {"deg": "282-37-46", "rashi": "SAT", "nak": "MON", "sub": "MAR", "ss": "VEN"},
-        "Saturn":  {"deg": "261-59-22", "rashi": "JUP", "nak": "VEN", "sub": "JUP", "ss": "MAR"},
-        "Rahu":    {"deg": "294-49-13", "rashi": "SAT", "nak": "MAR", "sub": "RAH", "ss": "RAH"},
-        "Ketu":    {"deg": "114-49-13", "rashi": "MON", "nak": "MER", "sub": "MAR", "ss": "MER"},
-    },
-    "house_sig": {
-        1: ["MAR","MON","SAT","VEN"], 2: ["JUP","SUN"], 3: ["MAR","MON","RAH"],
-        4: ["SAT","SUN","VEN"], 5: ["JUP","KET","MER","SUN"], 6: ["KET","MON","SUN","VEN"],
-        7: ["MER","SUN"], 8: ["KET","MER"], 9: ["MER","SAT","SUN","VEN"],
-        10: ["MAR","MON","RAH"], 11: ["JUP","MAR","MER","SAT","SUN"],
-        12: ["JUP","KET","MAR","MER","RAH","SAT","SUN","VEN"],
-    },
-    "planet_sig": {
-        "Sun": [4,7,9,11,12], "Moon": [1,3,6,10], "Mercury": [5,7,8,9,11,12],
-        "Venus": [1,4,6,9,12], "Mars": [1,3,10,11,12], "Jupiter": [2,5,11,12],
-        "Saturn": [1,4,9,11,12], "Rahu": [3,10,12], "Ketu": [5,6,8,12],
-    },
-}
-
-CHART_CONTEXT = f"""Chart Data (KP System):
-Birth: {CHART['birth']}
-Lagna: {CHART['lagna']} (Lord: {CHART['lagna_lord']}), Nakshatra: {CHART['nakshatra']} (Lord: {CHART['nakshatra_lord']})
-Dasa Balance at birth: {CHART['dasa_balance']}
-
-Cusps (Cusp | Degree | Rashi Lord | Nak Lord | Sub Lord | Sub-Sub Lord):
-""" + "\n".join(
-    f"  {c}: {d['deg']} | {d['rashi']} | {d['nak']} | {d['sub']} | {d['ss']}"
-    for c, d in CHART["cusps"].items()
-) + """
-
-Planets (Planet | Degree | Rashi Lord | Nak Lord | Sub Lord | Sub-Sub Lord):
-""" + "\n".join(
-    f"  {p}: {d['deg']} | {d['rashi']} | {d['nak']} | {d['sub']} | {d['ss']}"
-    for p, d in CHART["planets"].items()
-) + """
-
-House Significators:
-""" + "\n".join(
-    f"  House {h}: {', '.join(sigs)}" for h, sigs in CHART["house_sig"].items()
-) + """
-
-Planet Significators:
-""" + "\n".join(
-    f"  {p}: houses {sigs}" for p, sigs in CHART["planet_sig"].items()
-)
-
-# ── Test questions ────────────────────────────────────────────────────────────
+# ── Test questions (compact — only relevant chart data per question) ──────────
 TESTS = [
     # ── Marriage / 7th house (M1-M6) ─────────────────────────────────────────
     {
         "id": "M1", "category": "Marriage", "weight": 1.0,
         "expected_format": '{"result":"Yes/No","explanation":"...","rule":"KP_MAR_xxxx","confidence":"high/medium/low"}',
-        "question": f"""Given the following chart, analyze the 7th cusp sub-lord for marriage prospects.
+        "question": """KP chart: 7th cusp sub-lord is VEN (282-37-46, rashi SAT, nak MON, sub MAR).
+Venus signifies houses: 1,4,6,9,12. House 7 significators: MER,SUN. House 2 sig: JUP,SUN. House 11 sig: JUP,MAR,MER,SAT,SUN.
 
-{CHART_CONTEXT}
-
-The 7th cusp sub-lord is VEN. Venus is placed at 282-37-46, in SAT's rashi, MON's nakshatra, with sub-lord MAR.
-Venus signifies houses: 1, 4, 6, 9, 12.
-
-According to KP principles:
-1. Will marriage occur for this native? (Yes/No)
-2. What is the role of the 7th cusp sub-lord (VEN) in determining marriage?
-3. Is VEN connected to houses 2, 7, 11 (favorable for marriage)?
-4. Is VEN connected to houses 1, 6, 10, 12 (unfavorable)?
-5. Cite the specific KP rule and give your verdict with confidence level.
-
-Return your answer in this JSON format:
-{{"result":"Yes/No","explanation":"...","rule":"KP_MAR_xxxx","confidence":"high/medium/low"}}""",
+According to KP: Will marriage occur? VEN is 7th sub-lord but signifies 6th(disputes) and 12th(losses), not 2/7/11.
+Give verdict (Yes/No), explain sub-lord's role, cite KP rule, and confidence level.""",
     },
     {
         "id": "M2", "category": "Marriage", "weight": 1.0,
         "expected_format": '{"timing":"...","quote":"..."}',
-        "question": f"""Using this chart data:
+        "question": """KP chart: 7th cusp sub-lord is VEN, signifying houses 1,4,6,9,12.
+Hypothetical: VEN is retrograde. Dasa balance at birth: MAR 0Y 7M 23D.
 
-{CHART_CONTEXT}
-
-If the 7th cusp sub-lord (VEN) were retrograde, what would KP astrology predict?
-1. Would it indicate delay, denial, or eventual marriage?
-2. What are the specific timing conditions (dasha/transit) for marriage when the sub-lord is retrograde?
-3. In which Mahadasha-Antardasha period would marriage be most likely?
-4. Quote the specific KP rule for retrograde sub-lord effects on marriage.
-
-Format: {{"timing":"delay until X dasha","conditions":"...","rule":"..."}}""",
+According to KP: If the 7th sub-lord is retrograde, does it indicate delay, denial, or eventual marriage?
+What timing conditions (dasha/transit) apply? Quote the specific KP rule for retrograde sub-lord effects on marriage.""",
     },
     {
         "id": "M3", "category": "Marriage", "weight": 0.9,
         "expected_format": "explanation quoting book rule",
-        "question": f"""Chart data:
+        "question": """KP chart: 7th cusp sub-lord is VEN, signifying houses 1,4,6,9,12.
+Hypothetical: Suppose VEN signified houses 1,7,9 simultaneously.
 
-{CHART_CONTEXT}
-
-The 7th cusp sub-lord is VEN. Venus signifies houses 1, 4, 6, 9, 12.
-Suppose VEN also signified houses 1, 7, and 9 simultaneously.
-
-According to KP astrology:
-1. What effect does a sub-lord being significator for 1st, 7th, and 9th houses have on marriage timing/outcome?
-2. Does the 9th house connection (dharma/fortune) help or complicate marriage?
-3. Does the 1st house connection (self) strengthen or weaken the marriage indication?
-4. Cite the specific KP rule and explain step by step.""",
+According to KP: What effect does a sub-lord being significator for 1st,7th,9th have on marriage?
+Does 9th(dharma) help or complicate? Does 1st(self) strengthen or weaken? Cite the KP rule step by step.""",
     },
     {
         "id": "M4", "category": "Marriage", "weight": 1.0,
         "expected_format": "single planet chosen + step-by-step elimination",
-        "question": f"""Chart data:
+        "question": """KP chart: House 7 significators: MER,SUN. Additional candidates: VEN(7th sub-lord), JUP(2nd sig), MAR(11th sig).
+Planet significators — Sun:4,7,9,11,12. Mercury:5,7,8,9,11,12. Venus:1,4,6,9,12. Jupiter:2,5,11,12. Mars:1,3,10,11,12.
 
-{CHART_CONTEXT}
-
-House 7 significators are: MER, SUN.
-Additional candidates through connections: VEN (7th sub-lord), JUP (2nd house sig), MAR (11th house sig).
-
-Multiple planets qualify as 7th house significators for marriage timing.
-According to KP astrology:
-1. Which planet should be selected as the PRIMARY significator for marriage timing?
-2. What is the step-by-step selection/elimination algorithm per KP rules?
-3. How do you rank: cusp sub-lord vs house occupant vs house lord vs star-lord?
-4. Give the final choice with reasoning and rule citation.""",
+Multiple planets qualify for marriage timing. According to KP:
+Which is the PRIMARY significator? What is the selection algorithm? Rank: sub-lord vs occupant vs lord vs star-lord. Cite rule.""",
     },
     {
         "id": "M5", "category": "Marriage", "weight": 0.8,
         "expected_format": "delay/deny/complication + rule quote",
-        "question": f"""Chart data:
+        "question": """KP chart: 7th cusp nak-lord is Mars. Mars signifies houses 1,3,10,11,12.
+Hypothetical: Mars is retrograde AND debilitated (in Cancer).
 
-{CHART_CONTEXT}
-
-Hypothetical scenario: Mars is retrograde AND debilitated (in Cancer).
-Mars is the nakshatra lord of the 7th cusp. Mars signifies houses 1, 3, 10, 11, 12.
-
-According to KP astrology:
-1. What is the effect of a retrograde + debilitated planet as nakshatra lord of the 7th cusp on marriage?
-2. Does KP consider debilitation differently from Vedic astrology?
-3. Is the outcome delay, denial, or complication?
-4. Quote the specific KP rule for retrograde debilitated planets.""",
+According to KP: What is the effect of a retrograde+debilitated planet as 7th cusp nak-lord on marriage?
+Does KP treat debilitation differently from Vedic? Is outcome delay, denial, or complication? Quote the KP rule.""",
     },
     {
         "id": "M6", "category": "Marriage", "weight": 0.8,
         "expected_format": "list of stated reasons from KP",
-        "question": f"""Chart data:
+        "question": """KP chart: 7th cusp sub-lord is VEN, signifying houses 1,4,6,9,12.
+VEN signifies 6th(disputes/separation) and 12th(losses). Native had 5 broken engagements in 8 years.
 
-{CHART_CONTEXT}
-
-Scenario: The native has had 5 broken engagements over the past 8 years.
-The 7th cusp sub-lord is VEN, signifying houses 1, 4, 6, 9, 12.
-Note: VEN signifies the 6th house (disputes/separation) and 12th house (losses).
-
-According to KP astrology:
-1. What is the likely explanation for repeated failed engagements?
-2. Which house connections of the 7th sub-lord cause broken engagements?
-3. What role does the 6th house signification play?
-4. What role does the 12th house signification play?
-5. Is there any remedy or timing when marriage could succeed?
-6. Cite specific KP rules.""",
+According to KP: What explains repeated failed engagements? Which house connections cause this?
+Role of 6th house? Role of 12th house? Any remedy or favorable timing? Cite KP rules.""",
     },
 
     # ── Venus & relationships (V1-V2) ────────────────────────────────────────
     {
         "id": "V1", "category": "Venus", "weight": 0.8,
         "expected_format": "verdict + book quote",
-        "question": f"""Chart data:
+        "question": """KP chart: Venus at 282-37-46 in Aquarius(SAT rashi), Dhanishta nak(MON star), sub MAR.
+Venus signifies: 1,4,6,9,12. Moon signifies: 1,3,6,10. Mars signifies: 1,3,10,11,12.
 
-{CHART_CONTEXT}
-
-Venus is at 282-37-46 in Aquarius (SAT's rashi), in Dhanishta nakshatra (MON's star), sub-lord MAR.
-Venus signifies houses: 1, 4, 6, 9, 12.
-
-According to KP astrology:
-1. As the natural karaka for marriage, how does Venus's nakshatra-lord (Moon) affect marriage prospects?
-2. Moon signifies houses 1, 3, 6, 10 — does this help or hinder Venus's role as marriage karaka?
-3. Venus's sub-lord is Mars (houses 1, 3, 10, 11, 12) — what does this indicate?
-4. Will Venus's placement predict a harmonious marriage?
-5. Cite the KP rule for karaka analysis.""",
+As natural karaka for marriage: How does Venus's nak-lord Moon affect marriage prospects?
+Moon signifies 6th — does this hinder Venus? Venus sub-lord Mars signifies 11th — what does this indicate?
+Will Venus predict harmonious marriage? Cite KP karaka analysis rule.""",
     },
     {
         "id": "V2", "category": "Venus", "weight": 0.7,
         "expected_format": "difference in interpretation + exact lines",
-        "question": f"""According to KP astrology, what is the difference in interpretation when Venus is:
-(a) Placed in the 5th bhava (love affairs, romance, courtship)
-(b) Placed in the 7th bhava (marriage, partnership, spouse)
+        "question": """According to KP astrology, what is the difference when Venus is:
+(a) In the 5th bhava (love affairs, romance)
+(b) In the 7th bhava (marriage, partnership)
 
-For each case:
-1. What does Venus signify differently?
-2. How does the sub-lord of Venus modify the result?
-3. When does 5th house Venus lead to marriage vs just love affairs?
-4. Cite the specific KP rules for Venus in 5th vs 7th.""",
+What does Venus signify differently in each? How does Venus's sub-lord modify the result?
+When does 5th-house Venus lead to marriage vs just love affairs? Cite KP rules for Venus in 5th vs 7th.""",
     },
 
     # ── Horary / Ruling planets (H1-H2) ──────────────────────────────────────
     {
         "id": "H1", "category": "Horary", "weight": 0.9,
         "expected_format": "list of ruling planets + method trace",
-        "question": f"""A querent selects horary number 147 for a marriage question.
+        "question": """A querent selects horary number 147 for a marriage question.
 
-According to KP horary method:
-1. How do you determine the lagna degree from number 147?
-2. What are the ruling planets for this horary number?
-3. Step by step, show: ascendant sign lord, ascendant star lord, ascendant sub-lord, Moon sign lord, Moon star lord, day lord.
-4. How do these ruling planets confirm or deny the marriage event?
-5. Cite the KP horary method rules.""",
+According to KP horary method: How to determine lagna degree from number 147?
+What are the ruling planets? Show step by step: ascendant sign lord, star lord, sub-lord, Moon sign lord, Moon star lord, day lord.
+How do ruling planets confirm or deny marriage? Cite KP horary rules.""",
     },
     {
         "id": "H2", "category": "Horary", "weight": 0.8,
         "expected_format": "tie-breaker rules + which planets to drop",
-        "question": f"""In a KP horary analysis, the following significators are found for the 7th house (marriage):
-- Sun: occupant of 7th, star-lord of 7th cusp
-- Mercury: significator of 7th through sub-lord connection
-- Venus: natural karaka, 7th cusp sub-lord
-- Saturn: connected to 7th through depositor chain
-- Rahu: in the star of 7th occupant
+        "question": """KP horary: 7th house significators found — Sun(occupant), Mercury(sub-lord connection), Venus(karaka+7th sub-lord), Saturn(depositor chain), Rahu(star of 7th occupant).
+Some are benefic, some malefic for marriage.
 
-These are conflicting — some are benefic for marriage, some are malefic.
-According to KP:
-1. What are the tie-breaker rules to select the most relevant significators?
-2. Which planets should be dropped and why?
-3. What is the order of priority: sub-lord > star-lord > sign-lord?
-4. Cite the specific KP rules for significator selection.""",
+According to KP: What are the tie-breaker rules? Which planets to drop and why?
+Priority order: sub-lord > star-lord > sign-lord? Cite KP significator selection rules.""",
     },
 
     # ── Financial / 11th house (F1-F2) ───────────────────────────────────────
     {
         "id": "F1", "category": "Financial", "weight": 0.9,
         "expected_format": '{"gains_likely":"Yes/No","timing":"...","rule":"..."}',
-        "question": f"""Chart data:
+        "question": """KP chart: 11th cusp sub-lord is MAR. Mars signifies houses: 1,3,10,11,12.
+House 2 sig: JUP,SUN. House 11 sig: JUP,MAR,MER,SAT,SUN.
 
-{CHART_CONTEXT}
-
-The 11th cusp sub-lord is MAR. Mars signifies houses: 1, 3, 10, 11, 12.
-Mars is connected to the 11th house (gains) and also to the 10th (profession).
-
-According to KP astrology:
-1. Will the native experience financial gains? (Yes/No)
-2. Mars signifies 11th (gains) but also 12th (losses) — how to interpret this conflict?
-3. What are the timing conditions (dasha period) for gains?
-4. What is the role of the 2nd house (accumulated wealth) connection?
-5. Cite the specific KP rule for 11th cusp sub-lord analysis.""",
+According to KP: Will native experience financial gains? Mars signifies 11th(gains) but also 12th(losses) — how to interpret?
+Timing conditions (dasha)? Role of 2nd house connection? Cite KP rule for 11th sub-lord analysis.""",
     },
     {
         "id": "F2", "category": "Financial", "weight": 0.8,
         "expected_format": "explanation for blocked gains + exact quote",
-        "question": f"""Chart data:
+        "question": """KP chart: 11th sub-lord MAR signifies 1,3,10,11,12 (includes 12th=losses).
+8th sub-lord RAH signifies 3,10,12.
 
-{CHART_CONTEXT}
-
-The 11th cusp sub-lord is MAR, signifying houses 1, 3, 10, 11, 12.
-Note: MAR also signifies the 12th house (expenses, losses, foreign settlement).
-
-The 8th cusp sub-lord is RAH, signifying houses 3, 10, 12.
-
-According to KP astrology:
-1. When the 11th sub-lord is connected to the 12th house, what happens to financial gains?
-2. When the 8th sub-lord is connected to the 12th house, what does this indicate?
-3. Are gains blocked, delayed, or redirected (e.g., gains through foreign sources)?
-4. Cite the specific KP rules for 11th-12th and 8th-12th connections.""",
+According to KP: When 11th sub-lord connects to 12th house, what happens to gains?
+When 8th sub-lord connects to 12th, what does it indicate? Gains blocked, delayed, or redirected?
+Cite KP rules for 11th-12th and 8th-12th connections.""",
     },
 
     # ── Dasha / Timing (T1-T2) ───────────────────────────────────────────────
     {
         "id": "T1", "category": "Timing", "weight": 1.0,
         "expected_format": "quote + Yes/No",
-        "question": f"""Chart data:
+        "question": """KP chart: Marriage houses are 2,7,11. 7th cusp sub-lord is VEN(signifies 1,4,6,9,12).
+House 7 sig: MER,SUN. House 2 sig: JUP,SUN. House 11 sig: JUP,MAR,MER,SAT,SUN.
 
-{CHART_CONTEXT}
-
-For marriage prediction, the relevant houses are 2, 7, 11.
-The 7th cusp sub-lord is VEN.
-
-According to KP astrology:
-1. Does the KP system require BOTH the Mahadasha lord AND Antardasha lord to be connected to houses 2, 7, 11 for marriage to occur?
-2. Or is it sufficient if only one of them is connected?
-3. What is the exact rule text from KP regarding dasha-bhukti requirements for event manifestation?
-4. In this chart, which Mahadasha-Antardasha combination would trigger marriage?
-5. Cite the exact KP rule.""",
+According to KP: Must BOTH Mahadasha lord AND Antardasha lord connect to houses 2,7,11 for marriage?
+Or is one sufficient? What is the exact KP rule text for dasha-bhukti requirements?
+Which Maha-Antar combination would trigger marriage in this chart? Cite rule.""",
     },
     {
         "id": "T2", "category": "Timing", "weight": 0.9,
         "expected_format": "expected outcome/timing",
-        "question": f"""Chart data:
+        "question": """KP chart: Native runs Jupiter Mahadasha. Jupiter signifies: 2,5,11,12 (connected to 2,11 — favorable).
+Current Antardasha: Ketu. Ketu signifies: 5,6,8,12 (NOT connected to 2,7,11).
 
-{CHART_CONTEXT}
-
-Scenario: The native is running Jupiter Mahadasha.
-Jupiter signifies houses: 2, 5, 11, 12.
-Jupiter IS connected to houses 2 and 11 (favorable for marriage).
-
-But the current Antardasha lord is Ketu.
-Ketu signifies houses: 5, 6, 8, 12.
-Ketu is NOT connected to houses 2, 7, or 11.
-
-According to KP astrology:
-1. When the Mahadasha lord is connected to marriage houses but the Antardasha lord is NOT, what happens?
-2. Will marriage occur in this sub-period or be delayed to a more favorable Antardasha?
-3. Which Antardasha within Jupiter Mahadasha would be most favorable for marriage?
-4. Cite the specific KP timing rule.""",
+According to KP: When Maha lord connects to marriage houses but Antar lord does NOT, what happens?
+Will marriage occur in this sub-period or be delayed? Which Antardasha in Jupiter Maha is most favorable?
+Cite KP timing rule.""",
     },
 
     # ── Transit interactions (TR1-TR2) ────────────────────────────────────────
     {
         "id": "TR1", "category": "Transit", "weight": 0.7,
         "expected_format": "stated effect on timing/outcome",
-        "question": f"""Chart data:
+        "question": """KP chart: 7th sub-lord Venus is at 282-37-46 (Aquarius).
+Saturn (malefic) transits over Venus's natal position during a favorable dasha for marriage.
 
-{CHART_CONTEXT}
-
-Scenario: Saturn (a natural malefic) is transiting over the 7th cusp sub-lord Venus's natal position (282-37-46, Aquarius).
-This transit occurs during a favorable dasha period for marriage.
-
-According to KP astrology:
-1. Does the transit of a malefic over the sub-lord affect the timing of the event?
-2. Does KP give importance to transits, or is the dasha system primary?
-3. Will Saturn's transit over Venus delay or obstruct marriage even during a favorable dasha?
-4. Cite the KP rule for transit effects.""",
+According to KP: Does malefic transit over sub-lord affect event timing?
+Does KP prioritize dasha over transits? Will Saturn's transit delay marriage during favorable dasha?
+Cite KP rule for transit effects.""",
     },
     {
         "id": "TR2", "category": "Transit", "weight": 0.7,
         "expected_format": "mitigation rules",
-        "question": f"""Chart data:
+        "question": """KP chart: 7th cusp at 122-12-49 (Leo). 7th sub-lord VEN is weak (signifies 6th,12th).
+Jupiter (benefic) transits over 7th cusp degree. Dasha is marginally favorable.
 
-{CHART_CONTEXT}
-
-Scenario: Jupiter (natural benefic) is transiting over the 7th cusp degree (122-12-49, Leo).
-The 7th cusp sub-lord VEN is weak (signifying 6th and 12th houses).
-The dasha period is marginally favorable.
-
-According to KP astrology:
-1. Can a benefic transit (Jupiter over 7th cusp) rescue or improve the outcome when the sub-lord is weak?
-2. Does KP give transit the power to override sub-lord indications?
-3. What is the KP position on transit vs sub-lord primacy?
-4. Cite the specific KP rule.""",
+According to KP: Can benefic transit rescue outcome when sub-lord is weak?
+Does KP give transit power to override sub-lord indications? Transit vs sub-lord primacy?
+Cite KP rule.""",
     },
 
     # ── Edge / complex cases (E1-E3) ─────────────────────────────────────────
     {
         "id": "E1", "category": "Edge", "weight": 0.8,
         "expected_format": "step-by-step evaluation + final verdict",
-        "question": f"""Chart data:
+        "question": """KP chart marriage analysis (houses 2,7,11):
+Sun: sig 4,7,9,11,12 (7+11 favorable, 12 unfavorable)
+Mercury: sig 5,7,8,9,11,12 (7+11 favorable, 8+12 unfavorable)
+Venus(7th sub-lord): sig 1,4,6,9,12 (NOT connected to 7 or 11)
+Jupiter: sig 2,5,11,12 (2+11 favorable, 12 unfavorable)
 
-{CHART_CONTEXT}
-
-Complex case: For marriage (houses 2, 7, 11), the following significators are found:
-- Sun: signifies 4, 7, 9, 11, 12 — connected to 7 and 11 (favorable) but also 12 (unfavorable)
-- Mercury: signifies 5, 7, 8, 9, 11, 12 — connected to 7 and 11 but also 8 and 12
-- Venus (7th sub-lord): signifies 1, 4, 6, 9, 12 — NOT directly connected to 7 or 11
-- Jupiter: signifies 2, 5, 11, 12 — connected to 2 and 11 but also 12
-
-There are 4+ conflicting significators, each with both favorable and unfavorable connections.
-
-According to KP:
-1. Step by step, how do you evaluate this chart for marriage?
-2. Which significator takes priority?
-3. The 7th sub-lord VEN does NOT signify 7 or 11 — what does this mean?
-4. Final verdict: will marriage happen? When?
-5. Cite the KP algorithm for conflicting significators.""",
+4+ conflicting significators. According to KP: Step-by-step evaluation?
+Which significator has priority? VEN doesn't signify 7/11 — what does this mean?
+Final verdict: marriage will/won't happen? Cite KP algorithm.""",
     },
     {
         "id": "E2", "category": "Edge", "weight": 0.6,
         "expected_format": "special rules for water signs",
-        "question": f"""According to KP astrology, are there special rules when:
-1. The 7th cusp sub-lord is placed in a watery sign (Cancer, Scorpio, Pisces)?
-2. The 7th cusp itself falls in a watery sign?
-3. Does the element (fire/earth/air/water) of the sign affect marriage predictions in KP?
-4. In this chart, the 7th cusp is at 122-12-49 (Leo, a fire sign) — does this have any special significance?
-5. Cite any KP rules regarding sign classification effects on marriage.""",
+        "question": """According to KP: Are there special rules when:
+1. 7th cusp sub-lord is in a watery sign (Cancer/Scorpio/Pisces)?
+2. 7th cusp itself falls in a watery sign?
+3. Does sign element (fire/earth/air/water) affect marriage predictions in KP?
+4. Chart's 7th cusp is at 122-12-49 (Leo, fire sign) — any special significance?
+Cite KP rules for sign classification effects on marriage.""",
     },
     {
         "id": "E3", "category": "Edge", "weight": 0.7,
         "expected_format": "mitigation or denial + quote",
-        "question": f"""According to KP astrology, consider this scenario:
-A planet is debilitated (e.g., Venus in Virgo) BUT placed in the nakshatra of a benefic planet (e.g., Jupiter's star).
-
-1. Does KP consider debilitation the same way as Vedic astrology?
-2. In KP, does the nakshatra lord override the debilitation status?
-3. If the debilitated planet is the 7th cusp sub-lord, does the benefic nakshatra lord mitigate the negative effect?
-4. What is KP's position: mitigation or denial?
-5. Cite the specific KP rule for debilitated planets in benefic nakshatras.""",
+        "question": """According to KP: A planet is debilitated (e.g. Venus in Virgo) BUT in nakshatra of a benefic (Jupiter's star).
+1. Does KP treat debilitation same as Vedic astrology?
+2. Does nakshatra lord override debilitation in KP?
+3. If debilitated planet is 7th sub-lord, does benefic nak-lord mitigate?
+4. KP position: mitigation or denial?
+Cite KP rule for debilitated planets in benefic nakshatras.""",
     },
 
     # ── Quality / format checks (Q1-Q2) ──────────────────────────────────────
     {
         "id": "Q1", "category": "Quality", "weight": 0.5,
         "expected_format": "verbatim quote with page/section",
-        "question": f"""In your previous answers about this chart, you cited rules like KP_MAR_0673, KP_MAR_0971, etc.
-
-For rule citation fidelity:
-1. What is the exact content of KP rule KP_MAR_0673?
-2. What is the exact content of KP rule KP_MAR_0971?
-3. What chapter/section of the KP Reader do these rules come from?
-4. Are these rule IDs from KP Reader I, II, III, IV, V, or VI?
-5. Provide the verbatim text of each rule.""",
+        "question": """For rule citation fidelity: What is the exact content of KP rules KP_MAR_0673 and KP_MAR_0971?
+What chapter/section of KP Reader do they come from? Are they from KP Reader I,II,III,IV,V, or VI?
+Provide verbatim text of each rule.""",
     },
     {
         "id": "Q2", "category": "Quality", "weight": 0.5,
         "expected_format": "Yes/No + evidence",
-        "question": f"""Evaluate the quality and provenance of KP rule citations:
-
-1. When you cite a rule like "KP_MAR_0673", is this an actual rule ID from the KP Readers by Prof. K.S. Krishnamurti?
-2. Or is this an internally generated identifier from your training data?
-3. How confident are you in the accuracy of your rule citations?
-4. Can you distinguish between rules from KP Reader I (general principles) vs KP Reader IV (marriage) vs KP Reader VI (horary)?
-5. What is your confidence that the rule content you cite matches the original KP text?""",
+        "question": """When you cite rules like "KP_MAR_0673", is this an actual rule ID from KP Readers by Prof. K.S. Krishnamurti?
+Or internally generated from training data? How confident are you in citation accuracy?
+Can you distinguish KP Reader I (general) vs IV (marriage) vs VI (horary)?
+What is your confidence the cited rule content matches original KP text?""",
     },
 ]
 
@@ -461,20 +255,23 @@ For rule citation fidelity:
 # ── Run tests ─────────────────────────────────────────────────────────────────
 def run_test(test):
     """Send a test question to vLLM and collect the response."""
+    sys_msg = ("You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
+               "Cite KP rules. Include confidence level. Use KP terminology. Be concise.")
     messages = [
-        {"role": "system", "content": (
-            "You are an expert KP (Krishnamurti Paddhati) Astrology assistant. "
-            "Always cite specific KP rules. Include confidence level. "
-            "Use proper KP terminology. Explain reasoning step by step."
-        )},
+        {"role": "system", "content": sys_msg},
         {"role": "user", "content": test["question"]},
     ]
+    # Estimate input tokens (~4 chars per token) and cap max_tokens to fit context
+    est_input = (len(sys_msg) + len(test["question"])) // 3  # conservative estimate
+    max_output = min(768, args.max_model_len - est_input - 50)
+    max_output = max(max_output, 256)  # at least 256 tokens for answer
+
     try:
         t0 = time.time()
         resp = client.chat.completions.create(
             model="kp-astrology-llama",
             messages=messages,
-            max_tokens=1024,
+            max_tokens=max_output,
             temperature=args.temperature,
             top_p=0.9,
         )
