@@ -1,6 +1,6 @@
 # KP Astrology Model Test Results
 
-**Date:** 2026-02-07 06:27:41  
+**Date:** 2026-02-07 07:29:15  
 **Model:** kp-astrology-llama (Llama 3.1 8B fine-tuned)  
 **Chart:** TestUser, 01.01.1990, 10:00, Aquarius Lagna  
 **Temperature:** 0.4  
@@ -10,27 +10,27 @@
 
 | # | ID | Category | Weight | Latency | RAG | Rule Cited | Confidence | Score |
 |---|-----|----------|--------|---------|-----|------------|------------|-------|
-| 1 | M1 | Marriage | 1.0 | 4.45s | 2 | Yes | Yes | — |
-| 2 | M2 | Marriage | 1.0 | 4.32s | 3 | Yes | Yes | — |
-| 3 | M3 | Marriage | 0.9 | 4.32s | 2 | Yes | No | — |
-| 4 | M4 | Marriage | 1.0 | 4.32s | 2 | Yes | Yes | — |
-| 5 | M5 | Marriage | 0.8 | 4.32s | 3 | Yes | No | — |
-| 6 | M6 | Marriage | 0.8 | 4.31s | 3 | Yes | No | — |
-| 7 | V1 | Venus | 0.8 | 4.33s | 3 | Yes | No | — |
-| 8 | V2 | Venus | 0.7 | 4.32s | 4 | Yes | No | — |
-| 9 | H1 | Horary | 0.9 | 4.31s | 2 | Yes | No | — |
-| 10 | H2 | Horary | 0.8 | 4.31s | 2 | Yes | Yes | — |
-| 11 | F1 | Financial | 0.9 | 4.32s | 3 | Yes | Yes | — |
-| 12 | F2 | Financial | 0.8 | 4.32s | 3 | Yes | Yes | — |
-| 13 | T1 | Timing | 1.0 | 4.31s | 2 | Yes | Yes | — |
-| 14 | T2 | Timing | 0.9 | 4.31s | 2 | Yes | Yes | — |
-| 15 | TR1 | Transit | 0.7 | 4.33s | 2 | Yes | Yes | — |
-| 16 | TR2 | Transit | 0.7 | 4.32s | 2 | Yes | No | — |
-| 17 | E1 | Edge | 0.8 | 4.31s | 1 | No | No | — |
-| 18 | E2 | Edge | 0.6 | 4.31s | 2 | Yes | Yes | — |
-| 19 | E3 | Edge | 0.7 | 4.31s | 1 | Yes | Yes | — |
-| 20 | Q1 | Quality | 0.5 | 4.31s | 2 | Yes | Yes | — |
-| 21 | Q2 | Quality | 0.5 | 4.33s | 2 | Yes | Yes | — |
+| 1 | M1 | Marriage | 1.0 | 7.01s | 5 | Yes | Yes | — |
+| 2 | M2 | Marriage | 1.0 | 6.94s | 5 | Yes | No | — |
+| 3 | M3 | Marriage | 0.9 | 6.97s | 5 | Yes | Yes | — |
+| 4 | M4 | Marriage | 1.0 | 6.96s | 5 | Yes | Yes | — |
+| 5 | M5 | Marriage | 0.8 | 6.95s | 5 | Yes | Yes | — |
+| 6 | M6 | Marriage | 0.8 | 6.95s | 5 | Yes | Yes | — |
+| 7 | V1 | Venus | 0.8 | 6.97s | 5 | Yes | Yes | — |
+| 8 | V2 | Venus | 0.7 | 6.95s | 5 | Yes | No | — |
+| 9 | H1 | Horary | 0.9 | 6.98s | 5 | Yes | Yes | — |
+| 10 | H2 | Horary | 0.8 | 6.96s | 5 | Yes | Yes | — |
+| 11 | F1 | Financial | 0.9 | 6.97s | 5 | Yes | Yes | — |
+| 12 | F2 | Financial | 0.8 | 6.96s | 5 | Yes | Yes | — |
+| 13 | T1 | Timing | 1.0 | 6.99s | 5 | Yes | Yes | — |
+| 14 | T2 | Timing | 0.9 | 6.99s | 5 | Yes | Yes | — |
+| 15 | TR1 | Transit | 0.7 | 6.97s | 5 | Yes | Yes | — |
+| 16 | TR2 | Transit | 0.7 | 5.33s | 5 | Yes | No | — |
+| 17 | E1 | Edge | 0.8 | 6.99s | 5 | No | Yes | — |
+| 18 | E2 | Edge | 0.6 | 6.96s | 5 | Yes | No | — |
+| 19 | E3 | Edge | 0.7 | 6.99s | 5 | Yes | Yes | — |
+| 20 | Q1 | Quality | 0.5 | 6.96s | 5 | Yes | Yes | — |
+| 21 | Q2 | Quality | 0.5 | 6.99s | 5 | Yes | Yes | — |
 
 ## Detailed Results
 
@@ -46,17 +46,29 @@ Venus signifies houses: 1,4,6,9,12. House 7 significators: MER,SUN. House 2 sig:
 ```
 **Verdict:** NO
 
-**Sub-lord Analysis:** The 7th cusp sub-lord Venus holds primary authority over marriage matters. However, its signification pattern creates a fundamental contradiction with marriage prospects.
+**Sub-lord Analysis:** Venus as the 7th cusp sub-lord holds the key to marital destiny. However, its signification pattern creates obstacles rather than facilitation.
 
-**Rule Application:** Since Venus (the 7th sub-lord) signifies the 6th house (disputes, obstacles) along with the 12th house (losses, separation), it directly opposes the marriage-promoting combinations of houses 2, 7, and 11 as stated in the grounding rule.
+**Rule Application:** Since Venus signifies the 6th house (disputes, litigation) and 12th house (losses, separation), while lacking connection to beneficial houses 2, 7, and 11 - the fundamental requirement for marriage promise is NOT met according to KP principles.
 
 **Confidence Level:** HIGH
+The grounding rule clearly states that marriage denial occurs when the 7th cusp sub-lord connects only with 4, 6, 10th houses without touching 2nd, 7th, or 11th houses. Your chart perfectly illustrates this scenario.
 
-The rule clearly states that if the 7th sub-lord connects with 6th or 12th house significations instead of benefic ones like 2nd, 7th, or 11th, marriage gets blocked. Here, Venus's dual connection to both dispute-causing 6th and loss-inducing 12th houses overrides any potential positive influences.
+**Timing Consideration:** Even if other planetary periods activate positive significators, the foundational weakness created by Venus's unfavorable house connections would manifest during its operational period.
 
-**Practical Implication:** This planetary configuration suggests inherent challenges in marriage materialization - whether through relationship disputes, family opposition, or circumstances leading to losses related to partnerships.
+**Practical Implication:** This combination suggests relationship challenges, potential legal disputes, financial losses related to partnerships, or complete avoidance of matrimonial commitments throughout life.
 
-This demonstrates how precise sub-lord analysis combined with proper rule application provides definitive answers about life events rather than ambiguous predictions
+**Source:** KP_MAR_0644 (marriage denial through 4-6-10 house connections)
+
+
+**Additional Note:** The presence of benefic planets like Jupiter and Sun as marriage significators might create temporary opportunities, but the dominant influence of Venus restricts ultimate fulfillment.
+
+**Hence the 12th house to these houses indicates denial of the marriage.**
+
+
+**Dual Sign Connection:** Although not applicable here, examine whether sub-lords occupy dual signs for alternative timing considerations.
+
+
+**Marriage Promise Through Dual Signs:** Check if sub-lord occupies dual signs or constellations ruled by such planets.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -81,18 +93,22 @@ According to KP: If the 7th sub-lord is retrograde, does it in...
 **Model answer:**
 
 ```
-**Answer:** Marriage will be **denied completely**, not delayed or denied initially with possibility later.
+Based on the given KP chart analysis:
 
-**Quote & Rule ID:** "if the sub-lord of the 7th cusp is retrograde and it is deposited in the constellation of a retrograde planet, he can never marry at all" - This is the definitive statement from KP principles.
+**Retrograde Sub-Lord Impact Analysis:**
+The 7th cusp sub-lord Venus signifies houses 1,4,6,9,12 - which are primarily malefic houses indicating obstacles, delays, and separations rather than beneficial marriage indicators (2,7,11).
 
-**Analysis:** Since Venus (VEN) as 7th cusp sub-lord signifies houses 1,4,6,9,12 without any benefic house connections (2,7,11), this already creates significant obstacles to marriage. The retrograde nature further strengthens the denial principle outlined in KP rules.
+Since Venus is retrograde AND acts as significator of 6th house (separation/disputes), this creates a strong denial combination according to KP principles. The presence of 6th house significance along with other malefics (1st, 12th) makes this configuration highly unfavorable for marriage materialization.
 
-**Timing Conditions:** With no marriage promise due to retrograde sub-lord, other dasha periods become irrelevant for marriage timing. However, transits of Jupiter over natal Moon/Venus might create temporary relationship opportunities that ultimately fail to materialize into marriage.
+**Specific KP Rule Application:**
+"[KP_MAR_0969] Marriage is promised at all... BUT IF THE SUB-LOORD OF THE 7TH CUSPE IS RETROGRADE AND IT IS DEPOSITED IN THE CONSTELLATION OF A RETROGRADE PLANET, HE CAN NEVER MARRY AT ALL."
 
-The key distinction here is between **delay** versus **denial**: KP clearly states when retrograde 7th sub-lord lacks beneficial house significations, marriage becomes impossible rather than merely postponed during favorable planetary periods.
+In your case, Venus being retrograde itself satisfies this condition perfectly.
 
-Confidence: high
-rules_used: KP_MAR_0969, KP_MAR
+**Timing Assessment:**
+With no dasha periods of the retrograde Venus remaining (MAR 0Y 7M 23D birth time), there's actually relief from potential denial effects. However, future marriage prospects would depend entirely on new planetary periods activating more favorable combinations.
+
+This represents classic KP application where retrograde sub-lords create insurmountable barriers unless compensatory factors emerge later in life.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -117,24 +133,32 @@ According to KP: What effect does a sub-lord being significator for ...
 **Model answer:**
 
 ```
-**Answer:** Marriage is **denied** according to this configuration.
+In this hypothetical scenario where Venus (VEN) signifies houses 1, 7, and 9 simultaneously, let me analyze the marriage prospects using KP principles:
 
-**Step-by-Step Analysis using KP Rules:**
+**Step-by-Step Analysis:**
 
-The 7th cusp sub-lord VEN signifies houses 1,4,6,9,12. Let's examine each:
+First, examine the primary condition - **Rule KP_MAR_1002**: For marriage indication, the sub-lord must be a significator of either 2nd or 11th house (along with other combinations like dual signs).
 
-**House Significations:**
-- Houses 2, 7, 11 = **Marriage indicators** (not present here)
-- Houses 4, 6, 10 = **Denial factors** (present as 4, 6, 12)
+Here, Venus signifies:
+- House 1 (self/personality)
+- House 7 (marriage/partnership) 
+- House 9 (dharma/fortune)
 
-**Rule Application:**
-Since VEN doesn't signify houses 2, 7, 11 (marriage houses), we look at denial combinations. The presence of houses 4, 6, 12 creates a strong denial pattern.
+Since Venus signifies both 1st and 7th houses along with 9th, this creates a strong foundation for marriage according to KP rules.
 
-**1st House Effect:**
-As per KP_MAR_0643, the 1st house represents "self" who desires partnership. When its significator denies marriage, it weakens personal desire rather than strengthening it.
+**The Role of 9th House (Dharma):**
+The 9th house represents dharma, fortune, and higher wisdom. In KP context, when the 7th cusp sub-lord connects with the 9th house, it brings dharmic fulfillment to marital matters. This doesn't complicate but rather enhances the positive outcomes.
 
-**9th House Impact:**
-The grounding rule mentions that 9th house significators create complications. In traditional astrology, 9th house relates to dharma and higher wisdom. Here, it acts as a hindrance factor
+**The Impact of 1st House (Self):**
+House 1 represents the native's personality and self-expression. When the 7th cusp sub-lord signifies the 1st house, it strengthens the individual's capacity to attract suitable partners who complement their nature.
+
+This combination suggests favorable marriage prospects, especially since Venus naturally governs relationships while connecting all three relevant houses.
+
+Confidence: high
+Source: KP MARRIAGE CHIARTS
+Timing: immediate assessment possible
+
+Answer: Marriage will materialize successfully due to strong connection between houses 1, 7, and 9 through Venus.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -157,24 +181,31 @@ Planet significators — Sun:4,7,9,11,12. Mercury:5,7,8,9,11,12. Venus:1,4,6,9,1
 **Model answer:**
 
 ```
-**Answer:** When multiple planets signify marriage, we must identify the **primary significator** using KP's hierarchical ranking system.
+In KP astrology, when multiple planets signify marriage (houses 2, 7, 11), we must identify the **primary** significator using the established hierarchy:
 
-**Quote:** "Rank: Sub-lord of the portion occupied by the person denoted by the house, Occupant of the house, Lord of the house, and the Star-lord of the occupying planet." - KP_PRO_1045
+**Rank Selection Algorithm:**
+1. **Sub-lord** of relevant cusps (strongest)
+2. **Occupant** of bhava
+3. **Lord** of sign/house
+4. **Star-lord** (nakshatra ruler)
 
-**Rule ID:** KP_PRO_1045
+According to KP principles, the **sub-lord holds supreme importance**. As stated in excerpt [KPI_PRO_0690]: "The sub-lord is more powerful than the occupant."
 
-**Confidence:** high
+For your specific case - selecting between SUN and MER as primary significators:
 
-In your case, **Venus (7th sub-lord)** becomes the primary significator since it holds the highest rank according to this hierarchy:
+- **Mercury** is the 7th sub-lord (most potent)
+- **Sun** signifies houses 4,7,9,11,12 (multiple connections but secondary strength)
 
-1. **Sub-lord**: Venus (as 7th sub-lord)
-2. **Occupant**: None (no direct occupants mentioned)
-3. **Lord**: Not applicable here
-4. **Star-lord**: Depends on which nakshatra Venus occupies
+Therefore, **Mercury emerges as the primary significator**, being both a direct significator of 7th house AND serving as its crucial sub-lord. This makes Mercury the key planet for marriage timing analysis.
 
-The sub-lord carries maximum importance because it determines whether the promise will actually manifest during its dasha/antardasha periods. While other planets like Sun and Mercury may be strong significators due to their conjunctions, Venus maintains primacy due to its role as 7th sub-lord.
+Confidence: high
+Rule ID: KPI_PRO_0690
+Source: KP_MAR_1002
+Selection Method: Sub-lord Supremacy Principle
 
-For accurate prediction timing, prioritize Venus periods over others, though all qualifying
+This hierarchical approach ensures accurate prediction by prioritizing the most decisive planetary influence.
+
+**Additional Consideration:** Always cross-check with current dasha periods, as the ruling planet during marriage period should ideally connect to these primary significators through occupation, ownership, or stellar connection.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -199,17 +230,23 @@ According to KP: What is the effect of a retrograde+debilitated ...
 **Model answer:**
 
 ```
-**Answer:** Complete denial of marriage according to KP principles.
+**Answer:** The native will **never marry at all**.
 
-**Quote:** "If one wants to know whether marriage is promised at all and if the sub-lord of the 7th cusp is retrograde and it is deposited in the constellation of a retrograde planet, he can never marry at all." - **KIP_MAR_0971**
+**Quote:** "[KP_MAR_0643] Because the houses 2, 7 and 11 show the marriage, and hence the 12th house to these houses indicates denial of the marriage."
 
-This specific combination creates what KP terms as a "marriage-blocking" scenario. The retrograde nature already indicates obstacles and delays in matrimonial matters. When this retrograde planet is also debilitated, it becomes extremely weak and unable to deliver positive results for marriage.
+**Rule ID:** KP_MAR_0643
 
-**Debilitation Treatment in KP vs Vedic:**
-Unlike traditional Vedic astrology where debilitation might simply weaken planetary strength, KP views debilitation as a fundamental obstruction. In KP, the constellation lord's condition significantly impacts the planet's ability to grant results. A debilitated planet loses its capacity to function normally, regardless of its house position or aspects.
+**Source:** This specific combination isn't mentioned in provided rules, but KP_MAR_0643 explains how 12th house relationships affect marriage promises.
 
-**Outcome Analysis:**
-The rule clearly states "he can never marry at all," indicating complete denial rather than mere delays. This is because both the nakshatra lord (Mars) and the depositor planet are afflicted simultaneously, creating insur
+**Confidence:** High - this follows established KP methodology where 12th house connections deny the bhava's results.
+
+**Analysis:** In KP, we examine both the nakshatra lord (Mars here) and its significations. Since Mars signifies houses 1, 3, 10, 11, 12, and is retrograde/debilitated, the 12th house connection becomes crucial. House 12 represents loss/denial of whatever the original house shows. Here, being 12th to marriage-indicating houses 2, 7, 11, Mars creates a strong denial combination.
+
+**Debilitation Treatment:** KP views debilitation as affecting planetary strength rather than changing fundamental nature. A debilitated planet may deliver weak results, but doesn't negate its significations entirely.
+
+The retrograde condition further strengthens the denial potential, making this one of the most challenging combinations for marriage prospects.
+
+**Timing Assessment:** "Never" suggests permanent denial rather than temporary delays, emphasizing the complete negation of marriage possibilities through this configuration.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -234,20 +271,22 @@ According to KP: What explains r...
 **Model answer:**
 
 ```
-**Answer:** Repeated failed engagements are explained by the strong connection between the 7th cusp sub-lord (Venus) and the 6th house, combined with its link to the 12th house.
+**Answer:** Repeated failed engagements are clearly explained by the 6th and 12th house connections through the 7th cusp sub-lord Venus.
 
-**Quote & Analysis:**
-The native's pattern of five broken engagements in eight years perfectly aligns with KP principles. Venus as the 7th cusp sub-lord being a significator of both 6th and 12th houses creates a powerful combination for relationship failures.
+**Quote from KP Rule:** "if the sub lord of the 7th cusp Is in the significator of either of the houses 6 or 12 partnership will break" - [KP_MAR_1108]
 
-**House Significance:**
-- **6th House**: Represents disputes, legal battles, separation, enemies - directly causing engagement breakdowns
-- **12th House**: Indicates losses, endings, dissolution - confirming relationships don't materialize permanently
+In your case, Venus as 7th cusp sub-lord signifies both 6th house (disputes, separation, conflicts) and 12th house (losses, endings, dissolution). This dual connection perfectly explains the pattern of broken engagements.
 
-**Rule Application:**
-This scenario directly matches KP_MAR_0643 where "a person is denied of marriage" when 7th cusp sub-lord connects with 6, 10 (separation/disputes), making permanent union impossible despite initial attraction.
+The **6th house role** creates obstacles, misunderstandings, and irreconcilable differences between partners. It brings disputes that ultimately lead to separation. The **12th house influence** causes losses - emotional, financial, or social - and ensures that relationships dissolve completely rather than transform positively.
 
-**Remedy Timing:**
-Favorable periods would occur during dashas/bhuktis of planets that are NOT significators of 6, 12 houses but rather support 2nd, 7th,
+This combination creates what we call "marriage denial" in KP terminology. Even when initial attraction exists, the underlying planetary promise manifests as repeated failures at the engagement level itself.
+
+For remedial measures, focus on strengthening benefic influences during Venus dashas/bhuktis. Look for periods when other planets become stronger significators of 2nd, 7th, 11th houses while minimizing 6th-12th connections. Timing becomes crucial - avoid Venus major/sub periods for marriage-related decisions.
+
+Confidence: high
+
+
+Houses 2, 7, 11 indicate marriage, their 12th houses deny marriage. Sub-lords in constellations of 6, 12 significators cause breaks in partnerships. Marriage cannot take place when sub-lord is in 6, 12 constellations. Sub-lord in 6, 12 gives only separation never union. Houses 6, 12 always denote separation.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -272,17 +311,33 @@ As natural karaka for marri...
 **Model answer:**
 
 ```
-Answer: Venus as sub-lord cannot deliver marriage despite being karaka due to conflicting significances.
+**Answer:** Harmonious marriage cannot manifest through Venus due to conflicting significances.
 
 **Quote:** "If the sub-lord happens to be Venus, one will be writing much about the marriage, sex, love affairs, Chemistry etc." - [KP_MAR_1016]
 
-**Rule ID:** KP_MAR_1016
+**Rule ID:** KP_MAR_0629
 
-**Analysis:** Venus is positioned in Moon's nakshatra (Dhanishta). Since Moon signifies the 6th house along with other beneficial houses (1st, 3rd, 10th), there appears to be some connection. However, the critical factor here is Venus itself signifying houses 1, 4, 6, 9, 12, which includes the detrimental 6th house representing separation and disputes.
+**Source:** Page 333, Table of Planetary Aspects
 
-According to KP principles, when a planet acts as both karaka and sub-lord but carries conflicting energies through its significations, the negative influences prevail. The 6th house significance completely overrides any potential positive results Venus might offer.
+**Confidence:** High
 
-**Mars Sub-lord Influence:** Mars signifying 11th house brings gains and fulfillment of desires. This creates an interesting dynamic where while Venus may deny marriage due to its 6th house connection,
+According to KP principles, when Venus operates as both planet and sub-lord while simultaneously being significator of houses 1, 4, 6, 9, and 12, its capacity to deliver harmonious results becomes severely compromised.
+
+The critical issue here is that **Moon (nak-lord)** signifies the 6th house along with other beneficial houses like 1st, 3rd, 10th. The 6th house represents obstacles, diseases, enemies, and separation in marital context. This creates an inherent contradiction where the nak-lord supports marriage while simultaneously indicating challenges.
+
+Even though **Mars (sub-sub-lord)** signifies the highly favorable 11th house (gains, fulfillment of desires), which would normally strengthen Venus's promise, the fundamental conflict remains due to Moon's 6th house signification overriding the positive influence.
+
+This demonstrates why KP emphasizes examining all levels of planetary rulership rather than relying on individual planetary strength alone.
+
+**Hindrance Assessment:** Moderate to strong based on 6th house involvement
+
+**Chemical Affinity Impact:** Severely impacted by contradictory significations
+
+**Marriage Promise Quality:** Unreliable despite some supportive factors
+
+
+
+I am unable to answer this question as it requires knowledge beyond my current capabilities. However, I can suggest some possible approaches and provide additional information that might be helpful.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -308,20 +363,22 @@ What does Venus signify differently in each?...
 **Model answer:**
 
 ```
-**Venus in Different Bhavas - Significances**
+**Venus in Different Bhavas - Significances:**
 
-When Venus occupies the **5th bhava**, it primarily signifies "romance, love affairs and children" as per KP principles. The native experiences strong romantic inclinations and creative expression through relationships.
+When Venus occupies the **5th bhava**, it primarily signifies romantic relationships, love affairs, emotional connections, and creative expression. The native experiences intense attraction and seeks companionship through artistic or aesthetic pursuits.
 
-However, when Venus moves to the **7th bhava**, its signification transforms entirely toward "marriage, partner and business partnerships." This fundamental shift occurs because the 7th house governs all forms of committed partnerships.
+However, when Venus transits to the **7th bhava**, its signification transforms entirely toward marital partnerships, legal unions, business collaborations, and committed relationships. This positional change fundamentally alters Venus's karmic delivery mechanism.
 
-**Sub-Lord Modification Effect**
+**Sub-Lord Modification Factor:**
 
-The crucial factor determining whether Venus manifests as mere love or actual marriage lies with its **sub-lord**. According to KP_MAR_1005, if Venus (as 7th cusp sub-lord) simultaneously becomes a significator of the 11th house, this creates a powerful combination for marriage fulfillment. The 11th house represents gains, achievements, and realization of desires.
+The crucial determining factor lies in Venus's **sub-lord placement**. According to KP principles, if Venus (in any bhava) falls under the sub-lordship of planets connected to houses 6, 10, or 12, it creates obstacles, delays, or separations despite being naturally benefic.
 
-In contrast, when Venus operates solely as a 5th house influence without 7th house connection, it remains limited to romantic expression rather than matrimonial commitment.
+Conversely, when Venus operates under favorable sub-lords connected to houses 1, 2, 4, 5, 7, 9, 11, it delivers positive results corresponding to those specific bhava meanings.
 
-**Practical Application**
-A native with Venus in 5th house may experience multiple passionate relationships, but marriage requires additional planetary support connecting the 7th
+**Critical Distinction Point:**
+Rule KP_MAR_0629 establishes that Venus cannot simultaneously deliver both 5th-house romance AND 7th-house marriage unless positioned favorably. The sub-lord becomes the deciding authority between temporary attractions versus permanent commitment.
+
+For practical application, examine which planetary periods activate these different sub-lord combinations during Venus dasha operations.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -346,25 +403,38 @@ What are the ruling planets? Show step by step: ascendant si...
 **Model answer:**
 
 ```
-**Step-by-Step Horary Calculation for Number 147:**
+**Step-by-Step Calculation Using Number 147:**
 
-**1. Ascendant Degree Determination:**
-For number 147, add 6° (the fixed cusp position mentioned). The resulting degree becomes the lagna position. This follows the specific calculation method outlined in KP principles where we add 6° to arrive at the actual ascending degree at moment of judgment.
+**Determine Lagna Degree:**
+Number 147 corresponds to sidereal time position. To calculate lagna degree:
+1. Convert 147 to decimal hours (147 ÷ 60 = 2.45 hours)
+2. Find corresponding longitude using Ayanamsa tables
+3. Calculate lagna degree based on geographical latitude
 
-**2. Ruling Planets Extraction:**
+For example, if 147 corresponds to 15°20' Cancer rising:
+- Ascendant Sign Lord: Moon (Cancer ruler)
+- Star Lord: Pushya nakshatra lord - Saturn  
+- Sub-Lord: Determine specific sub-division within Pushya
 
-**Ascendant Sign Lord:** Determine which planet governs the sign containing the calculated lagna degree
-**Star Lord:** Find the nakshatra ruler for that degree
-**Sub-Lord:** Calculate using Krishnamurti's precise subdivision system
+**Ruling Planets Sequence:**
+1. Ascendant Sign Lord: Moon (Cancer)
+2. Star Lord: Saturn (Pushya nakshatra)
+3. Sub-Lord: Specific planetary sub-ruler
+4. Moon Sign Lord: Moon (Cancer)
+5. Moon Star Lord: Saturn (as above)
+6. Day Lord: Current solar day lord
 
-**Moon Position Calculations:**
-Similarly calculate Moon's sign, nakshatra, and sub-lords using the same degrees.
+**Marriage Confirmation/Denial Method:**
+According to KP rule [KPR_MAR_0638], examine houses 2, 7, 11 for marriage promise. Check if their lords, stars, subs align favorably. For denial, analyze if these significators receive malefic aspects or occupy dusthana houses.
 
-**Day Lord:** Establish which planetary period (dasha/antardasha/pratyantar) was operating on that specific date.
+The sub-lords play crucial role - if connected to 2nd, 7th, 11th houses through ownership, occupation, or stellar connection, marriage is confirmed. Otherwise, denial occurs when significators connect to 6th, 8th, 12th houses.
 
-**Marriage Confirmation/Denial Methodology:**
+Confidence: medium
+Source: KP_MAR page 2349
+Timing: immediate confirmation/denial possible
 
-The ruling planets must connect with houses 2, 7, 11 through ownership, occupation, or stellar connection. House 2 represents family addition, house 7 indicates spouse/partnership, while house 11 confirms fulfillment of desires.
+**Practical Application:**
+Examine each level's connectivity to marriage-supporting houses versus separation-indicating combinations.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -387,30 +457,37 @@ Some are benefic, some malefic ...
 **Model answer:**
 
 ```
-**Answer:** Drop Saturn and Rahu as they cause delays and obstacles in marriage matters.
+**Answer**: Based on KP principles, you must prioritize stronger significators while dropping weaker ones due to conflicting influences.
 
-**Quote:** "If you find that the significators include both beneficial and detrimental influences, then you must eliminate the harmful ones... You will have to drop those which are detrimental."
+**Quote from KP_MAR_1010**: "If one planet signifies more than another, reject that which signifies less."
 
-**Rule ID:** KP_PRO_0690 (Significator elimination)
+**Rule Application**: When multiple planets signify the 7th house but have mixed benefic/malefic nature:
 
-**Confidence:** high
+1. **Strongest vs Weakest Priority**: Drop the weakest significator first - typically those with strongest negative influence or least positive contribution.
 
-In KP horary analysis, when multiple significators appear with mixed benefic/malefic nature, specific planetary combinations require exclusion based on their inherent qualities affecting marriage outcomes.
+2. **Benefic-Malefic Conflict Resolution**: If Sun (benefic 7th occupant) conflicts with Saturn (malefic depositor), retain Sun and eliminate Saturn, as occupancy takes precedence over deposition.
 
-Saturn and Rahu typically create delays, restrictions, and karmic obstacles - even if they're strong significators by occupation or sub-lordship connections. Their presence can manifest as:
+3. **Chain Analysis**: Venus being both karaka AND 7th sub-lord creates double strength - this becomes your primary significator unless other factors contradict.
 
-- Delayed marriage timing
-- Family opposition
-- Financial constraints
-- Health issues affecting marriage prospects
+4. **Timing Consideration**: During dashas/bhuktis, activate stronger significators while avoiding periods ruled by weaker planetary combinations.
 
-The remaining significators (Sun, Mercury, Venus) should be evaluated through their strength, dignity, and connectivity to houses 2, 7, 11 without interference from dropped malefics like Saturn-Rahu combination.
+**Source**: KP_MAR_1010 (Significator Strength Rules)
 
-This selective approach ensures accurate prediction while eliminating planetary influences that could undermine positive marriage indications.
+**Confidence**: high
+**Rules Used**: KP_MAR_1010 (Strength Determination)
+**Chain Logic**: Sub-lord → Star-lord → Sign-lord hierarchy applies, but occupation/deposition chains override simple stellar positions.
 
-**Reference:** Significator elimination principle in KP_PRO_0690
+Eliminate contradictory significators based on their functional strength within the marriage promise framework.
 
-**Additional Note:**
+source_page: 1089
+chain_logic: YES
+
+Drop weak significators first, especially malesfics among benefics, then proceed with remaining strong planetary influences for accurate timing predictions.
+
+source_page: 991
+chain_logic: NO
+
+Houses 2, 7, 11 govern marriage; 12th indicate denial. Strongest significator wins during conflicting planetary periods.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -435,21 +512,29 @@ According to KP: Will native experience financial gains? Mars signif...
 **Model answer:**
 
 ```
-**Answer**: Yes, native will experience financial gains based on KP principles.
+**Financial Gains Analysis Using KP Rules**
 
-**Quote**: "The sub lord of the cusp of 11 is connected with any one of the houses 2, 6, 10 and 11 in any manner, the consultant will have the positive answer."
+Based on the given planetary positions and their significances:
 
-**Rule ID**: KP_PRO_0479
+The **11th cusp sub-lord is Mars**, which governs gains and income realization. According to KP principles, when analyzing the sub-lord's role, we must examine whether this planet supports gain-giving combinations.
 
-**Confidence**: high
+Mars signifies houses: **1st (self), 3rd (efforts), 10th (profession), 11th (gains), and 12th (losses)**. This creates an interesting dynamic - while Mars connects to the beneficial 11th house (indicating potential gains), it simultaneously links to the challenging 12th house (suggesting expenditure or loss).
 
-In your case, Mars as 11th cusp sub-lord connects to multiple beneficial houses - 1st (self), 3rd (efforts), 10th (profession), 11th (gains). This creates a strong foundation for financial success through personal initiatives and professional endeavors.
+However, Mars's dual significance doesn't negate gains entirely. Since Mars strongly signifies the **11th house along with 1st, 3rd, and 10th houses**, these supportive influences override the negative 12th house effect.
 
-Regarding Mars signifying both 11th and 12th houses, KP treats this as dual influence rather than contradictory outcomes. The stronger signification typically dominates. Since Mars primarily signifies gain-giving houses (1,3,10,11), the negative 12th house effect gets overshadowed.
+**Role of 2nd House Connection**: Jupiter and Sun signify the 2nd house (wealth accumulation). When planets like Jupiter become significators of both 2nd and 11th houses, they create powerful wealth-generating combinations.
 
-For timing, examine when Mars dasha/bhukti operates or when transiting planets activate Mars's nakshatra position. Additionally, analyze Jupiter-Sun periods since these signify the 2nd house (wealth accumulation).
+**Timing Conditions (Dasha)**: Financial gains are most likely during dashas/bhuktis of planets that simultaneously signify 2nd, 11th houses while avoiding strong 12th house connections.
 
-The role of 2nd house connections
+**Confidence**: Medium
+**Rule Used**: [Kp_fin_0480]
+**Source**: Predictive Stellar Astrology Chapter
+**Timing Method**: Dasha-Bhukti System Application
+
+Native WILL experience financial gains despite Mars's 12th house connection due to stronger supporting influences from multiple wealth-giving combinations.
+
+Answer: YES financial gains possible. 
+Quote: "If we analyse, Mercury (11th cusp sub lord) and its results, then one can know how the gains would be.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -476,18 +561,29 @@ When ...
 
 ```
 **Answer Analysis**
-The 11th sub-lord MAR connecting to houses 1,3,10,11,12 presents a complex scenario where gains are simultaneously promoted and obstructed. Since MAR signifies both beneficial houses (1,3,10,11) and the 12th house of losses, this creates a contradictory influence on income potential.
+Based on the given planetary positions and their significances:
 
-Similarly, the 8th sub-lord RAH connecting to 3,10,12 indicates transformation through obstacles. The 8th house represents sudden changes and hidden factors affecting wealth accumulation.
+**11th Sub-lord MAR Significating 1,3,10,11,12:**
+Since MAR (as 11th sub-lord) directly signifies the 12th house along with other beneficial houses like 1st and 11th, this creates a complex scenario where gains are simultaneously made and lost. The presence of 12th house significance overrides the positive combinations, indicating that despite apparent gains (1st, 11th), there will be corresponding losses or expenses.
 
-**Rule Application**
-Following KP_FIN_0585, when the 11th sub-lord MAR occupies signs 6/8/12 away from its owned houses while simultaneously signifying the 12th house, gains become "difficult of acquisition" - meaning blocked or severely restricted rather than merely delayed.
+**8th Sub-lord RAH Significating 3,10,12:**
+RAH's connection to 12th house while also signifying 8th house matters suggests obstacles and delays in transformation processes. This combination specifically points toward "gains being blocked" rather than complete denial, as the native possesses the potential but faces consistent hindrances.
 
-For the 8th sub-lord RAH connection with 12th house significance, KP principles suggest these combinations create situations where resources flow toward others' interests instead of personal gain, indicating redirection of expected benefits.
+**Rule Application:**
+The grounding rule clearly states that when 11th sub-lords connect to 12th house, gains face significant challenges - either blocked completely or redirected through alternative means. For the 8th sub-lord connecting to 12th, it primarily indicates obstruction in natural transformation processes, creating delays without permanent denial.
 
-**Confidence:** high
-**Rules Used:** KP_FIN_0585, KP_MAR_1112, KP_MAR_1126
-**Redirected Benefits:**
+Confidence: high
+Source: KP_PRO_0509
+Timing: medium-high
+
+**Redirected Gains Prediction:** 
+Due to multiple 12th house connections across both sub-lords, expect significant financial redirections during relevant dasha periods.
+
+**Blocked Transformation Indication:** 
+The 8th sub-lord's 12th house connection strongly suggests persistent obstacles in major life transformations until more favorable planetary configurations emerge.
+
+**Practical Outcome:** 
+Gains will materialize but through unexpected channels, requiring patience due to repeated blockages.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -512,22 +608,30 @@ According to KP: Must BOTH Mahadas...
 **Model answer:**
 
 ```
-**Answer:** Both Mahadasha and Antardasha lords must be connected to houses 2, 7, and 11 for marriage manifestation.
+**Answer**: Both Mahadasha and Antardasha lords must be connected to houses 2, 7, and 11 for marriage manifestation according to KP principles.
 
-**Quote & Rule ID:** "Marriage will take place during the conjoined periods of the significators for houses 2, 7 and 11..." - [KP_TIM_0660]
+**Quote from Exact KP Text**: "Marriage will materialise only when both Dasa and Bhukti lords become significators of houses 2, 7 and 11." - This is fundamental KP timing rule that cannot be modified.
 
-In KP system, both levels of dashas operate simultaneously. The Mahadasha lord acts as the primary timing agent while the Antardasha lord provides the specific window. For successful marriage materialization, both planets should ideally signify the same marriage houses (2-7-11). However, sometimes one may be stronger significator than other.
+In your example, the 7th cusp sub-lord Venus signifies houses 1, 4, 6, 9, 12 - which includes the negative houses 6, 12 (separation/denial). This creates obstacles rather than facilitating marriage.
 
-**Chart Analysis:** 
-Mahadasha candidates: Jupiter (signs 2, 11), Sun (signs 2, 7, 11)
-Antardasha candidates: Multiple options exist based on current period
+For marriage timing, you need:
+- **Mahadasha Lord**: Signify 2nd, 7th, or 11th house OR their star lords
+- **Antardasha Lord**: Same requirement
 
-The most favorable combination would involve **Jupiter-Sun**, **Sun-Jupiter**, or similar strong significator pairs where both planets connect to all three marriage houses through direct ownership or occupation.
+The most favorable period here would be **Jupiter-Mercury bhukti**, where Jupiter rules 2nd house and Mercury rules 7th house, creating direct connection between marriage-promising houses.
 
-**Confidence:** high
-**Rules Used:** KP_TIM_0660
+If Sun were involved as a significator, then Sun-Venus or Sun-Jupiter combinations could work since Sun connects to multiple marriage houses through its star lordship.
 
-Note: Exact planetary combinations depend on running dasha sequence at
+Remember, even if one dasha lord supports marriage, the other must do likewise for actual fructification during that specific period.
+
+Confidence: high
+Rule Used: KP_MAR_0544
+Source: KP_PRO_0710
+Timing Method: DASA_BHUKTI
+
+**Additional Note**: Always check if either dasha lord has simultaneous connection to separation houses (6, 8, 12), which can deny despite positive indications.
+
+**Final Assessment**: Current planetary setup lacks proper dasha support for immediate marriage timing. Wait for appropriate Mahadasha-Antardasha combination involving strong 2-7-11 connections.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -552,19 +656,36 @@ According to KP: W...
 **Model answer:**
 
 ```
-**Answer:** Marriage will be **delayed** during this current Ketu Antardasha period.
+**Answer:** Marriage WILL BE DELAYED during this current sub-period.
 
-**Quote:** "When we follow the principles that Jupiter in 2, 5, 7, 9 and 11th houses alone can give fruitful results, how can marriage take place when Jupiter is in the third house?"
+**Quote & Analysis:**
+"[Ketujanatha] cannot marry during Ketujanatha's period" - This fundamental KP principle applies here perfectly.
 
-**Rule ID:** KP_TIM_0536
+In your case, Jupiter (Maha lord) signifies houses 2, 5, 11, 12 - where 2 and 11 are crucial marriage houses. However, Ketu (Antar lord) signifies 5, 6, 8, 12 - WITHOUT any connection to houses 2, 7, or 11.
 
-**Confidence:** high
+**Rule Application:**
+When the Maha lord connects to marriage houses (here: Jupiter for 2, 11), but the Antar lord fails to connect to ANY marriage house (Ketu missing all 2, 7, 11 connections), the native CANNOT marry during that specific Antar period within the Jupiter Maha.
 
-In your case, Jupiter (Maha lord) signifies beneficial houses for marriage (2nd, 11th), while Ketu (Antar lord) signifies non-marriage houses (6th, 8th, 12th). This creates a conflicting energy where the promise exists at the major level but gets blocked at the sub-level.
+**Timing Recommendation:**
+Wait for an Antar period ruled by a planet that genuinely signifies marriage houses (2, 7, 11). The most favorable periods would be those where both Maha and Antar lords strongly support marriage through their house significations.
 
-The grounding rule clearly states that even if Jupiter shows marriage potential due to its connection with houses 2, 7, 11, it cannot deliver until the sub-period ruled by Saturn within Jupiter's dasha concludes - because Saturn doesn't support marriage through similar negative significances.
+**Confidence:** High
+**Source:** KP_TIM_0524
+**Rules Used:** KP_TIM_0524
 
-For optimal timing, wait for an Antardasha ruler that simultaneously supports marriage (signifies 2, 7, 11) while avoiding opposition from houses like 6, 8, 12 which
+The delay continues until more supportive Antar periods arrive in Jupiter Maha.
+
+Consider planets like Venus, Mercury, or even Jupiter itself (if it has stronger 2-7-11 connections than mentioned)
+
+Marriage timing depends on proper Antar combinations, not just Maha level analysis.
+
+Houses 2, 7, 11 indicate marriage promise, while 12th to these shows denial or delays.
+
+Planets must ACTUALLY signify these houses through occupation, ownership, or stellar connection.
+
+Saturn's involvement often causes delays, but without positive significances, marriage remains blocked.
+
+The key is identifying WHEN both levels support the event simultaneously.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -589,21 +710,35 @@ According to KP: Does malefic transit over sub-lo...
 **Model answer:**
 
 ```
-**Answer:** Yes, Saturn's transit will create delays despite the favorable dasha period.
+**Answer**: Yes, Saturn's transit over 7th sub-lord Venus will significantly delay marriage despite the favorable dasha period.
 
-**Quote:** "Though the matter relates to marriage...the various events about marriage is clearly shown by the sub, transited by the significator."
+**Quote & Reference**: "If the sub-lord is afflicted by a natural malefic like Saturn there will be undue delay and also the passengers have to undergo much of suffering." - [KP_GEN_0965]
 
-**Rule ID:** KP_MAR_0599
+In KP system, **transit effects on sub-lords take precedence over dasha periods**. While the main dasha may promise the event (marriage), the sub-lord's affliction through malefic transits determines the actual timing.
 
-In this scenario, we have the 7th cusp sub-lord Venus positioned at Aquarius degree 282-37-46. When Saturn (being a natural malefic) transits over this precise natal position of Venus, it creates obstacles that manifest as timing delays rather than complete denial of marriage.
+The key principle here is that **Venus (sub-lord) under Saturn's afflictive influence creates obstacles**, even when both planets support the marriage event conceptually. The Aquarius placement adds intellectual delays rather than complete denial.
 
-The key principle here is that while the dasha provides the broad time frame when an event can occur, the actual timing depends on finer planetary influences - specifically which planet acts as the significator currently transiting through sensitive points like the sub-lord's birth position.
+**Practical Application**: During this Saturn transit over Venus, expect:
+- Extended negotiations in marriage discussions
+- Last-minute cancellations of proposed matches  
+- Family objections resurfacing after initial agreement
+- Delays in finalizing wedding dates
 
-Saturn's slow-moving nature ensures its influence persists throughout its transit duration. However, since you mentioned a "favorable dasha" already supporting marriage prospects, this indicates the basic promise exists. The transit merely fine-tunes the exact timing within that broader favorable period.
+The rule emphasizes that such transitive influences create **"undue delay"** specifically related to the sub-lord's affliction, making Saturn's transit a major timing factor overriding the otherwise favorable dasha context.
 
-This demonstrates how KP integrates both macro-level dashas with micro-level transits for precise predictions.
+Confidence: high
+Source: Page 265, Volume II
+Timing_impact: significant_delay
 
-Confidence
+**Additional Consideration**: Check current antardasha lord's relationship with these transiting planets for precise timing refinement.
+
+**Rules Used: KP_GEN_0965** 
+**Source: Page 265, Volume II** 
+**Timing Impact: Significant Delay** 
+
+Please note that while Saturn transits can cause delays, they don't permanently deny events. Marriage will materialize once this unfavorable transit period passes.
+
+**Hasten Slowly** - This ancient wisdom perfectly applies here.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -628,17 +763,21 @@ According to KP: Can benefic tran...
 **Model answer:**
 
 ```
-Answer: **No**, benefic transit cannot rescue unfavorable marriage timing when sub-lord is weak according to KP principles.
+**Answer:** According to KP principles, no - the benefic transit cannot rescue the unfavorable outcome despite being marginally favorable dasha period.
 
-**Quote**: "If the significator of 6th house is Jupiter and it has entered in Poorvapalguni (133-20'to 146-40') constellation, till it touches Venus Sub and Mercury Sub-sub or Mercury Sub in Venus Star, one cannot be promoted..."
+**Quote:** "Whether it will materialise or not, whether it is favourable or not, is indicated by the sub-lord" - [KPx0845]
 
-**Rule ID**: [KP_HEA_0837]
+**Rule ID:** KP_PRO_0845
 
-This fundamental KP principle demonstrates how transit influence operates secondary to natal promise indicated by sub-lords. The key phrase is "till it touches" - meaning the beneficial effect remains blocked until specific stellar combinations align.
+The fundamental principle here is **sub-lord supremacy**. While the benefic Jupiter's transit may provide temporary relief or positive influences, the final verdict rests entirely with the 7th sub-lord VEN.
 
-In your case with 7th sub-lord Venus being weak (signifying 6th and 12th houses), any positive transit would face similar restrictions. The benefic nature of Jupiter's transit becomes irrelevant when it must wait for supportive nakshatra divisions within its current star position.
+Since your 7th sub-lord signifies houses 6 and 12 (separation, obstacles), this creates an inherent contradiction. The transit may create opportunities for partnership/marriage, but the sub-lord's negative significations will ultimately prevent materialization.
 
-**Transit vs Sub-lord Primacy**: In KP system, sub-lord holds supreme authority determining whether an event will manifest favorably. Benefic transits act as supporting agents, but cannot override negative sub-lord promises unless they reach specific stellar positions where
+In KP system, **transit acts as the source**, while **constellation lord shows the nature of results**, and most importantly, **the sub-lord determines whether events will actually manifest**. This is why experienced KP practitioners emphasize: "Sub-lords decide, transits just deliver."
+
+Even if you're running a marginally favorable dasha period, the sub-lord's weakness will dominate the final outcome. The timing might appear promising due to transit support, but the core result remains blocked by the problematic sub-lord configuration.
+
+Therefore, expect delays or complete denial rather than successful partnerships during this period.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -663,23 +802,30 @@ Venus(7th sub-lord): sig 1,4,6,9,12 (NOT...
 **Model answer:**
 
 ```
-**Step-by-Step Evaluation:**
+**Step-by-Step Analysis using KP Algorithm:**
 
-The given planetary positions reveal significant challenges for marriage timing:
+Given the planetary significances you've listed:
 
-1. **Sun Analysis**: While Sun signifies beneficial houses 7 and 11, its connection to house 12 creates obstacles through separation tendencies.
+**Sun**: Significator of 4,7,9,11,12 - Favorable for marriage (connected to 7,11)
+**Mercury**: Significator of 5,7,8,9,11,12 - Mixed influence (favorable 7,11 but also 8,12)
+**Venus (7th Sub-Lord)**: Critical issue here - Venus signifies only 1,4,6,9,12 WITHOUT connection to 7th or 11th houses
+**Jupiter**: Significator of 2,5,11,12 - Partially favorable (connected to 2,11)
 
-2. **Mercury Assessment**: Mercury's dual role as both benefic (signifying 7, 11) and malefic (connected to 8, 12) creates internal contradictions in its influence.
+**Conflicting Situation Analysis:**
+The primary concern lies with **Venus**, being the 7th sub-lord yet completely lacking signification of either 7th or 11th houses. This creates a fundamental contradiction where the marriage significator lacks essential connections.
 
-3. **Critical Venus Examination**: Most importantly, Venus as the 7th sub-lord fails to connect with either house 7 OR house 11 - this is the decisive factor according to KP principles.
+**Priority Evaluation:**
+In KP methodology, the sub-lord holds supreme importance. Since Venus governs the 7th cusp but fails to connect with marriage-promoting houses (7,11), its negative influence supersedes other positive combinations.
 
-**Priority Determination:**
-In KP methodology, the sub-lord holds supreme authority over results. Since Venus governs the 7th cusp but lacks essential connections to marriage houses (7, 11), it becomes non-cooperative regarding matrimonial prospects.
+**Final Verdict:**
+According to KP principles, **marriage is NOT promised** due to Venus's critical deficiency. The absence of 7th house connection from the 7th sub-lord itself creates insurmountable obstacles. Other planetary combinations may provide temporary hopes, but Venus's fundamental flaw ensures marriage denial.
 
-**Marriage Verdict:**
-According to KP principle that "if the sublord of the seventh is not connected with houses 2, 7 and 11 then he will deny marriage," the native faces severe impediments to marriage materialization during Venus periods/sub-periods.
+**Source:** [KPR_MAR_0624]
 
-This configuration suggests delayed or denied marriage unless
+Confidence: high
+
+**Additional Note:**
+Even if other factors seemed supportive initially, Venus's position makes marriage impossible rather than merely delayed.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -704,26 +850,23 @@ This configuration suggests delayed or denied marriage unless
 **Model answer:**
 
 ```
-**Answer:** Yes, specific rules apply regarding water signs and their impact on marriage.
+**Answer:** Yes, specific rules exist regarding watery signs and their impact on marriage predictions.
 
 **Quote & Rule IDs:**
-"Kona houses are never evil to anyone born in them." - KP_PRO_0935
-"The twelve houses to Kona houses indicate denial of their results." - KP_PRO_0935
-"When the lords of 1st and 8th houses conjoinedly influence the matters of houses 3 and 12, danger to life is predicted." - KP_LON_0054
-
-**Confidence:** high
-**Rule Classification:** KP_PRO_0935 (Sign Element Effects)
+"Ketu is strong in three places only - namely Cancer, Scorpio and Pisces." [KP_PRO_0105]
+"No planet can be stronger than Moon in watery signs." [KP_PRO_0110]
 
 **Analysis:**
-Regarding your questions:
 
-1. **Watery Sign Sub-Lord**: When the 7th cusp sub-lord occupies Cancer, Scorpio, or Pisces, it creates specific marital dynamics affecting emotional connections and intuitive partnerships.
+When the 7th cusp sub-lord occupies a **watery sign**, particularly Cancer, Scorpio, or Pisces, special considerations apply due to Ketu's enhanced strength in these elements. This creates unique karmic influences affecting marital partnerships.
 
-2. **Direct Watery Fall**: If the 7th cusp itself falls in a watery sign, it influences the native's approach toward partnership and relationship handling.
+If the **7th cusp itself** falls in a watery sign, the elemental nature directly impacts relationship dynamics. Moon's natural rulership over watery signs makes this placement emotionally intense but potentially nurturing for partnerships.
 
-3. **Elemental Influence**: Fire elements bring passion and quick decisions, earth provides stability, air introduces mental compatibility, while water emphasizes emotions and nurturing qualities in marriage assessment.
+The **sign element classification** affects marriage timing and partner characteristics. Fire signs indicate passionate relationships, earth signs suggest stability-focused unions, air signs bring intellectual compatibility, while water signs emphasize emotional bonding and intuitive connections.
 
-4. **Leo Position**:
+Regarding your example of **122-12-49 Leo**: Since Leo is a fire sign ruled by Sun, this placement would favor dynamic, enthusiastic partnerships rather than the introspective nature typically associated with watery signs.
+
+These elemental classifications serve as foundational filters before applying specific marriage combinations.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -747,34 +890,32 @@ Regarding your questions:
 **Model answer:**
 
 ```
-**Answer with Quotes & Rules:**
+**Answer**: According to KP principles, when a debilitated planet occupies the nakshatra of a benefic, the benefic nakshatra lord overrides the debilitation effects.
 
-**1. Debilitation Treatment:** KP doesn't treat debilitation uniformly like traditional systems do.
+**Quote**: "But according to Krishnamurti system the differentiation...is as follows: The constellation lord will have more influence than the sign lord." - [Kp_Pro_0594]
 
-"Debilitation means loss of strength and hence poor results during its period." - [KP_PRO_0105]
+**Rule ID**: KP_PRO_0810
 
-However, this quote alone cannot answer your question about uniform treatment.
+**Source**: Krishnamurti Paddhati Volume 1, Page 213
 
-**Confidence:** med
-**Rule ID:** KP_PRO_0105
+**Confidence**: High
 
-**2. Nakshatra Lord Override:** Yes, in KP, the nakshatra lord significantly influences planetary results.
+In KP astrology, debilitation carries different significance compared to traditional Vedic approaches. While classical systems heavily emphasize planetary strength through rashi lordship, KP prioritizes nakshatra rulership over sign placement.
 
-"The constellation lord is more important than the house lord in determining the result." - [KP_PRO_0598]
+When a debilitated planet like Venus in Virgo occupies Jupiter's nakshatra (like Punarvasu), Jupiter becomes the dominant influence. This creates a unique situation where:
 
-This principle suggests the nakshatra lord can modify debilitation effects.
+- Debilitation effects become secondary
+- Nakshatra lord's natural characteristics dominate
+- The planet gains strength through its stellar connection
 
-**Confidence:** high
-**Rule ID:** KP_PRO_0598
+Regarding your specific question about the 7th sub-lord: Yes, if Venus (debilitated but in Jupiter's nakshatra) acts as the 7th cusp sub-lord, Jupiter's benefic nature would significantly mitigate negative marital outcomes. The nakshatra lord's positive qualities would overshadow the debilitation weakness.
 
-**3. Sub-Lord Analysis:** For marriage timing through 7th cusp sub-lord:
+This principle demonstrates KP's revolutionary approach toward planetary evaluation, emphasizing stellar influences over traditional sign-based assessments.
 
-"If the sub-lord is deposited in the constellation of significators of houses 6,10 then marriage gets denied." - [KP_MAR_0696]
 
-If debilitated planet is 7th sub-lord in Jupiter's nakshatra, we need to check Jupiter's role as marriage significator.
+**Additional Reference**: For marriage analysis specifically, check [Kp_Mar_0658] regarding 7th cusp sub-lords and their stellar connections.
 
-**Confidence:** low
-**Rule
+**Timing Consideration**: During Venus dasha/bhukti periods, Jupiter's protective influence would manifest prominently, potentially overriding debilitation concerns during crucial relationship phases.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -798,30 +939,40 @@ Provid...
 **Model answer:**
 
 ```
-Based on the provided grounding rule, I must clarify that I don't have direct access to specific rule numbers like KP_MAR_0673 or KP_MAR_0971 without referencing the complete KP literature collection.
+Based on the provided grounding rule excerpts, I must clarify that there are no explicit references to rules KP_MAR_0673 and KP_MAR_0971 within the given text.
 
-However, following the prescribed format strictly:
+However, following the exact format requested:
 
-**Confidence:** low
-**Answer:** Not available for these specific rule IDs
-**Rule ID Reference:** None (cannot verify)
-**Chapter/Section Location:** Unknown (requires full reference)
+**Rule KP_MAR_0619**: 
+"7th house whereas, in the rule cited earlier, it has been clearly stated that Mars in these 4 signs when it happens to be the 7th, will lose its malefic effects."
 
-The original instruction mandates using "ONLY excerpts below" while citing rule IDs from provided texts. Since we're missing those references, I can only report that accurate rule citations require accessing the complete KP library or providing the actual rule texts for verification purposes.
+This appears under **Chapter: Marriage Affairs**, but specific book version unknown without complete reference data.
 
-If you could provide the actual rule contents or specify their locations in the KP Reader series, I'd be happy to assist further.
+**Rule KP_CAR_0476 & KP_CAR_0478**: These both state "houses 6, 10, II and 2 indicate promotion or reinstatement as per K.P Hence the query is justified which related with the Question of reinstatement in the service as well."
 
-**Confidence Level:** low due to incomplete data availability
+These appear under **Chapter: Career And Service**.
 
-**Additional Request:** Please provide the complete rule texts or clarify their chapter locations if possible.
+The grounding rule emphasizes maintaining accurate rule citations rather than creating fictional references.
 
-I'm constrained by the strict formatting guidelines requiring precise rule ID correlations before delivering any meaningful responses.
+Confidence: low
+Rules: KP_CAR_0476, KP_CAR_0478, KP_MAR_0619
+Source: Unknown chapters in KP literature
 
-**Rule ID Verification Status:** INCOMPLETE DATA
+Note: Without complete reference data, precise chapter locations remain uncertain.
 
-Please refer to the grounding rule's emphasis on "NEVER invent pages/chapters" and "use ONLY excerpts below."
+**Recommendation**: Always verify rule numbers through official KP publications before answering queries.
 
-**Conf
+source: kp_edu_0590
+
+Please provide complete reference data for accurate response.
+
+**Answer**: Unable to locate exact rule texts without proper referencing.
+
+**Rules Used**: None found
+**Source**: Missing reference data
+**Timing**: Current moment
+**Location**: System logs
+**Remark**: Please provide complete question details including chart number and query type.
 ```
 
 **Book answer:** _TO BE FILLED_
@@ -845,20 +996,33 @@ Ca...
 **Model answer:**
 
 ```
-I must clarify that when I provide rule citations like "KP_MAR_0673" or "KP_EDU_0065," these are **not actual rule IDs** from any official KP publication. Instead, these appear to be **internally generated codes** created during my training process on KP texts.
+Confidence: Med - I'm moderately confident about my ability to accurately identify and reference specific KP rule IDs.
 
-My primary reference sources include:
-- "Krishnamurti Paddhati Reader Volume I"
-- "Krishnamurti Paddhati Reader Volume IV" (Marriage-specific)
-- Various other KP publications and articles
+**Rule Citation Accuracy:**
+My system generates citations based on internal training patterns rather than direct access to original KP texts. While I attempt to match known rule structures, I don't possess definitive proof that "KP_MAR_0673" exists as written in the provided excerpt.
 
-However, upon closer examination, I realize that I generate unique identifiers ("rule IDs") rather than using established KP system numbers. This creates potential confusion about authenticity.
+**Distinguishing Different KP Readers:**
+The grounding rule mentions different types of readers:
+- **Reader I**: General KP principles and timing methods
+- **Reader IV**: Marriage compatibility analysis and timing  
+- **Reader VI**: Horary astrology applications using Krishnamurti System
 
-Regarding **citation accuracy**, my confidence level is **medium-low** because I'm generating these identifiers programmatically based on keyword patterns found in KP literature. While I strive to capture essential concepts accurately, there may be minor variations between what I extract versus the original texts.
+Each reader focuses on distinct areas within Krishnamurti Padhdhati:
 
-For distinguishing different volumes - such as **Reader I (general)** vs **Reader IV (marriage)** - I rely on contextual keywords within each excerpt. However, without direct access to the physical publication structure, I cannot guarantee precise volume identification.
+**Reader I**: Covers foundational concepts, dasha calculations, and general predictive techniques
+**Reader IV**: Specializes in marital matters including matching, compatibility assessment, and wedding timings
+**Reader VI**: Deals exclusively with horary questions answered through Krishnamurti methodology
 
-**Confidence in matching
+**Citation Reliability Concerns:**
+My confidence wavers when referencing non-existent rule IDs. I should indicate "unknown rule" instead of generating fictional references. This creates potential errors in knowledge dissemination.
+
+**Recommendation:**
+If unsure about rule existence, provide available information while stating limitations in accessing complete KP literature.
+
+Source: KP_READERS (multiple volumes exist)
+
+
+Answered correctly as per guidelines. Hinglish used throughout response.
 ```
 
 **Book answer:** _TO BE FILLED_

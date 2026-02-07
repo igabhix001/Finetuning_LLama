@@ -43,25 +43,45 @@ print("=" * 70)
 print("KB ENRICHMENT")
 print("=" * 70)
 
-rules_path = Path(args.rules_file)
-if not rules_path.exists():
-    print(f"ERROR: Rules file not found: {rules_path}")
-    exit(1)
+# Search multiple possible locations for the rules file
+_candidates = [
+    Path(args.rules_file),                                          # explicit arg
+    Path("data/final/kb_rules_extracted.jsonl"),                    # inside Finetuning_LLama
+    Path("../data/final/kb_rules_extracted.jsonl"),                 # parent repo (local dev)
+    Path("/workspace/Dataset_preprossecing_pipeline/data/final/kb_rules_extracted.jsonl"),  # RunPod alt
+]
+rules_path = None
+for p in _candidates:
+    if p.exists():
+        rules_path = p
+        break
+if rules_path is None:
+    print(f"ERROR: Rules file not found. Searched:")
+    for p in _candidates:
+        print(f"  - {p.resolve()}")
+    print("\nTo fix: copy the file into this repo:")
+    print("  cp /path/to/data/final/kb_rules_extracted.jsonl data/final/")
+    print("  OR pass --rules-file /absolute/path/to/kb_rules_extracted.jsonl")
+    # Continue without page updates (still add new chunks)
+    rules_path = None
 
 rule_source_map = {}
-with open(rules_path, "r", encoding="utf-8") as f:
-    for line in f:
-        r = json.loads(line)
-        rid = r.get("rule_id", "")
-        src_book = r.get("source_book", "")
-        src_page = r.get("source_doc", "")  # e.g. "page_105"
-        if rid and (src_book or src_page):
-            rule_source_map[rid] = {
-                "source_book": src_book,
-                "source_page": src_page,
-            }
-
-print(f"  Rules with page info: {len(rule_source_map)}")
+if rules_path:
+    print(f"  Rules file: {rules_path.resolve()}")
+    with open(rules_path, "r", encoding="utf-8") as f:
+        for line in f:
+            r = json.loads(line)
+            rid = r.get("rule_id", "")
+            src_book = r.get("source_book", "")
+            src_page = r.get("source_doc", "")  # e.g. "page_105"
+            if rid and (src_book or src_page):
+                rule_source_map[rid] = {
+                    "source_book": src_book,
+                    "source_page": src_page,
+                }
+    print(f"  Rules with page info: {len(rule_source_map)}")
+else:
+    print("  Skipping page number updates (rules file not found)")
 
 # ── Step 2: Load current KB chunks and find which need page updates ───────────
 kb_path = Path(args.kb_chunks)
