@@ -102,8 +102,8 @@ if args.products_csv and os.path.isfile(args.products_csv):
 #   Llama 3.1 chat template adds ~100 tokens overhead per conversation
 # Strategy: use HARD CHARACTER BUDGET instead of unreliable token estimates.
 MAX_MODEL_LEN = args.max_model_len
-# Output tokens: 400 for ≤4096, 1024 for larger contexts (KP answers rarely need more)
-OUTPUT_TOKENS = 400 if MAX_MODEL_LEN <= 4096 else min(1024, MAX_MODEL_LEN // 8)
+# Output tokens: 400 for ≤4096, 512 for larger contexts (more causes repetition)
+OUTPUT_TOKENS = 400 if MAX_MODEL_LEN <= 4096 else min(512, MAX_MODEL_LEN // 8)
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100  # 100 for template
 MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
 print(f"  Budget:  max_model_len={MAX_MODEL_LEN}, output={OUTPUT_TOKENS}, input_chars≈{MAX_INPUT_CHARS}")
@@ -324,7 +324,7 @@ def predict(message, history, chart_data):
             temperature=0.4,
             top_p=0.9,
             stream=True,
-            extra_body={"repetition_penalty": 1.15},
+            extra_body={"repetition_penalty": 1.3},
         )
         partial = ""
         for chunk in stream:
