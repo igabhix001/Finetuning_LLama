@@ -311,14 +311,20 @@ def _postprocess(text):
 
     # ── Phase 3.5: Health safety — strip dangerous medical claims ──
     _dangerous_terms = [
-        r'cancer[- ]?related', r'tumor', r'malignant', r'benign',
-        r'heart\s+attack', r'stroke', r'diabetes', r'HIV', r'AIDS',
-        r'tuberculosis', r'epilepsy', r'paralysis', r'kidney\s+failure',
-        r'liver\s+failure', r'brain\s+(?:damage|tumor|cancer)',
+        r'cancer[- ]?related', r'\bcancer\b', r'tumor', r'malignant', r'benign',
+        r'heart\s+attack', r'heart\s+disease', r'cardiac\s+arrest',
+        r'\bstroke\b', r'\bdiabetes\b', r'\bHIV\b', r'\bAIDS\b',
+        r'tuberculosis', r'epilepsy', r'paralysis',
+        r'kidney[- ]?(?:related|failure|disease|issues|problems)',
+        r'liver[- ]?(?:related|failure|disease|issues|problems)',
+        r'brain\s+(?:damage|tumor|cancer)',
         r'mental\s+(?:illness|disorder|disease)', r'schizophren',
-        r'bipolar', r'suicid', r'death', r'fatal', r'terminal',
-        r'life[- ]?threatening', r'immediate\s+(?:medical\s+)?attention',
+        r'bipolar', r'suicid', r'\bdeath\b', r'\bfatal\b', r'\bterminal\b',
+        r'life[- ]?threatening', r'\blethal\b',
+        r'immediate\s+(?:medical\s+)?attention',
         r'require[sd]?\s+(?:immediate|urgent)\s+(?:medical\s+)?(?:attention|treatment)',
+        r'serious\s+(?:disease|illness|condition|complication)',
+        r'chronic\s+(?:disease|illness|condition)',
     ]
     for term in _dangerous_terms:
         text = re.sub(term, 'health challenges', text, flags=re.IGNORECASE)
@@ -328,7 +334,8 @@ def _postprocess(text):
 
     # ── Phase 5: Remove robotic section headers (comprehensive) ──
     _robotic_headers = [
-        r'Marriage\s+Timing\s+Analysis\s+(?:using\s+)?KP\s+(?:Principles|Astrology)',
+        r'(?:Marriage|Career|Financial|Health|Remedy|Obstacle|Education|Relationship)\s+(?:Prediction|Breakthrough|Timing|Gains)?\s*(?:Analysis|Prediction|Report)?(?:\s+(?:using|Based|by|for|of)\s+[^\n]{0,60})?\s*$',
+        r'(?:Life\s+Events?|Dasha\s+Period|Your\s+Chart)\s+(?:Between|Analysis|by)\s+[^\n]{0,60}\s*$',
         r'(?:Analysis|Conclusion|Application|Critical\s+Finding|Key\s+[Ff]indings?|Summary|Overview|Introduction|Observation)\s*:',
         r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:',
         r'(?:Remedial\s+Measures|Remedy|Timing|Digestive\s+System|Immune\s+System|Nervous\s+System)\s*:',
