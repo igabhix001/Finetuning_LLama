@@ -21,6 +21,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Suppress known false-positive tokenizer regex warning (Llama 3.1 != Mistral)
+import warnings
+warnings.filterwarnings("ignore", message=".*incorrect regex pattern.*")
+warnings.filterwarnings("ignore", message=".*fix_mistral_regex.*")
+
 parser = argparse.ArgumentParser(description="Merge DPO LoRA into final model")
 parser.add_argument("--base-model", type=str, default="./models/merged_sft/",
                     help="Merged DAPT+SFT model path")

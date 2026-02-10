@@ -25,6 +25,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# ── Suppress known false-positive tokenizer regex warning ─────────────────────
+# transformers incorrectly flags Llama 3.1 tokenizer as having a Mistral regex issue.
+# See: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84
+import warnings
+warnings.filterwarnings("ignore", message=".*incorrect regex pattern.*")
+warnings.filterwarnings("ignore", message=".*fix_mistral_regex.*")
+
 # ── Load configs ──────────────────────────────────────────────────────────────
 import argparse
 parser = argparse.ArgumentParser(description="DPO Training with LoRA")
@@ -62,7 +69,7 @@ from datasets import load_from_disk
 
 class DPOHealthCallback(TrainerCallback):
     """Stop training if DPO margins blow up (sign of collapse/overfitting)."""
-    def __init__(self, max_margin=5.0, min_loss=0.01):
+    def __init__(self, max_margin=3.0, min_loss=0.05):
         self.max_margin = max_margin
         self.min_loss = min_loss
 
@@ -192,6 +199,7 @@ training_args = DPOConfig(
     # DPO-specific
     beta=config.get("beta", 0.1),
     loss_type=config.get("loss_type", "sigmoid"),
+    label_smoothing=config.get("label_smoothing", 0.0),
     max_length=config.get("max_length", 1024),
     max_prompt_length=config.get("max_prompt_length", 512),
 )
@@ -204,18 +212,19 @@ print(f"     Batch size: {config['per_device_train_batch_size']}")
 print(f"     Grad accumulation: {config['gradient_accumulation_steps']}")
 print(f"     Effective batch: {config['per_device_train_batch_size'] * config['gradient_accumulation_steps']}")
 print(f"     Learning rate: {config['learning_rate']}")
+print(f"     Label smoothing: {config.get('label_smoothing', 0.0)}")
 print(f"     LoRA rank: {lora_config_dict['r']}")
 print(f"     Max length: {config.get('max_length', 1024)}")
 
-es_patience = config.get("early_stopping_patience", 3)
+es_patience = config.get("early_stopping_patience", 2)
 print(f"     Early stopping: patience={es_patience} evals on eval_loss")
-print(f"     Health guard: stop if margins > 5.0 or loss < 0.01")
+print(f"     Health guard: stop if margins > 3.0 or loss < 0.05")
 
 # ── Initialize DPO Trainer ────────────────────────────────────────────────────
 print("\n5. Initializing DPO Trainer...")
 callbacks = [
     EarlyStoppingCallback(early_stopping_patience=es_patience),
-    DPOHealthCallback(max_margin=5.0, min_loss=0.01),
+    DPOHealthCallback(max_margin=3.0, min_loss=0.05),
 ]
 
 trainer = DPOTrainer(
