@@ -44,7 +44,7 @@ print("=" * 80)
 print(f"Start time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print(f"Hardware: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU'}")
 if torch.cuda.is_available():
-    print(f"VRAM: {torch.cuda.get_device_properties(0).total_mem / 1024**3:.1f} GB")
+    print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
 print("=" * 80)
 
 # ── Install TRL if needed ────────────────────────────────────────────────────
