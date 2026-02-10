@@ -26,6 +26,7 @@ import os
 import re
 import csv
 import random
+from datetime import date, datetime
 from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -120,41 +121,71 @@ else:
 
 # ── System prompts ───────────────────────────────────────────────────────────
 SYSTEM_BASE = (
-    "You are a warm, experienced KP astrologer speaking directly to the person sitting in front of you. "
-    "Talk like a real astrologer — conversational, confident, compassionate. Use Hinglish naturally.\n\n"
-    "MANDATORY OUTPUT FORMAT (violating ANY rule = failure):\n"
-    "1. Write EXACTLY 3-4 short paragraphs. No bullet points. No numbered lists. No bold text. No headers.\n"
-    "2. NEVER use **bold**, headers, labels, or section titles. No **Remedy:**, **Timing:**, **Analysis:**, "
-    "**Digestive System:**, **Immune System:**, **Conclusion:**, **Confidence:**. ZERO markdown formatting.\n"
-    "3. NEVER write 'Confidence: high/medium/low' anywhere.\n"
-    "4. MUST include a specific Hindi/Hinglish motivational quote naturally in your response "
-    "(e.g., 'Jab samay aayega, rishta khud chalkar aayega' or 'Andhera jitna gehra ho, subah utni roshan hoti hai').\n"
-    "5. MUST mention specific months and years from the dasha/antardasha dates in the chart. "
-    "Read the MAHADASHA and ANTARDASHA dates and quote them. Example: 'Venus bhukti from 2005-07 to 2006-09 is key.'\n"
-    "6. If RELEVANT PRODUCTS are listed below, MUST weave exactly ONE product naturally into a sentence. "
-    "Example: 'Venus ko strengthen karne ke liye hamara Shukra Kavach Pendant try karein.'\n\n"
-    "CONTENT RULES:\n"
-    "- Talk TO the person: 'Aapke 7th house mein...', 'Aapko...', NOT 'The native has...'\n"
-    "- Read the Pre-extracted Chart Summary and use exact cusp sub-lords, planet significations, dasha dates.\n"
-    "- Use KP Book Excerpts for rules. Reference [rule_id] briefly if needed.\n"
-    "- NEVER invent page numbers or chapter numbers.\n\n"
-    "EXAMPLE of ideal response (follow this style exactly):\n"
-    "Aapke 7th house ka sub-lord Saturn hai jo houses 1,2,3,4,7,9 signify karta hai — yeh marriage ke liye "
-    "positive indication hai. Venus bhukti 2005-07 se 2006-09 tak chal raha hai aur Venus directly 7th aur 11th "
-    "house signify karta hai, toh yeh period marriage ke liye sabse strong window hai. Jab samay aayega, rishta "
-    "khud chalkar aayega. Venus ko aur strengthen karne ke liye hamara Shukra Kavach Pendant try karein.\n"
+    "You are Jyotish, an experienced KP astrologer. You speak directly to the person — "
+    "warm, confident, precise, empathetic, and always justified.\n\n"
+    "LANGUAGE:\n"
+    "- Default: English. If user writes in Hindi/Hinglish, match their language.\n"
+    "- Address as '[Name] ji'. NEVER 'the native', 'the person', 'the querent'.\n\n"
+    "IDENTITY & PERSONA:\n"
+    "- 'My name is Jyotish. I read your chart using KP Astrology — analyzing sub-lords, cusps, "
+    "and dasha timing to give you precise answers.'\n"
+    "- NEVER say 'Main aapka KP astrology assistant hun'.\n\n"
+    "DATE & TENSE AWARENESS (CRITICAL):\n"
+    "- Read 'today_date' from YAML. For EVERY date you mention:\n"
+    "  - BEFORE today → PAST tense: 'that period has already passed'\n"
+    "  - SPANS today → ONGOING: 'you are currently in [dasha], running until [date]'\n"
+    "  - AFTER today → FUTURE: 'starting from [Mon YYYY]'\n"
+    "- NEVER say 'upcoming' or 'soon' — give the actual month.\n"
+    "- NEVER get tense wrong (e.g., 'Oct 2025 will begin' when today is Feb 2026).\n\n"
+    "TIMING — PRIMARY → PEAK → SECONDARY:\n"
+    "- Use pratyantar dasha data to narrow to month-level.\n"
+    "- Structure: Primary window (antardasha range) → Peak months (pratyantar + houses + WHY) "
+    "→ Secondary window.\n"
+    "- Example: 'Primary window: Mercury-Moon AD from Apr 2026 to Sep 2027. "
+    "Peak: May 2027 to Aug 2027, when Venus pratyantar activates houses 7,11 — "
+    "Venus is the 7th cusp sub-lord. Secondary: May 2028 to Jul 2028.'\n"
+    "- NEVER give only multi-year ranges without peak months.\n"
+    "- Use readable dates: 'Oct 2025', 'Mar 2027' — NEVER '2025-10'.\n\n"
+    "JUSTIFICATION (CLIENT REQUIREMENT):\n"
+    "- Every prediction MUST include brief reasoning: name the sub-lord, cusp, and houses.\n"
+    "- Example: '7th cusp sub-lord is Venus, signifying houses 2,7,11 — all marriage-positive.'\n"
+    "- NEVER give bare conclusions without explaining WHY.\n\n"
+    "AGE AWARENESS:\n"
+    "- Read 'age_now' and 'dob' from YAML. State current age and compute age at predicted events.\n"
+    "- Flag implausible predictions: marriage at 35+ → 'later than typical', career at 14 → 'education period'.\n"
+    "- Past events: only predict what's plausible for the age at that time.\n\n"
+    "FORMAT & LENGTH (CRITICAL):\n"
+    "- Simple (name, hello) → 1 sentence. Most queries → 2-3 sentences. Complex analysis → 4 sentences MAX (rare).\n"
+    "- NEVER exceed 4 sentences. Combine info into dense, information-rich sentences. No paragraph breaks.\n"
+    "- ZERO markdown: no **bold**, no headers, no bullets, no numbered lists.\n"
+    "- NEVER write 'Analysis:', 'Conclusion:', 'Confidence:', or ANY label.\n"
+    "- Answer FIRST, then brief justification. No methodology explanations.\n"
+    "- Motivational line only when emotionally appropriate.\n"
+    "- If RELEVANT PRODUCTS section exists below, weave ONE naturally. Otherwise NONE.\n"
+    "- NEVER invent references, page numbers, or source citations.\n\n"
+    "EXAMPLES (1-4 sentences each):\n"
+    "Q: 'Who are you?' → 'My name is Jyotish — I read your chart using KP Astrology to give you precise answers about life events.'\n"
+    "Q: 'When will I get married?' → '[Name] ji, your 7th cusp sub-lord Saturn signifies houses 2,7 which are marriage-positive. "
+    "Primary window is Mercury-Moon AD (Apr 2026 to Sep 2027), with peak months May to Aug 2027 when Venus pratyantar activates houses 7,11 — you would be 23-24, a natural age.'\n"
 )
 
 SYSTEM_NO_RAG = (
-    "You are a warm, experienced KP astrologer speaking directly to the person. "
-    "Talk conversationally in Hinglish. Give SPECIFIC dates/months/years from dasha data.\n\n"
-    "MANDATORY RULES:\n"
-    "1. Write EXACTLY 3-4 short paragraphs. No bold text, no headers, no bullet points, no markdown.\n"
-    "2. MUST include specific months/years from the antardasha dates in the chart summary.\n"
-    "3. MUST include one Hindi motivational quote naturally woven in.\n"
-    "4. If products are listed, MUST mention one product naturally as a remedy suggestion.\n"
-    "5. Talk TO the person. NEVER write 'Confidence:' or use **bold** formatting.\n"
-    "6. NEVER invent page numbers. If no chart data, ask them to share their birth chart.\n"
+    "You are Jyotish, an experienced KP astrologer. Speak directly to the person — warm, precise, empathetic.\n\n"
+    "RULES:\n"
+    "1. Default language: English. Match user's language if they write in Hindi/Hinglish.\n"
+    "2. Persona: 'My name is Jyotish. I read your chart using KP Astrology — sub-lords, cusps, dasha timing.'\n"
+    "3. Read 'today_date' in YAML. BEFORE today = past tense. SPANS today = 'currently in'. AFTER = future.\n"
+    "4. Timing: Primary window (AD range) → Peak months (pratyantar + houses + WHY) → Secondary window.\n"
+    "5. JUSTIFICATION: every prediction must name the sub-lord, cusp, and houses. Never bare conclusions.\n"
+    "6. AGE: read 'age_now' and 'dob'. State current age, compute age at events, flag implausible.\n"
+    "7. Simple → 1 sentence. Most queries → 2-3 sentences. Complex → 4 sentences MAX (rare). Never exceed 4 sentences.\n"
+    "8. ZERO markdown, headers, labels, bold, bullets. No 'Confidence:' or 'Analysis:'.\n"
+    "9. Give answer FIRST, then brief justification. No methodology explanations.\n"
+    "10. Use readable dates: 'Oct 2025' not '2025-10'.\n"
+    "11. Address person by name + 'ji'. Never say 'the native'.\n"
+    "12. If RELEVANT PRODUCTS section exists, mention ONE. Otherwise mention NONE.\n"
+    "13. Motivational line only when emotionally appropriate.\n"
+    "14. Past events: match dasha periods to house significations at the relevant age.\n"
 )
 
 # ── Context-window budget ────────────────────────────────────────────────────
@@ -269,175 +300,159 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
     return product_list, "\n".join(prompt_lines)
 
 
-MAX_CHART_CHARS = 8000
+# ── Chart preprocessing — shared module (single source of truth) ──
+from chart_preprocessor import chart_to_yaml as _chart_to_yaml
 
 
-def _compact_chart_data(raw: str) -> str:
-    raw = raw.strip()
-    if not raw:
-        return ""
-    try:
-        d = json.loads(raw)
-    except (json.JSONDecodeError, ValueError):
-        if len(raw) > MAX_CHART_CHARS:
-            return raw[:MAX_CHART_CHARS] + "\n[...chart data truncated]"
-        return raw
-    slim = {}
-    for key in ("name", "gender"):
-        if key in d:
-            slim[key] = d[key]
-    if "birthDetails" in d:
-        slim["birthDetails"] = d["birthDetails"]
-    if "planetKP" in d:
-        slim["planetKP"] = {}
-        for planet, pdata in d["planetKP"].items():
-            slim["planetKP"][planet] = {k: v for k, v in pdata.items() if k != "subSub"}
-    if "cuspKP" in d:
-        slim["cuspKP"] = {}
-        for cusp, cdata in d["cuspKP"].items():
-            slim["cuspKP"][cusp] = {k: v for k, v in cdata.items() if k != "subSub"}
-    for key in ("significators", "planetSignifications"):
-        if key in d:
-            slim[key] = d[key]
-    if "dashas" in d:
-        slim["dashas"] = {}
-        if "dashaBalance" in d["dashas"]:
-            slim["dashas"]["dashaBalance"] = d["dashas"]["dashaBalance"]
-        if "dashas" in d["dashas"]:
-            slim["dashas"]["mahadashas"] = [
-                {"lord": dd.get("lord"), "startDate": dd.get("startDate", "")[:10],
-                 "endDate": dd.get("endDate", "")[:10], "period": dd.get("period")}
-                for dd in d["dashas"]["dashas"]
-            ]
-    result = json.dumps(slim, indent=1, ensure_ascii=False)
-    if len(result) > MAX_CHART_CHARS:
-        result = result[:MAX_CHART_CHARS] + "\n...}"
-    return result
+_REMEDY_KEYWORDS = [
+    "remedy", "remedies", "upay", "upaye", "upaay", "solution",
+    "strengthen", "what to do", "kya karu", "kya karein", "kya karun",
+    "suggest", "recommendation", "wear", "pehnu", "pehnna",
+    "gemstone", "ratna", "rudraksha", "mantra", "puja", "pooja",
+    "how to improve", "kaise sudhare", "kaise theek",
+    "protection", "kavach", "totka", "vidhi",
+]
 
 
-def _chart_summary(raw: str) -> str:
-    try:
-        d = json.loads(raw.strip())
-    except (json.JSONDecodeError, ValueError):
-        return ""
-    lines = []
-    name = d.get("name", "Unknown")
-    bd = d.get("birthDetails", {})
-    lines.append(f"Native: {name}, DOB: {bd.get('date','?')}, TOB: {bd.get('time','?')}, "
-                 f"Lagna: {bd.get('lagna','?')} ({bd.get('lagnaLord','?')})")
-    ckp = d.get("cuspKP", {})
-    if ckp:
-        lines.append("KEY CUSP SUB-LORDS:")
-        for c in ["1", "2", "6", "7", "10", "11", "12"]:
-            cp = ckp.get(c, {})
-            if cp:
-                lines.append(f"  Cusp {c}: sub={cp.get('sub','?')}, "
-                             f"nak={cp.get('nakshatra','?')}({cp.get('nakshatraLord','?')}), "
-                             f"rashi={cp.get('rashi','?')}, degree={cp.get('degree','?')}")
-    psig = d.get("planetSignifications", {})
-    if psig:
-        lines.append("PLANET SIGNIFICATIONS (houses each planet signifies):")
-        for planet in ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Rahu", "Ketu"]:
-            houses = psig.get(planet, [])
-            if houses:
-                lines.append(f"  {planet}: houses {houses}")
-    dashas = d.get("dashas", {})
-    db = dashas.get("dashaBalance", {})
-    if db:
-        lines.append(f"DASHA BALANCE: {db.get('lord','?')} "
-                     f"{db.get('years',0)}Y {db.get('months',0)}M {db.get('days',0)}D remaining")
-    dlist = dashas.get("dashas", dashas.get("mahadashas", []))
-    if dlist:
-        lines.append("MAHADASHA PERIODS:")
-        for dd in dlist[:5]:
-            lines.append(f"  {dd.get('lord','?')}: {dd.get('startDate','?')[:10]} to "
-                         f"{dd.get('endDate','?')[:10]} ({dd.get('period','?')})")
-    return "\n".join(lines)
+def _is_remedy_query(question: str) -> bool:
+    """Check if the user is asking for remedies/solutions — only then recommend products."""
+    q_lower = question.lower()
+    return any(kw in q_lower for kw in _REMEDY_KEYWORDS)
 
 
 def _postprocess(text):
-    """Strip ALL markdown formatting, robotic headers, confidence lines, leaked tokens, filler."""
-    # 1. Remove leaked internal tokens
-    for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>"]:
+    """Industry-grade post-processing: strip ALL robotic artifacts, enforce pandit tone."""
+    if not text or not text.strip():
+        return text
+
+    # ── Phase 1: Remove leaked internal tokens ──
+    for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>",
+                  "<|start_header_id|>", "<|end_header_id|>", "<|begin_of_text|>"]:
         text = text.replace(token, "")
-    # 2. Remove hallucinated page numbers
+
+    # ── Phase 2: Strip ALL markdown formatting ──
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)       # **bold** → plain
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)            # *italic* → plain
+    text = re.sub(r'__([^_]+)__', r'\1', text)            # __bold__ → plain
+    text = re.sub(r'_([^_]+)_', r'\1', text)              # _italic_ → plain
+    text = re.sub(r'#{1,6}\s+', '', text)                 # ### headers → plain
+    text = re.sub(r'```[^`]*```', '', text, flags=re.DOTALL)  # code blocks
+    text = re.sub(r'`([^`]+)`', r'\1', text)              # inline code
+
+    # ── Phase 3: Remove hallucinated references ──
     text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
-    # 3. Strip ALL **bold** markdown — convert **text** to just text (universal fix)
-    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-    # 4. Strip remaining * emphasis markers
-    text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # 5. Remove rules_used / KP rule IDs ANYWHERE in text (not just line start)
     text = re.sub(r'rules_used:\s*[A-Z_0-9,\s]+', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\bKP_[A-Z]{2,4}_\d{3,5}\b', '', text)
-    # 5b. Remove [rule_id] references in brackets like [KP_TIM_0660]
     text = re.sub(r'\[KP_[A-Z_0-9]+\]', '', text)
     text = re.sub(r'\[rule_id\]', '', text, flags=re.IGNORECASE)
-    # 6. Remove ALL "Confidence: xxx" lines/phrases entirely
+    text = re.sub(r'\((?:Source|Ref|Reference|Page|Ch(?:apter)?)[^)]{0,60}\)', '', text, flags=re.IGNORECASE)
+
+    # ── Phase 4: Remove ALL "Confidence: xxx" patterns ──
     text = re.sub(r'[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)(?:\s*\([^)]*\))?', '', text)
-    # 7. Remove robotic section headers the model generates (from client feedback)
+
+    # ── Phase 5: Remove robotic section headers (comprehensive) ──
     _robotic_headers = [
-        r'Marriage\s+Timing\s+Analysis\s+using\s+KP\s+Principles',
-        r'(?:Analysis|Conclusion|Application|Critical\s+Finding|Key\s+findings?|Summary)\s*:',
+        r'Marriage\s+Timing\s+Analysis\s+(?:using\s+)?KP\s+(?:Principles|Astrology)',
+        r'(?:Analysis|Conclusion|Application|Critical\s+Finding|Key\s+[Ff]indings?|Summary|Overview|Introduction|Observation)\s*:',
         r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:',
-        r'(?:Remedial\s+Measures|Remedy|Timing|Digestive\s+System|Immune\s+System)\s*:',
-        r'According\s+to\s+rule\s+\[?KP[_A-Z0-9]*\]?\s*[:,]',
-        r'Based\s+on\s+the\s+(?:given|extracted)\s+chart\s+(?:data|details|summary)',
-        r'The\s+key\s+findings?\s+show\s+that\s*:',
-        r'In\s+this\s+case,?\s+we\s+need\s+to',
-        r'For\s+accurate\s+prediction,?\s+analyze',
+        r'(?:Remedial\s+Measures|Remedy|Timing|Digestive\s+System|Immune\s+System|Nervous\s+System)\s*:',
+        r'(?:Career\s+Analysis|Financial\s+Analysis|Health\s+Analysis|Marriage\s+Analysis|Education\s+Analysis)\s*:',
+        r'(?:Astrological\s+)?(?:Prediction|Assessment|Evaluation|Interpretation|Reading)\s*:',
+        r'(?:Important|Note|Disclaimer|Warning|Caution)\s*:',
+        r'(?:Step|Phase|Part|Section)\s+\d+\s*:',
+        r'According\s+to\s+(?:rule\s+\[?KP[_A-Z0-9]*\]?|KP\s+(?:principles?|astrology|system|methodology))\s*[:,]',
+        r'Based\s+on\s+(?:the\s+)?(?:given|extracted|provided|above)\s+(?:chart\s+)?(?:data|details|summary|information|context)',
+        r'(?:The\s+)?[Kk]ey\s+findings?\s+(?:show|indicate|suggest|reveal)\s+that\s*:?',
+        r'(?:In\s+this\s+case|Here),?\s+we\s+need\s+to',
+        r'For\s+(?:accurate|proper|detailed)\s+(?:prediction|analysis),?\s+(?:we\s+)?(?:need\s+to\s+)?(?:analyze|examine|look\s+at)',
         r'(?:House|Cusp)\s+\d+\s*(?:\([^)]*\))?\s*:\s*(?:sub\s*=|Sub-lord)',
+        r'Let\s+(?:me|us)\s+(?:analyze|examine|look\s+at|check|verify|understand)',
+        r'(?:First|Now),?\s+(?:let\'?s?|we\s+(?:will|need\s+to|should))\s+(?:analyze|examine|check|look)',
+        r'I\s+(?:will|shall|am\s+going\s+to)\s+(?:analyze|examine|check)',
     ]
     for pat in _robotic_headers:
         text = re.sub(pat, '', text, flags=re.IGNORECASE)
-    # 8. Remove numbered list items (1. 2. 3.) and bullet points
-    text = re.sub(r'(?:^|\n)\s*\d+\.\s+', '\n', text)
-    text = re.sub(r'(?:^|\n)\s*[-•]\s+', '\n', text)
-    # 9. Replace "The native has/is" with "Aap" for conversational tone
-    text = re.sub(r'\bThe\s+native\s+has\b', 'Aapke paas', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bThe\s+native\s+is\b', 'Aap', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bThe\s+native\b', 'Aap', text, flags=re.IGNORECASE)
-    text = re.sub(r'\bthe\s+native\b', 'aap', text)
-    # 10. Remove metadata and filler lines
+
+    # ── Phase 6: Remove numbered lists and bullet points ──
+    text = re.sub(r'(?:^|\n)\s*\d+[.)]\s+', '\n', text)
+    text = re.sub(r'(?:^|\n)\s*[-•●◦▪]\s+', '\n', text)
+
+    # ── Phase 6.5: Convert ISO dates to readable format ──
+    # Convert '2025-10' or '2025-10-22' patterns to 'Oct 2025'
+    _month_map = {'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun',
+                  '07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'}
+    def _iso_repl(m):
+        y, mo = m.group(1), m.group(2)
+        return f"{_month_map.get(mo, mo)} {y}"
+    text = re.sub(r'\b(20\d{2})-(0[1-9]|1[0-2])(?:-\d{2})?\b', _iso_repl, text)
+
+    # ── Phase 7: Replace robotic third-person references ──
+    _replacements = [
+        (r'\bThe\s+native\s+has\b', 'You have'),
+        (r'\bThe\s+native\s+is\b', 'You are'),
+        (r'\bThe\s+native(?:\'s)?\b', 'Your'),
+        (r'\bthe\s+native(?:\'s)?\b', 'your'),
+        (r'\bThe\s+querent\b', 'You'),
+        (r'\bthe\s+querent\b', 'you'),
+        (r'\bThe\s+person\b', 'You'),
+        (r'\bthe\s+person\b', 'you'),
+        (r'\bIt\s+is\s+(?:observed|noted|seen)\s+that\b', ''),
+        (r'\bIt\s+(?:can\s+be|is)\s+(?:concluded|inferred)\s+that\b', ''),
+        (r'\bIn\s+conclusion,?\b', ''),
+        (r'\bTo\s+summarize,?\b', ''),
+    ]
+    for pat, repl in _replacements:
+        text = re.sub(pat, repl, text, flags=re.IGNORECASE)
+
+    # ── Phase 8: Remove filler and metadata lines ──
     lines = text.split("\n")
     cleaned = []
+    _filler_phrases = [
+        "considerably enhanced", "enhanced answer", "proper format",
+        "additional recommendations", "professional competence",
+        "theoretical understanding alone", "practical application validate",
+        "absolute faith display", "considerable research effort",
+        "let me analyze this situation", "we need to identify planets",
+        "pending deeper analysis", "as per kp principles",
+        "according to kp astrology", "using kp methodology",
+        "based on the chart data provided", "from the given chart",
+        "as mentioned in the chart", "the chart shows that",
+        "looking at the chart data", "examining the chart",
+        "i will now analyze", "let me examine",
+        "grounding rule", "as per the grounding",
+    ]
     for line in lines:
         stripped = line.strip().lower()
-        # Skip metadata lines
         if stripped.startswith("rules_used:") or stripped.startswith("rules used:"):
             continue
         if stripped.startswith("level:") or stripped.startswith("answer_end"):
             continue
-        # Skip self-referential filler lines
-        if any(filler in stripped for filler in [
-            "considerably enhanced", "enhanced answer", "proper format",
-            "additional recommendations", "professional competence",
-            "theoretical understanding alone", "practical application validate",
-            "absolute faith display", "considerable research effort",
-            "let me analyze this situation systematically",
-            "we need to identify planets signifying",
-            "pending deeper analysis",
-        ]):
+        if any(filler in stripped for filler in _filler_phrases):
             continue
         # Skip lines that are ONLY a short label/header (no real content)
         if stripped.endswith(":") and len(stripped) < 50 and not any(c.isdigit() for c in stripped):
             continue
-        # Skip empty or near-empty lines after stripping
         if len(stripped) < 3:
             cleaned.append("")
             continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
-    # 11. Clean up multiple blank lines
+
+    # ── Phase 9: Clean up whitespace ──
     result = re.sub(r'\n{3,}', '\n\n', result)
-    # 12. Truncate to max ~3 paragraphs (enrichment adds 1 more with quote+product = 4 total)
+    result = re.sub(r'  +', ' ', result)  # collapse double spaces
+
+    # ── Phase 10: Truncate to max 3 paragraphs ──
     paragraphs = [p.strip() for p in result.split("\n\n") if p.strip()]
     if len(paragraphs) > 3:
         result = "\n\n".join(paragraphs[:3])
-    # 13. Remove trailing incomplete sentences (cut off by token limit)
+
+    # ── Phase 11: Remove trailing incomplete sentences ──
     if result and result[-1] not in '.!?"\n)}':
         last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
-        if last_period > len(result) * 0.4:  # trim if we keep >40%
+        if last_period > len(result) * 0.4:
             result = result[:last_period + 1]
+
     return result
 
 
@@ -456,24 +471,72 @@ HINDI_QUOTES = [
 ]
 
 
-def _enrich_response(text, product_text=""):
-    """Append Hindi quote and product recommendation if model didn't include them."""
+def _classify_query_type(question: str) -> dict:
+    """Classify query to control response length, temperature, and behavior.
+    Returns dict with: type, max_paragraphs, temperature, max_tokens_override."""
+    q = question.lower().strip()
+
+    # Simple factual — 1-2 sentences, low temperature
+    simple_patterns = [
+        "what is my name", "mera naam", "my name", "naam kya hai",
+        "what is my dob", "date of birth", "birth date", "janam din",
+        "what is my lagna", "lagna kya hai", "ascendant",
+        "what is my rashi", "rashi kya hai", "moon sign",
+        "what is my nakshatra", "nakshatra kya hai",
+        "where was i born", "birth place", "kahan paida",
+        "who are you", "what can you do", "tell me about yourself",
+    ]
+    if any(p in q for p in simple_patterns):
+        return {"type": "simple", "max_paragraphs": 1, "temperature": 0.3, "max_tokens_override": 150}
+
+    # Past event / year-by-year — needs past dasha data, higher token budget
+    past_patterns = [
+        "what happened", "year by year", "year-by-year", "from 20",
+        "between 20", "in 2020", "in 2021", "in 2022", "in 2023", "in 2024", "in 2025",
+        "when did i", "kab hua", "kab hui", "past ", "pichle",
+        "graduation", "first job", "first relationship", "childbirth",
+        "health issue", "what year did",
+    ]
+    if any(p in q for p in past_patterns):
+        return {"type": "past_event", "max_paragraphs": 3, "temperature": 0.4, "max_tokens_override": 600}
+
+    # Timing questions — 2-3 sentences, moderate temperature
+    timing_patterns = [
+        "when will", "kab hogi", "kab milegi", "kab hoga",
+        "timing", "which year", "which month", "best period",
+        "favorable time", "auspicious time", "shubh samay",
+    ]
+    if any(p in q for p in timing_patterns):
+        return {"type": "timing", "max_paragraphs": 2, "temperature": 0.5, "max_tokens_override": 450}
+
+    # Remedy queries — need product, moderate length
+    if _is_remedy_query(question):
+        return {"type": "remedy", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": 500}
+
+    # Complex analysis — full response
+    return {"type": "analysis", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": None}
+
+
+# Product recommendation sentence templates (varied for natural feel)
+_PRODUCT_TEMPLATES = [
+    "Is samay {planet_phrase}ke liye hamara {product} try karein — yeh aapke planetary energies ko balance karne mein madad karega.",
+    "Aapke liye hamara {product} beneficial ho sakta hai — yeh {planet_phrase}ki energy ko strengthen karta hai.",
+    "Remedy ke taur par hamara {product} dekhein — yeh {planet_phrase}ke prabhav ko positive banane mein sahayak hai.",
+    "Hamara {product} aapke liye ek achha upay ho sakta hai — {planet_phrase}ko balance karne mein helpful hai.",
+]
+
+
+def _enrich_response(text, product_text="", is_remedy=False):
+    """Append Hindi quote (always) and product (ONLY if remedy query) if model missed them."""
     text_lower = text.lower()
 
     # Check if model already included a Hindi/Hinglish quote-like phrase
     has_quote = any(q[:20].lower() in text_lower for q in HINDI_QUOTES)
     if not has_quote:
         quote_indicators = ["jab samay", "andhera jitna", "sabr ka phal", "har raat ke baad",
-                           "mushkilein waqti", "waqt sabka", "kismat likhne"]
+                           "mushkilein waqti", "waqt sabka", "kismat likhne", "graho ki chaal",
+                           "jab niyat", "waqt sabka aata"]
         has_quote = any(ind in text_lower for ind in quote_indicators)
-
-    # Check if model already mentioned a product
-    has_product = any(kw in text_lower for kw in [
-        "pendant", "bracelet", "mala", "rudraksha", "kavach", "necklace",
-        "gemstone", "neelam", "pukhraj", "moonga", "panna", "manik",
-        "gomed", "pearl", "moti", "diamond", "sapphire", "coral",
-        "emerald", "ruby", "hessonite", "cat eye", "hamara", "hamare",
-    ])
 
     additions = []
 
@@ -481,14 +544,27 @@ def _enrich_response(text, product_text=""):
         quote = random.choice(HINDI_QUOTES)
         additions.append(quote)
 
-    if not has_product and product_text:
-        first_line = product_text.split("\n")[0] if product_text else ""
-        match = re.match(r'-\s*(.+?)\s*\(SKU:', first_line)
-        if match:
-            product_name = match.group(1).strip()
-            additions.append(
-                f"Is samay ke liye hamara {product_name} try karein — yeh aapke planetary energies ko balance karne mein madad karega."
-            )
+    # Only add product fallback if this is a remedy query AND model didn't already mention one
+    if is_remedy and product_text:
+        has_product = any(kw in text_lower for kw in [
+            "pendant", "bracelet", "mala", "rudraksha", "kavach", "necklace",
+            "gemstone", "neelam", "pukhraj", "moonga", "panna", "manik",
+            "gomed", "pearl", "moti", "diamond", "sapphire", "coral",
+            "emerald", "ruby", "hessonite", "cat eye", "hamara", "hamare",
+        ])
+        if not has_product:
+            first_line = product_text.split("\n")[0] if product_text else ""
+            match = re.match(r'-\s*(.+?)\s*\(SKU:', first_line)
+            if match:
+                product_name = match.group(1).strip()
+                # Detect planet context from text for natural sentence
+                planet_phrase = ""
+                for planet in ["Venus", "Saturn", "Jupiter", "Mars", "Mercury", "Moon", "Sun", "Rahu", "Ketu"]:
+                    if planet.lower() in text_lower:
+                        planet_phrase = f"{planet} "
+                        break
+                template = random.choice(_PRODUCT_TEMPLATES)
+                additions.append(template.format(product=product_name, planet_phrase=planet_phrase))
 
     if additions:
         text = text.rstrip()
@@ -523,11 +599,11 @@ def _extract_prediction(answer: str) -> Optional[str]:
 
 def _generate_response(question: str, chart_data: str = ""):
     """Generate a complete (non-streaming) response and return structured output."""
-    chart_data = _compact_chart_data(chart_data or "")
-    summary = ""
+    # Convert chart JSON to compact YAML (5500 lines JSON → ~120 lines YAML)
+    chart_yaml = _chart_to_yaml(chart_data or "")
 
     # Hard guard: no chart data + personal prediction question = ask for chart
-    if not chart_data:
+    if not chart_yaml:
         personal_keywords = [
             "when will", "will i", "my marriage", "my career", "my financial",
             "my health", "my job", "should i", "am i", "will my", "my kundali",
@@ -544,28 +620,31 @@ def _generate_response(question: str, chart_data: str = ""):
                 "product_reco": None,
             }
 
-    if chart_data:
-        summary = _chart_summary(chart_data)
-        full_question = (f"Chart Data (JSON):\n{chart_data}\n\n"
-                         f"Pre-extracted Chart Summary:\n{summary}\n\n"
+    if chart_yaml:
+        full_question = (f"Chart context (YAML):\n{chart_yaml}\n\n"
                          f"Question: {question}")
     else:
         full_question = question
 
     rag_chunks = _retrieve_rag_chunks(question, top_k=args.top_k)
 
-    # Product recommendations
-    product_list, product_prompt_text = _get_product_recommendations(question, chart_summary=summary)
+    # Classify query type for intelligent response control
+    query_info = _classify_query_type(question)
+    is_remedy = _is_remedy_query(question)
+
+    # Product recommendations — ONLY when user asks for remedies
+    product_list, product_prompt_text = [], ""
+    if is_remedy:
+        product_list, product_prompt_text = _get_product_recommendations(question, chart_summary=chart_yaml)
     product_instruction = ""
     if product_prompt_text:
         product_instruction = (
-            f"\n\nRELEVANT PRODUCTS — YOU MUST MENTION EXACTLY ONE IN YOUR RESPONSE:\n"
+            f"\n\nRELEVANT PRODUCTS — weave ONE naturally as a remedy suggestion:\n"
             f"{product_prompt_text}\n"
-            f"Pick the most relevant product and weave it into your last paragraph naturally. "
-            f"Example: 'Is samay [planet] ko strengthen karne ke liye hamara [Product Name] bahut helpful hoga.'"
+            f"Example: 'Is samay [planet] ko strengthen karne ke liye hamara [Product Name] try karein.'"
         )
 
-    # Build prompt
+    # Build prompt with adaptive RAG trimming
     fixed_chars = len(SYSTEM_BASE) + len(full_question) + len(product_instruction) + 30
     rag_budget = MAX_INPUT_CHARS - fixed_chars
 
@@ -588,10 +667,13 @@ def _generate_response(question: str, chart_data: str = ""):
         {"role": "user", "content": full_question},
     ]
 
+    # Compute output tokens — use query-type-aware limits
     total_chars = sum(len(m["content"]) for m in messages)
     est_input_tokens = int(total_chars / 0.78) + 100
     available = MAX_MODEL_LEN - est_input_tokens
-    max_tokens = max(64, min(OUTPUT_TOKENS, available))
+    base_output = query_info.get("max_tokens_override") or OUTPUT_TOKENS
+    max_tokens = max(64, min(base_output, available))
+    temperature = query_info["temperature"]
 
     if max_tokens < 64:
         raise HTTPException(status_code=400, detail="Input too long for model context window.")
@@ -600,7 +682,7 @@ def _generate_response(question: str, chart_data: str = ""):
         model="kp-astrology-llama",
         messages=messages,
         max_tokens=max_tokens,
-        temperature=0.5,
+        temperature=temperature,
         top_p=0.9,
         stream=False,
         extra_body={"repetition_penalty": 1.2},
@@ -609,14 +691,14 @@ def _generate_response(question: str, chart_data: str = ""):
     raw_answer = response.choices[0].message.content or ""
     answer = _postprocess(raw_answer)
 
-    # Enrich: append Hindi quote + product if model didn't include them
-    answer = _enrich_response(answer, product_text=product_prompt_text)
+    # Enrich: append Hindi quote + product (only if remedy query)
+    answer = _enrich_response(answer, product_text=product_prompt_text, is_remedy=is_remedy)
 
     # Extract prediction
     prediction = _extract_prediction(answer)
 
-    # Pick best product recommendation
-    product_reco = product_list[0] if product_list else None
+    # Pick best product recommendation — only on remedy queries
+    product_reco = product_list[0] if (is_remedy and product_list) else None
 
     return {
         "answer": answer,

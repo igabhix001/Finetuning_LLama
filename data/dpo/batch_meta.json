@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-02-10T15:25:46.285351",
+  "model": "gpt-4o",
+  "total_pairs": 1100,
+  "chunk_size": 200,
+  "num_chunks": 6,
+  "chunks": [
+    {
+      "chunk_idx": 0,
+      "batch_id": "batch_698b007314c88190b0680b728ee44cec",
+      "idx_offset": 0,
+      "num_pairs": 200
+    },
+    {
+      "chunk_idx": 1,
+      "batch_id": "batch_698b007ccc9c8190a571904b7b39dfcb",
+      "idx_offset": 200,
+      "num_pairs": 200
+    },
+    {
+      "chunk_idx": 2,
+      "batch_id": "batch_698b0086a5c88190957db3bec73bc9d3",
+      "idx_offset": 400,
+      "num_pairs": 200
+    },
+    {
+      "chunk_idx": 3,
+      "batch_id": "batch_698b0090b9908190b44896b30f98f9ae",
+      "idx_offset": 600,
+      "num_pairs": 200
+    },
+    {
+      "chunk_idx": 4,
+      "batch_id": "batch_698b0099d9e08190abf6256d54a31cd8",
+      "idx_offset": 800,
+      "num_pairs": 200
+    },
+    {
+      "chunk_idx": 5,
+      "batch_id": "batch_698b00a08704819095833507f19feec7",
+      "idx_offset": 1000,
+      "num_pairs": 100
+    }
+  ]
+}

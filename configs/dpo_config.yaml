@@ -1,0 +1,53 @@
+# DPO Training Configuration for RTX 6000 Ada (48GB VRAM)
+# Stage 3: Preference Optimization (on top of merged DAPT+SFT model)
+
+# Model paths
+model_name: "./models/merged_sft/"  # Merged DAPT+SFT model (from 05b_merge_sft_lora.py)
+output_dir: "./checkpoints/dpo_lora/"
+logging_dir: "./logs/dpo/"
+
+# Dataset
+train_data: "./data/dpo/prepared/train"
+eval_data: "./data/dpo/prepared/test"
+
+# DPO hyperparameters
+beta: 0.1  # DPO temperature — lower = stronger preference signal
+loss_type: "sigmoid"  # Standard DPO loss
+
+# Training hyperparameters
+num_train_epochs: 2
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 8  # Effective batch size: 8
+learning_rate: 5.0e-5  # Lower LR for DPO (preference fine-tuning is sensitive)
+warmup_ratio: 0.1
+weight_decay: 0.01
+
+# Logging and checkpointing
+logging_steps: 10
+eval_steps: 50
+save_steps: 100
+save_total_limit: 3
+evaluation_strategy: "steps"
+load_best_model_at_end: true
+metric_for_best_model: "eval_loss"
+greater_is_better: false
+
+# Optimization for RTX 6000 Ada
+fp16: false
+bf16: true
+gradient_checkpointing: true
+optim: "paged_adamw_8bit"
+lr_scheduler_type: "cosine"
+max_grad_norm: 1.0
+
+# Context and tokenization
+max_length: 1024  # Max combined length (prompt + chosen/rejected)
+max_prompt_length: 512  # Max prompt length
+
+# Memory optimization
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+
+# Reporting
+report_to: "tensorboard"

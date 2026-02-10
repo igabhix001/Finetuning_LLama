@@ -7,14 +7,15 @@
 ## 📋 Training Overview
 
 ### Pipeline Stages
-1. **DAPT** (2-4 hours) - Domain adaptation
-2. **SFT** (6-10 hours) - Instruction tuning
-3. **Merge** (30 mins) - Combine LoRA weights
+1. **DAPT** (2-4 hours) - Domain adaptation with LoRA
+2. **SFT** (6-10 hours) - Instruction tuning with LoRA
+3. **Merge** (30 mins) - Combine DAPT+SFT LoRA weights
 4. **Quantize** (1 hour) - Prepare for deployment
 5. **Test** (15 mins) - Validate model
+6. **DPO** (2-4 hours) - Preference optimization (pandit-like quality)
 
-**Total Time:** ~10-16 hours  
-**Total Cost:** ~$7-12 on RTX 6000 Ada
+**Total Time:** ~12-20 hours  
+**Total Cost:** ~$10-18 on RTX 6000 Ada + ~$5 OpenAI Batch API for DPO data
 
 ---
 
@@ -640,14 +641,105 @@ python scripts/07_test_inference.py
 
 ---
 
+## Stage 6: DPO Training (Preference Optimization)
+
+### What is DPO?
+Direct Preference Optimization teaches the model to prefer "pandit-like" responses over robotic ones. This addresses client feedback:
+- Product spam → only on remedy requests
+- Verbose rambling → short impactful answers
+- No specific dates → exact dasha dates
+- "The native" → "Aap/name ji"
+- Hallucinated past events → age-aware responses
+
+### LoRA Staging (CRITICAL)
+```
+Stage 1 (DAPT): Base → LoRA → merge
+Stage 2 (SFT):  Merged → LoRA → merge
+Stage 3 (DPO):  Merged → NEW LoRA → merge   ← NEVER stack LoRA on LoRA
+```
+
+### Step 6a: Generate DPO Dataset (OpenAI Batch API)
+
+```bash
+cd /workspace/Finetuning_LLama
+
+# Submit batch (50% cheaper, ~1-4 hours)
+python scripts/13_generate_dpo_dataset.py --count 1100 --model gpt-4o-mini
+
+# Check status (note the batch ID from output)
+python scripts/13_generate_dpo_dataset.py --check <BATCH_ID>
+
+# Download when complete
+python scripts/13_generate_dpo_dataset.py --download <BATCH_ID>
+
+# OR: Use sync mode for instant results (2x cost)
+python scripts/13_generate_dpo_dataset.py --count 1100 --sync --sync-workers 5
+```
+
+**Output:** `data/dpo/dpo_pairs.jsonl` — 1000+ (chosen, rejected) pairs
+
+### Step 6b: Prepare DPO Dataset
+
+```bash
+python scripts/14_prepare_dpo_dataset.py
+```
+
+**Output:** `data/dpo/prepared/` — HuggingFace Dataset with train/test split
+
+### Step 6c: Merge SFT LoRA into Base (Stage 2→3 Bridge)
+
+```bash
+python scripts/05b_merge_sft_lora.py
+```
+
+**Output:** `models/merged_sft/` — Fully merged DAPT+SFT model ready for DPO
+
+### Step 6d: Train DPO LoRA
+
+```bash
+python scripts/15_train_dpo.py
+
+# Monitor training
+tensorboard --logdir=logs/dpo/
+```
+
+**Config files:**
+- `configs/dpo_config.yaml` — Training hyperparameters (beta=0.1, lr=5e-5, 2 epochs)
+- `configs/dpo_lora_config.yaml` — LoRA params (rank=8, alpha=16)
+
+**Expected metrics:**
+- DPO loss should decrease steadily
+- Chosen rewards should increase, rejected rewards should decrease
+
+### Step 6e: Merge DPO LoRA → Final Model
+
+```bash
+python scripts/16_merge_dpo_lora.py
+```
+
+**Output:** `models/final_dpo/` — Production-ready model with all 3 stages merged
+
+### Step 6f: Quantize & Deploy
+
+```bash
+python scripts/06_quantize_unsloth.py --model ./models/final_dpo/
+python scripts/08_serve_vllm.py --model-path ./models/final_dpo/
+```
+
+---
+
 ## ✅ Training Complete!
 
-Your model is now ready for deployment on RTX 3090.
+Your model is now ready for deployment with all 3 training stages:
+1. **DAPT** — KP astrology domain knowledge
+2. **SFT** — Instruction following and reasoning
+3. **DPO** — Pandit-like conversational quality (client-approved tone)
 
 ### Next Steps
-1. Download quantized model from RunPod
+1. Download final model from RunPod
 2. Deploy on RTX 3090 with vLLM
-3. Integrate Pinecone RAG
-4. Connect to client API
+3. Integrate Pinecone RAG + Product Index
+4. Connect to client API (`scripts/11_api_server.py`)
+5. Test with real kundali data before sharing with client
 
 See `../Finetunning_runpod.md` Section 4 for deployment instructions.
