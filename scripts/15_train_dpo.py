@@ -55,9 +55,28 @@ except ImportError:
     os.system(f"{sys.executable} -m pip install trl>=0.9.0 -q")
     from trl import DPOTrainer, DPOConfig
 
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, EarlyStoppingCallback, TrainerCallback
 from peft import LoraConfig, get_peft_model
 from datasets import load_from_disk
+
+
+class DPOHealthCallback(TrainerCallback):
+    """Stop training if DPO margins blow up (sign of collapse/overfitting)."""
+    def __init__(self, max_margin=5.0, min_loss=0.01):
+        self.max_margin = max_margin
+        self.min_loss = min_loss
+
+    def on_log(self, args, state, control, logs=None, **kwargs):
+        if logs is None:
+            return
+        margin = logs.get("rewards/margins", 0)
+        loss = logs.get("loss", 1.0)
+        if margin > self.max_margin:
+            print(f"\n⚠️  EARLY STOP: margins={margin:.2f} exceeded {self.max_margin}. Stopping to prevent collapse.")
+            control.should_training_stop = True
+        if loss < self.min_loss and state.global_step > 10:
+            print(f"\n⚠️  EARLY STOP: loss={loss:.4f} < {self.min_loss}. Model is overfitting.")
+            control.should_training_stop = True
 
 # ── Load merged DAPT+SFT model ───────────────────────────────────────────────
 model_path = config["model_name"]
@@ -139,9 +158,12 @@ output_dir.mkdir(parents=True, exist_ok=True)
 logging_dir = Path(config["logging_dir"])
 logging_dir.mkdir(parents=True, exist_ok=True)
 
+max_steps_cfg = config.get("max_steps", -1)
+
 training_args = DPOConfig(
     output_dir=str(output_dir),
     num_train_epochs=config["num_train_epochs"],
+    max_steps=max_steps_cfg,
     per_device_train_batch_size=config["per_device_train_batch_size"],
     per_device_eval_batch_size=config["per_device_eval_batch_size"],
     gradient_accumulation_steps=config["gradient_accumulation_steps"],
@@ -185,14 +207,24 @@ print(f"     Learning rate: {config['learning_rate']}")
 print(f"     LoRA rank: {lora_config_dict['r']}")
 print(f"     Max length: {config.get('max_length', 1024)}")
 
+es_patience = config.get("early_stopping_patience", 3)
+print(f"     Early stopping: patience={es_patience} evals on eval_loss")
+print(f"     Health guard: stop if margins > 5.0 or loss < 0.01")
+
 # ── Initialize DPO Trainer ────────────────────────────────────────────────────
 print("\n5. Initializing DPO Trainer...")
+callbacks = [
+    EarlyStoppingCallback(early_stopping_patience=es_patience),
+    DPOHealthCallback(max_margin=5.0, min_loss=0.01),
+]
+
 trainer = DPOTrainer(
     model=model,
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
     processing_class=tokenizer,
+    callbacks=callbacks,
 )
 
 total_steps = (

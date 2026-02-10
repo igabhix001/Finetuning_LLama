@@ -62,6 +62,13 @@ print("=" * 80)
 
 output_path.mkdir(parents=True, exist_ok=True)
 
+# ── Clean stale llama.cpp cache (causes QWEN35 enum errors) ────────────────
+stale_llama_cpp = Path("llama.cpp")
+if stale_llama_cpp.exists():
+    import shutil as _sh
+    print(f"ℹ️  Removing stale {stale_llama_cpp}/ to avoid converter conflicts...")
+    _sh.rmtree(str(stale_llama_cpp), ignore_errors=True)
+
 # ── Try Unsloth GGUF export ─────────────────────────────────────────────────
 try:
     from unsloth import FastLanguageModel
