@@ -80,13 +80,22 @@ try:
     else:
         methods = [args.method]
 
+    # Unsloth save_pretrained_gguf needs a dir with config.json (the model dir).
+    # We save into model_path first, then move GGUF files to output_path.
+    import shutil, glob
+
     for method in methods:
         print(f"\n2. Exporting GGUF ({method.upper()})...")
         umodel.save_pretrained_gguf(
-            str(output_path),
+            str(model_path),       # must contain config.json
             utokenizer,
             quantization_method=method,
         )
+        # Move generated .gguf files from model_path to output_path
+        for gguf_file in glob.glob(str(model_path / "*.gguf")):
+            dest = output_path / Path(gguf_file).name
+            shutil.move(gguf_file, str(dest))
+            print(f"   ✓ Moved {Path(gguf_file).name} → {dest}")
         print(f"   ✓ GGUF {method.upper()} saved to: {output_path}")
 
 except ImportError:
