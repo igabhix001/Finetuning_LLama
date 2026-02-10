@@ -309,6 +309,20 @@ def _postprocess(text):
     text = re.sub(r'\[rule_id\]', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\((?:Source|Ref|Reference|Page|Ch(?:apter)?)[^)]{0,60}\)', '', text, flags=re.IGNORECASE)
 
+    # ── Phase 3.5: Health safety — strip dangerous medical claims ──
+    _dangerous_terms = [
+        r'cancer[- ]?related', r'tumor', r'malignant', r'benign',
+        r'heart\s+attack', r'stroke', r'diabetes', r'HIV', r'AIDS',
+        r'tuberculosis', r'epilepsy', r'paralysis', r'kidney\s+failure',
+        r'liver\s+failure', r'brain\s+(?:damage|tumor|cancer)',
+        r'mental\s+(?:illness|disorder|disease)', r'schizophren',
+        r'bipolar', r'suicid', r'death', r'fatal', r'terminal',
+        r'life[- ]?threatening', r'immediate\s+(?:medical\s+)?attention',
+        r'require[sd]?\s+(?:immediate|urgent)\s+(?:medical\s+)?(?:attention|treatment)',
+    ]
+    for term in _dangerous_terms:
+        text = re.sub(term, 'health challenges', text, flags=re.IGNORECASE)
+
     # ── Phase 4: Remove ALL "Confidence: xxx" patterns ──
     text = re.sub(r'[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)(?:\s*\([^)]*\))?', '', text)
 
