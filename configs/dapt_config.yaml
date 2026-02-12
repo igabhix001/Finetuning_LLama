@@ -10,11 +10,11 @@ logging_dir: "./logs/dapt/"
 train_data: "./data/dapt_corpus/"
 
 # Training hyperparameters
-num_train_epochs: 3  # Small corpus needs multiple passes
+num_train_epochs: 5  # Small corpus needs more passes (loss still dropping at epoch 3)
 per_device_train_batch_size: 1
 gradient_accumulation_steps: 16  # Effective batch size: 16
-learning_rate: 3.0e-5  # Conservative for DAPT (domain adaptation, not SFT)
-warmup_steps: 20  # ~15% of total steps
+learning_rate: 5.0e-5  # Bumped from 3e-5 — grad norms stable, need stronger signal for small corpus
+warmup_steps: 30  # ~15% of total steps (proportional to higher LR)
 weight_decay: 0.01
 
 # Logging and checkpointing
