@@ -27,7 +27,24 @@ Stage 8: Serve + Test
 
 ---
 
-## Stage 0 (Optional): Re-normalize SFT Dataset
+## Stage 0a (Optional): Clean DAPT Corpus
+
+If the DAPT corpus contains Internet Archive boilerplate, OCR notices, or duplicate chunks:
+
+```bash
+cd /workspace/Finetuning_LLama
+
+# Preview changes (no writes)
+python scripts/18_clean_dapt_corpus.py --dry-run
+
+# Apply cleaning (creates backup automatically)
+python scripts/18_clean_dapt_corpus.py
+```
+
+- **Input:** `data/dapt_corpus/`
+- **Output:** same path (in-place), backup at `data/dapt_corpus_backup/`
+
+## Stage 0b (Optional): Re-normalize SFT Dataset
 
 If the SFT dataset contains markdown, headers, or "the native" phrasing, clean it first:
 
@@ -165,6 +182,8 @@ python scripts/08_serve_vllm.py --model-path ./models/final_dpo/
 # Or with quantized:
 python scripts/08_serve_vllm.py --model-path ./models/quantized/
 # dtype is configurable: --dtype auto (default), bfloat16, float16
+# APC (Automatic Prefix Caching) is ON by default — disable with --no-prefix-caching
+# KV cache quantization for memory savings: --kv-cache-dtype fp8
 ```
 
 ### Start UI or API

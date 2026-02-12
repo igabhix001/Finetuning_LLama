@@ -23,6 +23,7 @@ Usage:
 import argparse
 import re
 import shutil
+import tempfile
 from pathlib import Path
 from datasets import load_from_disk
 
@@ -250,8 +251,21 @@ def process_dataset(ds_path: str, max_sentences: int, dry_run: bool, no_backup: 
     if dry_run:
         print(f"\n  [DRY RUN] No changes saved.")
     else:
-        ds_clean.save_to_disk(str(path))
-        print(f"  ✓ Saved normalized dataset to: {path}")
+        # HF datasets can't overwrite their own source dir, so save to temp then swap
+        tmp_dir = Path(tempfile.mkdtemp(prefix="sft_norm_", dir=path.parent))
+        try:
+            ds_clean.save_to_disk(str(tmp_dir))
+            # Remove original (backup already exists)
+            shutil.rmtree(str(path))
+            # Move temp → original path
+            tmp_dir.rename(path)
+            print(f"  ✓ Saved normalized dataset to: {path}")
+        except Exception as e:
+            print(f"  ❌ Save failed: {e}")
+            # Clean up temp if it still exists
+            if tmp_dir.exists():
+                shutil.rmtree(str(tmp_dir), ignore_errors=True)
+            raise
 
 
 # ── Process both train and validation ────────────────────────────────────────

@@ -20,7 +20,7 @@
   - RAG indexing: `02_upload_pinecone.py` (KB), `11_enrich_kb.py` (KB metadata), `12_build_product_index.py` (products)
   - DPO dataset generation/prep: `13_generate_dpo_dataset.py`, `14_prepare_dpo_dataset.py`
   - Evaluation: `10_kp_test_suite.py` (standard + production-mirror mode)
-  - Dataset maintenance: `17_renormalize_sft_dataset.py` (SFT output cleanup)
+  - Dataset maintenance: `17_renormalize_sft_dataset.py` (SFT output cleanup), `18_clean_dapt_corpus.py` (DAPT boilerplate/OCR removal)
 
 ### 1.2 Runtime services (process-level)
 

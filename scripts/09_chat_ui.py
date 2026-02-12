@@ -15,16 +15,32 @@ Usage:
 
 import argparse
 import json
+import logging
 import os
 import re
 import csv
 import random
+import time
+import uuid
 from datetime import date, datetime
 import gradio as gr
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# ── Structured JSON logging ──────────────────────────────────────────────────
+_log = logging.getLogger("kp_ui")
+_log.setLevel(logging.INFO)
+_log_handler = logging.StreamHandler()
+_log_handler.setFormatter(logging.Formatter('%(message)s'))
+_log.addHandler(_log_handler)
+
+def _json_log(event: str, **kwargs):
+    """Emit a single-line JSON log entry for observability."""
+    entry = {"ts": datetime.utcnow().isoformat() + "Z", "event": event}
+    entry.update(kwargs)
+    _log.info(json.dumps(entry, ensure_ascii=False, default=str))
 
 # ── CLI args ──────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(description="KP Astrology Chat UI")
@@ -617,6 +633,9 @@ def _is_remedy_query(question: str) -> bool:
 
 def predict(message, history, chart_data):
     """Stream a response from the vLLM server with RAG-augmented context + chart data."""
+    req_id = uuid.uuid4().hex[:12]
+    t_start = time.monotonic()
+
     # 0. Convert chart JSON to compact YAML (5500 lines JSON → ~120 lines YAML)
     chart_yaml = _chart_to_yaml(chart_data or "")
 
@@ -726,7 +745,22 @@ def predict(message, history, chart_data):
             final = _postprocess(partial)
             final = _enrich_response(final, product_text=product_text, is_remedy=is_remedy)
             yield final
+
+        # ── Structured log for observability ──
+        _json_log("chat_response",
+                  req_id=req_id,
+                  query_type=query_info["type"],
+                  is_remedy=is_remedy,
+                  has_chart=bool(chart_yaml),
+                  rag_chunks=len(selected_chunks),
+                  max_tokens=max_tokens,
+                  temperature=temperature,
+                  raw_len=len(partial),
+                  answer_len=len(final) if partial else 0,
+                  latency_ms=round((time.monotonic() - t_start) * 1000))
     except Exception as e:
+        _json_log("chat_error", req_id=req_id, error=str(e),
+                  latency_ms=round((time.monotonic() - t_start) * 1000))
         yield f"Error: {e}\n\nMake sure vLLM is running: python scripts/08_serve_vllm.py"
 
 

@@ -20,6 +20,8 @@ PORT = os.environ.get("VLLM_PORT", "8000")
 MAX_MODEL_LEN = os.environ.get("MAX_MODEL_LEN", "4096")
 GPU_MEM_UTIL = os.environ.get("GPU_MEM_UTIL", "0.90")
 DTYPE = os.environ.get("VLLM_DTYPE", "auto")
+ENABLE_APC = os.environ.get("VLLM_ENABLE_APC", "true").lower() in ("1", "true", "yes")
+KV_CACHE_DTYPE = os.environ.get("VLLM_KV_CACHE_DTYPE", "auto")
 
 # Override from CLI args
 import argparse
@@ -32,7 +34,18 @@ parser.add_argument("--gpu-memory-utilization", type=str, default=GPU_MEM_UTIL)
 parser.add_argument("--dtype", type=str, default=DTYPE,
                     choices=["auto", "bfloat16", "float16", "float32"],
                     help="Model dtype: auto (let vLLM decide), bfloat16, float16, float32")
+parser.add_argument("--enable-prefix-caching", action="store_true", default=ENABLE_APC,
+                    help="Enable Automatic Prefix Caching (APC) for faster repeated prompts (default: on)")
+parser.add_argument("--no-prefix-caching", action="store_true", default=False,
+                    help="Disable Automatic Prefix Caching")
+parser.add_argument("--kv-cache-dtype", type=str, default=KV_CACHE_DTYPE,
+                    choices=["auto", "fp8", "fp8_e5m2", "fp8_e4m3"],
+                    help="KV cache dtype: auto (match model), fp8 (50%% memory saving)")
 args = parser.parse_args()
+
+# Resolve APC flag (--no-prefix-caching overrides)
+if args.no_prefix_caching:
+    args.enable_prefix_caching = False
 
 # ── Validate model path ───────────────────────────────────────────────────────
 model_path = Path(args.model_path)
@@ -54,6 +67,8 @@ print(f"  Model:      {model_path}")
 print(f"  Server:     http://{args.host}:{args.port}/v1")
 print(f"  Max length: {args.max_model_len}")
 print(f"  Dtype:      {args.dtype}")
+print(f"  APC:        {'ON' if args.enable_prefix_caching else 'OFF'}")
+print(f"  KV cache:   {args.kv_cache_dtype}")
 print(f"  GPU memory: {float(args.gpu_memory_utilization)*100:.0f}%")
 print("="*80)
 print()
@@ -79,9 +94,13 @@ cmd = [
     "--max-model-len", args.max_model_len,
     "--gpu-memory-utilization", args.gpu_memory_utilization,
     "--dtype", args.dtype,
+    "--kv-cache-dtype", args.kv_cache_dtype,
     "--trust-remote-code",
     "--served-model-name", "kp-astrology-llama",
 ]
+
+if args.enable_prefix_caching:
+    cmd.append("--enable-prefix-caching")
 
 try:
     proc = subprocess.run(cmd)
