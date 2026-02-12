@@ -1,745 +1,210 @@
-# Training Guide - Step-by-Step Instructions
+# Training Guide — Authoritative Runbook
 
-**Prerequisites:** Complete `RUNPOD_SETUP.md` first
+> **SOURCE OF TRUTH.** All paths, configs, and scripts referenced here match the
+> actual repo. Do NOT follow older docs that reference `/workspace/data/arrow/`
+> or inline script snippets — those are outdated.
+
+**Prerequisites:** RunPod environment with RTX 6000 Ada (48 GB VRAM). Complete `RUNPOD_SETUP.md` first.
 
 ---
 
-## 📋 Training Overview
+## Pipeline Overview
 
-### Pipeline Stages
-1. **DAPT** (2-4 hours) - Domain adaptation with LoRA
-2. **SFT** (6-10 hours) - Instruction tuning with LoRA
-3. **Merge** (30 mins) - Combine DAPT+SFT LoRA weights
-4. **Quantize** (1 hour) - Prepare for deployment
-5. **Test** (15 mins) - Validate model
-6. **DPO** (2-4 hours) - Preference optimization (pandit-like quality)
+```
+Stage 0: (Optional) Re-normalize SFT dataset
+Stage 1: DAPT LoRA  →  checkpoints/dapt_lora/final/
+Stage 2: SFT LoRA   →  checkpoints/sft_lora/final/
+Stage 3: Merge DAPT+SFT into single base  →  models/merged_sft/
+Stage 4: DPO dataset generation + preparation
+Stage 5: DPO LoRA   →  checkpoints/dpo_lora/final/
+Stage 6: Merge DPO into final model  →  models/final_dpo/
+Stage 7: Export for vLLM  →  models/quantized/
+Stage 8: Serve + Test
+```
 
-**Total Time:** ~12-20 hours  
-**Total Cost:** ~$10-18 on RTX 6000 Ada + ~$5 OpenAI Batch API for DPO data
+**Total time:** ~12-20 hours on RTX 6000 Ada
+**LoRA staging rule:** NEVER stack LoRA on LoRA. Always merge before applying the next LoRA.
+
+---
+
+## Stage 0 (Optional): Re-normalize SFT Dataset
+
+If the SFT dataset contains markdown, headers, or "the native" phrasing, clean it first:
+
+```bash
+cd /workspace/Finetuning_LLama
+
+# Preview changes (no writes)
+python scripts/17_renormalize_sft_dataset.py --dry-run
+
+# Apply normalization (creates backup automatically)
+python scripts/17_renormalize_sft_dataset.py
+```
+
+- **Input:** `data/sft_train/`, `data/sft_validation/`
+- **Output:** same paths (in-place), backups at `data/sft_train_backup/`
 
 ---
 
 ## Stage 1: DAPT Training
-
-### What is DAPT?
-Domain-Adaptive Pre-Training teaches the model KP astrology terminology and concepts before instruction tuning.
-
-### Dataset
-- **File:** `/workspace/data/arrow/dapt_corpus/`
-- **Size:** 654 chunks, ~1.19M tokens
-- **Content:** Raw text from 6 KP astrology books
-
-### Configuration
-
-Create `/workspace/Finetuning_LLama/configs/dapt_config.yaml`:
-
-```yaml
-# DAPT Training Configuration
-model_name: "/workspace/Finetuning_LLama/models/base/"
-output_dir: "/workspace/Finetuning_LLama/checkpoints/dapt/"
-logging_dir: "/workspace/Finetuning_LLama/logs/dapt/"
-
-# Dataset
-train_data: "/workspace/data/arrow/dapt_corpus/"
-
-# Training parameters
-num_train_epochs: 1
-per_device_train_batch_size: 4
-gradient_accumulation_steps: 4
-learning_rate: 1e-5
-warmup_steps: 100
-logging_steps: 10
-save_steps: 100
-save_total_limit: 3
-
-# Optimization
-fp16: true
-gradient_checkpointing: true
-optim: "adamw_torch"
-lr_scheduler_type: "cosine"
-
-# Context
-max_seq_length: 2048
-```
-
-### Training Script
-
-Create `/workspace/Finetuning_LLama/scripts/03_train_dapt.py`:
-
-```python
-"""
-DAPT Training Script
-"""
-
-import os
-import yaml
-from pathlib import Path
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    TrainingArguments,
-    Trainer,
-    DataCollatorForLanguageModeling
-)
-from datasets import load_from_disk
-
-# Load config
-with open('configs/dapt_config.yaml', 'r') as f:
-    config = yaml.safe_load(f)
-
-print("="*70)
-print("DAPT TRAINING - Domain Adaptive Pre-Training")
-print("="*70)
-
-# Load model and tokenizer
-print("\n1. Loading base model...")
-tokenizer = AutoTokenizer.from_pretrained(config['model_name'])
-model = AutoModelForCausalLM.from_pretrained(
-    config['model_name'],
-    torch_dtype="auto",
-    device_map="auto"
-)
-
-# Add padding token if missing
-if tokenizer.pad_token is None:
-    tokenizer.pad_token = tokenizer.eos_token
-    model.config.pad_token_id = model.config.eos_token_id
-
-print(f"✓ Model loaded: {model.num_parameters():,} parameters")
-
-# Load dataset
-print("\n2. Loading DAPT corpus...")
-dataset = load_from_disk(config['train_data'])
-print(f"✓ Dataset loaded: {len(dataset)} examples")
-
-# Tokenize
-def tokenize_function(examples):
-    return tokenizer(
-        examples['text'],
-        truncation=True,
-        max_length=config['max_seq_length'],
-        padding='max_length'
-    )
-
-print("\n3. Tokenizing dataset...")
-tokenized_dataset = dataset.map(
-    tokenize_function,
-    batched=True,
-    remove_columns=dataset.column_names
-)
-print(f"✓ Tokenization complete")
-
-# Training arguments
-print("\n4. Setting up training...")
-training_args = TrainingArguments(
-    output_dir=config['output_dir'],
-    num_train_epochs=config['num_train_epochs'],
-    per_device_train_batch_size=config['per_device_train_batch_size'],
-    gradient_accumulation_steps=config['gradient_accumulation_steps'],
-    learning_rate=config['learning_rate'],
-    warmup_steps=config['warmup_steps'],
-    logging_dir=config['logging_dir'],
-    logging_steps=config['logging_steps'],
-    save_steps=config['save_steps'],
-    save_total_limit=config['save_total_limit'],
-    fp16=config['fp16'],
-    gradient_checkpointing=config['gradient_checkpointing'],
-    optim=config['optim'],
-    lr_scheduler_type=config['lr_scheduler_type'],
-    report_to="tensorboard"
-)
-
-# Data collator
-data_collator = DataCollatorForLanguageModeling(
-    tokenizer=tokenizer,
-    mlm=False
-)
-
-# Trainer
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=tokenized_dataset,
-    data_collator=data_collator
-)
-
-# Train
-print("\n5. Starting DAPT training...")
-print(f"   Epochs: {config['num_train_epochs']}")
-print(f"   Batch size: {config['per_device_train_batch_size']}")
-print(f"   Gradient accumulation: {config['gradient_accumulation_steps']}")
-print(f"   Effective batch size: {config['per_device_train_batch_size'] * config['gradient_accumulation_steps']}")
-print(f"   Learning rate: {config['learning_rate']}")
-print("\n" + "="*70)
-
-trainer.train()
-
-# Save final model
-print("\n6. Saving DAPT model...")
-output_path = Path(config['output_dir']) / "final"
-trainer.save_model(str(output_path))
-tokenizer.save_pretrained(str(output_path))
-
-print(f"\n{'='*70}")
-print("DAPT TRAINING COMPLETE")
-print(f"{'='*70}")
-print(f"Model saved to: {output_path}")
-print(f"Logs saved to: {config['logging_dir']}")
-print(f"\nNext step: Run SFT training")
-print(f"  python scripts/04_train_sft.py")
-print(f"{'='*70}\n")
-```
-
-### Run DAPT
 
 ```bash
 cd /workspace/Finetuning_LLama
 python scripts/03_train_dapt.py
 ```
 
-### Monitor Progress
-
-```bash
-# In another terminal
-tensorboard --logdir=/workspace/Finetuning_LLama/logs/dapt/
-
-# Or check logs
-tail -f /workspace/Finetuning_LLama/logs/dapt/train.log
-```
-
-### Expected Metrics
-- **Initial loss:** ~3.5-4.0
-- **Final loss:** ~2.5-3.0
-- **Perplexity reduction:** 30-40%
+- **Config:** `configs/dapt_config.yaml` + `configs/dapt_lora_config.yaml`
+- **Dataset:** `data/dapt_corpus/` (654 examples)
+- **Base model:** `meta-llama/Llama-3.1-8B-Instruct` (downloaded via HF_TOKEN)
+- **Output:** `checkpoints/dapt_lora/final/`
+- **LoRA rank:** 16, alpha: 32, targets: q/k/v/o/gate/up/down_proj
+- **Time:** ~2-4 hours
+- **Monitor:** `tensorboard --logdir=logs/dapt/`
 
 ---
 
 ## Stage 2: SFT Training
 
-### What is SFT?
-Supervised Fine-Tuning teaches the model to answer questions in the correct format with proper reasoning.
-
-### Dataset
-- **Training:** `/workspace/data/arrow/sft_train/` (19,303 examples)
-- **Validation:** `/workspace/data/arrow/sft_validation/` (398 examples)
-
-### LoRA Configuration
-
-Create `/workspace/Finetuning_LLama/configs/lora_config.yaml`:
-
-```yaml
-# LoRA Configuration
-r: 16
-lora_alpha: 32
-target_modules:
-  - q_proj
-  - v_proj
-  - k_proj
-  - o_proj
-lora_dropout: 0.05
-bias: "none"
-task_type: "CAUSAL_LM"
-```
-
-### SFT Configuration
-
-Create `/workspace/Finetuning_LLama/configs/sft_config.yaml`:
-
-```yaml
-# SFT Training Configuration
-model_name: "/workspace/Finetuning_LLama/checkpoints/dapt/final/"
-output_dir: "/workspace/Finetuning_LLama/checkpoints/sft/"
-logging_dir: "/workspace/Finetuning_LLama/logs/sft/"
-
-# Dataset
-train_data: "/workspace/data/arrow/sft_train/"
-eval_data: "/workspace/data/arrow/sft_validation/"
-
-# Training parameters
-num_train_epochs: 3
-per_device_train_batch_size: 4
-per_device_eval_batch_size: 4
-gradient_accumulation_steps: 4
-learning_rate: 2e-4
-warmup_ratio: 0.03
-logging_steps: 10
-eval_steps: 100
-save_steps: 500
-save_total_limit: 3
-evaluation_strategy: "steps"
-load_best_model_at_end: true
-metric_for_best_model: "eval_loss"
-
-# Optimization
-fp16: true
-gradient_checkpointing: true
-optim: "paged_adamw_32bit"
-lr_scheduler_type: "cosine"
-
-# Context
-max_seq_length: 2048
-```
-
-### Training Script
-
-Create `/workspace/Finetuning_LLama/scripts/04_train_sft.py`:
-
-```python
-"""
-SFT Training Script with LoRA
-"""
-
-import os
-import yaml
-from pathlib import Path
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    TrainingArguments,
-    Trainer
-)
-from datasets import load_from_disk
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-
-# Load configs
-with open('configs/sft_config.yaml', 'r') as f:
-    config = yaml.safe_load(f)
-
-with open('configs/lora_config.yaml', 'r') as f:
-    lora_config_dict = yaml.safe_load(f)
-
-print("="*70)
-print("SFT TRAINING - Supervised Fine-Tuning with LoRA")
-print("="*70)
-
-# Load model and tokenizer
-print("\n1. Loading DAPT model...")
-tokenizer = AutoTokenizer.from_pretrained(config['model_name'])
-model = AutoModelForCausalLM.from_pretrained(
-    config['model_name'],
-    torch_dtype="auto",
-    device_map="auto"
-)
-
-if tokenizer.pad_token is None:
-    tokenizer.pad_token = tokenizer.eos_token
-    model.config.pad_token_id = model.config.eos_token_id
-
-print(f"✓ Model loaded: {model.num_parameters():,} parameters")
-
-# Prepare for LoRA
-print("\n2. Preparing model for LoRA...")
-model = prepare_model_for_kbit_training(model)
-
-# LoRA config
-lora_config = LoraConfig(
-    r=lora_config_dict['r'],
-    lora_alpha=lora_config_dict['lora_alpha'],
-    target_modules=lora_config_dict['target_modules'],
-    lora_dropout=lora_config_dict['lora_dropout'],
-    bias=lora_config_dict['bias'],
-    task_type=lora_config_dict['task_type']
-)
-
-model = get_peft_model(model, lora_config)
-model.print_trainable_parameters()
-
-# Load datasets
-print("\n3. Loading SFT datasets...")
-train_dataset = load_from_disk(config['train_data'])
-eval_dataset = load_from_disk(config['eval_data'])
-print(f"✓ Train: {len(train_dataset)} examples")
-print(f"✓ Eval: {len(eval_dataset)} examples")
-
-# Format prompt
-def format_prompt(example):
-    prompt = f"""<|begin_of_text|><|start_header_id|>user<|end_header_id|>
-
-{example['instruction']}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
-{example['output']}<|eot_id|>"""
-    return {"text": prompt}
-
-# Tokenize
-def tokenize_function(examples):
-    return tokenizer(
-        examples['text'],
-        truncation=True,
-        max_length=config['max_seq_length'],
-        padding='max_length'
-    )
-
-print("\n4. Formatting and tokenizing...")
-train_dataset = train_dataset.map(format_prompt)
-eval_dataset = eval_dataset.map(format_prompt)
-
-train_dataset = train_dataset.map(tokenize_function, batched=True)
-eval_dataset = eval_dataset.map(tokenize_function, batched=True)
-
-# Training arguments
-print("\n5. Setting up training...")
-training_args = TrainingArguments(
-    output_dir=config['output_dir'],
-    num_train_epochs=config['num_train_epochs'],
-    per_device_train_batch_size=config['per_device_train_batch_size'],
-    per_device_eval_batch_size=config['per_device_eval_batch_size'],
-    gradient_accumulation_steps=config['gradient_accumulation_steps'],
-    learning_rate=config['learning_rate'],
-    warmup_ratio=config['warmup_ratio'],
-    logging_dir=config['logging_dir'],
-    logging_steps=config['logging_steps'],
-    eval_steps=config['eval_steps'],
-    save_steps=config['save_steps'],
-    save_total_limit=config['save_total_limit'],
-    evaluation_strategy=config['evaluation_strategy'],
-    load_best_model_at_end=config['load_best_model_at_end'],
-    metric_for_best_model=config['metric_for_best_model'],
-    fp16=config['fp16'],
-    gradient_checkpointing=config['gradient_checkpointing'],
-    optim=config['optim'],
-    lr_scheduler_type=config['lr_scheduler_type'],
-    report_to="tensorboard"
-)
-
-# Trainer
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=eval_dataset
-)
-
-# Train
-print("\n6. Starting SFT training...")
-print(f"   Epochs: {config['num_train_epochs']}")
-print(f"   Effective batch size: {config['per_device_train_batch_size'] * config['gradient_accumulation_steps']}")
-print("\n" + "="*70)
-
-trainer.train()
-
-# Save
-print("\n7. Saving SFT model...")
-output_path = Path(config['output_dir']) / "final"
-trainer.save_model(str(output_path))
-
-print(f"\n{'='*70}")
-print("SFT TRAINING COMPLETE")
-print(f"{'='*70}")
-print(f"LoRA adapters saved to: {output_path}")
-print(f"\nNext step: Merge LoRA weights")
-print(f"  python scripts/05_merge_lora.py")
-print(f"{'='*70}\n")
-```
-
-### Run SFT
-
 ```bash
-cd /workspace/Finetuning_LLama
 python scripts/04_train_sft.py
 ```
 
-### Expected Metrics
-- **Initial loss:** ~2.5-3.0 (from DAPT)
-- **Final loss:** ~1.2-1.5
-- **Eval loss:** Should plateau around 1.3-1.6
+- **Config:** `configs/sft_config.yaml` + `configs/lora_config.yaml`
+- **Datasets:** `data/sft_train/` (19,303), `data/sft_validation/` (398)
+- **Base:** loads base model + merges DAPT LoRA in-memory, then applies SFT LoRA
+- **Output:** `checkpoints/sft_lora/final/`
+- **LoRA rank:** 16, alpha: 32
+- **Time:** ~6-10 hours
+- **Monitor:** `tensorboard --logdir=logs/sft/`
 
 ---
 
-## Stage 3: Merge LoRA Weights
-
-Combine LoRA adapters with base model for full model.
-
-Create `/workspace/Finetuning_LLama/scripts/05_merge_lora.py`:
-
-```python
-"""
-Merge LoRA weights with base model
-"""
-
-from pathlib import Path
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from peft import PeftModel
-
-print("="*70)
-print("MERGING LORA WEIGHTS")
-print("="*70)
-
-# Paths
-base_model_path = "/workspace/Finetuning_LLama/checkpoints/dapt/final/"
-lora_path = "/workspace/Finetuning_LLama/checkpoints/sft/final/"
-output_path = "/workspace/Finetuning_LLama/models/sft/"
-
-# Load base model
-print("\n1. Loading base model...")
-model = AutoModelForCausalLM.from_pretrained(
-    base_model_path,
-    torch_dtype="auto",
-    device_map="auto"
-)
-tokenizer = AutoTokenizer.from_pretrained(base_model_path)
-
-# Load LoRA
-print("\n2. Loading LoRA adapters...")
-model = PeftModel.from_pretrained(model, lora_path)
-
-# Merge
-print("\n3. Merging weights...")
-model = model.merge_and_unload()
-
-# Save
-print("\n4. Saving merged model...")
-Path(output_path).mkdir(parents=True, exist_ok=True)
-model.save_pretrained(output_path)
-tokenizer.save_pretrained(output_path)
-
-print(f"\n{'='*70}")
-print("MERGE COMPLETE")
-print(f"{'='*70}")
-print(f"Merged model saved to: {output_path}")
-print(f"\nNext step: Quantize for deployment")
-print(f"  python scripts/06_quantize_model.py")
-print(f"{'='*70}\n")
-```
-
-Run:
-```bash
-python scripts/05_merge_lora.py
-```
-
----
-
-## Stage 4: Quantize for Deployment
-
-Quantize to 4-bit for RTX 3090 deployment.
-
-Create `/workspace/Finetuning_LLama/scripts/06_quantize_model.py`:
-
-```python
-"""
-Quantize model for deployment
-"""
-
-from pathlib import Path
-from transformers import AutoModelForCausalLM, AutoTokenizer, GPTQConfig
-
-print("="*70)
-print("QUANTIZING MODEL")
-print("="*70)
-
-# Paths
-model_path = "/workspace/Finetuning_LLama/models/sft/"
-output_path = "/workspace/Finetuning_LLama/models/quantized/"
-
-# Load model
-print("\n1. Loading merged model...")
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForCausalLM.from_pretrained(model_path)
-
-# Quantize
-print("\n2. Quantizing to 4-bit...")
-quantization_config = GPTQConfig(bits=4, dataset="c4", tokenizer=tokenizer)
-
-model = AutoModelForCausalLM.from_pretrained(
-    model_path,
-    quantization_config=quantization_config,
-    device_map="auto"
-)
-
-# Save
-print("\n3. Saving quantized model...")
-Path(output_path).mkdir(parents=True, exist_ok=True)
-model.save_pretrained(output_path)
-tokenizer.save_pretrained(output_path)
-
-print(f"\n{'='*70}")
-print("QUANTIZATION COMPLETE")
-print(f"{'='*70}")
-print(f"Quantized model saved to: {output_path}")
-print(f"Model size: ~5GB (ready for RTX 3090)")
-print(f"\nNext step: Test inference")
-print(f"  python scripts/07_test_inference.py")
-print(f"{'='*70}\n")
-```
-
-Run:
-```bash
-python scripts/06_quantize_model.py
-```
-
----
-
-## Stage 5: Test Inference
-
-Test the final model.
-
-Create `/workspace/Finetuning_LLama/scripts/07_test_inference.py`:
-
-```python
-"""
-Test model inference
-"""
-
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-
-print("="*70)
-print("TESTING MODEL INFERENCE")
-print("="*70)
-
-# Load model
-model_path = "/workspace/Finetuning_LLama/models/quantized/"
-
-print("\n1. Loading quantized model...")
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForCausalLM.from_pretrained(
-    model_path,
-    device_map="auto"
-)
-
-# Create pipeline
-pipe = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    max_length=512,
-    temperature=0.7
-)
-
-# Test questions
-test_questions = [
-    "What does the 7th house sub-lord signify in marriage timing?",
-    "Explain the role of Venus in KP astrology for relationships.",
-    "How do I calculate the ruling planets for a horary question?"
-]
-
-print("\n2. Testing predictions...\n")
-
-for i, question in enumerate(test_questions, 1):
-    print(f"{'='*70}")
-    print(f"Test {i}: {question}")
-    print(f"{'='*70}")
-    
-    prompt = f"""<|begin_of_text|><|start_header_id|>user<|end_header_id|>
-
-{question}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
-"""
-    
-    response = pipe(prompt)[0]['generated_text']
-    answer = response.split("<|start_header_id|>assistant<|end_header_id|>")[-1].strip()
-    
-    print(f"\nAnswer:\n{answer}\n")
-
-print(f"{'='*70}")
-print("TESTING COMPLETE")
-print(f"{'='*70}\n")
-```
-
-Run:
-```bash
-python scripts/07_test_inference.py
-```
-
----
-
-## Stage 6: DPO Training (Preference Optimization)
-
-### What is DPO?
-Direct Preference Optimization teaches the model to prefer "pandit-like" responses over robotic ones. This addresses client feedback:
-- Product spam → only on remedy requests
-- Verbose rambling → short impactful answers
-- No specific dates → exact dasha dates
-- "The native" → "Aap/name ji"
-- Hallucinated past events → age-aware responses
-
-### LoRA Staging (CRITICAL)
-```
-Stage 1 (DAPT): Base → LoRA → merge
-Stage 2 (SFT):  Merged → LoRA → merge
-Stage 3 (DPO):  Merged → NEW LoRA → merge   ← NEVER stack LoRA on LoRA
-```
-
-### Step 6a: Generate DPO Dataset (OpenAI Batch API)
-
-```bash
-cd /workspace/Finetuning_LLama
-
-# Submit batch (50% cheaper, ~1-4 hours)
-python scripts/13_generate_dpo_dataset.py --count 1100 --model gpt-4o-mini
-
-# Check status (note the batch ID from output)
-python scripts/13_generate_dpo_dataset.py --check <BATCH_ID>
-
-# Download when complete
-python scripts/13_generate_dpo_dataset.py --download <BATCH_ID>
-
-# OR: Use sync mode for instant results (2x cost)
-python scripts/13_generate_dpo_dataset.py --count 1100 --sync --sync-workers 5
-```
-
-**Output:** `data/dpo/dpo_pairs.jsonl` — 1000+ (chosen, rejected) pairs
-
-### Step 6b: Prepare DPO Dataset
-
-```bash
-python scripts/14_prepare_dpo_dataset.py
-```
-
-**Output:** `data/dpo/prepared/` — HuggingFace Dataset with train/test split
-
-### Step 6c: Merge SFT LoRA into Base (Stage 2→3 Bridge)
+## Stage 3: Merge DAPT+SFT → Single Base
 
 ```bash
 python scripts/05b_merge_sft_lora.py
 ```
 
-**Output:** `models/merged_sft/` — Fully merged DAPT+SFT model ready for DPO
+- **Input:** base model + `checkpoints/dapt_lora/final/` + `checkpoints/sft_lora/final/`
+- **Output:** `models/merged_sft/`
+- **Time:** ~30 minutes
 
-### Step 6d: Train DPO LoRA
+---
+
+## Stage 4: DPO Dataset
+
+### 4a: Generate DPO pairs
+
+```bash
+python scripts/13_generate_dpo_dataset.py --count 1100 --model gpt-4o-mini
+```
+
+- **Output:** `data/dpo/dpo_pairs.jsonl`
+- Uses `chart_preprocessor.chart_to_yaml()` for format consistency
+
+### 4b: Prepare for DPOTrainer
+
+```bash
+python scripts/14_prepare_dpo_dataset.py
+```
+
+- **Output:** `data/dpo/prepared/` (HF Dataset with train/test split)
+- Now preserves `category` and `chart_name` metadata columns
+
+---
+
+## Stage 5: DPO Training
 
 ```bash
 python scripts/15_train_dpo.py
-
-# Monitor training
-tensorboard --logdir=logs/dpo/
 ```
 
-**Config files:**
-- `configs/dpo_config.yaml` — Training hyperparameters (beta=0.1, lr=5e-5, 2 epochs)
-- `configs/dpo_lora_config.yaml` — LoRA params (rank=8, alpha=16)
+- **Config:** `configs/dpo_config.yaml` + `configs/dpo_lora_config.yaml`
+- **Dataset:** `data/dpo/prepared/` (895 train / 100 eval)
+- **Base model:** `models/merged_sft/` (merged DAPT+SFT)
+- **Output:** `checkpoints/dpo_lora/final/`
+- **LoRA rank:** 8, alpha: 8 (conservative for refinement)
+- **DPO beta:** 0.1, loss: sigmoid
+- **Time:** ~2-4 hours
+- **Monitor:** `tensorboard --logdir=logs/dpo/`
 
-**Expected metrics:**
-- DPO loss should decrease steadily
-- Chosen rewards should increase, rejected rewards should decrease
+---
 
-### Step 6e: Merge DPO LoRA → Final Model
+## Stage 6: Merge DPO → Final Model
 
 ```bash
 python scripts/16_merge_dpo_lora.py
 ```
 
-**Output:** `models/final_dpo/` — Production-ready model with all 3 stages merged
+- **Input:** `models/merged_sft/` + `checkpoints/dpo_lora/final/`
+- **Output:** `models/final_dpo/`
 
-### Step 6f: Quantize & Deploy
+---
+
+## Stage 7: Export for vLLM
 
 ```bash
+# Default: safetensors copy for vLLM (recommended)
 python scripts/06_quantize_unsloth.py --model ./models/final_dpo/
+
+# Or explicit:
+python scripts/06_quantize_unsloth.py --method safetensors --model ./models/final_dpo/
+```
+
+- **Output:** `models/quantized/` (safetensors, ready for vLLM)
+- For llama.cpp only: `--method q4_k_m` or `--method q8_0`
+
+---
+
+## Stage 8: Serve & Test
+
+### Start vLLM
+
+```bash
 python scripts/08_serve_vllm.py --model-path ./models/final_dpo/
+# Or with quantized:
+python scripts/08_serve_vllm.py --model-path ./models/quantized/
+# dtype is configurable: --dtype auto (default), bfloat16, float16
+```
+
+### Start UI or API
+
+```bash
+# Gradio UI (port 7860)
+python scripts/09_chat_ui.py
+
+# FastAPI (port 8080)
+python scripts/11_api_server.py
+```
+
+### Run evaluation
+
+```bash
+# Standard test suite (compact chart data)
+python scripts/10_kp_test_suite.py
+
+# Production-mirror eval (full kundali JSON → YAML → vLLM → format checks)
+python scripts/10_kp_test_suite.py --kundali-json ../sample_kundali/kundali_Abhi_Raj.json
 ```
 
 ---
 
-## ✅ Training Complete!
+## Config Files Reference
 
-Your model is now ready for deployment with all 3 training stages:
-1. **DAPT** — KP astrology domain knowledge
-2. **SFT** — Instruction following and reasoning
-3. **DPO** — Pandit-like conversational quality (client-approved tone)
+| File | Purpose |
+|------|---------|
+| `configs/dapt_config.yaml` | DAPT training hyperparameters |
+| `configs/dapt_lora_config.yaml` | DAPT LoRA rank/alpha/targets |
+| `configs/sft_config.yaml` | SFT training hyperparameters |
+| `configs/lora_config.yaml` | SFT LoRA rank/alpha/targets |
+| `configs/dpo_config.yaml` | DPO training hyperparameters |
+| `configs/dpo_lora_config.yaml` | DPO LoRA rank/alpha/targets |
 
-### Next Steps
-1. Download final model from RunPod
-2. Deploy on RTX 3090 with vLLM
-3. Integrate Pinecone RAG + Product Index
-4. Connect to client API (`scripts/11_api_server.py`)
-5. Test with real kundali data before sharing with client
+---
 
-See `../Finetunning_runpod.md` Section 4 for deployment instructions.
+## Troubleshooting
+
+- **OOM during training:** reduce `per_device_train_batch_size` or enable `gradient_checkpointing: true`
+- **vLLM context length error:** reduce `--max-model-len` or trim chart YAML
+- **TRL not found:** `pip install -r requirements.txt` (TRL is now pinned)
+- **GGUF vs safetensors confusion:** vLLM uses safetensors. GGUF is for llama.cpp only.

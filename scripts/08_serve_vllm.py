@@ -19,6 +19,7 @@ HOST = os.environ.get("VLLM_HOST", "0.0.0.0")
 PORT = os.environ.get("VLLM_PORT", "8000")
 MAX_MODEL_LEN = os.environ.get("MAX_MODEL_LEN", "4096")
 GPU_MEM_UTIL = os.environ.get("GPU_MEM_UTIL", "0.90")
+DTYPE = os.environ.get("VLLM_DTYPE", "auto")
 
 # Override from CLI args
 import argparse
@@ -28,6 +29,9 @@ parser.add_argument("--host", type=str, default=HOST)
 parser.add_argument("--port", type=str, default=PORT)
 parser.add_argument("--max-model-len", type=str, default=MAX_MODEL_LEN)
 parser.add_argument("--gpu-memory-utilization", type=str, default=GPU_MEM_UTIL)
+parser.add_argument("--dtype", type=str, default=DTYPE,
+                    choices=["auto", "bfloat16", "float16", "float32"],
+                    help="Model dtype: auto (let vLLM decide), bfloat16, float16, float32")
 args = parser.parse_args()
 
 # ── Validate model path ───────────────────────────────────────────────────────
@@ -49,6 +53,7 @@ print("="*80)
 print(f"  Model:      {model_path}")
 print(f"  Server:     http://{args.host}:{args.port}/v1")
 print(f"  Max length: {args.max_model_len}")
+print(f"  Dtype:      {args.dtype}")
 print(f"  GPU memory: {float(args.gpu_memory_utilization)*100:.0f}%")
 print("="*80)
 print()
@@ -73,7 +78,7 @@ cmd = [
     "--port", args.port,
     "--max-model-len", args.max_model_len,
     "--gpu-memory-utilization", args.gpu_memory_utilization,
-    "--dtype", "bfloat16",
+    "--dtype", args.dtype,
     "--trust-remote-code",
     "--served-model-name", "kp-astrology-llama",
 ]

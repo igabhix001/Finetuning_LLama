@@ -125,6 +125,8 @@ def format_prompt(pair: dict) -> dict:
         "prompt": prompt,
         "chosen": chosen,
         "rejected": rejected,
+        "category": category,
+        "chart_name": chart_name,
     }
 
 # ── Process all pairs ─────────────────────────────────────────────────────────

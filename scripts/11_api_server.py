@@ -22,13 +22,16 @@ Usage:
 
 import argparse
 import json
+import logging
 import os
 import re
 import csv
 import random
+import time
+import uuid
 from datetime import date, datetime
 from typing import Optional
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
@@ -36,6 +39,19 @@ from dotenv import load_dotenv
 import uvicorn
 
 load_dotenv()
+
+# ── Structured JSON logging ──────────────────────────────────────────────────
+_log = logging.getLogger("kp_api")
+_log.setLevel(logging.INFO)
+_handler = logging.StreamHandler()
+_handler.setFormatter(logging.Formatter('%(message)s'))
+_log.addHandler(_handler)
+
+def _json_log(event: str, **kwargs):
+    """Emit a single-line JSON log entry for observability."""
+    entry = {"ts": datetime.utcnow().isoformat() + "Z", "event": event}
+    entry.update(kwargs)
+    _log.info(json.dumps(entry, ensure_ascii=False, default=str))
 
 # ── CLI args ──────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(description="KP Astrology REST API")
@@ -295,20 +311,31 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
 from chart_preprocessor import chart_to_yaml as _chart_to_yaml
 
 
-_REMEDY_KEYWORDS = [
-    "remedy", "remedies", "upay", "upaye", "upaay", "solution",
-    "strengthen", "what to do", "kya karu", "kya karein", "kya karun",
-    "suggest", "recommendation", "wear", "pehnu", "pehnna",
+_REMEDY_STRONG_KEYWORDS = [
+    "remedy", "remedies", "upay", "upaye", "upaay",
     "gemstone", "ratna", "rudraksha", "mantra", "puja", "pooja",
-    "how to improve", "kaise sudhare", "kaise theek",
-    "protection", "kavach", "totka", "vidhi",
+    "kavach", "totka", "vidhi", "wear", "pehnu", "pehnna",
+    "which stone", "kaun sa ratna", "kaun sa stone",
+]
+_REMEDY_CONTEXT_KEYWORDS = [
+    "suggest remedy", "suggest a remedy", "recommend remedy",
+    "kya karu iske liye", "kya karein iske liye",
+    "strengthen planet", "strengthen my",
+    "protection from", "how to reduce negative",
+    "kaise theek karu", "kaise sudhare",
 ]
 
 
 def _is_remedy_query(question: str) -> bool:
-    """Check if the user is asking for remedies/solutions — only then recommend products."""
+    """Check if the user is explicitly asking for remedies — only then recommend products.
+    Uses two-tier matching: strong keywords (single match) + contextual phrases (exact match)
+    to reduce false positives from generic words like 'suggest' or 'solution'."""
     q_lower = question.lower()
-    return any(kw in q_lower for kw in _REMEDY_KEYWORDS)
+    if any(kw in q_lower for kw in _REMEDY_STRONG_KEYWORDS):
+        return True
+    if any(kw in q_lower for kw in _REMEDY_CONTEXT_KEYWORDS):
+        return True
+    return False
 
 
 def _postprocess(text):
@@ -642,6 +669,9 @@ def _extract_prediction(answer: str) -> Optional[str]:
 
 def _generate_response(question: str, chart_data: str = ""):
     """Generate a complete (non-streaming) response and return structured output."""
+    req_id = uuid.uuid4().hex[:12]
+    t_start = time.monotonic()
+
     # Convert chart JSON to compact YAML (5500 lines JSON → ~120 lines YAML)
     chart_yaml = _chart_to_yaml(chart_data or "")
 
@@ -749,6 +779,20 @@ def _generate_response(question: str, chart_data: str = ""):
 
     # Pick best product recommendation — only on remedy queries
     product_reco = product_list[0] if (is_remedy and product_list) else None
+
+    # ── Structured log for observability ──
+    _json_log("chat_response",
+              req_id=req_id,
+              query_type=query_info["type"],
+              is_remedy=is_remedy,
+              rag_chunks=len(selected_chunks),
+              max_tokens=max_tokens,
+              temperature=temperature,
+              raw_len=len(raw_answer),
+              answer_len=len(answer),
+              has_prediction=prediction is not None,
+              has_product=product_reco is not None,
+              latency_ms=round((time.monotonic() - t_start) * 1000))
 
     return {
         "answer": answer,

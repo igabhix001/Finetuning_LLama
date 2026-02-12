@@ -54,13 +54,14 @@ if torch.cuda.is_available():
     print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
 print("=" * 80)
 
-# ── Install TRL if needed ────────────────────────────────────────────────────
+# ── Import TRL (must be pre-installed — see requirements.txt) ────────────────
 try:
     from trl import DPOTrainer, DPOConfig
 except ImportError:
-    print("Installing trl package...")
-    os.system(f"{sys.executable} -m pip install trl>=0.9.0 -q")
-    from trl import DPOTrainer, DPOConfig
+    print("❌ TRL package not installed. Install it with:")
+    print(f"   {sys.executable} -m pip install trl>=0.9.0")
+    print("   Or: pip install -r requirements.txt")
+    sys.exit(1)
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, EarlyStoppingCallback, TrainerCallback
 from peft import LoraConfig, get_peft_model

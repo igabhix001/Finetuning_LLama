@@ -588,20 +588,31 @@ def _enrich_response(text, product_text="", is_remedy=False):
 from chart_preprocessor import chart_to_yaml as _chart_to_yaml
 
 
-_REMEDY_KEYWORDS = [
-    "remedy", "remedies", "upay", "upaye", "upaay", "solution",
-    "strengthen", "what to do", "kya karu", "kya karein", "kya karun",
-    "suggest", "recommendation", "wear", "pehnu", "pehnna",
+_REMEDY_STRONG_KEYWORDS = [
+    "remedy", "remedies", "upay", "upaye", "upaay",
     "gemstone", "ratna", "rudraksha", "mantra", "puja", "pooja",
-    "how to improve", "kaise sudhare", "kaise theek",
-    "protection", "kavach", "totka", "vidhi",
+    "kavach", "totka", "vidhi", "wear", "pehnu", "pehnna",
+    "which stone", "kaun sa ratna", "kaun sa stone",
+]
+_REMEDY_CONTEXT_KEYWORDS = [
+    "suggest remedy", "suggest a remedy", "recommend remedy",
+    "kya karu iske liye", "kya karein iske liye",
+    "strengthen planet", "strengthen my",
+    "protection from", "how to reduce negative",
+    "kaise theek karu", "kaise sudhare",
 ]
 
 
 def _is_remedy_query(question: str) -> bool:
-    """Check if the user is asking for remedies/solutions — only then recommend products."""
+    """Check if the user is explicitly asking for remedies — only then recommend products.
+    Uses two-tier matching: strong keywords (single match) + contextual phrases (exact match)
+    to reduce false positives from generic words like 'suggest' or 'solution'."""
     q_lower = question.lower()
-    return any(kw in q_lower for kw in _REMEDY_KEYWORDS)
+    if any(kw in q_lower for kw in _REMEDY_STRONG_KEYWORDS):
+        return True
+    if any(kw in q_lower for kw in _REMEDY_CONTEXT_KEYWORDS):
+        return True
+    return False
 
 
 def predict(message, history, chart_data):

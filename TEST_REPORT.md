@@ -159,7 +159,7 @@ From `feedback_client.md` and `ai_test/suggestion.md`:
 - [ ] **Add today_date comparison** in postprocessing to fix tense errors
 
 ### P2: Nice to Have
-- [ ] RAG integration with Pinecone for KP book excerpts
+- [ ] RAG integration with Pinecone for KP book (this is already in the code the server was ran with no-rag flag there are two things in rag one is kp books and other is products embeddings) excerpts
 - [ ] Multi-turn conversation support
 - [ ] Confidence scoring based on significator strength
 - [ ] Pratyantar-level peak month narrowing

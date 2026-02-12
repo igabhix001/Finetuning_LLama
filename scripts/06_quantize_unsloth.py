@@ -1,16 +1,22 @@
 """
-Quantize a merged model to GGUF format using Unsloth for efficient deployment.
+Quantize/export a merged model for deployment.
 
-Produces Q4_K_M (small, fast) and Q8_0 (higher quality) GGUF files.
-If Unsloth is unavailable, falls back to saving bf16 safetensors for vLLM.
+Modes:
+  safetensors  — copy bf16/fp16 safetensors for vLLM serving (DEFAULT, recommended)
+  q4_k_m       — Unsloth GGUF 4-bit (for llama.cpp, NOT vLLM)
+  q8_0         — Unsloth GGUF 8-bit (for llama.cpp, NOT vLLM)
+  both         — export both GGUF variants
+
+NOTE: vLLM serves safetensors natively. GGUF is for llama.cpp only.
+      Use --method safetensors (default) when deploying with vLLM.
 
 Usage:
-  python scripts/06_quantize_unsloth.py
+  python scripts/06_quantize_unsloth.py                          # safetensors for vLLM
+  python scripts/06_quantize_unsloth.py --method safetensors     # explicit vLLM mode
+  python scripts/06_quantize_unsloth.py --method q4_k_m          # GGUF for llama.cpp
+  python scripts/06_quantize_unsloth.py --method q8_0            # GGUF for llama.cpp
+  python scripts/06_quantize_unsloth.py --method both            # both GGUF variants
   python scripts/06_quantize_unsloth.py --model ./models/final_dpo/
-  python scripts/06_quantize_unsloth.py --model ./models/final_dpo/ --output ./models/quantized/
-  python scripts/06_quantize_unsloth.py --method q4_k_m   # default
-  python scripts/06_quantize_unsloth.py --method q8_0
-  python scripts/06_quantize_unsloth.py --method both     # export both Q4_K_M and Q8_0
 """
 
 import sys
@@ -25,9 +31,9 @@ parser.add_argument("--model", type=str, default="./models/final_dpo/",
                     help="Path to the merged model to quantize")
 parser.add_argument("--output", type=str, default="./models/quantized/",
                     help="Output directory for quantized model")
-parser.add_argument("--method", type=str, default="q4_k_m",
-                    choices=["q4_k_m", "q8_0", "both"],
-                    help="Quantization method: q4_k_m (4-bit), q8_0 (8-bit), or both")
+parser.add_argument("--method", type=str, default="safetensors",
+                    choices=["safetensors", "q4_k_m", "q8_0", "both"],
+                    help="Export method: safetensors (vLLM, default), q4_k_m/q8_0/both (GGUF for llama.cpp)")
 parser.add_argument("--max-seq-length", type=int, default=2048,
                     help="Max sequence length for the model")
 args = parser.parse_args()
@@ -62,14 +68,37 @@ print("=" * 80)
 
 output_path.mkdir(parents=True, exist_ok=True)
 
-# ── Clean stale llama.cpp cache (causes QWEN35 enum errors) ────────────────
+# ── Safetensors export for vLLM (default, recommended) ──────────────────────
+if args.method == "safetensors":
+    from shutil import copytree, rmtree
+    print("\n1. Exporting safetensors for vLLM serving...")
+    if output_path.exists() and any(output_path.iterdir()):
+        rmtree(str(output_path))
+    copytree(str(model_path), str(output_path))
+    print(f"   ✓ Model copied to: {output_path}")
+    print(f"   Serve with: python scripts/08_serve_vllm.py --model-path {output_path}")
+
+    model_size = sum(p.stat().st_size for p in output_path.rglob("*") if p.is_file()) / (1024**3)
+    print(f"\n{'=' * 80}")
+    print("EXPORT COMPLETE (safetensors for vLLM)")
+    print(f"{'=' * 80}")
+    print(f"Output:    {output_path}")
+    print(f"Size:      {model_size:.2f} GB")
+    print(f"{'=' * 80}")
+    sys.exit(0)
+
+# ── GGUF export (for llama.cpp only, NOT vLLM) ─────────────────────────────
+
+# Clean stale llama.cpp cache (causes QWEN35 enum errors)
 stale_llama_cpp = Path("llama.cpp")
 if stale_llama_cpp.exists():
     import shutil as _sh
     print(f"ℹ️  Removing stale {stale_llama_cpp}/ to avoid converter conflicts...")
     _sh.rmtree(str(stale_llama_cpp), ignore_errors=True)
 
-# ── Try Unsloth GGUF export ─────────────────────────────────────────────────
+print("\n⚠️  GGUF export is for llama.cpp serving, NOT vLLM.")
+print("   For vLLM, use: --method safetensors (default)\n")
+
 try:
     from unsloth import FastLanguageModel
     print("\n1. Loading model with Unsloth...")

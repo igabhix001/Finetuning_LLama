@@ -6,6 +6,9 @@ accelerate>=0.25.0
 peft>=0.7.1
 bitsandbytes>=0.41.3
 
+# DPO training
+trl>=0.9.0
+
 # Optimization and quantization
 scipy>=1.11.0
 sentencepiece>=0.1.99

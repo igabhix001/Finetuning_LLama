@@ -36,6 +36,11 @@ parser.add_argument("--temperature", type=float, default=0.4)
 parser.add_argument("--max-model-len", type=int, default=2048)
 parser.add_argument("--no-rag", action="store_true", help="Disable RAG retrieval")
 parser.add_argument("--top-k", type=int, default=5, help="RAG chunks to retrieve")
+parser.add_argument("--kundali-json", type=str, default=None,
+                    help="Path to a kundali JSON file — runs production-mirror eval "
+                         "using chart_preprocessor.chart_to_yaml + full postprocess pipeline")
+parser.add_argument("--eval-questions", type=str, default=None,
+                    help="Path to a JSON file with eval questions (list of {question, category})")
 args = parser.parse_args()
 
 client = OpenAI(base_url=args.vllm_url, api_key="not-needed")
@@ -413,7 +418,181 @@ def run_test(test):
         return {"answer": "", "latency_s": 0, "tokens": 0, "rag_chunks": len(selected_chunks), "error": str(e)}
 
 
+# ── Production-mirror evaluation mode ─────────────────────────────────────────
+# Uses chart_preprocessor.chart_to_yaml + full postprocess pipeline from 09_chat_ui.py
+# This mirrors EXACTLY what the user sees in production.
+
+_PROD_EVAL_QUESTIONS = [
+    {"question": "What is my name?", "category": "simple"},
+    {"question": "What is my lagna?", "category": "simple"},
+    {"question": "What is my rashi?", "category": "simple"},
+    {"question": "Who are you?", "category": "simple"},
+    {"question": "When will I get married?", "category": "timing"},
+    {"question": "When will I get a job?", "category": "timing"},
+    {"question": "How is my financial future?", "category": "analysis"},
+    {"question": "Tell me about my career prospects", "category": "analysis"},
+    {"question": "What happened in my career from 2020 to 2025?", "category": "past_event"},
+    {"question": "When did I face health issues?", "category": "past_event"},
+    {"question": "Is my current dasha favorable for marriage?", "category": "timing"},
+    {"question": "Kab hogi meri shaadi?", "category": "timing"},
+    {"question": "Mera career kaisa rahega?", "category": "analysis"},
+    {"question": "Suggest a remedy for my career problems", "category": "remedy"},
+    {"question": "What gemstone should I wear?", "category": "remedy"},
+]
+
+# Import production postprocess + chart preprocessor for mirror mode
+try:
+    from chart_preprocessor import chart_to_yaml as _prod_chart_to_yaml
+except ImportError:
+    _prod_chart_to_yaml = None
+
+
+def _prod_postprocess(text):
+    """Lightweight format checks for production-mirror eval (not full postprocess)."""
+    checks = {
+        "has_markdown_bold": "**" in text,
+        "has_headers": bool(re.search(r'^#{1,6}\s', text, re.MULTILINE)),
+        "has_the_native": "the native" in text.lower(),
+        "has_bullets": bool(re.search(r'(?:^|\n)\s*[-•●]\s', text)),
+        "has_analysis_header": bool(re.search(r'(?:Analysis|Conclusion|Summary)\s*:', text, re.IGNORECASE)),
+        "has_iso_dates": bool(re.search(r'\b20\d{2}-\d{2}\b', text)),
+        "sentence_count": len(re.split(r'(?<=[.!?])\s+', text.strip())),
+        "char_count": len(text),
+    }
+    return checks
+
+
+def run_production_eval(kundali_path: str, eval_questions=None):
+    """Run production-mirror evaluation: full JSON → YAML → vLLM → format checks."""
+    if not _prod_chart_to_yaml:
+        print("❌ chart_preprocessor not importable. Run from Finetuning_LLama/ directory.")
+        return
+
+    print("=" * 80)
+    print("PRODUCTION-MIRROR EVALUATION")
+    print("=" * 80)
+
+    # Load kundali JSON
+    with open(kundali_path, "r", encoding="utf-8") as f:
+        chart_json = f.read()
+    chart_yaml = _prod_chart_to_yaml(chart_json)
+    print(f"  Chart: {kundali_path}")
+    print(f"  YAML lines: {len(chart_yaml.splitlines())}")
+    print(f"  YAML chars: {len(chart_yaml)}")
+
+    questions = eval_questions or _PROD_EVAL_QUESTIONS
+
+    # Use production system prompt (from 09_chat_ui.py)
+    PROD_SYSTEM = (
+        "You are Jyotish, an experienced KP astrologer. Speak directly to the person.\n\n"
+        "ABSOLUTE RULES (NEVER BREAK):\n"
+        "1. LENGTH: Simple queries = 1 sentence. Timing = 2-3 sentences. MAX 4 sentences ever.\n"
+        "2. DATE SANITY: Read 'dob' from YAML. NEVER output ANY year before the birth year.\n"
+        "3. CHART GROUNDING: ONLY use data from YAML. Read values EXACTLY.\n"
+        "4. ZERO HALLUCINATION: If dasha dates not in YAML, say 'I need full dasha data.'\n\n"
+        "IDENTITY: 'My name is Jyotish.' Address user as '[Name] ji'. NEVER say 'the native'.\n"
+        "FORMAT: ZERO markdown. No bold, headers, bullets. Answer FIRST, then brief justification.\n"
+    )
+
+    results = []
+    format_violations = {"markdown_bold": 0, "headers": 0, "the_native": 0,
+                         "bullets": 0, "analysis_header": 0, "iso_dates": 0,
+                         "over_6_sentences": 0}
+
+    for i, q in enumerate(questions, 1):
+        question = q["question"]
+        category = q["category"]
+        print(f"\n[{i}/{len(questions)}] [{category}] {question}")
+
+        full_question = f"Chart context (YAML):\n{chart_yaml}\n\nQuestion: {question}"
+        messages = [
+            {"role": "system", "content": PROD_SYSTEM},
+            {"role": "user", "content": full_question},
+        ]
+
+        total_chars = sum(len(m["content"]) for m in messages)
+        est_input_tokens = int(total_chars / 0.78) + 100
+        available = MAX_MODEL_LEN - est_input_tokens
+        max_tokens = max(64, min(OUTPUT_TOKENS, available))
+
+        try:
+            t0 = time.time()
+            resp = client.chat.completions.create(
+                model="kp-astrology-llama",
+                messages=messages,
+                max_tokens=max_tokens,
+                temperature=0.4,
+                top_p=0.9,
+                extra_body={"repetition_penalty": 1.2},
+            )
+            elapsed = time.time() - t0
+            raw_answer = resp.choices[0].message.content.strip()
+            checks = _prod_postprocess(raw_answer)
+
+            # Tally violations
+            if checks["has_markdown_bold"]: format_violations["markdown_bold"] += 1
+            if checks["has_headers"]: format_violations["headers"] += 1
+            if checks["has_the_native"]: format_violations["the_native"] += 1
+            if checks["has_bullets"]: format_violations["bullets"] += 1
+            if checks["has_analysis_header"]: format_violations["analysis_header"] += 1
+            if checks["has_iso_dates"]: format_violations["iso_dates"] += 1
+            if checks["sentence_count"] > 6: format_violations["over_6_sentences"] += 1
+
+            violations = [k for k, v in checks.items() if isinstance(v, bool) and v]
+            status = f"CLEAN" if not violations else f"VIOLATIONS: {', '.join(violations)}"
+            print(f"  {elapsed:.1f}s | {checks['sentence_count']} sentences | {checks['char_count']} chars | {status}")
+            print(f"  Answer: {raw_answer[:150]}...")
+
+            results.append({
+                "question": question, "category": category,
+                "raw_answer": raw_answer, "checks": checks,
+                "latency_s": round(elapsed, 2), "error": None,
+            })
+        except Exception as e:
+            print(f"  ERROR: {e}")
+            results.append({
+                "question": question, "category": category,
+                "raw_answer": "", "checks": {}, "latency_s": 0, "error": str(e),
+            })
+
+    # Summary
+    total = len(results)
+    errors = sum(1 for r in results if r["error"])
+    clean = sum(1 for r in results if not r["error"] and
+                not any(v for k, v in r["checks"].items() if isinstance(v, bool) and v))
+
+    print(f"\n{'=' * 80}")
+    print("PRODUCTION EVAL SUMMARY")
+    print(f"{'=' * 80}")
+    print(f"  Total questions: {total}")
+    print(f"  Errors: {errors}")
+    print(f"  Format-clean: {clean}/{total - errors} ({clean / max(total - errors, 1) * 100:.0f}%)")
+    print(f"  Violations:")
+    for k, v in format_violations.items():
+        print(f"    {k}: {v}")
+
+    # Save results
+    out_path = Path(args.output).parent / "prod_eval_results.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump({"meta": {"chart": kundali_path, "timestamp": datetime.now().isoformat()},
+                   "summary": {"total": total, "errors": errors, "clean": clean,
+                               "violations": format_violations},
+                   "results": results}, f, indent=2, ensure_ascii=False)
+    print(f"\n  Results saved: {out_path}")
+    print(f"{'=' * 80}")
+
+
 def main():
+    # ── Production-mirror mode ──
+    if args.kundali_json:
+        eval_qs = None
+        if args.eval_questions:
+            with open(args.eval_questions, "r") as f:
+                eval_qs = json.load(f)
+        run_production_eval(args.kundali_json, eval_qs)
+        return
+
     print("=" * 80)
     print("KP ASTROLOGY MODEL TEST SUITE")
     print("=" * 80)
