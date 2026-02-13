@@ -395,6 +395,14 @@ def _postprocess(text):
         return f"{_month_map.get(mo, mo)} {y}"
     text = re.sub(r'\b(20\d{2})-(0[1-9]|1[0-2])(?:-\d{2})?\b', _iso_repl, text)
 
+    # ── Phase 6.5b: Fix hallucinated year typos (e.g. '20626' → '2026') ──
+    def _fix_year_typo(m):
+        raw = m.group(0)
+        if len(raw) == 5 and raw.startswith('20'):
+            return raw[:4]  # '20626' → '2062' — still wrong, try '20' + raw[2:4]
+        return raw[:4]
+    text = re.sub(r'\b20\d{3,5}\b', _fix_year_typo, text)
+
     # ── Phase 6.6: Date sanity — strip sentences with years before birth year ──
     _birth_year = getattr(_postprocess, '_birth_year', None)
     if _birth_year and _birth_year > 1950:
@@ -460,6 +468,10 @@ def _postprocess(text):
         (r'\bThe\s+native\s+is\b', 'You are'),
         (r'\bThe\s+native(?:\'s)?\b', 'Your'),
         (r'\bthe\s+native(?:\'s)?\b', 'your'),
+        (r'\bnative\s+ka\b', 'aapka'),
+        (r'\bnative\s+ki\b', 'aapki'),
+        (r'\bnative\s+ke\b', 'aapke'),
+        (r'\bnative\s+ko\b', 'aapko'),
         (r'\bThe\s+querent\b', 'You'),
         (r'\bthe\s+querent\b', 'you'),
         (r'\bThe\s+person\b', 'You'),
@@ -473,6 +485,8 @@ def _postprocess(text):
         (r'\bBased\s+on\s+(?:the\s+)?given\s+chart,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+chart\s+(?:analysis|data|details),?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?(?:extracted|available)\s+chart\s+(?:summary|data),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?provided\s+horoscope\s+(?:data|analysis|details),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?given\s+(?:planetary\s+positions|horoscope\s+data|chart\s+positions)\s*(?:and\s+(?:their\s+)?(?:house\s+)?(?:rulerships|significations))?,?\b', ''),
         (r'\bUsing\s+(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?principles,?\b', ''),
     ]
     for pat, repl in _replacements:
@@ -1165,6 +1179,15 @@ def predict(message, history, chart_data):
             "this is an excellent time to discuss",
             "holds significance for your",
             "significations in your chart",
+            # Round 8b additions (user retest):
+            "significator analysis mein dekhte hain",
+            "examine kar sakte hain current",
+            "ki possibility examine kar sakte",
+            "potential assess karne ke liye",
+            "specific yogic combinations dekh rahe",
+            "you need to perform remedial measures",
+            "need to perform remedial measures involving",
+            "examine upcoming saturn",
         ]
         if any(p in t for p in deflection_phrases):
             return True
