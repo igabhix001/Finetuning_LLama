@@ -619,18 +619,19 @@ def _classify_query_type(question: str) -> dict:
         "scared about my health", "serious illness", "fatal",
         "scared about health", "die soon", "kab maru",
         "will i survive", "marr jaunga", "marr jaungi", "marne wala",
+        "will you die", "will we die", "going to die",
     ]
-    # Typo-tolerant regex: 'will will i die', 'wil i die', etc.
-    if any(p in q for p in safety_patterns) or re.search(r'\bwill\s+(?:i\s+)?die\b', q):
+    # Broad regex: catches 'will will you die', 'will i die', 'will you die', typos
+    if any(p in q for p in safety_patterns) or re.search(r'\bwill\s+\w+\s+die\b', q) or re.search(r'\bdie\b', q):
         return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
 
     # ── 1b. INAPPROPRIATE — sexual orientation, personal judgments → firm redirect ──
     inappropriate_patterns = [
-        "am i gay", "are you gay", "homosexual", "lesbian", "bisexual",
-        "sexual orientation", "sexuality", "sex life", "sexual",
-        "am i a virgin", "virginity", "pregnant by",
+        "am i gay", "i am gay", "i'm gay", "are you gay", "homosexual",
+        "lesbian", "bisexual", " gay", "sexual orientation", "sexuality",
+        "sex life", "sexual", "am i a virgin", "virginity", "pregnant by",
         "am i ugly", "am i beautiful", "am i attractive",
-        "caste", "religion", "convert",
+        "same-sex", "same sex", "lgbtq",
     ]
     if any(p in q for p in inappropriate_patterns):
         return {"type": "inappropriate", "max_paragraphs": 1, "temperature": 0.3, "max_tokens_override": 150}
@@ -844,6 +845,30 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
         )
         return {
             "answer": inappropriate_msg,
+            "prediction": None,
+            "product_reco": None,
+        }
+
+    # Direct factual intercepts — bypass model for questions we can answer perfectly
+    q_lower = question.lower().strip()
+    if any(p in q_lower for p in ["what is the date", "what's the date", "aaj ki date", "today's date", "aaj ka date"]):
+        from datetime import date as _date
+        today = _date.today().strftime("%d %B %Y")
+        native_name = ""
+        if chart_data:
+            _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+            if _nm:
+                native_name = _nm.group(1).strip()
+        name_ji = f"{native_name} ji" if native_name else "Ji"
+        return {
+            "answer": f"{name_ji}, aaj ki date {today} hai.",
+            "prediction": None,
+            "product_reco": None,
+        }
+
+    if any(p in q_lower for p in ["who are you", "what is your name", "your name", "tell me about yourself", "aapka naam"]):
+        return {
+            "answer": "Main Jyotish hun — ek seasoned KP astrologer. Main Krishnamurti Paddhati ke principles use karke aapke sawaalon ka accurate aur practical jawaab deta hun. Aap mujhse career, finance, health, relationships, aur life timing ke baare mein pooch sakte hain.",
             "prediction": None,
             "product_reco": None,
         }
