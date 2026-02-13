@@ -494,8 +494,11 @@ def _postprocess(text):
         if not _has_empathy:
             _empathy_prefix = f"{_name_ji}, main samajh sakta hun yeh waqt aapke liye kitna mushkil hai — aap akele nahi hain. "
             result = _empathy_prefix + result
-            # Re-strip name if model also started with name
-            result = re.sub(rf'^{re.escape(_empathy_prefix)}\s*{re.escape(_name_ji)},?\s*', _empathy_prefix, result)
+            # Strip any name+ji the model added right after our prefix (flexible: first/full name)
+            _first = _native.split()[0] if _native else ''
+            _name_variants = [re.escape(_name_ji), re.escape(f"{_first} ji")] if _first else [re.escape(_name_ji)]
+            for _nv in _name_variants:
+                result = re.sub(rf'^({re.escape(_empathy_prefix)})\s*{_nv},?\s*', r'\1', result)
 
     # ── Phase 12: Hard sentence cap based on query type ──
     sentences = re.split(r'(?<=[.!?])\s+', result.strip())
@@ -873,6 +876,17 @@ def predict(message, history, chart_data):
             "significator analysis provided in this",
             "extensive chart breakdown",
             "outlined hai",
+            # Round 4 additions:
+            "timing analysis kar rahe",
+            "examine karunga",
+            "examine karenge",
+            "analyze karunga",
+            "analyze karenge",
+            "ke liye marriage timing analysis",
+            "use karke",
+            "system use karke",
+            "carefully examine karunga",
+            "guidance de sakein",
         ]
         if any(p in t for p in deflection_phrases):
             return True
@@ -881,7 +895,9 @@ def predict(message, history, chart_data):
         if query_info["type"] in ("timing", "past_event"):
             has_date = bool(re.search(r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}', text))
             has_year_range = bool(re.search(r'20\d{2}\s*(?:to|se|tak|-)\s*20\d{2}', text))
-            if not has_date and not has_year_range:
+            has_single_year = bool(re.search(r'\b20(?:2[5-9]|3[0-9])\b', text))
+            has_month_ref = bool(re.search(r'(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+20\d{2}', text, re.IGNORECASE))
+            if not has_date and not has_year_range and not has_single_year and not has_month_ref:
                 return True
         return False
 
