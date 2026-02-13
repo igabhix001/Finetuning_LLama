@@ -23,7 +23,7 @@ tqdm>=4.66.0
 numpy>=1.24.0
 
 # RAG and embeddings
-pinecone-client>=3.0.0
+pinecone>=5.0.0
 openai>=1.0.0  # For text-embedding-3-large (RAG queries)
 
 # Monitoring (optional)

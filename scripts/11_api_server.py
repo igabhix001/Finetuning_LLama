@@ -83,8 +83,12 @@ if not args.no_rag:
     try:
         try:
             from pinecone import Pinecone
-        except ImportError:
+        except Exception:
+            # Old pinecone-client package conflicts — remove it and install new one
             import subprocess
+            print("  Pinecone: migrating from pinecone-client to pinecone...")
+            subprocess.run([sys.executable, "-m", "pip", "uninstall", "pinecone-client", "-y", "-q"],
+                           capture_output=True)
             subprocess.check_call([sys.executable, "-m", "pip", "install", "pinecone", "-q"])
             from pinecone import Pinecone
         pc_key = os.getenv("PINECONE_API_KEY")

@@ -106,6 +106,9 @@ _KUNDALI_SEARCH_PATHS = [
     os.path.join(os.path.dirname(__file__), "..", "..", "kundali_*.json"),  # project root
     os.path.join(os.path.dirname(__file__), "..", "kundali_*.json"),        # Finetuning_LLama/
     os.path.join(os.path.dirname(__file__), "kundali_*.json"),             # scripts/
+    os.path.join(os.path.dirname(__file__), "..", "sample_kundali", "kundali_*.json"),  # sample_kundali/
+    os.path.join(os.path.dirname(__file__), "..", "..", "sample_kundali", "kundali_*.json"),  # ../sample_kundali/
+    "/workspace/Finetuning_LLama/sample_kundali/kundali_*.json",           # RunPod absolute
 ]
 
 def _discover_kundali_files() -> list:
