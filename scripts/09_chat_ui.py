@@ -708,6 +708,45 @@ def predict(message, history, chart_data):
         if _name_match:
             _postprocess._native_name = _name_match.group(1).strip()
 
+    def _is_deflection(text: str) -> bool:
+        """Detect vague non-answers that don't contain specific predictions."""
+        if not text or len(text.strip()) < 20:
+            return True
+        t = text.lower()
+        # Deflection phrases — model talks ABOUT answering instead of answering
+        deflection_phrases = [
+            "depend karta hai", "depends on", "requires careful analysis",
+            "requires analysis", "we need to examine", "i can analyze",
+            "let me analyze", "let me check", "need to check",
+            "based on planetary positions", "based on current planetary",
+            "significator combinations par depend", "need to examine",
+            "i will analyze", "let us examine", "we should look at",
+            "requires detailed analysis", "needs careful examination",
+        ]
+        if any(p in t for p in deflection_phrases):
+            return True
+        # For timing questions: if no month-year pattern found, it's likely vague
+        if query_info["type"] in ("timing", "past_event", "analysis"):
+            has_date = bool(re.search(r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}', text))
+            has_year_range = bool(re.search(r'20\d{2}\s*(?:to|se|-)\s*20\d{2}', text))
+            has_house_cite = bool(re.search(r'houses?\s*\d', text, re.IGNORECASE))
+            if not has_date and not has_year_range and not has_house_cite:
+                return True
+        return False
+
+    def _generate_non_streaming(msgs, mt, temp):
+        """Non-streaming generation for retry attempts."""
+        resp = client.chat.completions.create(
+            model="kp-astrology-llama",
+            messages=msgs,
+            max_tokens=mt,
+            temperature=temp,
+            top_p=0.85,
+            stream=False,
+            extra_body={"repetition_penalty": 1.15},
+        )
+        return resp.choices[0].message.content or ""
+
     try:
         stream = client.chat.completions.create(
             model="kp-astrology-llama",
@@ -724,6 +763,31 @@ def predict(message, history, chart_data):
             if delta:
                 partial += delta
                 yield _postprocess(partial)
+
+        # ── Deflection retry: if model gave a vague non-answer, retry with forced prefix ──
+        if partial and _is_deflection(partial) and chart_yaml:
+            _json_log("deflection_detected", req_id=req_id, original=partial[:200])
+            native_name = getattr(_postprocess, '_native_name', '') or ''
+            name_ji = f"{native_name} ji" if native_name else "Ji"
+
+            # Build a forced-prefix retry prompt
+            retry_user = (
+                f"{full_question}\n\n"
+                f"IMPORTANT: You MUST give a SPECIFIC answer with dates from the dasha table. "
+                f"Start your answer with '{name_ji},' and include specific month-year ranges. "
+                f"Do NOT say 'depends on' or 'requires analysis'. Read the YAML and answer NOW."
+            )
+            retry_msgs = [
+                {"role": "system", "content": sys_content},
+                {"role": "user", "content": retry_user},
+            ]
+            retry_text = _generate_non_streaming(retry_msgs, max_tokens, max(0.3, temperature - 0.2))
+            if retry_text and not _is_deflection(retry_text):
+                partial = retry_text
+                yield _postprocess(partial)
+            else:
+                _json_log("deflection_retry_failed", req_id=req_id)
+
         # Final enrichment: append Hindi quote + product (only if remedy query)
         if partial:
             final = _postprocess(partial)

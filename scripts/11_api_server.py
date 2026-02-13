@@ -726,6 +726,41 @@ def _generate_response(question: str, chart_data: str = ""):
     if max_tokens < 64:
         raise HTTPException(status_code=400, detail="Input too long for model context window.")
 
+    # Extract birth year and native name from chart for postprocess (before generation for retry)
+    _postprocess._birth_year = None
+    _postprocess._native_name = None
+    if chart_data:
+        _by_match = re.search(r'"date"\s*:\s*"(\d{2})\.(\d{2})\.(\d{4})"', chart_data)
+        if _by_match:
+            _postprocess._birth_year = int(_by_match.group(3))
+        _name_match = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+        if _name_match:
+            _postprocess._native_name = _name_match.group(1).strip()
+
+    def _is_deflection(text: str) -> bool:
+        """Detect vague non-answers that don't contain specific predictions."""
+        if not text or len(text.strip()) < 20:
+            return True
+        t = text.lower()
+        deflection_phrases = [
+            "depend karta hai", "depends on", "requires careful analysis",
+            "requires analysis", "we need to examine", "i can analyze",
+            "let me analyze", "let me check", "need to check",
+            "based on planetary positions", "based on current planetary",
+            "significator combinations par depend", "need to examine",
+            "i will analyze", "let us examine", "we should look at",
+            "requires detailed analysis", "needs careful examination",
+        ]
+        if any(p in t for p in deflection_phrases):
+            return True
+        if query_info["type"] in ("timing", "past_event", "analysis"):
+            has_date = bool(re.search(r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}', text))
+            has_year_range = bool(re.search(r'20\d{2}\s*(?:to|se|-)\s*20\d{2}', text))
+            has_house_cite = bool(re.search(r'houses?\s*\d', text, re.IGNORECASE))
+            if not has_date and not has_year_range and not has_house_cite:
+                return True
+        return False
+
     response = llm_client.chat.completions.create(
         model="kp-astrology-llama",
         messages=messages,
@@ -738,16 +773,36 @@ def _generate_response(question: str, chart_data: str = ""):
 
     raw_answer = response.choices[0].message.content or ""
 
-    # Extract birth year and native name from chart for postprocess
-    _postprocess._birth_year = None
-    _postprocess._native_name = None
-    if chart_data:
-        _by_match = re.search(r'"date"\s*:\s*"(\d{2})\.(\d{2})\.(\d{4})"', chart_data)
-        if _by_match:
-            _postprocess._birth_year = int(_by_match.group(3))
-        _name_match = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
-        if _name_match:
-            _postprocess._native_name = _name_match.group(1).strip()
+    # ── Deflection retry: if model gave a vague non-answer, retry with forced prefix ──
+    if raw_answer and _is_deflection(raw_answer) and chart_yaml:
+        _json_log("deflection_detected", req_id=req_id, original=raw_answer[:200])
+        native_name = getattr(_postprocess, '_native_name', '') or ''
+        name_ji = f"{native_name} ji" if native_name else "Ji"
+        retry_user = (
+            f"{full_question}\n\n"
+            f"IMPORTANT: You MUST give a SPECIFIC answer with dates from the dasha table. "
+            f"Start your answer with '{name_ji},' and include specific month-year ranges. "
+            f"Do NOT say 'depends on' or 'requires analysis'. Read the YAML and answer NOW."
+        )
+        retry_msgs = [
+            {"role": "system", "content": sys_content},
+            {"role": "user", "content": retry_user},
+        ]
+        retry_resp = llm_client.chat.completions.create(
+            model="kp-astrology-llama",
+            messages=retry_msgs,
+            max_tokens=max_tokens,
+            temperature=max(0.3, temperature - 0.2),
+            top_p=0.85,
+            stream=False,
+            extra_body={"repetition_penalty": 1.15},
+        )
+        retry_text = retry_resp.choices[0].message.content or ""
+        if retry_text and not _is_deflection(retry_text):
+            raw_answer = retry_text
+        else:
+            _json_log("deflection_retry_failed", req_id=req_id)
+
     answer = _postprocess(raw_answer)
 
     # Enrich: append Hindi quote + product (only if remedy query)
