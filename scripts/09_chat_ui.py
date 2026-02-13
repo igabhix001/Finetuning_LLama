@@ -823,22 +823,23 @@ def predict(message, history, chart_data):
     ]
 
     # Include recent conversation history (last N turns, budget-aware)
-    # Gradio history format: list of [user_msg, bot_msg] pairs
-    MAX_HISTORY_TURNS = 4  # keep last 4 exchanges for context
-    history_chars = 0
-    history_budget = MAX_INPUT_CHARS // 4  # reserve 25% of input budget for history
+    # Gradio history format: flat list of {"role": "user"|"assistant", "content": "..."}
+    _MAX_HIST_MSGS = 8  # last 8 messages ≈ 4 user-assistant pairs
+    _MAX_HIST_CHARS = MAX_INPUT_CHARS // 4  # reserve 25% of input budget
+    _hist_chars = 0
     if history:
-        recent = history[-MAX_HISTORY_TURNS:]
-        for user_msg, bot_msg in recent:
-            if not user_msg:
+        # Skip the last user msg (it's the current question we're about to add)
+        hist_msgs = history[:-1] if history else []
+        recent = hist_msgs[-_MAX_HIST_MSGS:]
+        for msg in recent:
+            role = msg.get("role", "") if isinstance(msg, dict) else ""
+            content = msg.get("content", "") if isinstance(msg, dict) else str(msg)
+            if not role or not content:
                 continue
-            turn_chars = len(user_msg or '') + len(bot_msg or '')
-            if history_chars + turn_chars > history_budget:
+            if _hist_chars + len(content) > _MAX_HIST_CHARS:
                 break
-            messages.append({"role": "user", "content": user_msg})
-            if bot_msg:
-                messages.append({"role": "assistant", "content": bot_msg})
-            history_chars += turn_chars
+            messages.append({"role": role, "content": content})
+            _hist_chars += len(content)
 
     # Current question (with chart YAML context)
     messages.append({"role": "user", "content": full_question})
