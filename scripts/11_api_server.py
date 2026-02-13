@@ -935,7 +935,10 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
         )
 
     # Build prompt with adaptive RAG trimming
-    fixed_chars = len(SYSTEM_BASE) + len(full_question) + len(product_instruction) + 30
+    # Rebuild system prompt per-request so today's date is always fresh
+    _sys_base = _build_system_prompt(with_rag=True)
+    _sys_no_rag = _build_system_no_rag()
+    fixed_chars = len(_sys_base) + len(full_question) + len(product_instruction) + 30
     rag_budget = MAX_INPUT_CHARS - fixed_chars
 
     selected_chunks = []
@@ -948,9 +951,9 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
 
     if selected_chunks:
         rag_text = "\n".join(selected_chunks)
-        sys_content = f"{SYSTEM_BASE}\n\nKP Book Excerpts:\n{rag_text}{product_instruction}"
+        sys_content = f"{_sys_base}\n\nKP Book Excerpts:\n{rag_text}{product_instruction}"
     else:
-        sys_content = f"{SYSTEM_NO_RAG}{product_instruction}"
+        sys_content = f"{_sys_no_rag}{product_instruction}"
 
     # Build messages WITH conversation history for follow-up context
     messages = [
