@@ -545,14 +545,21 @@ def _postprocess(text):
         (r'\b[Aa]pplying\s+(?:the\s+)?(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?(?:principles|system|methodology),?\b', ''),
         (r'\bBased\s+on\s+(?:your|the)\s+current\s+planetary\s+positions\s*(?:and\s+dasha\s+system)?,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+(?:chart\s+)?(?:details|data)\s+and\s+applying\s+KP\s+principles,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+provided\s+in\s+(?:your|the)\s+chart,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?(?:planetary|chart)\s+(?:positions|data)\s+(?:provided|given)\s+(?:in\s+)?(?:your|the)\s+(?:chart|horoscope),?\b', ''),
+        (r'\bThe\s+Pratyantar\s+Lord\'s\s+influence\s+adds\s+depth\s+to\s+this\s+prediction\.?\b', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
 
     # ── Phase 7.5: Clean up artifacts from Phase 7 replacements ──
     text = re.sub(r'(?:^|(?<=[\.!?]))\s*,\s*', ' ', text)
+    # Fix orphaned comma after any period-space (e.g. "hain. , this" → "hain. This")
+    text = re.sub(r'(\.\s*),\s*', r'\1', text)
     text = re.sub(r'^\s*and\s+', '', text, flags=re.IGNORECASE)
     text = re.sub(r'  +', ' ', text)
+    # Capitalize first letter after period (e.g. "hain. aapki" → "hain. Aapki")
+    text = re.sub(r'(?<=\.\s)([a-z])', lambda m: m.group(1).upper(), text)
     text = re.sub(r'(?<=[a-z]\s)Your\b', 'your', text)
     _native = getattr(_postprocess, '_native_name', '') or ''
     if _native:
@@ -1259,6 +1266,12 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
             "shaadi prospects ka analysis kar",
             "success ki possibility evaluate",
             "we observe multiple layers of timing",
+            # Round 9 additions (Arisha Akhtar retest):
+            "examine which planet governs the antardasha",
+            "examine which planet governs",
+            "specific remedial measures align with classical",
+            "remedial measures align with classical kp",
+            "tailored to your unique significator pattern",
         ]
         if any(p in t for p in deflection_phrases):
             return True
