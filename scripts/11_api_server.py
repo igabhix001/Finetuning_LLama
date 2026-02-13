@@ -900,27 +900,57 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
 
     # Direct factual intercepts — bypass model for questions we can answer perfectly
     q_lower = question.lower().strip()
+
+    # Helper: detect if question is in Hindi/Hinglish
+    def _is_hindi_q(q):
+        _hindi_kw = ['kya', 'hai', 'mera', 'meri', 'kab', 'kaise', 'batao', 'bataiye',
+                     'hogi', 'hoga', 'aapka', 'aapki', 'mujhe', 'kaisa', 'kahan',
+                     'shaadi', 'paisa', 'naukri', 'padhai', 'ghar', 'rishta', 'aaj']
+        words = q.lower().split()
+        return sum(1 for w in words if w in _hindi_kw) >= 2 or any(p in q.lower() for p in ['kab hogi', 'kya hoga', 'batao', 'bataiye', 'aaj ki'])
+
+    # Extract native name for intercepts
+    _intercept_name = ""
+    if chart_data:
+        _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+        if _nm:
+            _intercept_name = _nm.group(1).strip()
+    _intercept_name_ji = f"{_intercept_name} ji" if _intercept_name else "Ji"
+
     if any(p in q_lower for p in ["what is the date", "what's the date", "aaj ki date", "today's date", "aaj ka date"]):
-        from datetime import date as _date
-        today = _date.today().strftime("%d %B %Y")
-        native_name = ""
-        if chart_data:
-            _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
-            if _nm:
-                native_name = _nm.group(1).strip()
-        name_ji = f"{native_name} ji" if native_name else "Ji"
+        today = date.today().strftime("%d %B %Y")
+        if _is_hindi_q(q_lower):
+            ans = f"{_intercept_name_ji}, aaj ki date {today} hai."
+        else:
+            ans = f"{_intercept_name_ji}, today's date is {today}."
+        return {"answer": ans, "prediction": None, "product_reco": None}
+
+    if any(p in q_lower for p in ["who are you", "what is your name", "your name", "tell me about yourself"]):
         return {
-            "answer": f"{name_ji}, aaj ki date {today} hai.",
-            "prediction": None,
-            "product_reco": None,
+            "answer": ("My name is Jyotish — I am a seasoned KP astrologer. I use Krishnamurti Paddhati principles "
+                       "to give you accurate and practical answers. You can ask me about career, finance, health, "
+                       "relationships, and life timing."),
+            "prediction": None, "product_reco": None,
+        }
+    if any(p in q_lower for p in ["aapka naam", "aap kaun", "tum kaun", "kaun ho aap", "kaun ho tum"]):
+        return {
+            "answer": ("Main Jyotish hun — ek seasoned KP astrologer. Main Krishnamurti Paddhati ke principles "
+                       "use karke aapke sawaalon ka accurate aur practical jawaab deta hun. Aap mujhse career, "
+                       "finance, health, relationships, aur life timing ke baare mein pooch sakte hain."),
+            "prediction": None, "product_reco": None,
         }
 
-    if any(p in q_lower for p in ["who are you", "what is your name", "your name", "tell me about yourself", "aapka naam"]):
-        return {
-            "answer": "Main Jyotish hun — ek seasoned KP astrologer. Main Krishnamurti Paddhati ke principles use karke aapke sawaalon ka accurate aur practical jawaab deta hun. Aap mujhse career, finance, health, relationships, aur life timing ke baare mein pooch sakte hain.",
-            "prediction": None,
-            "product_reco": None,
-        }
+    # "What is my name?" — language-aware
+    if any(p in q_lower for p in ["what is my name", "what's my name", "tell me my name"]):
+        if _intercept_name:
+            return {"answer": f"{_intercept_name_ji}, your name is {_intercept_name}.", "prediction": None, "product_reco": None}
+        else:
+            return {"answer": "I don't have your chart data loaded yet. Please provide your birth chart JSON.", "prediction": None, "product_reco": None}
+    if any(p in q_lower for p in ["mera naam kya", "mera naam bata", "mera name kya"]):
+        if _intercept_name:
+            return {"answer": f"{_intercept_name_ji}, aapka naam {_intercept_name} hai.", "prediction": None, "product_reco": None}
+        else:
+            return {"answer": "Aapka chart data abhi load nahi hai. Please apni birth chart JSON provide karein.", "prediction": None, "product_reco": None}
 
     # Product recommendations — ONLY when user asks for remedies
     product_list, product_prompt_text = [], ""
@@ -1058,6 +1088,26 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
             "appears quite favorable",
             "timing appears highly",
             "timing appears quite",
+            # Round 6 additions (from Feb 14 testing):
+            "humein specific house significators examine",
+            "humein examine karne padenge",
+            "carefully examine kar raha",
+            "overall planetary positions",
+            "overall planetary influences",
+            "align perfectly with established",
+            "established kp principles regarding",
+            "planetary influences in medical",
+            "aapke chart ko carefully",
+            "confusion clear ho jaayegi jab",
+            "directly influence kar raha",
+            "current pratyantar dasa period directly",
+            "assessment karne ke liye",
+            "remaining an outstanding matter",
+            "requiring careful consideration",
+            "considerable promise in securing",
+            "horoscope analysis clearly indicates",
+            "creates favorable conditions for",
+            "clearly identify that your",
         ]
         if any(p in t for p in deflection_phrases):
             return True
