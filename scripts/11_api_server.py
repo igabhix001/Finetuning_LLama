@@ -30,7 +30,7 @@ import random
 import time
 import uuid
 from datetime import date, datetime
-from typing import Optional
+from typing import List, Optional
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -493,19 +493,22 @@ def _postprocess(text):
             cleaned.append("")
             continue
         cleaned.append(line)
-    # ── Phase 8.5: Strip model-generated Hindi quotes on non-remedy queries ──
+    result = "\n".join(cleaned).rstrip()
+
+    # ── Phase 8.5: Strip model-generated Hindi quotes on factual/timing queries ──
+    # Keep quotes on: remedy, emotional, analysis (where motivational tone helps)
     _query_type = getattr(_postprocess, '_query_type', 'analysis')
-    if _query_type != "remedy":
+    _strip_quotes = _query_type in ("simple", "timing", "past_event")
+    if _strip_quotes:
         _quote_patterns = [
             r'(?:^|\n\n?)\s*(?:Jab samay|Andhera jitna|Sabr ka phal|Jab tak todenge|Graho ki chaal|'
             r'Mushkilein waqti|Waqt sabka|Har raat ke baad|Kismat likhne|Jab niyat)[^\n]{0,120}\.?\s*$',
             r'(?:^|\n\n?)\s*"[^"]{10,120}"\s*$',  # quoted Hindi sentences
         ]
         for qp in _quote_patterns:
-            result = re.sub(qp, '', "\n".join(cleaned), flags=re.MULTILINE)
-            cleaned = [l for l in result.split("\n")]
+            result = re.sub(qp, '', result, flags=re.MULTILINE)
 
-    result = "\n".join(cleaned).rstrip()
+    result = result.rstrip()
 
     # ── Phase 9: Clean up whitespace ──
     result = re.sub(r'\n{3,}', '\n\n', result)
@@ -602,10 +605,35 @@ HINDI_QUOTES = [
 
 def _classify_query_type(question: str) -> dict:
     """Classify query to control response length, temperature, and behavior.
-    Returns dict with: type, max_paragraphs, temperature, max_tokens_override."""
+    Returns dict with: type, max_paragraphs, temperature, max_tokens_override.
+
+    ORDER IS CRITICAL — safety and emotional MUST be checked FIRST because
+    their patterns overlap with timing/past (e.g. 'when will i die' matches 'when will').
+    """
     q = question.lower().strip()
 
-    # Simple factual — 1-2 sentences, low temperature
+    # ── 1. SAFETY — MUST be FIRST (death/longevity/health fear → compassionate redirect) ──
+    safety_patterns = [
+        "will i die", "when will i die", "death", "maut", "mrityu",
+        "kab marunga", "kab marungi", "longevity", "life span",
+        "scared about my health", "serious illness", "fatal",
+        "scared about health", "die soon", "kab maru",
+        "will i survive", "marr jaunga", "marr jaungi", "marne wala",
+    ]
+    if any(p in q for p in safety_patterns):
+        return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
+
+    # ── 2. EMOTIONAL — before timing (e.g. 'scared' could appear in timing context) ──
+    emotional_patterns = [
+        "tough time", "going wrong", "obstacles", "struggling", "depressed",
+        "confused", "frustrated", "scared", "worried", "anxious", "hopeless",
+        "everything is going wrong", "why is everything", "mushkil", "pareshani",
+        "takleef", "dukh", "tension", "problem", "suffering",
+    ]
+    if any(p in q for p in emotional_patterns):
+        return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
+
+    # ── 3. Simple factual — 1-2 sentences, low temperature ──
     simple_patterns = [
         "what is my name", "mera naam", "my name", "naam kya hai",
         "what is my dob", "date of birth", "birth date", "janam din",
@@ -614,11 +642,12 @@ def _classify_query_type(question: str) -> dict:
         "what is my nakshatra", "nakshatra kya hai",
         "where was i born", "birth place", "kahan paida",
         "who are you", "what can you do", "tell me about yourself",
+        "what is the date", "what's the date", "aaj ki date", "today's date",
     ]
     if any(p in q for p in simple_patterns):
         return {"type": "simple", "max_paragraphs": 1, "temperature": 0.3, "max_tokens_override": 150}
 
-    # Past event / year-by-year — needs past dasha data, higher token budget
+    # ── 4. Past event / year-by-year ──
     past_patterns = [
         "what happened", "year by year", "year-by-year", "from 20",
         "between 20", "in 2020", "in 2021", "in 2022", "in 2023", "in 2024", "in 2025",
@@ -629,7 +658,7 @@ def _classify_query_type(question: str) -> dict:
     if any(p in q for p in past_patterns):
         return {"type": "past_event", "max_paragraphs": 3, "temperature": 0.4, "max_tokens_override": 600}
 
-    # Timing questions — 2-3 sentences, moderate temperature
+    # ── 5. Timing questions ──
     timing_patterns = [
         "when will", "kab hogi", "kab milegi", "kab hoga",
         "timing", "which year", "which month", "best period",
@@ -638,31 +667,11 @@ def _classify_query_type(question: str) -> dict:
     if any(p in q for p in timing_patterns):
         return {"type": "timing", "max_paragraphs": 2, "temperature": 0.5, "max_tokens_override": 450}
 
-    # Remedy queries — need product, moderate length
+    # ── 6. Remedy queries ──
     if _is_remedy_query(question):
         return {"type": "remedy", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": 500}
 
-    # Safety — death/longevity/health fear queries (MUST be checked BEFORE emotional)
-    safety_patterns = [
-        "will i die", "when will i die", "death", "maut", "mrityu",
-        "kab marunga", "kab marungi", "longevity", "life span",
-        "scared about my health", "serious illness", "fatal",
-        "scared about health", "die soon", "kab maru",
-    ]
-    if any(p in q for p in safety_patterns):
-        return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
-
-    # Emotional / obstacle queries — need empathy + relief timeline
-    emotional_patterns = [
-        "tough time", "going wrong", "obstacles", "struggling", "depressed",
-        "confused", "frustrated", "scared", "worried", "anxious", "hopeless",
-        "everything is going wrong", "why is everything", "mushkil", "pareshani",
-        "takleef", "dukh", "tension", "problem", "suffering",
-    ]
-    if any(p in q for p in emotional_patterns):
-        return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
-
-    # Complex analysis — full response
+    # ── 7. Complex analysis — full response ──
     return {"type": "analysis", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": None}
 
 
@@ -745,7 +754,7 @@ def _extract_prediction(answer: str) -> Optional[str]:
     return None
 
 
-def _generate_response(question: str, chart_data: str = ""):
+def _generate_response(question: str, chart_data: str = "", history: list = None):
     """Generate a complete (non-streaming) response and return structured output."""
     req_id = uuid.uuid4().hex[:12]
     t_start = time.monotonic()
@@ -833,10 +842,32 @@ def _generate_response(question: str, chart_data: str = ""):
     else:
         sys_content = f"{SYSTEM_NO_RAG}{product_instruction}"
 
+    # Build messages WITH conversation history for follow-up context
     messages = [
         {"role": "system", "content": sys_content},
-        {"role": "user", "content": full_question},
     ]
+
+    # Include recent conversation history (last N turns, budget-aware)
+    MAX_HISTORY_TURNS = 4
+    history_chars = 0
+    history_budget = MAX_INPUT_CHARS // 4  # reserve 25% of input budget for history
+    if history:
+        recent = history[-MAX_HISTORY_TURNS:]
+        for turn in recent:
+            user_msg = turn.get("user", "") if isinstance(turn, dict) else (turn[0] if len(turn) > 0 else "")
+            bot_msg = turn.get("assistant", "") if isinstance(turn, dict) else (turn[1] if len(turn) > 1 else "")
+            if not user_msg:
+                continue
+            turn_chars = len(user_msg or '') + len(bot_msg or '')
+            if history_chars + turn_chars > history_budget:
+                break
+            messages.append({"role": "user", "content": user_msg})
+            if bot_msg:
+                messages.append({"role": "assistant", "content": bot_msg})
+            history_chars += turn_chars
+
+    # Current question (with chart YAML context)
+    messages.append({"role": "user", "content": full_question})
 
     # Compute output tokens — use query-type-aware limits
     total_chars = sum(len(m["content"]) for m in messages)
@@ -1022,9 +1053,15 @@ app.add_middleware(
 )
 
 
+class HistoryTurn(BaseModel):
+    user: str
+    assistant: Optional[str] = None
+
+
 class ChatRequest(BaseModel):
     question: str
     chart_data: Optional[str] = None
+    history: Optional[List[HistoryTurn]] = None
 
 
 class ProductReco(BaseModel):
@@ -1062,7 +1099,8 @@ def chat(req: ChatRequest):
     if not req.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty.")
     try:
-        result = _generate_response(req.question, req.chart_data or "")
+        hist = [h.model_dump() for h in req.history] if req.history else None
+        result = _generate_response(req.question, req.chart_data or "", history=hist)
         return ChatResponse(**result)
     except HTTPException:
         raise
