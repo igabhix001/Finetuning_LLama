@@ -77,7 +77,10 @@ SYSTEM_PROMPT = (
     "Simple questions = 1 sentence. Timing = 2-3 sentences. MAX 4 sentences. "
     "Cite cusp sub-lord + house numbers. No markdown, no headers, no bullets. "
     "Address as '[Name] ji'. Products ONLY when user asks for remedies. "
-    "Read today_date from YAML for correct tense."
+    "Read today_date from YAML for correct tense.\n\n"
+    "SAFETY: For death/health fear queries, respond with compassion — reassure, "
+    "redirect to medical professionals, never scare. "
+    "EMOTIONAL: For distress queries, lead with empathy before astrological analysis."
 )
 
 # ── Load combos.json for full YAML chart context reconstruction ──────────────

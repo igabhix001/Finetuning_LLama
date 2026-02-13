@@ -906,6 +906,14 @@ def _generate_response(question: str, chart_data: str = ""):
             "system use karke",
             "carefully examine karunga",
             "guidance de sakein",
+            # Round 5 additions:
+            "outlined in your mahadasha",
+            "outlined in your dasha",
+            "specific periods outlined",
+            "favorable during specific",
+            "appears quite favorable",
+            "timing appears highly",
+            "timing appears quite",
         ]
         if any(p in t for p in deflection_phrases):
             return True
@@ -939,9 +947,13 @@ def _generate_response(question: str, chart_data: str = ""):
         name_ji = f"{native_name} ji" if native_name else "Ji"
         retry_user = (
             f"{full_question}\n\n"
-            f"IMPORTANT: You MUST give a SPECIFIC answer with dates from the dasha table. "
-            f"Start your answer with '{name_ji},' and include specific month-year ranges. "
-            f"Do NOT say 'depends on' or 'requires analysis'. Read the YAML and answer NOW."
+            f"CRITICAL: Your previous answer was vague. You MUST give SPECIFIC dates.\n"
+            f"Read the dasha table in the YAML above. Find the relevant antardasha and pratyantar periods.\n"
+            f"FORMAT YOUR ANSWER EXACTLY LIKE THIS EXAMPLE:\n"
+            f"'{name_ji}, your [event] timing is [Month Year] to [Month Year] during [Planet]-[Planet] AD, "
+            f"because [cusp] sub-lord [Planet] signifies houses [X,Y] which support [event].'\n"
+            f"DO NOT say 'depends on', 'requires analysis', 'outlined in table', or 'specific periods'. "
+            f"Give the ACTUAL month-year dates NOW."
         )
         retry_msgs = [
             {"role": "system", "content": sys_content},
@@ -951,7 +963,7 @@ def _generate_response(question: str, chart_data: str = ""):
             model="kp-astrology-llama",
             messages=retry_msgs,
             max_tokens=max_tokens,
-            temperature=max(0.3, temperature - 0.2),
+            temperature=0.2,
             top_p=0.85,
             stream=False,
             extra_body={"repetition_penalty": 1.15},

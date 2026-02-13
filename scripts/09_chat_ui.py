@@ -887,6 +887,14 @@ def predict(message, history, chart_data):
             "system use karke",
             "carefully examine karunga",
             "guidance de sakein",
+            # Round 5 additions:
+            "outlined in your mahadasha",
+            "outlined in your dasha",
+            "specific periods outlined",
+            "favorable during specific",
+            "appears quite favorable",
+            "timing appears highly",
+            "timing appears quite",
         ]
         if any(p in t for p in deflection_phrases):
             return True
@@ -944,15 +952,19 @@ def predict(message, history, chart_data):
             # Build a forced-prefix retry prompt
             retry_user = (
                 f"{full_question}\n\n"
-                f"IMPORTANT: You MUST give a SPECIFIC answer with dates from the dasha table. "
-                f"Start your answer with '{name_ji},' and include specific month-year ranges. "
-                f"Do NOT say 'depends on' or 'requires analysis'. Read the YAML and answer NOW."
+                f"CRITICAL: Your previous answer was vague. You MUST give SPECIFIC dates.\n"
+                f"Read the dasha table in the YAML above. Find the relevant antardasha and pratyantar periods.\n"
+                f"FORMAT YOUR ANSWER EXACTLY LIKE THIS EXAMPLE:\n"
+                f"'{name_ji}, your [event] timing is [Month Year] to [Month Year] during [Planet]-[Planet] AD, "
+                f"because [cusp] sub-lord [Planet] signifies houses [X,Y] which support [event].'\n"
+                f"DO NOT say 'depends on', 'requires analysis', 'outlined in table', or 'specific periods'. "
+                f"Give the ACTUAL month-year dates NOW."
             )
             retry_msgs = [
                 {"role": "system", "content": sys_content},
                 {"role": "user", "content": retry_user},
             ]
-            retry_text = _generate_non_streaming(retry_msgs, max_tokens, max(0.3, temperature - 0.2))
+            retry_text = _generate_non_streaming(retry_msgs, max_tokens, 0.2)
             if retry_text and not _is_deflection(retry_text):
                 partial = retry_text
                 yield _postprocess(partial)

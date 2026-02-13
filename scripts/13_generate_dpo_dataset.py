@@ -312,6 +312,28 @@ QUESTION_BANK = [
     ("education", "Will I get admission in a good college?"),
     ("education", "Kya mera competitive exam clear hoga?"),
     ("education", "Is higher education beneficial for me?"),
+
+    # ── Safety (5%) — death/health fear queries → compassionate redirect ──
+    ("safety", "Will I die soon? I am scared about my health."),
+    ("safety", "When will I die?"),
+    ("safety", "Kab marunga?"),
+    ("safety", "Is there any serious illness in my chart?"),
+    ("safety", "Will I have a fatal accident?"),
+    ("safety", "I am scared about my longevity."),
+
+    # ── Emotional (5%) — empathetic tone required ─────────────────────────
+    ("emotional", "I am going through a very tough time. Why is everything going wrong?"),
+    ("emotional", "I feel hopeless and depressed. What does my chart say?"),
+    ("emotional", "Why am I always struggling? Will things ever get better?"),
+    ("emotional", "Mujhe bahut tension ho rahi hai, kya hoga mera?"),
+    ("emotional", "Everything is falling apart. Is there any hope?"),
+    ("emotional", "I am very worried about my future."),
+
+    # ── Follow-up (3%) — context-aware responses ──────────────────────────
+    ("follow_up", "You mentioned Venus dasha earlier. Can you explain more?"),
+    ("follow_up", "What about after that period? What comes next?"),
+    ("follow_up", "And what about my career during that same time?"),
+    ("follow_up", "Can you give me more details about the 7th house?"),
 ]
 
 # Category weights for sampling
@@ -319,6 +341,7 @@ CATEGORY_WEIGHTS = {
     "marriage": 12, "career": 10, "financial": 10, "health": 8,
     "obstacles": 10, "remedies": 7, "general": 8, "simple_factual": 10,
     "past_events": 15, "relationships": 8, "education": 5,
+    "safety": 5, "emotional": 5, "follow_up": 3,
 }
 
 
@@ -434,6 +457,15 @@ A: "Yash ji, your current Mercury-Sun AD has Sun as 10th cusp sub-lord signifyin
 Q: "Meri shaadi kab hogi?" (Hindi → respond in Hindi/Hinglish)
 A: "Yash ji, aapke 7th cusp ka sub-lord Saturn hai jo houses 2,7 signify karta hai — marriage-positive. Peak time May se Aug 2027, jab Venus pratyantar houses 7,11 activate karta hai, aap tab 23-24 ke honge."
 
+Q: "Will I die soon? I am scared about my health." (SAFETY — compassionate redirect)
+A: "[Name] ji, please don't worry — astrology is here to guide you, not to scare you. Your chart shows many positive periods ahead. Health concerns are best addressed by a qualified medical professional, and from a KP perspective, strengthening your lagna lord through simple remedies can support overall wellbeing."
+
+Q: "I am going through a very tough time. Why is everything going wrong?" (EMOTIONAL — empathy first)
+A: "[Name] ji, I understand this is a difficult time — you are not alone. You are currently in [Planet]-[Planet] pratyantar which connects to houses 8,12 causing disruptions, but this period ends [Month Year] and [Planet] pratyantar starting after that activates houses 1,11 bringing stability and relief."
+
+Q: "What is my name?" (SIMPLE — 1 sentence only)
+A: "[Name] ji, aapka naam [Name] hai."
+
 Return ONLY the response text. No labels, no "Chosen:", no explanation."""
 
 REJECTED_SYSTEM_PROMPT = """You are generating a BAD/ROBOTIC response for a KP astrology AI chatbot training dataset.
@@ -484,6 +516,16 @@ PRODUCTS (wrong):
 QUOTES (wrong):
 - ALWAYS force a Hindi quote, even when it doesn't fit.
 - Put it as a labeled section: "Motivational Quote: ..."
+
+SAFETY (wrong):
+- For death/health fear queries, give scary predictions: "Your chart shows 8th house affliction..."
+- Mention maraka planets, death-inflicting periods, fatal timings.
+- Do NOT reassure or redirect to medical professionals.
+
+EMOTIONAL (wrong):
+- For emotional queries, be clinical and cold. No empathy.
+- Start with methodology: "According to KP principles, the 8th house..."
+- Do NOT acknowledge the person's feelings or struggles.
 
 Return ONLY the response text. No labels, no "Rejected:", no explanation."""
 
@@ -1356,7 +1398,7 @@ def main():
             "question": c["question"],
             "category": c["category"],
             "chart_name": c["chart"]["name"],
-            "chart_yaml": c["chart"]["yaml"][:300],  # truncated for storage
+            "chart_yaml": c["chart"]["yaml"],  # full YAML for training context
         })
     combos_path = output_dir / "combos.json"
     with open(combos_path, "w", encoding="utf-8") as f:
