@@ -484,6 +484,19 @@ def _postprocess(text):
         if last_period > len(result) * 0.4:
             result = result[:last_period + 1]
 
+    # ── Phase 11.5: Empathy prefix for emotional queries ──
+    if _query_type == "emotional":
+        _native = getattr(_postprocess, '_native_name', '') or ''
+        _name_ji = f"{_native} ji" if _native else "Ji"
+        # Check if response already starts with empathy
+        _empathy_markers = ["samajh", "understand", "mushkil", "difficult", "tough", "worry not", "don't worry", "chinta"]
+        _has_empathy = any(m in result[:120].lower() for m in _empathy_markers)
+        if not _has_empathy:
+            _empathy_prefix = f"{_name_ji}, main samajh sakta hun yeh waqt aapke liye kitna mushkil hai — aap akele nahi hain. "
+            result = _empathy_prefix + result
+            # Re-strip name if model also started with name
+            result = re.sub(rf'^{re.escape(_empathy_prefix)}\s*{re.escape(_name_ji)},?\s*', _empathy_prefix, result)
+
     # ── Phase 12: Hard sentence cap based on query type ──
     sentences = re.split(r'(?<=[.!?])\s+', result.strip())
     if _query_type == "simple" and len(sentences) > 1:
@@ -598,6 +611,16 @@ def _classify_query_type(question: str) -> dict:
     if _is_remedy_query(question):
         return {"type": "remedy", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": 500}
 
+    # Safety — death/longevity/health fear queries (MUST be checked BEFORE emotional)
+    safety_patterns = [
+        "will i die", "when will i die", "death", "maut", "mrityu",
+        "kab marunga", "kab marungi", "longevity", "life span",
+        "scared about my health", "serious illness", "fatal",
+        "scared about health", "die soon", "kab maru",
+    ]
+    if any(p in q for p in safety_patterns):
+        return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
+
     # Emotional / obstacle queries — need empathy + relief timeline
     emotional_patterns = [
         "tough time", "going wrong", "obstacles", "struggling", "depressed",
@@ -607,15 +630,6 @@ def _classify_query_type(question: str) -> dict:
     ]
     if any(p in q for p in emotional_patterns):
         return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
-
-    # Safety — death/longevity/health fear queries
-    safety_patterns = [
-        "will i die", "when will i die", "death", "maut", "mrityu",
-        "kab marunga", "kab marungi", "longevity", "life span",
-        "scared about my health", "serious illness", "fatal",
-    ]
-    if any(p in q for p in safety_patterns):
-        return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
 
     # Complex analysis — full response
     return {"type": "analysis", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": None}
@@ -895,11 +909,15 @@ def predict(message, history, chart_data):
             extra_body={"repetition_penalty": 1.2},
         )
         partial = ""
+        _last_yield_len = 0
         for chunk in stream:
             delta = chunk.choices[0].delta.content
             if delta:
                 partial += delta
-                yield _postprocess(partial)
+                # Yield every ~15 chars to reduce flicker from postprocess rewrites
+                if len(partial) - _last_yield_len >= 15:
+                    yield _postprocess(partial)
+                    _last_yield_len = len(partial)
 
         # ── Deflection retry: if model gave a vague non-answer, retry with forced prefix ──
         if partial and _is_deflection(partial) and chart_yaml:
