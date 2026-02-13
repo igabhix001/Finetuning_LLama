@@ -509,9 +509,25 @@ def _postprocess(text):
         (r'\bAccording\s+to\s+(?:the\s+)?given\s+chart\s+details,?\b', ''),
         (r'\bAccording\s+to\s+(?:the\s+)?chart\s+(?:data|details|analysis),?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?given\s+chart,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?provided\s+chart\s+(?:analysis|data|details),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?(?:extracted|available)\s+chart\s+(?:summary|data),?\b', ''),
+        (r'\bUsing\s+(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?principles,?\b', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
+
+    # ── Phase 7.5: Clean up artifacts from Phase 7 replacements ──
+    text = re.sub(r'(?:^|(?<=[\.!?]))\s*,\s*', ' ', text)
+    text = re.sub(r'  +', ' ', text)
+    text = re.sub(r'(?<=[a-z]\s)Your\b', 'your', text)
+    _native = getattr(_postprocess, '_native_name', '') or ''
+    if _native:
+        _first = _native.split()[0]
+        text = re.sub(rf'\b{re.escape(_native)}\s+ji\'s\b', 'your', text, flags=re.IGNORECASE)
+        text = re.sub(rf'\b{re.escape(_first)}\s+ji\'s\b', 'your', text, flags=re.IGNORECASE)
+        text = re.sub(rf'\b{re.escape(_native)}\'s\b', 'your', text, flags=re.IGNORECASE)
+        text = re.sub(rf'\b{re.escape(_first)}\'s\b', 'your', text, flags=re.IGNORECASE)
+    text = text.strip()
 
     # ── Phase 8: Remove filler and metadata lines ──
     lines = text.split("\n")
@@ -1156,6 +1172,16 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
             "samajhna hoga ki",
             "prospects appear quite favorable",
             "planetary positions and current dasha sequence",
+            # Round 8 additions:
+            "discuss karunga jo directly",
+            "main aapse current mahadasha period discuss",
+            "strong potential for foreign",
+            "strong potential for education",
+            "let's examine this important",
+            "let me examine the planetary",
+            "this is an excellent time to discuss",
+            "holds significance for your",
+            "significations in your chart",
         ]
         if any(p in t for p in deflection_phrases):
             return True
