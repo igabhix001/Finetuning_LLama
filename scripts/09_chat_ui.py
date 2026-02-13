@@ -417,42 +417,51 @@ def _postprocess(text):
                        _range_sanity, text)
 
     # ── Phase 6.7: Past-date tense correction ──
-    # If model predicts a date range entirely in the past, add correction note
+    # Fix future-tense language for dates that are actually in the past
     _today = date.today()
     _month_abbr_to_num = {'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
                           'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
                           'january':1,'february':2,'march':3,'april':4,'june':6,
                           'july':7,'august':8,'september':9,'october':10,'november':11,'december':12}
 
-    def _date_range_is_past(text_fragment):
-        """Check if a 'Mon YYYY to Mon YYYY' range is entirely in the past."""
-        m = re.search(
-            r'((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|'
-            r'Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{4}))'
-            r'\s+(?:to|se|tak|-)\s+'
-            r'((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|'
-            r'Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{4}))',
-            text_fragment, re.IGNORECASE
-        )
-        if not m:
-            return False, None, None
-        end_month_str = m.group(3).split()[0].lower()
-        end_year = int(m.group(4))
-        end_month = _month_abbr_to_num.get(end_month_str, 12)
-        end_date = date(end_year, end_month, 28)  # approximate end of month
-        if end_date < _today:
-            return True, m.group(0), end_date
-        return False, None, None
+    # Find ALL "Mon YYYY" references and check if they're in the past
+    _date_refs = list(re.finditer(
+        r'((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|'
+        r'Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{4}))',
+        text, re.IGNORECASE
+    ))
+    _has_past_dates = False
+    for _dm in _date_refs:
+        _m_str = _dm.group(1).split()[0].lower()
+        _m_yr = int(_dm.group(2))
+        _m_num = _month_abbr_to_num.get(_m_str, 6)
+        try:
+            if date(_m_yr, _m_num, 28) < _today:
+                _has_past_dates = True
+                break
+        except ValueError:
+            pass
 
-    is_past, past_range, _ = _date_range_is_past(text)
-    if is_past and past_range:
-        _native = getattr(_postprocess, '_native_name', '') or ''
-        _name_ji = f"{_native} ji" if _native else "Ji"
-        _past_note = (
-            f" (Note: {_name_ji}, yeh period already beet chuka hai. "
-            f"Aapke agle favorable period ke liye next antardasha dekhein.)"
-        )
-        text = text + _past_note
+    if _has_past_dates:
+        # Fix future-tense words that refer to past dates
+        _future_to_past = [
+            (r'\bwill\s+(?:happen|occur|take\s+place|come|start|begin|improve|bring)\b', 'happened'),
+            (r'\bwill\s+be\b', 'was'),
+            (r'\bshuru\s+ho\s+raha\s+hai\b', 'shuru ho chuka hai'),
+            (r'\bshuru\s+hoga\b', 'shuru ho chuka hai'),
+            (r'\bupcoming\b', 'recent'),
+            (r'\baane\s+wala\b', 'beeta hua'),
+            (r'\bhoga\b', 'tha'),
+            (r'\bhogi\b', 'thi'),
+            (r'\bkarega\b', 'kiya'),
+            (r'\bkaregi\b', 'ki'),
+            (r'\bmilegi\b', 'mili'),
+            (r'\bayega\b', 'aaya'),
+            (r'\bayegi\b', 'aayi'),
+            (r'\bcurrently\s+running\b', 'which ran'),
+        ]
+        for _pat, _repl in _future_to_past:
+            text = re.sub(_pat, _repl, text, flags=re.IGNORECASE)
 
     # ── Phase 7: Replace robotic third-person references ──
     _replacements = [
@@ -907,7 +916,40 @@ def predict(message, history, chart_data):
             yield "Aapka chart data abhi load nahi hai. Please apni birth chart JSON left panel mein paste karein."
         return
 
-    # 2c. Inappropriate intercept — sexual orientation, personal judgments
+    # 2c. Non-astrology conversation intercepts — greetings, feedback, meta-questions
+    # These MUST come before model inference to prevent chart-data leakage
+    _greeting_patterns = ["good morning", "good afternoon", "good evening", "good night",
+                          "have a good day", "have a nice day", "bye", "goodbye", "thank you",
+                          "thanks", "shukriya", "dhanyavaad", "alvida", "namaste",
+                          "hello", "hi there", "hey there"]
+    if any(p in q_lower for p in _greeting_patterns) and len(q_lower.split()) <= 8:
+        yield f"{_intercept_name_ji}, thank you! Jab bhi aapko astrology guidance chahiye, main yahan hun. Have a wonderful day! 🙏"
+        return
+
+    _feedback_patterns = ["you need to improve", "you are wrong", "you're wrong", "that's wrong",
+                          "not correct", "galat hai", "improve karo", "better karo",
+                          "your answer is wrong", "postprocessing", "overriding",
+                          "hmm yeah", "hmm ok", "hmm okay"]
+    if any(p in q_lower for p in _feedback_patterns):
+        yield f"{_intercept_name_ji}, I appreciate your feedback — I am continuously learning and improving. Please ask me any astrology question and I will do my best to give you an accurate answer based on your chart."
+        return
+
+    _meta_patterns = ["how many years", "kitne saal", "experience", "how old are you",
+                      "when were you made", "who made you", "who created you",
+                      "can someone predict", "do you believe", "is astrology real",
+                      "is astrology true", "kya astrology sach", "kya bhavishya"]
+    if any(p in q_lower for p in _meta_patterns) and not any(w in q_lower for w in ["job", "marriage", "career", "financial", "health", "shaadi", "naukri"]):
+        if _is_hindi_q(q_lower):
+            yield (f"{_intercept_name_ji}, main Jyotish hun — ek experienced KP astrologer. "
+                   "Main Krishnamurti Paddhati ke principles se aapke sawaalon ka jawaab deta hun. "
+                   "Aap mujhse apni kundali ke baare mein kuch bhi pooch sakte hain.")
+        else:
+            yield (f"{_intercept_name_ji}, I am Jyotish — an experienced KP astrologer. "
+                   "I use Krishnamurti Paddhati principles to analyze your chart and provide accurate predictions. "
+                   "Feel free to ask me anything about your kundali.")
+        return
+
+    # 2d. Inappropriate intercept — sexual orientation, personal judgments
     if query_info["type"] == "inappropriate":
         native_name = ""
         if chart_data:
@@ -1137,27 +1179,63 @@ def predict(message, history, chart_data):
             native_name = getattr(_postprocess, '_native_name', '') or ''
             name_ji = f"{native_name} ji" if native_name else "Ji"
 
-            # Build a forced-prefix retry prompt
+            # Build a forced-prefix retry prompt — query-type-specific examples
+            _q_topic = message.lower()
+            if any(w in _q_topic for w in ["health", "body", "illness", "sick", "bimari", "tabiyat"]):
+                _example = (f"'{name_ji}, your health needs attention from now till Apr 2026 during Saturn-Ketu AD "
+                            f"which connects to houses 6,8. After May 2026, Saturn-Venus AD brings recovery through houses 1,11. "
+                            f"6th cusp sub-lord Mars signifies houses 6,8 indicating health challenges in this period.'")
+            elif any(w in _q_topic for w in ["career", "job", "naukri", "kaam", "field", "profession"]):
+                _example = (f"'{name_ji}, your career breakthrough comes Oct 2026 to Mar 2027 during Saturn-Venus AD "
+                            f"which activates houses 2,6,10,11. 10th cusp sub-lord Mercury signifies houses 2,10 supporting professional growth.'")
+            elif any(w in _q_topic for w in ["exam", "interview", "test", "pariksha", "result"]):
+                _example = (f"'{name_ji}, your success window is Mar 2026 to Aug 2026 during Saturn-Ketu AD. "
+                            f"5th cusp sub-lord Jupiter signifies houses 4,9,11 — strong for academic success. Peak months: May-Jun 2026.'")
+            elif any(w in _q_topic for w in ["financial", "money", "paisa", "dhan", "income", "wealth"]):
+                _example = (f"'{name_ji}, your finances improve from Apr 2027 during Saturn-Venus AD which activates houses 2,6,11. "
+                            f"2nd cusp sub-lord Mars signifies houses 2,11 — wealth and gains. Peak earning: Jul-Oct 2027.'")
+            else:
+                _example = (f"'{name_ji}, your [event] timing is [Month Year] to [Month Year] during [Planet]-[Planet] AD, "
+                            f"because [cusp] sub-lord [Planet] signifies houses [X,Y] which support [event].'")
+
             retry_user = (
                 f"{full_question}\n\n"
-                f"CRITICAL: Your previous answer was vague. You MUST give SPECIFIC dates.\n"
-                f"Read the dasha table in the YAML above. Find the relevant antardasha and pratyantar periods.\n"
-                f"FORMAT YOUR ANSWER EXACTLY LIKE THIS EXAMPLE:\n"
-                f"'{name_ji}, your [event] timing is [Month Year] to [Month Year] during [Planet]-[Planet] AD, "
-                f"because [cusp] sub-lord [Planet] signifies houses [X,Y] which support [event].'\n"
-                f"DO NOT say 'depends on', 'requires analysis', 'outlined in table', or 'specific periods'. "
-                f"Give the ACTUAL month-year dates NOW."
+                f"CRITICAL: Your previous answer was REJECTED because it had NO specific dates.\n"
+                f"You MUST read the dasha table in the YAML and give ACTUAL month-year dates.\n"
+                f"START your answer with '{name_ji},' and give dates in the FIRST sentence.\n"
+                f"EXAMPLE FORMAT:\n{_example}\n"
+                f"BANNED PHRASES: 'depends on', 'requires analysis', 'let me analyze', 'outlined in', "
+                f"'specific periods', 'planetary influences', 'interesting dynamic', 'carefully examine'.\n"
+                f"Give the ACTUAL month-year dates from the dasha table NOW. 2-3 sentences max."
             )
             retry_msgs = [
                 {"role": "system", "content": sys_content},
                 {"role": "user", "content": retry_user},
             ]
-            retry_text = _generate_non_streaming(retry_msgs, max_tokens, 0.2)
+            retry_text = _generate_non_streaming(retry_msgs, max_tokens, 0.15)
             if retry_text and not _is_deflection(retry_text):
                 partial = retry_text
                 yield _postprocess(partial)
             else:
-                _json_log("deflection_retry_failed", req_id=req_id)
+                # Second retry with even more forceful prompt
+                retry_user2 = (
+                    f"Chart YAML:\n{chart_yaml[:3000]}\n\n"
+                    f"Question: {message}\n\n"
+                    f"ANSWER IN EXACTLY THIS FORMAT — fill in the blanks from the dasha table:\n"
+                    f"{name_ji}, [answer to question] timing is [read Month Year from antarDashas] "
+                    f"to [read end Month Year]. [One sentence about which cusp/house supports this].\n"
+                    f"DO NOT explain methodology. DO NOT say 'analysis'. Just give the dates and answer."
+                )
+                retry_msgs2 = [
+                    {"role": "system", "content": _sys_no_rag},
+                    {"role": "user", "content": retry_user2},
+                ]
+                retry_text2 = _generate_non_streaming(retry_msgs2, max_tokens, 0.1)
+                if retry_text2 and not _is_deflection(retry_text2):
+                    partial = retry_text2
+                    yield _postprocess(partial)
+                else:
+                    _json_log("deflection_retry_failed", req_id=req_id)
 
         # Final enrichment: append Hindi quote + product (only if remedy query)
         if partial:
