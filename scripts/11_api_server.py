@@ -327,10 +327,27 @@ def _postprocess(text):
     # ── Phase 4: Remove ALL "Confidence: xxx" patterns ──
     text = re.sub(r'[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)(?:\s*\([^)]*\))?', '', text)
 
+    # ── Phase 4.5: Strip deflection / hedging phrases ──
+    _deflection_patterns = [
+        r'(?:marriage\s+)?timing\s+(?:requires?|needs?)\s+careful\s+analysis\s+of\s+[^.]{0,80}\.',
+        r'(?:I|Main)\s+(?:can|will|shall)\s+(?:offer|provide|give)\s+(?:specific\s+)?(?:guidance|insights?|analysis)\s+(?:regarding|about|on)\s+[^.]{0,60}\.',
+        r'(?:humein|hume|mujhe)\s+(?:examine|analyze|dekhna|check)\s+karna\s+(?:hoga|padega|chahiye)[^.]{0,40}\.',
+        r'(?:I|Main)\s+(?:can|will)\s+(?:analyze|examine|identify)\s+(?:specific|significant|important)\s+[^.]{0,60}\.',
+        r'(?:This|Your)\s+(?:requires?|needs?)\s+(?:careful|detailed|thorough)\s+(?:analysis|examination|study)\s+[^.]{0,60}\.',
+        r'(?:As\s+(?:your|an?)\s+)?(?:KP\s+)?(?:astrologer|Jyotish),?\s+I\s+(?:analyze|examine|will\s+analyze)\s+[^.]{0,80}\.',
+        r'(?:In\s+KP\s+astrology,?\s+)?we\s+(?:examine|need\s+to\s+examine|analyze)\s+[^.]{0,60}\.',
+        r'Your\s+question\s+about\s+[^.]{0,60}requires?\s+[^.]{0,40}\.',
+    ]
+    for pat in _deflection_patterns:
+        text = re.sub(pat, '', text, flags=re.IGNORECASE)
+
     # ── Phase 5: Remove robotic section headers (comprehensive) ──
     _robotic_headers = [
         r'(?:Marriage|Career|Financial|Health|Remedy|Obstacle|Education|Relationship)\s+(?:Prediction|Breakthrough|Timing|Gains)?\s*(?:Analysis|Prediction|Report)?(?:\s+(?:using|Based|by|for|of)\s+[^\n]{0,60})?\s*$',
         r'(?:Life\s+Events?|Dasha\s+Period|Your\s+Chart)\s+(?:Between|Analysis|by)\s+[^\n]{0,60}\s*$',
+        r'(?:Marriage|Career|Financial|Health|Gemstone)\s+(?:timing|Prospects?|Analysis)\s+(?:for|of)\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\s*(?:Ji)?\s*:',
+        r'(?:Shaadi|Marriage)\s+(?:ki\s+)?timing\s+(?:ke\s+liye|for)\s+[^:\n]{0,40}:',
+        r'(?:Marriage|Career|Health|Financial)\s+timing\s+for\s+[^:\n]{0,40}:',
         r'(?:Analysis|Conclusion|Application|Critical\s+Finding|Key\s+[Ff]indings?|Summary|Overview|Introduction|Observation)\s*:',
         r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:',
         r'(?:Remedial\s+Measures|Remedy|Timing|Digestive\s+System|Immune\s+System|Nervous\s+System)\s*:',
@@ -536,23 +553,22 @@ _PRODUCT_TEMPLATES = [
 ]
 
 
-def _enrich_response(text, product_text="", is_remedy=False):
-    """Append Hindi quote (always) and product (ONLY if remedy query) if model missed them."""
+def _enrich_response(text, product_text="", is_remedy=False, query_type="analysis"):
+    """Append Hindi quote (only on timing/remedy/analysis) and product (ONLY if remedy query)."""
     text_lower = text.lower()
 
-    # Check if model already included a Hindi/Hinglish quote-like phrase
-    has_quote = any(q[:20].lower() in text_lower for q in HINDI_QUOTES)
-    if not has_quote:
-        quote_indicators = ["jab samay", "andhera jitna", "sabr ka phal", "har raat ke baad",
-                           "mushkilein waqti", "waqt sabka", "kismat likhne", "graho ki chaal",
-                           "jab niyat", "waqt sabka aata"]
-        has_quote = any(ind in text_lower for ind in quote_indicators)
-
+    # Hindi quotes ONLY on timing, remedy, analysis — NOT on simple factual queries
     additions = []
-
-    if not has_quote:
-        quote = random.choice(HINDI_QUOTES)
-        additions.append(quote)
+    if query_type not in ("simple",):
+        has_quote = any(q[:20].lower() in text_lower for q in HINDI_QUOTES)
+        if not has_quote:
+            quote_indicators = ["jab samay", "andhera jitna", "sabr ka phal", "har raat ke baad",
+                               "mushkilein waqti", "waqt sabka", "kismat likhne", "graho ki chaal",
+                               "jab niyat", "waqt sabka aata"]
+            has_quote = any(ind in text_lower for ind in quote_indicators)
+        if not has_quote:
+            quote = random.choice(HINDI_QUOTES)
+            additions.append(quote)
 
     # Only add product fallback if this is a remedy query AND model didn't already mention one
     if is_remedy and product_text:
@@ -716,7 +732,7 @@ def _generate_response(question: str, chart_data: str = ""):
     answer = _postprocess(raw_answer)
 
     # Enrich: append Hindi quote + product (only if remedy query)
-    answer = _enrich_response(answer, product_text=product_prompt_text, is_remedy=is_remedy)
+    answer = _enrich_response(answer, product_text=product_prompt_text, is_remedy=is_remedy, query_type=query_info["type"])
 
     # Extract prediction
     prediction = _extract_prediction(answer)

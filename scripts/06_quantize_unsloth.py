@@ -66,13 +66,13 @@ if torch.cuda.is_available():
     print(f"VRAM:       {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
 print("=" * 80)
 
-output_path.mkdir(parents=True, exist_ok=True)
+output_path.parent.mkdir(parents=True, exist_ok=True)
 
 # ── Safetensors export for vLLM (default, recommended) ──────────────────────
 if args.method == "safetensors":
     from shutil import copytree, rmtree
     print("\n1. Exporting safetensors for vLLM serving...")
-    if output_path.exists() and any(output_path.iterdir()):
+    if output_path.exists():
         rmtree(str(output_path))
     copytree(str(model_path), str(output_path))
     print(f"   ✓ Model copied to: {output_path}")

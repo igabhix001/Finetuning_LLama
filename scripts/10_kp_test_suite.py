@@ -36,7 +36,8 @@ parser.add_argument("--temperature", type=float, default=0.4)
 parser.add_argument("--max-model-len", type=int, default=2048)
 parser.add_argument("--no-rag", action="store_true", help="Disable RAG retrieval")
 parser.add_argument("--top-k", type=int, default=5, help="RAG chunks to retrieve")
-parser.add_argument("--kundali-json", type=str, default=None,
+_default_kundali = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sample_kundali", "kundali_Aditya_Raj.json")
+parser.add_argument("--kundali-json", type=str, default=_default_kundali,
                     help="Path to a kundali JSON file — runs production-mirror eval "
                          "using chart_preprocessor.chart_to_yaml + full postprocess pipeline")
 parser.add_argument("--eval-questions", type=str, default=None,
