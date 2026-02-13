@@ -225,7 +225,9 @@ def _retrieve_rag_chunks(question, top_k=5):
             chunks.append(f"[{ref_str}]{loc} {txt}")
         return chunks
     except Exception as e:
-        print(f"RAG retrieval error: {e}")
+        if not getattr(_retrieve_rag_chunks, '_err_logged', False):
+            print(f"RAG retrieval error (will suppress repeats): {e}")
+            _retrieve_rag_chunks._err_logged = True
         return []
 
 
@@ -252,7 +254,9 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
                 if lines:
                     return "\n".join(lines)
         except Exception as e:
-            print(f"  Product Pinecone search error: {e}")
+            if not getattr(_get_product_recommendations, '_err_logged', False):
+                print(f"  Product Pinecone search error (will suppress repeats): {e}")
+                _get_product_recommendations._err_logged = True
 
     # No CSV fallback — products come only from Pinecone RAG
     return ""
@@ -499,6 +503,10 @@ def _postprocess(text):
         (r'\b[Aa]nd\s+following\s+KP\s+principles,?\b', ''),
         (r'\bUsing\s+(?:the\s+)?(?:provided|given)\s+(?:chart|horoscope)\s+(?:data|details),?\b', ''),
         (r'\blet\s+me\s+address\s+your\s+query\s+about\s+[^.]{0,60}(?:using|through)\s+[^.]{0,40}\.?\b', ''),
+        (r'\b[Aa]pplying\s+KP\s+principles,?\b', ''),
+        (r'\b[Aa]pplying\s+(?:the\s+)?(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?(?:principles|system|methodology),?\b', ''),
+        (r'\bBased\s+on\s+(?:your|the)\s+current\s+planetary\s+positions\s*(?:and\s+dasha\s+system)?,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?provided\s+(?:chart\s+)?(?:details|data)\s+and\s+applying\s+KP\s+principles,?\b', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -1211,6 +1219,30 @@ def predict(message, history, chart_data):
             "focus kariye in specific",
             "for progeny matters, examine",
             "for progeny matters examine",
+            # Round 8d additions (Anuj kundali retest):
+            "requires examining planets connected",
+            "requires careful examination of the",
+            "examination involves analyzing significator",
+            "examination involves analyzing",
+            "requires examining the 12th house",
+            "let's examine significant planetary",
+            "examine these key planetary positions",
+            "examine these core significators",
+            "analysis kar raha main current",
+            "analysis kar ra ha main current",
+            "ka analysis kar ra",
+            "possibility evaluate karne ke liye",
+            "humein aapke educational pursuits",
+            "analyze karne padenge",
+            "foreign travel analysis requires",
+            "foreign travel requires careful",
+            "government service potential examination",
+            "government job yoga analysis",
+            "for marriage remedial measures, examine",
+            "for marriage remedial measures examine",
+            "shaadi prospects ka analysis kar",
+            "success ki possibility evaluate",
+            "we observe multiple layers of timing",
         ]
         if any(p in t for p in deflection_phrases):
             return True
