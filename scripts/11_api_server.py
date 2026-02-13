@@ -612,7 +612,7 @@ def _classify_query_type(question: str) -> dict:
     """
     q = question.lower().strip()
 
-    # ── 1. SAFETY — MUST be FIRST (death/longevity/health fear → compassionate redirect) ──
+    # ── 1a. SAFETY — death/longevity/health fear → compassionate redirect ──
     safety_patterns = [
         "will i die", "when will i die", "death", "maut", "mrityu",
         "kab marunga", "kab marungi", "longevity", "life span",
@@ -620,8 +620,20 @@ def _classify_query_type(question: str) -> dict:
         "scared about health", "die soon", "kab maru",
         "will i survive", "marr jaunga", "marr jaungi", "marne wala",
     ]
-    if any(p in q for p in safety_patterns):
+    # Typo-tolerant regex: 'will will i die', 'wil i die', etc.
+    if any(p in q for p in safety_patterns) or re.search(r'\bwill\s+(?:i\s+)?die\b', q):
         return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
+
+    # ── 1b. INAPPROPRIATE — sexual orientation, personal judgments → firm redirect ──
+    inappropriate_patterns = [
+        "am i gay", "are you gay", "homosexual", "lesbian", "bisexual",
+        "sexual orientation", "sexuality", "sex life", "sexual",
+        "am i a virgin", "virginity", "pregnant by",
+        "am i ugly", "am i beautiful", "am i attractive",
+        "caste", "religion", "convert",
+    ]
+    if any(p in q for p in inappropriate_patterns):
+        return {"type": "inappropriate", "max_paragraphs": 1, "temperature": 0.3, "max_tokens_override": 150}
 
     # ── 2. EMOTIONAL — before timing (e.g. 'scared' could appear in timing context) ──
     emotional_patterns = [
@@ -629,6 +641,9 @@ def _classify_query_type(question: str) -> dict:
         "confused", "frustrated", "scared", "worried", "anxious", "hopeless",
         "everything is going wrong", "why is everything", "mushkil", "pareshani",
         "takleef", "dukh", "tension", "problem", "suffering",
+        "loser", "looser", "failure", "unlucky", "nothing works",
+        "won't do anything", "no hope", "give up", "kuch nahi hoga",
+        "feel very unlucky", "feel unlucky", "bad luck", "cursed",
     ]
     if any(p in q for p in emotional_patterns):
         return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
@@ -642,6 +657,7 @@ def _classify_query_type(question: str) -> dict:
         "what is my nakshatra", "nakshatra kya hai",
         "where was i born", "birth place", "kahan paida",
         "who are you", "what can you do", "tell me about yourself",
+        "what is your name", "your name", "tumhara naam", "aapka naam",
         "what is the date", "what's the date", "aaj ki date", "today's date",
     ]
     if any(p in q for p in simple_patterns):
@@ -808,6 +824,26 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
         )
         return {
             "answer": safety_msg,
+            "prediction": None,
+            "product_reco": None,
+        }
+
+    # Inappropriate intercept — sexual orientation, personal judgments
+    if query_info["type"] == "inappropriate":
+        native_name = ""
+        if chart_data:
+            _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+            if _nm:
+                native_name = _nm.group(1).strip()
+        name_ji = f"{native_name} ji" if native_name else "Ji"
+        inappropriate_msg = (
+            f"{name_ji}, yeh sawaal astrology ke scope se bahar hai. "
+            f"Main ek KP astrologer hun — main aapko career, finance, health, relationships, "
+            f"aur life timing ke baare mein guide kar sakta hun. "
+            f"Kripya apna sawaal in topics se related rakhein, main aapki madad zaroor karunga."
+        )
+        return {
+            "answer": inappropriate_msg,
             "prediction": None,
             "product_reco": None,
         }
