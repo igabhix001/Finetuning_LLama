@@ -454,52 +454,43 @@ def _postprocess(text):
         text = re.sub(r'\b(1[0-9]{3}|20[0-9]{2})\s*(?:to|se|tak|-)\s*(?:1[0-9]{3}|20[0-9]{2})\b',
                        _range_sanity, text)
 
-    # ── Phase 6.7: Past-date tense correction ──
-    # Fix future-tense language for dates that are actually in the past
+    # ── Phase 6.7: Past-date annotation (SAFE — no global text rewriting) ──
+    # If a "Mon YYYY to Mon YYYY" range is entirely in the past, insert a brief note
+    # after that range. Does NOT do global word replacements to avoid garbling.
     _today = date.today()
     _month_abbr_to_num = {'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
                           'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
                           'january':1,'february':2,'march':3,'april':4,'june':6,
                           'july':7,'august':8,'september':9,'october':10,'november':11,'december':12}
 
-    # Find ALL "Mon YYYY" references and check if they're in the past
-    _date_refs = list(re.finditer(
+    def _mon_year_to_date(mon_str, year_str):
+        m = _month_abbr_to_num.get(mon_str.lower(), None)
+        if m is None:
+            return None
+        try:
+            return date(int(year_str), m, 28)
+        except ValueError:
+            return None
+
+    # Find "Mon YYYY to Mon YYYY" ranges that are entirely in the past
+    _range_pat = re.compile(
+        r'((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|'
+        r'Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{4}))'
+        r'(\s+(?:to|se|tak|-)\s+)'
         r'((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|'
         r'Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{4}))',
-        text, re.IGNORECASE
-    ))
-    _has_past_dates = False
-    for _dm in _date_refs:
-        _m_str = _dm.group(1).split()[0].lower()
-        _m_yr = int(_dm.group(2))
-        _m_num = _month_abbr_to_num.get(_m_str, 6)
-        try:
-            if date(_m_yr, _m_num, 28) < _today:
-                _has_past_dates = True
-                break
-        except ValueError:
-            pass
-
-    if _has_past_dates:
-        # Fix future-tense words that refer to past dates
-        _future_to_past = [
-            (r'\bwill\s+(?:happen|occur|take\s+place|come|start|begin|improve|bring)\b', 'happened'),
-            (r'\bwill\s+be\b', 'was'),
-            (r'\bshuru\s+ho\s+raha\s+hai\b', 'shuru ho chuka hai'),
-            (r'\bshuru\s+hoga\b', 'shuru ho chuka hai'),
-            (r'\bupcoming\b', 'recent'),
-            (r'\baane\s+wala\b', 'beeta hua'),
-            (r'\bhoga\b', 'tha'),
-            (r'\bhogi\b', 'thi'),
-            (r'\bkarega\b', 'kiya'),
-            (r'\bkaregi\b', 'ki'),
-            (r'\bmilegi\b', 'mili'),
-            (r'\bayega\b', 'aaya'),
-            (r'\bayegi\b', 'aayi'),
-            (r'\bcurrently\s+running\b', 'which ran'),
-        ]
-        for _pat, _repl in _future_to_past:
-            text = re.sub(_pat, _repl, text, flags=re.IGNORECASE)
+        re.IGNORECASE
+    )
+    _annotated = False
+    for _rm in reversed(list(_range_pat.finditer(text))):
+        _end_mon = _rm.group(4).split()[0]
+        _end_yr = _rm.group(5)
+        _end_dt = _mon_year_to_date(_end_mon, _end_yr)
+        if _end_dt and _end_dt < _today:
+            _insert_pos = _rm.end()
+            text = text[:_insert_pos] + ' (yeh period beet chuka hai)' + text[_insert_pos:]
+            _annotated = True
+            break  # annotate only the first past range to avoid clutter
 
     # ── Phase 7: Replace robotic third-person references ──
     _replacements = [
@@ -515,6 +506,9 @@ def _postprocess(text):
         (r'\bIt\s+(?:can\s+be|is)\s+(?:concluded|inferred)\s+that\b', ''),
         (r'\bIn\s+conclusion,?\b', ''),
         (r'\bTo\s+summarize,?\b', ''),
+        (r'\bAccording\s+to\s+(?:the\s+)?given\s+chart\s+details,?\b', ''),
+        (r'\bAccording\s+to\s+(?:the\s+)?chart\s+(?:data|details|analysis),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?given\s+chart,?\b', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -703,6 +697,9 @@ def _classify_query_type(question: str) -> dict:
         "loser", "looser", "failure", "unlucky", "nothing works",
         "won't do anything", "no hope", "give up", "kuch nahi hoga",
         "feel very unlucky", "feel unlucky", "bad luck", "cursed",
+        "health has been troubling", "health troubling", "health issues",
+        "health concern", "not feeling well", "tabiyat kharab", "bimar",
+        "health problem", "body pain", "sleepless", "insomnia",
     ]
     if any(p in q for p in emotional_patterns):
         return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
@@ -1149,6 +1146,16 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
             "horoscope analysis clearly indicates",
             "creates favorable conditions for",
             "clearly identify that your",
+            # Round 7 additions (Hindi deflection from Q17):
+            "humein current mahadasha period ko examine karna",
+            "humein examine karna hoga",
+            "dekhna hoga jo actual event",
+            "analyze karna padega",
+            "examine karna zaroori hai",
+            "dekhna padega ki",
+            "samajhna hoga ki",
+            "prospects appear quite favorable",
+            "planetary positions and current dasha sequence",
         ]
         if any(p in t for p in deflection_phrases):
             return True
