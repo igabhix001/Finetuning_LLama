@@ -303,6 +303,22 @@ def _postprocess(text):
     for term in _dangerous_terms:
         text = re.sub(term, 'health challenges', text, flags=re.IGNORECASE)
 
+    # ── Phase 3.6: Death/longevity safety — never scare users with maraka terms ──
+    _death_terms = [
+        r'death[- ]?inflicting\s+(?:bhavas?|houses?)',
+        r'\bmaraka\s+(?:houses?|bhavas?|planets?|sthana)',
+        r'\blongevity\s+(?:analysis|prediction|assessment)',
+        r'\blife\s*span\b', r'\btime\s+of\s+death\b',
+        r'\bdeath\s+(?:period|timing|prediction)',
+        r'\bayushya\b', r'\bmrityu\b',
+    ]
+    for term in _death_terms:
+        text = re.sub(term, 'challenging period', text, flags=re.IGNORECASE)
+
+    # ── Phase 3.7: Strip SKU / internal product metadata from responses ──
+    text = re.sub(r'\s*\(SKU:\s*[^)]+\)', '', text)
+    text = re.sub(r'\s*SKU:\s*\S+', '', text)
+
     # ── Phase 4: Remove ALL "Confidence: xxx" patterns ──
     text = re.sub(r'[Cc]onfidence:?\s*:?\s*(?:high|medium|low|med)(?:\s*\([^)]*\))?', '', text)
 
@@ -470,12 +486,12 @@ def _postprocess(text):
 
     # ── Phase 12: Hard sentence cap based on query type ──
     sentences = re.split(r'(?<=[.!?])\s+', result.strip())
-    if _query_type == "simple" and len(sentences) > 2:
-        result = ' '.join(sentences[:2])
-    elif _query_type == "timing" and len(sentences) > 4:
+    if _query_type == "simple" and len(sentences) > 1:
+        result = sentences[0]  # HARD 1-sentence cap for simple queries
+    elif _query_type == "timing" and len(sentences) > 3:
+        result = ' '.join(sentences[:3])
+    elif len(sentences) > 4:
         result = ' '.join(sentences[:4])
-    elif len(sentences) > 6:
-        result = ' '.join(sentences[:6])
 
     # ── Phase 12.5: Strip trailing filler for simple queries ──
     if _query_type == "simple":
@@ -484,7 +500,10 @@ def _postprocess(text):
             "ye planetary", "yeh planetary", "this creates", "this is",
             "in kp astrology", "kp system mein", "ye combination",
             "yeh combination", "ye positions", "yeh positions",
-            "this planetary", "these planetary",
+            "this planetary", "these planetary", "yeh aapki",
+            "this placement", "this is an important", "main aapse",
+            "jo traditional", "jo krishnamurti", "jo vimshottari",
+            "fundamental chart", "important reference",
         ]
         sents = re.split(r'(?<=[.!?])\s+', result.strip())
         kept = []
@@ -493,7 +512,31 @@ def _postprocess(text):
                 break
             kept.append(s)
         if kept:
-            result = ' '.join(kept)
+            result = ' '.join(kept[:1])  # Force 1 sentence for simple
+
+    # ── Phase 13: Language enforcement (model SFT bakes in Hinglish — override) ──
+    _user_question = getattr(_postprocess, '_user_question', '')
+    if _user_question:
+        _hindi_markers = [
+            'kya', 'hai', 'mera', 'meri', 'kab', 'kaise', 'kaisa',
+            'hogi', 'hoga', 'karu', 'batao', 'bataiye', 'shaadi',
+            'paisa', 'naukri', 'padhai', 'ghar', 'rishta',
+            'aapka', 'aapki', 'mujhe', 'humein', 'kahan',
+        ]
+        q_words = _user_question.lower().split()
+        hindi_count = sum(1 for w in q_words if w in _hindi_markers)
+        is_hindi_question = hindi_count >= 2 or any(w in _user_question.lower() for w in ['kab hogi', 'kya hoga', 'kaise hoga', 'batao', 'bataiye'])
+
+        if not is_hindi_question:
+            # English question but Hinglish response — strip common Hindi filler
+            # Only strip if the response has significant Hindi content
+            _hindi_response_markers = ['hai', 'mein', 'aapka', 'aapki', 'ke liye', 'karta hai', 'hota hai', 'karega', 'hogi', 'hoga']
+            resp_words = result.lower().split()
+            hindi_resp_count = sum(1 for w in resp_words if w in _hindi_response_markers)
+            if hindi_resp_count >= 3 and len(resp_words) > 5:
+                # Response is heavily Hinglish on an English question — flag for logging
+                # We can't auto-translate, but we can note it
+                pass  # Model behavior — needs DPO fix. Postprocess can't translate.
 
     return result
 
@@ -554,6 +597,25 @@ def _classify_query_type(question: str) -> dict:
     # Remedy queries — need product, moderate length
     if _is_remedy_query(question):
         return {"type": "remedy", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": 500}
+
+    # Emotional / obstacle queries — need empathy + relief timeline
+    emotional_patterns = [
+        "tough time", "going wrong", "obstacles", "struggling", "depressed",
+        "confused", "frustrated", "scared", "worried", "anxious", "hopeless",
+        "everything is going wrong", "why is everything", "mushkil", "pareshani",
+        "takleef", "dukh", "tension", "problem", "suffering",
+    ]
+    if any(p in q for p in emotional_patterns):
+        return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
+
+    # Safety — death/longevity/health fear queries
+    safety_patterns = [
+        "will i die", "when will i die", "death", "maut", "mrityu",
+        "kab marunga", "kab marungi", "longevity", "life span",
+        "scared about my health", "serious illness", "fatal",
+    ]
+    if any(p in q for p in safety_patterns):
+        return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
 
     # Complex analysis — full response
     return {"type": "analysis", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": None}
@@ -684,6 +746,23 @@ def predict(message, history, chart_data):
     query_info = _classify_query_type(message)
     is_remedy = _is_remedy_query(message)
 
+    # 2a. Safety intercept — death/longevity queries get compassionate redirect
+    if query_info["type"] == "safety":
+        native_name = ""
+        if chart_data:
+            _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+            if _nm:
+                native_name = _nm.group(1).strip()
+        name_ji = f"{native_name} ji" if native_name else "Ji"
+        safety_msg = (
+            f"{name_ji}, please don't worry — astrology is here to guide you, not to scare you. "
+            f"Your chart shows many positive periods ahead. Health concerns are best addressed by "
+            f"a qualified medical professional. From a KP perspective, strengthening your lagna lord "
+            f"through simple remedies can support overall wellbeing. Stay positive — better times are coming."
+        )
+        yield safety_msg
+        return
+
     # 3. Product recommendations — ONLY when user asks for remedies
     product_text = ""
     product_instruction = ""
@@ -737,6 +816,7 @@ def predict(message, history, chart_data):
     _postprocess._birth_year = None
     _postprocess._native_name = None
     _postprocess._query_type = query_info["type"]
+    _postprocess._user_question = message
     if chart_data:
         _by_match = re.search(r'"date"\s*:\s*"(\d{2})\.(\d{2})\.(\d{4})"', chart_data)
         if _by_match:
@@ -763,6 +843,22 @@ def predict(message, history, chart_data):
             "planetary periods based on", "timing specific planetary",
             "creates primary significator connection",
             "need to analyze", "need to look at",
+            # New deflection phrases found in Round 2 testing:
+            "connected to the current mahadasha",
+            "strongly connected to the current",
+            "appears strongly connected",
+            "analysis kar rahe hain",
+            "planetary combination explains",
+            "i need to address your concern",
+            "in a clear and direct manner",
+            "according to established kp principles",
+            "significant life events occurred during specific dasha",
+            "based on the provided natal data",
+            "based on the provided kp chart",
+            "based on the provided planetary",
+            "significator analysis provided in this",
+            "extensive chart breakdown",
+            "outlined hai",
         ]
         if any(p in t for p in deflection_phrases):
             return True
