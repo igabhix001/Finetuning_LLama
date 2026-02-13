@@ -63,8 +63,8 @@ parser.add_argument("--no-rag", action="store_true",
                     help="Disable Pinecone RAG retrieval")
 parser.add_argument("--top-k", type=int, default=5,
                     help="Number of RAG chunks to retrieve")
-parser.add_argument("--max-model-len", type=int, default=4096,
-                    help="vLLM max model length")
+parser.add_argument("--max-model-len", type=int, default=8192,
+                    help="vLLM max model length (default: 8192)")
 parser.add_argument("--products-csv", type=str, default=None,
                     help="Path to products CSV for remedy recommendations")
 args = parser.parse_args()
@@ -108,32 +108,11 @@ if not args.no_rag:
 else:
     print("  RAG:    DISABLED (--no-rag)")
 
-# ── Product catalog ──────────────────────────────────────────────────────────
-PRODUCT_CATALOG = []
-_products_path = args.products_csv
-if not _products_path:
-    import glob
-    _search_dirs = [
-        os.path.dirname(os.path.abspath(__file__)),
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."),
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."),
-        "/workspace",
-    ]
-    for d in _search_dirs:
-        found = glob.glob(os.path.join(d, "products_export*.csv"))
-        if found:
-            _products_path = found[0]
-            print(f"  Products: auto-discovered {_products_path}")
-            break
-if _products_path and os.path.isfile(_products_path):
-    try:
-        with open(_products_path, encoding="utf-8") as f:
-            PRODUCT_CATALOG = list(csv.DictReader(f))
-        print(f"  Products: {len(PRODUCT_CATALOG)} items loaded from {_products_path}")
-    except Exception as e:
-        print(f"  Products: FAILED ({e})")
+# ── Product recommendations: Pinecone RAG only (no CSV fallback) ─────────────
+if product_index:
+    print("  Products: Pinecone RAG (semantic search)")
 else:
-    print("  Products: NONE (no CSV found — pass --products-csv or place products_export*.csv nearby)")
+    print("  Products: DISABLED (no Pinecone product index)")
 
 # ── System prompts ───────────────────────────────────────────────────────────
 SYSTEM_BASE = (
@@ -150,7 +129,8 @@ SYSTEM_BASE = (
     "say 'Sagittarius lagna' and 'Leo rashi'. NEVER substitute or invent values.\n"
     "4. ZERO HALLUCINATION: If the YAML does not contain dasha dates, say "
     "'I need your full dasha data to give specific timing.' NEVER invent dates.\n\n"
-    "IDENTITY: 'My name is Jyotish.' Address user as '[Name] ji'. "
+    "IDENTITY: 'My name is Jyotish.' Address user by their name from the YAML 'name' field + ' ji' suffix. "
+    "Example: if name='Aditya Raj', say 'Aditya Raj ji'. NEVER output literal '[Name]'. "
     "NEVER say 'the native', 'the querent', 'the person'.\n\n"
     "LANGUAGE: Default English. If user writes Hindi/Hinglish, match their language.\n\n"
     "DATE & TENSE: Read 'today_date' from YAML. "
@@ -169,9 +149,9 @@ SYSTEM_BASE = (
     "NEVER recommend products on simple/informational queries.\n\n"
     "EXAMPLES:\n"
     "Q: 'Who are you?' → 'My name is Jyotish — I read your chart using KP Astrology to give precise answers about life events.'\n"
-    "Q: 'What is my name?' → '[Name] ji, aapka naam [Name] hai.'\n"
-    "Q: 'What is my lagna?' → '[Name] ji, aapka lagna [read from YAML] hai.'\n"
-    "Q: 'When will I get married?' → '[Name] ji, your 7th cusp sub-lord [read from YAML] signifies houses [X,Y] which are marriage-positive, "
+    "Q: 'What is my name?' → 'Aditya Raj ji, aapka naam Aditya Raj hai.' (read name from YAML)\n"
+    "Q: 'What is my lagna?' → 'Aditya Raj ji, aapka lagna Sagittarius hai.' (read from YAML)\n"
+    "Q: 'When will I get married?' → 'Aditya Raj ji, your 7th cusp sub-lord [read from YAML] signifies houses [X,Y] which are marriage-positive, "
     "primary window is [AD name] (Mon YYYY to Mon YYYY), peak months Mon-Mon YYYY when [pratyantar planet] activates houses [X,Y] — you would be [age].'\n"
 )
 
@@ -184,7 +164,7 @@ SYSTEM_NO_RAG = (
     "4. ZERO HALLUCINATION: If dasha dates not in YAML, say 'I need full dasha data.' Never invent dates.\n\n"
     "RULES:\n"
     "1. Language: English default. Match Hindi/Hinglish if user uses it.\n"
-    "2. Persona: 'My name is Jyotish.' Address as '[Name] ji'. Never 'the native'.\n"
+    "2. Persona: 'My name is Jyotish.' Address user by name from YAML + ' ji'. Never output literal '[Name]'. Never 'the native'.\n"
     "3. Tense: Read 'today_date'. Before=past, spans=current, after=future. Use 'Oct 2025' format.\n"
     "4. Timing: AD range → Peak months (pratyantar + houses + WHY).\n"
     "5. Justify: Name sub-lord, cusp, houses for every prediction.\n"
@@ -197,7 +177,7 @@ SYSTEM_NO_RAG = (
 
 # ── Context-window budget ────────────────────────────────────────────────────
 MAX_MODEL_LEN = args.max_model_len
-OUTPUT_TOKENS = 400 if MAX_MODEL_LEN <= 4096 else min(768, MAX_MODEL_LEN // 6)
+OUTPUT_TOKENS = min(768, max(512, MAX_MODEL_LEN // 8))
 INPUT_TOKEN_BUDGET = MAX_MODEL_LEN - OUTPUT_TOKENS - 100
 MAX_INPUT_CHARS = int(INPUT_TOKEN_BUDGET * 0.78)
 print(f"  Budget:  max_model_len={MAX_MODEL_LEN}, output={OUTPUT_TOKENS}, input_chars≈{MAX_INPUT_CHARS}")
@@ -256,55 +236,8 @@ def _get_product_recommendations(question, chart_summary="", max_items=3):
         except Exception as e:
             print(f"  Product Pinecone search error: {e}")
 
-    # ── Method 2: CSV keyword fallback ──
-    if not PRODUCT_CATALOG:
-        return [], ""
-    search_text = (question + " " + chart_summary).lower()
-    planet_product_map = {
-        "venus": ["diamond", "opal", "white", "zircon", "shukra", "venus"],
-        "saturn": ["blue sapphire", "neelam", "karungali", "iron", "shani", "saturn"],
-        "jupiter": ["yellow sapphire", "pukhraj", "topaz", "rudraksha", "guru", "jupiter"],
-        "mars": ["coral", "moonga", "red", "mangal", "mars", "hanuman"],
-        "mercury": ["emerald", "panna", "green", "budh", "mercury"],
-        "moon": ["pearl", "moti", "chandra", "moon"],
-        "sun": ["ruby", "manik", "surya", "sun"],
-        "rahu": ["hessonite", "gomed", "garnet", "rahu"],
-        "ketu": ["cat eye", "lehsunia", "vaidurya", "ketu"],
-    }
-    topic_product_map = {
-        "marriage": ["venus", "shukra", "diamond", "opal", "love"],
-        "career": ["ruby", "manik", "surya", "sun"],
-        "financial": ["yellow sapphire", "pukhraj", "lakshmi"],
-        "health": ["rudraksha", "healing", "chakra"],
-        "obstacle": ["karungali", "shani", "protection", "kavach"],
-        "luck": ["rudraksha", "navratna", "kavach", "sudarshan"],
-        "protect": ["kavach", "evil eye", "protection", "karungali"],
-    }
-    keywords = set()
-    for planet, terms in planet_product_map.items():
-        if planet in search_text:
-            keywords.update(terms)
-    for topic, terms in topic_product_map.items():
-        if topic in search_text:
-            keywords.update(terms)
-    if not keywords:
-        keywords = {"rudraksha", "kavach", "chakra"}
-    matches = []
-    for p in PRODUCT_CATALOG:
-        title_lower = p.get("Title", "").lower()
-        if any(kw in title_lower for kw in keywords):
-            matches.append(p)
-    if not matches:
-        return [], ""
-    matches = matches[:max_items]
-    product_list = [
-        {"sku": p.get("SKU", ""), "title": p.get("Title", ""), "price": p.get("Sale Price", "")}
-        for p in matches
-    ]
-    prompt_lines = []
-    for p in matches:
-        prompt_lines.append(f"- {p['Title']} (SKU: {p.get('SKU','')}, Rs.{p.get('Sale Price','')})")
-    return product_list, "\n".join(prompt_lines)
+    # No CSV fallback — products come only from Pinecone RAG
+    return [], ""
 
 
 # ── Chart preprocessing — shared module (single source of truth) ──
@@ -342,6 +275,12 @@ def _postprocess(text):
     """Industry-grade post-processing: strip ALL robotic artifacts, enforce pandit tone."""
     if not text or not text.strip():
         return text
+
+    # ── Phase 0: Replace [Name] placeholder with actual name from chart ──
+    _native_name = getattr(_postprocess, '_native_name', None)
+    if _native_name:
+        text = text.replace("[Name]", _native_name)
+        text = text.replace("[name]", _native_name)
 
     # ── Phase 1: Remove leaked internal tokens ──
     for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>",
@@ -395,6 +334,7 @@ def _postprocess(text):
         r'(?:Analysis|Conclusion|Application|Critical\s+Finding|Key\s+[Ff]indings?|Summary|Overview|Introduction|Observation)\s*:',
         r'(?:Motivational\s+Quote|Hindi\s+Quote|Recommended\s+Product|Product\s+Recommendation)\s*:',
         r'(?:Remedial\s+Measures|Remedy|Timing|Digestive\s+System|Immune\s+System|Nervous\s+System)\s*:',
+        r'(?:Career|Financial|Health|Marriage|Education|Gemstone|Remedy)\s+(?:Analysis|Remedy|Recommendation)\s+(?:Based\s+on|for|using)\s+[^\n]{0,60}\s*:',
         r'(?:Career\s+Analysis|Financial\s+Analysis|Health\s+Analysis|Marriage\s+Analysis|Education\s+Analysis)\s*:',
         r'(?:Astrological\s+)?(?:Prediction|Assessment|Evaluation|Interpretation|Reading)\s*:',
         r'(?:Important|Note|Disclaimer|Warning|Caution)\s*:',
@@ -763,12 +703,16 @@ def _generate_response(question: str, chart_data: str = ""):
 
     raw_answer = response.choices[0].message.content or ""
 
-    # Extract birth year from chart for date sanity filter
+    # Extract birth year and native name from chart for postprocess
     _postprocess._birth_year = None
+    _postprocess._native_name = None
     if chart_data:
         _by_match = re.search(r'"date"\s*:\s*"(\d{2})\.(\d{2})\.(\d{4})"', chart_data)
         if _by_match:
             _postprocess._birth_year = int(_by_match.group(3))
+        _name_match = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+        if _name_match:
+            _postprocess._native_name = _name_match.group(1).strip()
     answer = _postprocess(raw_answer)
 
     # Enrich: append Hindi quote + product (only if remedy query)

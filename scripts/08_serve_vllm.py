@@ -17,7 +17,7 @@ from pathlib import Path
 MODEL_PATH = os.environ.get("MODEL_PATH", "./models/merged/")
 HOST = os.environ.get("VLLM_HOST", "0.0.0.0")
 PORT = os.environ.get("VLLM_PORT", "8000")
-MAX_MODEL_LEN = os.environ.get("MAX_MODEL_LEN", "4096")
+MAX_MODEL_LEN = os.environ.get("MAX_MODEL_LEN", "8192")
 GPU_MEM_UTIL = os.environ.get("GPU_MEM_UTIL", "0.90")
 DTYPE = os.environ.get("VLLM_DTYPE", "auto")
 ENABLE_APC = os.environ.get("VLLM_ENABLE_APC", "true").lower() in ("1", "true", "yes")
