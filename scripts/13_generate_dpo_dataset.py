@@ -45,8 +45,8 @@ load_dotenv()
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(description="Generate DPO dataset via OpenAI Batch API")
-parser.add_argument("--count", type=int, default=1100,
-                    help="Number of DPO pairs to generate (default: 1100 for 1000+ after filtering)")
+parser.add_argument("--count", type=int, default=2200,
+                    help="Number of DPO pairs to generate (default: 2200 for 2000+ after filtering)")
 parser.add_argument("--model", type=str, default="gpt-4o",
                     help="OpenAI model for generation")
 parser.add_argument("--output-dir", type=str, default="data/dpo",
@@ -259,6 +259,18 @@ QUESTION_BANK = [
     ("general", "Is astrology real?"),
     ("general", "How does KP astrology work?"),
 
+    # ── Simple factual (8%) — MUST be 1 sentence, critical for brevity training ──
+    ("simple_factual", "What is my lagna?"),
+    ("simple_factual", "What is my rashi?"),
+    ("simple_factual", "What is my nakshatra?"),
+    ("simple_factual", "What is my date of birth?"),
+    ("simple_factual", "Where was I born?"),
+    ("simple_factual", "Mera lagna kya hai?"),
+    ("simple_factual", "Meri rashi kya hai?"),
+    ("simple_factual", "What is my current mahadasha?"),
+    ("simple_factual", "Which dasha am I running right now?"),
+    ("simple_factual", "What is my moon sign?"),
+
     # ── Past events (15%) — age-awareness critical, year-by-year analysis ──
     ("past_events", "When did I get married?"),
     ("past_events", "When did I get my first job?"),
@@ -278,6 +290,10 @@ QUESTION_BANK = [
     ("past_events", "Can you predict when I had a financial setback?"),
     ("past_events", "Was there a period of emotional struggle in my past?"),
     ("past_events", "When did I face the most obstacles in my career?"),
+    ("past_events", "What happened in my career from 2020 to 2025 year by year?"),
+    ("past_events", "Can you predict the month and year of my childbirth?"),
+    ("past_events", "When did I likely have a health issue? Give me the month and year."),
+    ("past_events", "What was the most significant event in 2023 for me?"),
 
     # ── Relationships (8%) ───────────────────────────────────────────────
     ("relationships", "Will my relationship last?"),
@@ -301,8 +317,8 @@ QUESTION_BANK = [
 # Category weights for sampling
 CATEGORY_WEIGHTS = {
     "marriage": 12, "career": 10, "financial": 10, "health": 8,
-    "obstacles": 10, "remedies": 7, "general": 8, "past_events": 15,
-    "relationships": 8, "education": 5,
+    "obstacles": 10, "remedies": 7, "general": 8, "simple_factual": 10,
+    "past_events": 15, "relationships": 8, "education": 5,
 }
 
 

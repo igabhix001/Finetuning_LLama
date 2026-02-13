@@ -74,12 +74,15 @@ if not args.no_rag:
         try:
             from pinecone import Pinecone
         except Exception:
-            # Old pinecone-client package conflicts — remove it and install new one
+            # Old pinecone-client conflicts with new pinecone — nuke both and reinstall
             import subprocess, sys
-            print("  Pinecone: migrating from pinecone-client to pinecone...")
+            print("  Pinecone: migrating to pinecone SDK v5+...")
             subprocess.run([sys.executable, "-m", "pip", "uninstall", "pinecone-client", "-y", "-q"],
                            capture_output=True)
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "pinecone", "-q"])
+            subprocess.run([sys.executable, "-m", "pip", "uninstall", "pinecone", "-y", "-q"],
+                           capture_output=True)
+            subprocess.check_call([sys.executable, "-m", "pip", "install",
+                                   "pinecone>=5.0.0", "--force-reinstall", "-q"])
             from pinecone import Pinecone
         pc_key = os.getenv("PINECONE_API_KEY")
         oai_key = os.getenv("OPENAI_API_KEY")
@@ -439,6 +442,20 @@ def _postprocess(text):
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
 
+    # ── Phase 8.5: Strip model-generated Hindi quotes on non-remedy queries ──
+    _query_type = getattr(_postprocess, '_query_type', 'analysis')
+    if _query_type != "remedy":
+        _quote_patterns = [
+            r'(?:^|\n\n?)\s*(?:Jab samay|Andhera jitna|Sabr ka phal|Jab tak todenge|Graho ki chaal|'
+            r'Mushkilein waqti|Waqt sabka|Har raat ke baad|Kismat likhne|Jab niyat)[^\n]{0,120}\.?\s*$',
+            r'(?:^|\n\n?)\s*"[^"]{10,120}"\s*$',  # quoted Hindi sentences
+        ]
+        for qp in _quote_patterns:
+            result = re.sub(qp, '', "\n".join(cleaned), flags=re.MULTILINE)
+            cleaned = [l for l in result.split("\n")]
+
+    result = "\n".join(cleaned).rstrip()
+
     # ── Phase 9: Clean up whitespace ──
     result = re.sub(r'\n{3,}', '\n\n', result)
     result = re.sub(r'  +', ' ', result)  # collapse double spaces
@@ -454,10 +471,32 @@ def _postprocess(text):
         if last_period > len(result) * 0.4:
             result = result[:last_period + 1]
 
-    # ── Phase 12: Hard sentence cap — max 6 sentences (4 content + quote + product) ──
+    # ── Phase 12: Hard sentence cap based on query type ──
     sentences = re.split(r'(?<=[.!?])\s+', result.strip())
-    if len(sentences) > 6:
+    if _query_type == "simple" and len(sentences) > 2:
+        result = ' '.join(sentences[:2])
+    elif _query_type == "timing" and len(sentences) > 4:
+        result = ' '.join(sentences[:4])
+    elif len(sentences) > 6:
         result = ' '.join(sentences[:6])
+
+    # ── Phase 12.5: Strip trailing filler for simple queries ──
+    if _query_type == "simple":
+        # Remove sentences that explain KP theory after the direct answer
+        _filler_starters = [
+            "ye planetary", "yeh planetary", "this creates", "this is",
+            "in kp astrology", "kp system mein", "ye combination",
+            "yeh combination", "ye positions", "yeh positions",
+            "this planetary", "these planetary",
+        ]
+        sents = re.split(r'(?<=[.!?])\s+', result.strip())
+        kept = []
+        for s in sents:
+            if any(s.strip().lower().startswith(f) for f in _filler_starters):
+                break
+            kept.append(s)
+        if kept:
+            result = ' '.join(kept)
 
     return result
 
@@ -533,12 +572,12 @@ _PRODUCT_TEMPLATES = [
 
 
 def _enrich_response(text, product_text="", is_remedy=False, query_type="analysis"):
-    """Append Hindi quote (only on timing/remedy/analysis) and product (ONLY if remedy query)."""
+    """Append Hindi quote ONLY on remedy/obstacle queries. Product ONLY if remedy query."""
     text_lower = text.lower()
 
-    # Hindi quotes ONLY on timing, remedy, analysis — NOT on simple factual queries
+    # Hindi quotes ONLY on remedy queries — client feedback: no padding on other queries
     additions = []
-    if query_type not in ("simple",):
+    if query_type == "remedy":
         has_quote = any(q[:20].lower() in text_lower for q in HINDI_QUOTES)
         if not has_quote:
             quote_indicators = ["jab samay", "andhera jitna", "sabr ka phal", "har raat ke baad",
@@ -700,6 +739,7 @@ def predict(message, history, chart_data):
     # Extract birth year and native name from chart for postprocess
     _postprocess._birth_year = None
     _postprocess._native_name = None
+    _postprocess._query_type = query_info["type"]
     if chart_data:
         _by_match = re.search(r'"date"\s*:\s*"(\d{2})\.(\d{2})\.(\d{4})"', chart_data)
         if _by_match:
@@ -722,15 +762,19 @@ def predict(message, history, chart_data):
             "significator combinations par depend", "need to examine",
             "i will analyze", "let us examine", "we should look at",
             "requires detailed analysis", "needs careful examination",
+            "specific planetary periods", "cuspal connections",
+            "planetary periods based on", "timing specific planetary",
+            "creates primary significator connection",
+            "need to analyze", "need to look at",
         ]
         if any(p in t for p in deflection_phrases):
             return True
-        # For timing questions: if no month-year pattern found, it's likely vague
-        if query_info["type"] in ("timing", "past_event", "analysis"):
+        # For timing questions: MUST have actual dates (month-year or year range)
+        # Just mentioning "cusp" or "house" without dates is still deflection
+        if query_info["type"] in ("timing", "past_event"):
             has_date = bool(re.search(r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}', text))
-            has_year_range = bool(re.search(r'20\d{2}\s*(?:to|se|-)\s*20\d{2}', text))
-            has_house_cite = bool(re.search(r'houses?\s*\d', text, re.IGNORECASE))
-            if not has_date and not has_year_range and not has_house_cite:
+            has_year_range = bool(re.search(r'20\d{2}\s*(?:to|se|tak|-)\s*20\d{2}', text))
+            if not has_date and not has_year_range:
                 return True
         return False
 
