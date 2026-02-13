@@ -384,7 +384,10 @@ def _postprocess(text):
 
     # ── Phase 5: Remove robotic section headers (comprehensive) ──
     _robotic_headers = [
-        r'(?:Marriage|Career|Financial|Health|Remedy|Obstacle|Education|Relationship)\s+(?:Prediction|Breakthrough|Timing|Gains)?\s*(?:Analysis|Prediction|Report)?(?:\s+(?:using|Based|by|for|of)\s+[^\n]{0,60})?\s*$',
+        r'(?:Marriage|Career|Financial|Health|Remedy|Obstacle|Education|Relationship|Children|Government\s+Job|Foreign\s+Travel|Progeny)\s+(?:Prediction|Breakthrough|Timing|Gains|Yoga)?\s*(?:Analysis|Prediction|Report)?(?:\s+(?:using|Based|by|for|of)\s+[^\n]{0,60})?\s*$',
+        r'(?:Government\s+Job\s+Yoga|Children\s+Prediction|Foreign\s+Travel|Marriage\s+Timing|Career\s+Prospects?)\s+(?:Analysis\s+)?(?:Using|Based\s+on|for|of)\s+(?:Provided\s+)?(?:Chart\s+)?(?:Data|Details|Analysis)\s*$',
+        r'(?:Secondary|Primary|Additional)\s+(?:Connections?|Significators?|Combinations?)\s*$',
+        r'(?:Core|Key|Main)\s+(?:Significators?|Findings?|Observations?)\s*:?\s*$',
         r'(?:Life\s+Events?|Dasha\s+Period|Your\s+Chart)\s+(?:Between|Analysis|by)\s+[^\n]{0,60}\s*$',
         r'(?:Marriage|Career|Financial|Health|Gemstone)\s+(?:timing|Prospects?|Analysis)\s+(?:for|of)\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\s*(?:Ji)?\s*:',
         r'(?:Shaadi|Marriage)\s+(?:ki\s+)?timing\s+(?:ke\s+liye|for)\s+[^:\n]{0,40}:',
@@ -502,6 +505,10 @@ def _postprocess(text):
 
     # ── Phase 7: Replace robotic third-person references ──
     _replacements = [
+        (r'\b[Tt]his\s+native\'s\b', 'your'),
+        (r'\b[Tt]his\s+native\s+has\b', 'You have'),
+        (r'\b[Tt]his\s+native\s+is\b', 'You are'),
+        (r'\b[Tt]his\s+native\b', 'Your'),
         (r'\bThe\s+native\s+has\b', 'You have'),
         (r'\bThe\s+native\s+is\b', 'You are'),
         (r'\bThe\s+native(?:\'s)?\b', 'Your'),
@@ -525,13 +532,18 @@ def _postprocess(text):
         (r'\bBased\s+on\s+(?:the\s+)?(?:extracted|available)\s+chart\s+(?:summary|data),?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+horoscope\s+(?:data|analysis|details),?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?given\s+(?:planetary\s+positions|horoscope\s+data|chart\s+positions)\s*(?:and\s+(?:their\s+)?(?:house\s+)?(?:rulerships|significations))?,?\b', ''),
+        (r'\bBased\s+on\s+your\s+chart\s+(?:analysis|data|configuration)\s*(?:where)?\s*,?\b', ''),
         (r'\bUsing\s+(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?principles,?\b', ''),
+        (r'\b[Aa]nd\s+following\s+KP\s+principles,?\b', ''),
+        (r'\bUsing\s+(?:the\s+)?(?:provided|given)\s+(?:chart|horoscope)\s+(?:data|details),?\b', ''),
+        (r'\blet\s+me\s+address\s+your\s+query\s+about\s+[^.]{0,60}(?:using|through)\s+[^.]{0,40}\.?\b', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
 
     # ── Phase 7.5: Clean up artifacts from Phase 7 replacements ──
     text = re.sub(r'(?:^|(?<=[\.!?]))\s*,\s*', ' ', text)
+    text = re.sub(r'^\s*and\s+', '', text, flags=re.IGNORECASE)
     text = re.sub(r'  +', ' ', text)
     text = re.sub(r'(?<=[a-z]\s)Your\b', 'your', text)
     _native = getattr(_postprocess, '_native_name', '') or ''
@@ -1205,6 +1217,16 @@ def _generate_response(question: str, chart_data: str = "", history: list = None
             "you need to perform remedial measures",
             "need to perform remedial measures involving",
             "examine upcoming saturn",
+            # Round 8c additions (user retest):
+            "carefully examine karna chahiye",
+            "ko carefully examine karna",
+            "let me provide an",
+            "requires careful examination of",
+            "presents exceptional opportunities for",
+            "here's the recommended approach",
+            "focus kariye in specific",
+            "for progeny matters, examine",
+            "for progeny matters examine",
         ]
         if any(p in t for p in deflection_phrases):
             return True
