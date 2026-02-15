@@ -7,8 +7,8 @@ output_dir: "./checkpoints/dpo_lora/"
 logging_dir: "./logs/dpo/"
 
 # Dataset
-train_data: "./data/dpo/prepared/train"
-eval_data: "./data/dpo/prepared/test"
+train_data: "./data/dpo/prepared/train_filtered"
+eval_data: "./data/dpo/prepared/test_filtered"
 
 # DPO hyperparameters
 beta: 0.2  # Aggressive beta to overpower KL regularization
