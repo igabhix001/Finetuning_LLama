@@ -34,6 +34,7 @@ Usage:
 import os
 import sys
 import json
+import re
 import time
 import random
 import argparse
@@ -186,6 +187,18 @@ QUESTION_BANK = [
     ("marriage", "Will there be delay in my marriage?"),
     ("marriage", "Which planet is causing delay in marriage?"),
     ("marriage", "Will I have a happy married life?"),
+    ("marriage", "Shaadi mein kitni der aur lagegi?"),
+    ("marriage", "What kind of partner will I get?"),
+    ("marriage", "Will my spouse be from a different city?"),
+    ("marriage", "Is second marriage indicated in my chart?"),
+    ("marriage", "Kya love marriage hogi ya arranged?"),
+    ("marriage", "My engagement broke off, will I find someone new?"),
+    ("marriage", "At what age will I get married?"),
+    ("marriage", "Is next year good for marriage?"),
+    ("marriage", "Mere liye shaadi ka sabse accha time kab hai?"),
+    ("marriage", "Will my family approve of my partner?"),
+    ("marriage", "Kya mere chart mein vivah yoga hai?"),
+    ("marriage", "My marriage keeps getting delayed, why?"),
 
     # ── Career (12%) ─────────────────────────────────────────────────────
     ("career", "I am confused about my career direction. Should I change fields?"),
@@ -199,6 +212,18 @@ QUESTION_BANK = [
     ("career", "Will I get a transfer this year?"),
     ("career", "Which profession suits me best?"),
     ("career", "Will my business succeed?"),
+    ("career", "Kya mujhe sarkari naukri milegi?"),
+    ("career", "When is the best time to start a new venture?"),
+    ("career", "Will I get selected in this interview?"),
+    ("career", "My boss is creating problems, will it get better?"),
+    ("career", "Should I take up freelancing or a full-time job?"),
+    ("career", "Is partnership business good for me?"),
+    ("career", "When will I get my first job?"),
+    ("career", "Kya mera business chalega?"),
+    ("career", "Will I achieve a senior position in my career?"),
+    ("career", "Is IT field suitable for me according to my chart?"),
+    ("career", "Kab tak promotion milega?"),
+    ("career", "Will I be successful as an entrepreneur?"),
 
     # ── Financial (12%) ──────────────────────────────────────────────────
     ("financial", "When will my financial situation improve?"),
@@ -211,6 +236,17 @@ QUESTION_BANK = [
     ("financial", "Is real estate a good investment for me?"),
     ("financial", "Kya mujhe paisa milega?"),
     ("financial", "Will I face financial loss this year?"),
+    ("financial", "Should I invest in stocks right now?"),
+    ("financial", "Kab tak mera karz utrega?"),
+    ("financial", "Will I win a lottery or sudden wealth?"),
+    ("financial", "Is this year good for buying a house?"),
+    ("financial", "When will I be financially stable?"),
+    ("financial", "Meri income kab badhegi?"),
+    ("financial", "Will I get a loan approved?"),
+    ("financial", "Is gold a good investment for me?"),
+    ("financial", "Will I face bankruptcy?"),
+    ("financial", "When is the best period for financial growth?"),
+    ("financial", "Kya property mein invest karna sahi rahega?"),
 
     # ── Health (10%) ─────────────────────────────────────────────────────
     ("health", "My health has been troubling me lately. What do you see?"),
@@ -222,6 +258,15 @@ QUESTION_BANK = [
     ("health", "Will my surgery be successful?"),
     ("health", "Is this a good time for medical treatment?"),
     ("health", "My mother's health is bad, will she recover?"),
+    ("health", "Kya meri health mein improvement hoga?"),
+    ("health", "I have been having sleep problems, what does my chart say?"),
+    ("health", "Will my father's health improve?"),
+    ("health", "Is there any mental health concern in my chart?"),
+    ("health", "When is the best time for a medical procedure?"),
+    ("health", "Kya meri surgery safe rahegi?"),
+    ("health", "I keep falling sick, is there a planetary reason?"),
+    ("health", "Will my eye problems get better?"),
+    ("health", "When will this health issue resolve?"),
 
     # ── Obstacles/doshas (12%) ───────────────────────────────────────────
     ("obstacles", "Why am I facing so many obstacles in everything I do?"),
@@ -234,6 +279,15 @@ QUESTION_BANK = [
     ("obstacles", "Everything was going well, suddenly everything collapsed. Why?"),
     ("obstacles", "Is there any Pitra Dosha affecting me?"),
     ("obstacles", "Why am I always unlucky?"),
+    ("obstacles", "Mere saath bura kyun hota hai?"),
+    ("obstacles", "Is there Shani Dosha in my chart?"),
+    ("obstacles", "Why do my plans always fail at the last moment?"),
+    ("obstacles", "Kya mujh par kisi ki nazar lag gayi hai?"),
+    ("obstacles", "I feel blocked in every direction, what is happening?"),
+    ("obstacles", "Is there any graha dosha causing my problems?"),
+    ("obstacles", "Why do I lose money every time I invest?"),
+    ("obstacles", "Kya mere chart mein Rahu dosha hai?"),
+    ("obstacles", "Will these obstacles ever end?"),
 
     # ── Remedies (8%) — ONLY category where product reco is appropriate ──
     ("remedies", "What remedies should I do for my marriage?"),
@@ -246,6 +300,16 @@ QUESTION_BANK = [
     ("remedies", "What should I do to remove obstacles?"),
     ("remedies", "Which mantra should I chant for health?"),
     ("remedies", "Suggest some remedies for my chart."),
+    ("remedies", "Kya mujhe neelam pehenna chahiye?"),
+    ("remedies", "Which Rudraksha is best for me?"),
+    ("remedies", "Mere liye kaun sa ratna accha hai?"),
+    ("remedies", "How can I strengthen my lagna lord?"),
+    ("remedies", "What fasting should I do for better luck?"),
+    ("remedies", "Kya Hanuman Chalisa padhna helpful hoga?"),
+    ("remedies", "Should I donate anything to improve my chart?"),
+    ("remedies", "Which day is auspicious for me to start remedies?"),
+    ("remedies", "How to reduce the malefic effects of Saturn?"),
+    ("remedies", "Rahu ke liye kya upay karein?"),
 
     # ── General/non-astro chat (10%) — critical for client feedback ──────
     ("general", "What is my name?"),
@@ -258,6 +322,16 @@ QUESTION_BANK = [
     ("general", "Can you tell my future?"),
     ("general", "Is astrology real?"),
     ("general", "How does KP astrology work?"),
+    ("general", "Aap kaun hain?"),
+    ("general", "Kya aap sach mein astrologer hain?"),
+    ("general", "What is KP astrology?"),
+    ("general", "How accurate are your predictions?"),
+    ("general", "Good morning"),
+    ("general", "Dhanyavaad"),
+    ("general", "Aap kaise kaam karte hain?"),
+    ("general", "Can I trust your predictions?"),
+    ("general", "What is the difference between KP and Vedic astrology?"),
+    ("general", "Do you believe in astrology yourself?"),
 
     # ── Simple factual (8%) — MUST be 1 sentence, critical for brevity training ──
     ("simple_factual", "What is my lagna?"),
@@ -270,6 +344,16 @@ QUESTION_BANK = [
     ("simple_factual", "What is my current mahadasha?"),
     ("simple_factual", "Which dasha am I running right now?"),
     ("simple_factual", "What is my moon sign?"),
+    ("simple_factual", "Mera nakshatra kya hai?"),
+    ("simple_factual", "What is my sun sign?"),
+    ("simple_factual", "What is my ascendant?"),
+    ("simple_factual", "Meri janam tithi kya hai?"),
+    ("simple_factual", "What is today's date?"),
+    ("simple_factual", "How old am I?"),
+    ("simple_factual", "Meri umar kya hai?"),
+    ("simple_factual", "What is my lagna lord?"),
+    ("simple_factual", "Which antardasha am I in right now?"),
+    ("simple_factual", "Abhi kaun sa dasha chal raha hai?"),
 
     # ── Past events (15%) — age-awareness critical, year-by-year analysis ──
     ("past_events", "When did I get married?"),
@@ -294,6 +378,18 @@ QUESTION_BANK = [
     ("past_events", "Can you predict the month and year of my childbirth?"),
     ("past_events", "When did I likely have a health issue? Give me the month and year."),
     ("past_events", "What was the most significant event in 2023 for me?"),
+    ("past_events", "Kya 2022 mein mere saath kuch bura hua tha?"),
+    ("past_events", "When did I change schools or colleges?"),
+    ("past_events", "Was 2020 a turning point in my life?"),
+    ("past_events", "Did I lose someone close in the past few years?"),
+    ("past_events", "When did I face my biggest financial crisis?"),
+    ("past_events", "Kab meri pehli naukri lagi thi?"),
+    ("past_events", "What happened in my personal life in 2021?"),
+    ("past_events", "Did I travel abroad in the past 3 years?"),
+    ("past_events", "When did my relationship start or end?"),
+    ("past_events", "Was there a family dispute in my past?"),
+    ("past_events", "Kya 2024 mein koi bada event hua tha mere life mein?"),
+    ("past_events", "When did I face academic failure?"),
 
     # ── Relationships (8%) ───────────────────────────────────────────────
     ("relationships", "Will my relationship last?"),
@@ -304,6 +400,16 @@ QUESTION_BANK = [
     ("relationships", "Will I find true love?"),
     ("relationships", "Kya mera rishta tikau hai?"),
     ("relationships", "My in-laws are creating problems, will it get better?"),
+    ("relationships", "Kya mujhe bacche honge?"),
+    ("relationships", "When is the best time for having a child?"),
+    ("relationships", "Will my ex come back?"),
+    ("relationships", "Is there a chance of divorce in my chart?"),
+    ("relationships", "Kya mera partner sahi hai mere liye?"),
+    ("relationships", "Will my long-distance relationship work?"),
+    ("relationships", "My parents don't approve of my relationship, what should I do?"),
+    ("relationships", "When will I meet my soulmate?"),
+    ("relationships", "Kya meri shaadi tut sakti hai?"),
+    ("relationships", "Will my family life be peaceful?"),
 
     # ── Education (5%) ───────────────────────────────────────────────────
     ("education", "Will I pass my exam?"),
@@ -312,6 +418,14 @@ QUESTION_BANK = [
     ("education", "Will I get admission in a good college?"),
     ("education", "Kya mera competitive exam clear hoga?"),
     ("education", "Is higher education beneficial for me?"),
+    ("education", "Kya mujhe videsh mein padhai karni chahiye?"),
+    ("education", "Will I get a scholarship?"),
+    ("education", "When is the best time to start a new course?"),
+    ("education", "Should I do MBA or focus on my current career?"),
+    ("education", "Kya mera UPSC clear hoga?"),
+    ("education", "Will I succeed in medical entrance exams?"),
+    ("education", "Is research or PhD good for me?"),
+    ("education", "Kab tak meri padhai complete hogi?"),
 
     # ── Safety (5%) — death/health fear queries → compassionate redirect ──
     ("safety", "Will I die soon? I am scared about my health."),
@@ -320,6 +434,12 @@ QUESTION_BANK = [
     ("safety", "Is there any serious illness in my chart?"),
     ("safety", "Will I have a fatal accident?"),
     ("safety", "I am scared about my longevity."),
+    ("safety", "Meri maut kab hogi?"),
+    ("safety", "Will something bad happen to me this year?"),
+    ("safety", "Kya meri zindagi khatre mein hai?"),
+    ("safety", "Is there any life-threatening period in my chart?"),
+    ("safety", "I am afraid I won't live long, what does my chart say?"),
+    ("safety", "Kya mujhe koi badi bimari hogi?"),
 
     # ── Emotional (5%) — empathetic tone required ─────────────────────────
     ("emotional", "I am going through a very tough time. Why is everything going wrong?"),
@@ -328,12 +448,24 @@ QUESTION_BANK = [
     ("emotional", "Mujhe bahut tension ho rahi hai, kya hoga mera?"),
     ("emotional", "Everything is falling apart. Is there any hope?"),
     ("emotional", "I am very worried about my future."),
+    ("emotional", "Mera mann bahut udaas rehta hai, kya karein?"),
+    ("emotional", "I feel like giving up on everything."),
+    ("emotional", "Nobody understands me, will things change?"),
+    ("emotional", "Bahut pareshan hun, kab tak yeh mushkilein rahegi?"),
+    ("emotional", "I lost my confidence, will I recover?"),
+    ("emotional", "Life feels meaningless right now. Any hope in my chart?"),
 
     # ── Follow-up (3%) — context-aware responses ──────────────────────────
     ("follow_up", "You mentioned Venus dasha earlier. Can you explain more?"),
     ("follow_up", "What about after that period? What comes next?"),
     ("follow_up", "And what about my career during that same time?"),
     ("follow_up", "Can you give me more details about the 7th house?"),
+    ("follow_up", "Aur uske baad kya hoga?"),
+    ("follow_up", "You said Saturn is causing problems. How long will it last?"),
+    ("follow_up", "What about my health during that same dasha?"),
+    ("follow_up", "Can you tell me more about the next antardasha?"),
+    ("follow_up", "Aur marriage ke baare mein bhi bataiye us time?"),
+    ("follow_up", "What happens after the current pratyantar ends?"),
 ]
 
 # Category weights for sampling
@@ -487,64 +619,59 @@ A: "[Name] ji, chinta mat karein — jyotish aapko guide karne ke liye hai, dara
 
 Return ONLY the response text. No labels, no "Chosen:", no explanation."""
 
-REJECTED_SYSTEM_PROMPT = """You are generating a BAD/ROBOTIC response for a KP astrology AI chatbot training dataset.
+REJECTED_SYSTEM_PROMPT = """You are generating a BAD response for a KP astrology AI chatbot training dataset.
 This response represents what a poorly trained model produces — every client complaint embodied.
 
-RULES — do ALL of these wrong things simultaneously:
+*** CRITICAL LENGTH RULE — MATCH THE CHOSEN LENGTH ***
+Your response MUST be 1-4 sentences, same as the ideal response.
+DO NOT write paragraphs, long analyses, or verbose explanations.
+The badness must come from CONTENT and STYLE, NOT from being longer.
+Write a SHORT but WRONG response.
+
+Pick 3-4 of these wrong patterns and combine them in your short response:
 
 LANGUAGE (wrong):
 - ALWAYS respond in Hinglish regardless of what language the user writes in.
-- Mix Hindi and English randomly even when the user wrote in pure English.
+- Mix Hindi and English randomly: "According to aapke chart mein, the native ka marriage yoga hai."
 - Say "the native" instead of using the person's name.
-- Say "Main aapka KP astrology assistant hun" when asked who you are.
 
 FORMAT (wrong):
-- Make it LONG: 4-5 paragraphs minimum, even for simple questions.
-- Use robotic headers: "**Analysis:**", "**Conclusion:**", "**Critical Finding:**"
-- Use **bold** markdown formatting liberally.
-- Include numbered lists or bullet points.
-- Add "Confidence: medium" somewhere but don't explain WHY confidence is medium.
+- Start with "**Analysis:**" or "According to KP principles..." even in a short response.
+- Add "Confidence: medium" at the end.
+- Use **bold** on planet names.
 
 DATES (wrong):
-- Use ISO format: "2025-10", "2028-01" instead of "Oct 2025", "Jan 2028".
-- Give only broad multi-year ranges: "2028 to 2033" without ANY month-level narrowing.
-- NEVER mention pratyantar dashas for precision — keep it vague.
-- Use words like "upcoming period", "favorable time", "soon" instead of actual dates.
+- Use ISO format: "2025-10" instead of "Oct 2025".
+- Give only vague ranges: "between 2028 to 2033" without month-level precision.
+- NEVER mention pratyantar dashas.
+- Say "upcoming period" or "favorable time" instead of actual dates.
 
-CURRENT-DATE AWARENESS (wrong):
-- Treat past dates as future: say "will begin" for dates that have already passed.
-- If today is Feb 2026, still say "Oct 2025 is upcoming" — get the tense wrong.
-- Use "upcoming" and "in the near future" instead of actual months.
-
-AGE PLAUSIBILITY (wrong):
-- Don't check the person's age at all.
-- Predict marriage at age 45 without flagging it as late.
-- Predict career changes at age 14 without noting it's school age.
-- For a 20-year-old, predict past events that couldn't have happened (house purchase, divorce).
+TENSE (wrong):
+- Treat past dates as future: "2024-10 will be a significant period" (when today is Feb 2026).
+- Use "upcoming" for dates that already passed.
 
 CONTENT (wrong):
-- DON'T answer the question directly. Start with methodology explanation.
-- Explain KP rules and principles before giving any answer.
-- Include filler: "According to KP principles...", "Based on the grounding rule..."
-- For "What is my name?" — ignore the question and give a marriage analysis instead.
+- Don't answer directly. Start with "According to KP principles..." methodology filler.
+- Give no justification — no sub-lord, no cusp, no house numbers.
+- For simple questions like "What is my name?" — give a vague astrology answer instead.
 
 PRODUCTS (wrong):
-- ALWAYS force a product recommendation at the end, even for "What is my name?"
-- Make it feel like spam: "Is samay ke liye hamara [random product] try karein"
-
-QUOTES (wrong):
-- ALWAYS force a Hindi quote, even when it doesn't fit.
-- Put it as a labeled section: "Motivational Quote: ..."
+- Force a product recommendation: "Hamara [product] try karein" even for non-remedy questions.
 
 SAFETY (wrong):
-- For death/health fear queries, give scary predictions: "Your chart shows 8th house affliction..."
-- Mention maraka planets, death-inflicting periods, fatal timings.
+- For death/health queries, be scary: "8th house affliction indicates health risks in the upcoming period."
 - Do NOT reassure or redirect to medical professionals.
 
 EMOTIONAL (wrong):
-- For emotional queries, be clinical and cold. No empathy.
-- Start with methodology: "According to KP principles, the 8th house..."
-- Do NOT acknowledge the person's feelings or struggles.
+- Be cold and clinical. No empathy. Start with methodology.
+
+EXAMPLES of short bad responses:
+
+Q: "When will I get married?" → "According to KP principles, the native ka 7th house mein marriage yoga hai. The upcoming period 2028 to 2033 mein marriage hone ki possibility hai. Confidence: medium. Hamara Marriage Consultation Package try karein."
+
+Q: "What is my name?" → "According to KP principles, the native ka chart mein lagna lord **Venus** hai jo ki relationships aur personality ko govern karta hai. Confidence: medium."
+
+Q: "Kab marunga?" → "The native's 8th house shows affliction from **Saturn** and **Rahu**. The maraka period 2029-2031 is significant for health concerns. Confidence: medium."
 
 Return ONLY the response text. No labels, no "Rejected:", no explanation."""
 
@@ -811,7 +938,7 @@ def create_batch_file(combos: list, chunk_idx: int = 0, idx_offset: int = 0) -> 
                         {"role": "user", "content": user_msg},
                     ],
                     "temperature": 0.9,
-                    "max_tokens": 800,
+                    "max_tokens": 300,
                 }
             }
             f.write(json.dumps(rejected_req, ensure_ascii=False) + "\n")
@@ -945,15 +1072,34 @@ def download_and_pair(batch_id: str):
         rejected_text = rejected_map[idx]["text"]
         category = chosen_map[idx]["category"]
 
-        # Basic quality filter
+        # ── Quality filters (industry-standard DPO pair validation) ──
+        # F1: Too short
         if len(chosen_text) < 20 or len(rejected_text) < 20:
             continue
+        # F2: Identical
         if chosen_text == rejected_text:
             continue
-
-        # Check chosen doesn't have robotic patterns
+        # F3: Chosen has robotic patterns (wrong label)
         robotic = ["**", "Analysis:", "Conclusion:", "Confidence:", "Critical Finding:"]
         if any(r in chosen_text for r in robotic):
+            continue
+        # F4: Chosen has paragraph breaks (format violation)
+        if "\n" in chosen_text:
+            continue
+        # F5: Chosen has ISO dates
+        if re.search(r"\d{4}-\d{2}(?![\d-])", chosen_text) and not re.search(r"\d{4}-\d{4}", chosen_text):
+            continue
+        # F6: Chosen uses "the native" instead of name
+        if "the native" in chosen_text.lower():
+            continue
+        # F7: Chosen >4 sentences (verbosity)
+        sent_count = len([s for s in re.split(r"[.!?]+", chosen_text) if s.strip()])
+        if sent_count > 4:
+            continue
+        # F8: Product spam in non-remedy chosen
+        product_words = ["rudraksha", "bracelet", "pendant", "kavach", "mala",
+                         "try karein", "hamara", "wear our", "package"]
+        if category != "remedies" and any(w in chosen_text.lower() for w in product_words):
             continue
 
         pair = {
