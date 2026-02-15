@@ -11,26 +11,26 @@ train_data: "./data/dpo/prepared/train"
 eval_data: "./data/dpo/prepared/test"
 
 # DPO hyperparameters
-beta: 0.5  # Strong KL constraint — prevents reward hacking on small dataset
+beta: 0.1  # Standard DPO beta for stable learning
 loss_type: "sigmoid"  # Standard DPO loss
-label_smoothing: 0.1  # cDPO: assume 10% label noise to prevent reward hacking
+label_smoothing: 0.0  # Remove label smoothing for clearer signal
 
 # Training hyperparameters
-num_train_epochs: 3  # More epochs; early stopping will halt when eval_loss plateaus
+num_train_epochs: 3
 per_device_train_batch_size: 1
 per_device_eval_batch_size: 1
-gradient_accumulation_steps: 16  # Effective batch size: 16 (smoother gradients)
-learning_rate: 2.0e-6  # Conservative: 3e-6 still overfit by epoch 0.6
-warmup_ratio: 0.15
-weight_decay: 0.05  # Stronger regularization
+gradient_accumulation_steps: 16  # Effective batch size: 16
+learning_rate: 5.0e-6  # Increased for better learning
+warmup_ratio: 0.1  # Shorter warmup
+weight_decay: 0.01  # Lighter regularization
 
 # Early stopping
-early_stopping_patience: 2  # Stop quickly if eval_loss doesn't improve for 2 evals
+early_stopping_patience: 3  # More patience for convergence
 
 # Logging and checkpointing
-logging_steps: 5
-eval_steps: 10   # Eval very frequently to catch the sweet spot
-save_steps: 10   # Save at every eval to preserve best checkpoint
+logging_steps: 10
+eval_steps: 50   # Less frequent eval to allow learning
+save_steps: 50
 save_total_limit: 3
 evaluation_strategy: "steps"
 load_best_model_at_end: true
@@ -43,11 +43,11 @@ bf16: true
 gradient_checkpointing: true
 optim: "paged_adamw_8bit"
 lr_scheduler_type: "cosine"
-max_grad_norm: 0.3  # Tighter clipping
+max_grad_norm: 1.0  # Allow larger gradients
 
 # Context and tokenization
-max_length: 1024  # Max combined length (prompt + chosen/rejected)
-max_prompt_length: 512  # Max prompt length
+max_length: 2048  # Max combined length (prompt + chosen/rejected)
+max_prompt_length: 1536  # Max prompt length
 
 # Memory optimization
 gradient_checkpointing_kwargs:
