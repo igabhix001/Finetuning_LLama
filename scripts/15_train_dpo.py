@@ -125,8 +125,32 @@ if tokenizer.pad_token is None:
 
 print(f"   ✓ Model loaded: {model.num_parameters():,} parameters")
 
-# ── Apply DPO LoRA ────────────────────────────────────────────────────────────
-print("\n2. Applying DPO LoRA adapter...")
+# ── Load reference model (CRITICAL for DPO) ─────────────────────────────────
+print("\n2. Loading reference model (frozen copy for DPO)...")
+# DPO requires a separate reference model to compute KL divergence
+# Without this, policy == reference → zero preference signal → loss stuck at 0.6931
+if Path(model_path).exists():
+    ref_model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        torch_dtype=model_dtype,
+        device_map="auto",
+        trust_remote_code=True,
+    )
+else:
+    ref_model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        token=hf_token,
+        torch_dtype=model_dtype,
+        device_map="auto",
+        trust_remote_code=True,
+    )
+ref_model.eval()  # Freeze reference model
+for param in ref_model.parameters():
+    param.requires_grad = False
+print(f"   ✓ Reference model loaded and frozen")
+
+# ── Apply DPO LoRA to policy model ───────────────────────────────────────────
+print("\n3. Applying DPO LoRA adapter to policy model...")
 lora_config = LoraConfig(
     r=lora_config_dict["r"],
     lora_alpha=lora_config_dict["lora_alpha"],
@@ -138,11 +162,11 @@ lora_config = LoraConfig(
 )
 
 model = get_peft_model(model, lora_config)
-print("   ✓ DPO LoRA applied")
+print("   ✓ DPO LoRA applied to policy model")
 model.print_trainable_parameters()
 
 # ── Load DPO dataset ─────────────────────────────────────────────────────────
-print("\n3. Loading DPO dataset...")
+print("\n4. Loading DPO dataset...")
 train_path = Path(config["train_data"])
 eval_path = Path(config["eval_data"])
 
@@ -159,7 +183,7 @@ if eval_dataset:
     print(f"   ✓ Eval: {len(eval_dataset)} pairs")
 
 # ── DPO Training config ──────────────────────────────────────────────────────
-print("\n4. Setting up DPO training configuration...")
+print("\n5. Setting up DPO training configuration...")
 output_dir = Path(config["output_dir"])
 output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -222,7 +246,7 @@ print(f"     Early stopping: patience={es_patience} evals on eval_loss")
 print(f"     Health guard: stop if margins > 3.0 or loss < 0.05")
 
 # ── Initialize DPO Trainer ────────────────────────────────────────────────────
-print("\n5. Initializing DPO Trainer...")
+print("\n6. Initializing DPO Trainer...")
 callbacks = [
     EarlyStoppingCallback(early_stopping_patience=es_patience),
     DPOHealthCallback(max_margin=3.0, min_loss=0.05),
@@ -230,6 +254,7 @@ callbacks = [
 
 trainer = DPOTrainer(
     model=model,
+    ref_model=ref_model,  # CRITICAL: Pass separate reference model
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
@@ -246,7 +271,7 @@ print(f"   ✓ Trainer initialized")
 print(f"     Total training steps: ~{total_steps}")
 
 # ── Train ─────────────────────────────────────────────────────────────────────
-print("\n6. Starting DPO training...")
+print("\n7. Starting DPO training...")
 print("=" * 80)
 print("Training in progress... Monitor with:")
 print(f"  tensorboard --logdir={logging_dir}")
@@ -266,7 +291,7 @@ except Exception as e:
     sys.exit(1)
 
 # ── Save final DPO LoRA ──────────────────────────────────────────────────────
-print("\n7. Saving DPO LoRA adapters...")
+print("\n8. Saving DPO LoRA adapters...")
 final_output = output_dir / "final"
 final_output.mkdir(parents=True, exist_ok=True)
 
