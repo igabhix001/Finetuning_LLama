@@ -1,0 +1,57 @@
+# DPO Training Configuration — FIXED VERSION
+# Stage 3: Preference Optimization (on top of merged DAPT+SFT model)
+
+# Model paths
+model_name: "./models/merged_sft/"  # Merged DAPT+SFT model
+output_dir: "./checkpoints/dpo_lora/"
+logging_dir: "./logs/dpo/"
+
+# Dataset
+train_data: "./data/dpo/prepared/train"
+eval_data: "./data/dpo/prepared/test"
+
+# DPO hyperparameters — FIXED
+beta: 0.1  # FIXED: Was 0.5 (too high). Standard DPO beta for stable learning
+loss_type: "sigmoid"  # Standard DPO loss
+label_smoothing: 0.0  # FIXED: Was 0.1. Remove label smoothing for clearer signal
+
+# Training hyperparameters — FIXED
+num_train_epochs: 3
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 16  # Effective batch size: 16
+learning_rate: 5.0e-6  # FIXED: Was 2e-6 (too low). Increased for better learning
+warmup_ratio: 0.1  # FIXED: Was 0.15. Shorter warmup
+weight_decay: 0.01  # FIXED: Was 0.05. Lighter regularization
+
+# Early stopping
+early_stopping_patience: 3  # FIXED: Was 2. More patience for convergence
+
+# Logging and checkpointing
+logging_steps: 10
+eval_steps: 50   # FIXED: Was 10. Less frequent eval to allow learning
+save_steps: 50
+save_total_limit: 3
+evaluation_strategy: "steps"
+load_best_model_at_end: true
+metric_for_best_model: "eval_loss"
+greater_is_better: false
+
+# Optimization for RTX 6000 Ada
+fp16: false
+bf16: true
+gradient_checkpointing: true
+optim: "paged_adamw_8bit"
+lr_scheduler_type: "cosine"
+max_grad_norm: 1.0  # FIXED: Was 0.3. Allow larger gradients
+
+# Context and tokenization — FIXED
+max_length: 2048  # FIXED: Was 1024. Chart YAML needs more space
+max_prompt_length: 1536  # FIXED: Was 512. Chart YAML is ~1500 chars
+
+# Memory optimization
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+
+# Reporting
+report_to: "tensorboard"
