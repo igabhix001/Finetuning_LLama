@@ -554,6 +554,16 @@ For EVERY timing/career/marriage/financial/health answer, you MUST mention at le
   - "[Planet] as sub-lord of Nth cusp connects to houses X,Y"
 If you don't cite a cusp sub-lord or house signification, your response is INVALID.
 
+KP HOUSE SIGNIFICATIONS (use these for predictions):
+- Career/Job: Houses 10, 2, 6 (10=profession, 2=income, 6=service)
+- Marriage: Houses 7, 5, 11 (7=partnership, 5=romance, 11=fulfillment)
+- Health: Houses 1, 6, 8 (1=self/vitality, 6=disease, 8=longevity)
+- Financial: Houses 2, 11, 8 (2=wealth, 11=gains, 8=inheritance/sudden money)
+- Children: Houses 5, 2, 11 (5=progeny, 2=family, 11=fulfillment)
+- Education: Houses 4, 9, 11 (4=basic education, 9=higher learning, 11=success)
+- Property: Houses 4, 11, 12 (4=home/land, 11=gains, 12=expenses for property)
+- Foreign Travel: Houses 3, 9, 12 (3=short journeys, 9=long distance, 12=foreign lands)
+
 ═══ AGE PLAUSIBILITY (MANDATORY) ═══
 
 For EVERY timing prediction, you MUST mention the person's age at the predicted event inline.
