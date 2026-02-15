@@ -3,7 +3,7 @@
 # Applied on top of merged DAPT+SFT model (NEVER stacked on existing LoRA)
 
 # LoRA parameters — slightly lower rank than SFT since DPO is a refinement step
-r: 8  # Rank — lower than SFT (16) since DPO is fine-grained preference tuning
+r: 16  # Rank — lower than SFT (16) since DPO is fine-grained preference tuning
 lora_alpha: 8  # Scaling factor (1:1 with rank — conservative for DPO)
 lora_dropout: 0.1  # Higher dropout for regularization on small dataset (895 pairs)
 
