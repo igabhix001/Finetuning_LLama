@@ -1,44 +1,26 @@
 {
-  "created_at": "2026-02-13T22:03:57.729512",
+  "created_at": "2026-02-16T00:57:40.940444",
   "model": "gpt-4o",
-  "total_pairs": 2200,
+  "total_pairs": 1000,
   "chunk_size": 400,
-  "num_chunks": 6,
+  "num_chunks": 3,
   "chunks": [
     {
       "chunk_idx": 0,
-      "batch_id": "batch_698f52298d108190ba2075b29c03c4a8",
+      "batch_id": "batch_69921e0c54cc8190aedf7fabfd6a476d",
       "idx_offset": 0,
       "num_pairs": 400
     },
     {
       "chunk_idx": 1,
-      "batch_id": "batch_698f523a5d5c8190ac823af3a9026165",
+      "batch_id": "batch_69921e1e4f988190a22466a2214cf231",
       "idx_offset": 400,
       "num_pairs": 400
     },
     {
       "chunk_idx": 2,
-      "batch_id": "batch_698f524ab7f48190b1b0a2eed5b55240",
+      "batch_id": "batch_69921e2a2fc8819083d4fc17ed0930d5",
       "idx_offset": 800,
-      "num_pairs": 400
-    },
-    {
-      "chunk_idx": 3,
-      "batch_id": "batch_698f525a73308190af4a3a17ac13d237",
-      "idx_offset": 1200,
-      "num_pairs": 400
-    },
-    {
-      "chunk_idx": 4,
-      "batch_id": "batch_698f5269bde48190aaad2d90dde8d2a6",
-      "idx_offset": 1600,
-      "num_pairs": 400
-    },
-    {
-      "chunk_idx": 5,
-      "batch_id": "batch_698f5273a5ec8190b4778b6e456ec473",
-      "idx_offset": 2000,
       "num_pairs": 200
     }
   ]

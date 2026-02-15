@@ -1,0 +1,5531 @@
+{
+  "name": "Varun Kapoor",
+  "gender": "Male",
+  "birthDetails": {
+    "date": "19.07.1991",
+    "time": "10.55.00",
+    "day": "Friday",
+    "place": "Lat: 9.9679032, Lon: 76.2444378",
+    "longitude": 76.2444378,
+    "latitude": 9.9679032,
+    "lagna": "Virgo",
+    "lagnaLord": "MER",
+    "rasi": "Libra",
+    "rasiLord": "VEN",
+    "nakshatra": "Swati",
+    "nakshatraLord": "RAH",
+    "sunrise": "06.00.40",
+    "sunset": "17.47.04",
+    "tithi": "Pratipad",
+    "yoga": "Sula",
+    "karana": "Rolav",
+    "ayan": "23-39-10",
+    "ayanType": "K. P. New"
+  },
+  "planetaryPositions": {
+    "Sun": 92.4194671049984,
+    "Moon": 189.3576080049984,
+    "Mercury": 118.66782070499842,
+    "Venus": 130.61516180499842,
+    "Mars": 128.62443920499842,
+    "Jupiter": 114.4390764049984,
+    "Saturn": 280.43104720499844,
+    "Uranus": 257.5808404049984,
+    "Neptune": 261.42670020499844,
+    "Pluto": 203.93694440499843,
+    "Rahu": 264.93223690499843,
+    "Ketu": 84.93223690499842
+  },
+  "planetKP": {
+    "Sun": {
+      "degree": 92.4194671049984,
+      "rashi": "Cancer",
+      "rashiLord": "MON",
+      "nakshatra": "Punarvasu",
+      "nakshatraLord": "JUP",
+      "sub": "RAH",
+      "subSub": "MER"
+    },
+    "Moon": {
+      "degree": 189.3576080049984,
+      "rashi": "Libra",
+      "rashiLord": "VEN",
+      "nakshatra": "Swati",
+      "nakshatraLord": "RAH",
+      "sub": "JUP",
+      "subSub": "MAR"
+    },
+    "Mercury": {
+      "degree": 118.66782070499842,
+      "rashi": "Cancer",
+      "rashiLord": "MON",
+      "nakshatra": "Ashlesha",
+      "nakshatraLord": "MER",
+      "sub": "SAT",
+      "subSub": "SAT"
+    },
+    "Venus": {
+      "degree": 130.61516180499842,
+      "rashi": "Leo",
+      "rashiLord": "SUN",
+      "nakshatra": "Magha",
+      "nakshatraLord": "KET",
+      "sub": "SAT",
+      "subSub": "MER"
+    },
+    "Mars": {
+      "degree": 128.62443920499842,
+      "rashi": "Leo",
+      "rashiLord": "SUN",
+      "nakshatra": "Magha",
+      "nakshatraLord": "KET",
+      "sub": "RAH",
+      "subSub": "MON"
+    },
+    "Jupiter": {
+      "degree": 114.4390764049984,
+      "rashi": "Cancer",
+      "rashiLord": "MON",
+      "nakshatra": "Ashlesha",
+      "nakshatraLord": "MER",
+      "sub": "MAR",
+      "subSub": "JUP"
+    },
+    "Saturn": {
+      "degree": 280.43104720499844,
+      "rashi": "Capricorn",
+      "rashiLord": "SAT",
+      "nakshatra": "Shravana",
+      "nakshatraLord": "MON",
+      "sub": "MON",
+      "subSub": "RAH"
+    },
+    "Uranus": {
+      "degree": 257.5808404049984,
+      "rashi": "Sagittarius",
+      "rashiLord": "JUP",
+      "nakshatra": "Purva Ashadha",
+      "nakshatraLord": "VEN",
+      "sub": "MON",
+      "subSub": "VEN"
+    },
+    "Neptune": {
+      "degree": 261.42670020499844,
+      "rashi": "Sagittarius",
+      "rashiLord": "JUP",
+      "nakshatra": "Purva Ashadha",
+      "nakshatraLord": "VEN",
+      "sub": "JUP",
+      "subSub": "VEN"
+    },
+    "Pluto": {
+      "degree": 203.93694440499843,
+      "rashi": "Libra",
+      "rashiLord": "VEN",
+      "nakshatra": "Vishakha",
+      "nakshatraLord": "JUP",
+      "sub": "MER",
+      "subSub": "MAR"
+    },
+    "Rahu": {
+      "degree": 264.93223690499843,
+      "rashi": "Sagittarius",
+      "rashiLord": "JUP",
+      "nakshatra": "Purva Ashadha",
+      "nakshatraLord": "VEN",
+      "sub": "MER",
+      "subSub": "JUP"
+    },
+    "Ketu": {
+      "degree": 84.93223690499842,
+      "rashi": "Gemini",
+      "rashiLord": "MER",
+      "nakshatra": "Punarvasu",
+      "nakshatraLord": "JUP",
+      "sub": "KET",
+      "subSub": "SUN"
+    }
+  },
+  "cuspalPositions": {
+    "1": 160.40755470499843,
+    "2": 191.06852560499843,
+    "3": 221.02246920499843,
+    "4": 250.02719530499843,
+    "5": 279.2582976049984,
+    "6": 309.64740110499844,
+    "7": 340.4075547049984,
+    "8": 11.068525604998417,
+    "9": 41.022469204998416,
+    "10": 70.02719530499841,
+    "11": 99.2582976049984,
+    "12": 129.64740110499844
+  },
+  "cuspKP": {
+    "1": {
+      "degree": 160.40755470499843,
+      "rashi": "Virgo",
+      "rashiLord": "MER",
+      "nakshatra": "Hasta",
+      "nakshatraLord": "MON",
+      "sub": "MON",
+      "subSub": "RAH"
+    },
+    "2": {
+      "degree": 191.06852560499843,
+      "rashi": "Libra",
+      "rashiLord": "VEN",
+      "nakshatra": "Swati",
+      "nakshatraLord": "RAH",
+      "sub": "SAT",
+      "subSub": "JUP"
+    },
+    "3": {
+      "degree": 221.02246920499843,
+      "rashi": "Scorpio",
+      "rashiLord": "MAR",
+      "nakshatra": "Anuradha",
+      "nakshatraLord": "SAT",
+      "sub": "MON",
+      "subSub": "MAR"
+    },
+    "4": {
+      "degree": 250.02719530499843,
+      "rashi": "Sagittarius",
+      "rashiLord": "JUP",
+      "nakshatra": "Mula",
+      "nakshatraLord": "KET",
+      "sub": "JUP",
+      "subSub": "MON"
+    },
+    "5": {
+      "degree": 279.2582976049984,
+      "rashi": "Capricorn",
+      "rashiLord": "SAT",
+      "nakshatra": "Uttara Ashadha",
+      "nakshatraLord": "SUN",
+      "sub": "VEN",
+      "subSub": "RAH"
+    },
+    "6": {
+      "degree": 309.64740110499844,
+      "rashi": "Aquarius",
+      "rashiLord": "SAT",
+      "nakshatra": "Shatabhisha",
+      "nakshatraLord": "RAH",
+      "sub": "SAT",
+      "subSub": "SAT"
+    },
+    "7": {
+      "degree": 340.4075547049984,
+      "rashi": "Pisces",
+      "rashiLord": "JUP",
+      "nakshatra": "Uttara Bhadrapada",
+      "nakshatraLord": "SAT",
+      "sub": "SUN",
+      "subSub": "MER"
+    },
+    "8": {
+      "degree": 11.068525604998417,
+      "rashi": "Aries",
+      "rashiLord": "MAR",
+      "nakshatra": "Ashwini",
+      "nakshatraLord": "KET",
+      "sub": "SAT",
+      "subSub": "SUN"
+    },
+    "9": {
+      "degree": 41.022469204998416,
+      "rashi": "Taurus",
+      "rashiLord": "VEN",
+      "nakshatra": "Rohini",
+      "nakshatraLord": "MON",
+      "sub": "MON",
+      "subSub": "KET"
+    },
+    "10": {
+      "degree": 70.02719530499841,
+      "rashi": "Gemini",
+      "rashiLord": "MER",
+      "nakshatra": "Ardra",
+      "nakshatraLord": "RAH",
+      "sub": "SAT",
+      "subSub": "KET"
+    },
+    "11": {
+      "degree": 99.2582976049984,
+      "rashi": "Cancer",
+      "rashiLord": "MON",
+      "nakshatra": "Pushya",
+      "nakshatraLord": "SAT",
+      "sub": "VEN",
+      "subSub": "KET"
+    },
+    "12": {
+      "degree": 129.64740110499844,
+      "rashi": "Leo",
+      "rashiLord": "SUN",
+      "nakshatra": "Magha",
+      "nakshatraLord": "KET",
+      "sub": "JUP",
+      "subSub": "VEN"
+    }
+  },
+  "significators": {
+    "1": [
+      "JUP",
+      "MER",
+      "MON",
+      "SAT"
+    ],
+    "2": [
+      "RAH",
+      "SUN",
+      "VEN"
+    ],
+    "3": [
+      "MAR"
+    ],
+    "4": [
+      "JUP",
+      "KET",
+      "MON",
+      "RAH",
+      "SUN"
+    ],
+    "5": [
+      "SAT"
+    ],
+    "6": [
+      "SAT"
+    ],
+    "7": [
+      "JUP",
+      "KET",
+      "SUN"
+    ],
+    "8": [
+      "MAR"
+    ],
+    "9": [
+      "RAH",
+      "SUN",
+      "VEN"
+    ],
+    "10": [
+      "JUP",
+      "KET",
+      "MAR",
+      "MER",
+      "SUN",
+      "VEN"
+    ],
+    "11": [
+      "JUP",
+      "KET",
+      "MAR",
+      "MER",
+      "MON",
+      "SAT",
+      "SUN"
+    ],
+    "12": [
+      "RAH",
+      "SUN",
+      "VEN"
+    ]
+  },
+  "planetSignifications": {
+    "Sun": [
+      4,
+      7,
+      10,
+      11,
+      12
+    ],
+    "Moon": [
+      1,
+      4,
+      11
+    ],
+    "Mercury": [
+      1,
+      10,
+      11
+    ],
+    "Venus": [
+      2,
+      9,
+      10,
+      12
+    ],
+    "Mars": [
+      3,
+      8,
+      10,
+      11
+    ],
+    "Jupiter": [
+      1,
+      4,
+      7,
+      10,
+      11
+    ],
+    "Saturn": [
+      1,
+      5,
+      6,
+      11
+    ],
+    "Uranus": [
+      2,
+      4,
+      9,
+      12
+    ],
+    "Neptune": [
+      2,
+      4,
+      9,
+      12
+    ],
+    "Pluto": [
+      2,
+      4,
+      7,
+      11,
+      12
+    ],
+    "Rahu": [
+      2,
+      4,
+      9,
+      12
+    ],
+    "Ketu": [
+      4,
+      7,
+      10,
+      11
+    ]
+  },
+  "ayanamsa": 23.652778395001587,
+  "debug": {
+    "julianDay": 2448456.7256944445,
+    "lst": 94.00562331031686,
+    "latitude": 9.9679032,
+    "longitude": 76.2444378,
+    "ayanamsa": 23.652778395001587,
+    "tropicalAscendant": 184.05590393856312,
+    "tropicalMC": 93.67603442121116,
+    "siderealAscendant": 160.40755470499843,
+    "siderealMC": 70.02719530499841
+  },
+  "dashas": {
+    "dashaBalance": {
+      "lord": "RAH",
+      "years": 14,
+      "months": 4,
+      "days": 12,
+      "totalDays": 5247.63046283535,
+      "elapsed": 3.632770806747844,
+      "remaining": 14.367229193252156
+    },
+    "dashas": [
+      {
+        "lord": "RAH",
+        "startDate": "1991-07-19T05:25:00+00:00",
+        "endDate": "2005-12-01T05:25:00+00:00",
+        "period": "14 Y 4 M 12 D",
+        "antarDashas": [
+          {
+            "lord": "RAH",
+            "startDate": "1987-11-30T05:25:00+00:00",
+            "endDate": "1991-07-19T05:25:00+00:00",
+            "period": "2 Y 8 M 11 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "1987-11-30T05:25:00+00:00",
+                "endDate": "1988-06-16T05:25:00+00:00",
+                "period": "0 Y 6 M 16 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "1988-06-16T05:25:00+00:00",
+                "endDate": "1988-12-10T05:25:00+00:00",
+                "period": "0 Y 5 M 24 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "1988-12-10T05:25:00+00:00",
+                "endDate": "1989-07-08T05:25:00+00:00",
+                "period": "0 Y 6 M 27 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "1989-07-08T05:25:00+00:00",
+                "endDate": "1990-01-12T05:25:00+00:00",
+                "period": "0 Y 6 M 5 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "1990-01-12T05:25:00+00:00",
+                "endDate": "1990-03-30T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "1990-03-30T05:25:00+00:00",
+                "endDate": "1990-11-06T05:25:00+00:00",
+                "period": "0 Y 7 M 7 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "1990-11-06T05:25:00+00:00",
+                "endDate": "1991-01-11T05:25:00+00:00",
+                "period": "0 Y 2 M 5 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "1991-01-11T05:25:00+00:00",
+                "endDate": "1991-05-02T05:25:00+00:00",
+                "period": "0 Y 3 M 18 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "1991-05-02T05:25:00+00:00",
+                "endDate": "1991-07-18T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "1991-07-19T05:25:00+00:00",
+            "endDate": "1993-01-05T05:25:00+00:00",
+            "period": "1 Y 5 M 18 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "1991-07-19T05:25:00+00:00",
+                "endDate": "1991-09-28T05:25:00+00:00",
+                "period": "0 Y 2 M 10 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "1991-09-28T05:25:00+00:00",
+                "endDate": "1991-12-22T05:25:00+00:00",
+                "period": "0 Y 2 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "1991-12-22T05:25:00+00:00",
+                "endDate": "1992-03-07T05:25:00+00:00",
+                "period": "0 Y 2 M 14 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "1992-03-07T05:25:00+00:00",
+                "endDate": "1992-04-07T05:25:00+00:00",
+                "period": "0 Y 1 M 0 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "1992-04-07T05:25:00+00:00",
+                "endDate": "1992-07-05T05:25:00+00:00",
+                "period": "0 Y 2 M 28 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "1992-07-05T05:25:00+00:00",
+                "endDate": "1992-08-01T05:25:00+00:00",
+                "period": "0 Y 0 M 26 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "1992-08-01T05:25:00+00:00",
+                "endDate": "1992-09-15T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "1992-09-15T05:25:00+00:00",
+                "endDate": "1992-10-16T05:25:00+00:00",
+                "period": "0 Y 1 M 0 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "1992-10-16T05:25:00+00:00",
+                "endDate": "1993-01-04T05:25:00+00:00",
+                "period": "0 Y 2 M 19 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "1993-01-05T05:25:00+00:00",
+            "endDate": "1995-11-12T05:25:00+00:00",
+            "period": "2 Y 10 M 6 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "1993-01-05T05:25:00+00:00",
+                "endDate": "1993-06-19T05:25:00+00:00",
+                "period": "0 Y 5 M 12 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "1993-06-19T05:25:00+00:00",
+                "endDate": "1993-11-13T05:25:00+00:00",
+                "period": "0 Y 4 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "1993-11-13T05:25:00+00:00",
+                "endDate": "1994-01-13T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "1994-01-13T05:25:00+00:00",
+                "endDate": "1994-07-06T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "1994-07-06T05:25:00+00:00",
+                "endDate": "1994-08-27T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "1994-08-27T05:25:00+00:00",
+                "endDate": "1994-11-22T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "1994-11-22T05:25:00+00:00",
+                "endDate": "1995-01-22T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "1995-01-22T05:25:00+00:00",
+                "endDate": "1995-06-27T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "1995-06-27T05:25:00+00:00",
+                "endDate": "1995-11-12T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "1995-11-12T05:25:00+00:00",
+            "endDate": "1998-05-31T05:25:00+00:00",
+            "period": "2 Y 6 M 17 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "1995-11-12T05:25:00+00:00",
+                "endDate": "1996-03-23T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "1996-03-23T05:25:00+00:00",
+                "endDate": "1996-05-16T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "1996-05-16T05:25:00+00:00",
+                "endDate": "1996-10-18T05:25:00+00:00",
+                "period": "0 Y 5 M 2 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "1996-10-18T05:25:00+00:00",
+                "endDate": "1996-12-04T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "1996-12-04T05:25:00+00:00",
+                "endDate": "1997-02-20T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "1997-02-20T05:25:00+00:00",
+                "endDate": "1997-04-15T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "1997-04-15T05:25:00+00:00",
+                "endDate": "1997-09-02T05:25:00+00:00",
+                "period": "0 Y 4 M 17 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "1997-09-02T05:25:00+00:00",
+                "endDate": "1998-01-04T05:25:00+00:00",
+                "period": "0 Y 4 M 2 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "1998-01-04T05:25:00+00:00",
+                "endDate": "1998-05-31T05:25:00+00:00",
+                "period": "0 Y 4 M 25 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "1998-05-31T05:25:00+00:00",
+            "endDate": "1999-06-19T05:25:00+00:00",
+            "period": "1 Y 0 M 18 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "1998-05-31T05:25:00+00:00",
+                "endDate": "1998-06-22T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "1998-06-22T05:25:00+00:00",
+                "endDate": "1998-08-25T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "1998-08-25T05:25:00+00:00",
+                "endDate": "1998-09-13T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "1998-09-13T05:25:00+00:00",
+                "endDate": "1998-10-15T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "1998-10-15T05:25:00+00:00",
+                "endDate": "1998-11-06T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "1998-11-06T05:25:00+00:00",
+                "endDate": "1999-01-03T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "1999-01-03T05:25:00+00:00",
+                "endDate": "1999-02-23T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "1999-02-23T05:25:00+00:00",
+                "endDate": "1999-04-25T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "1999-04-25T05:25:00+00:00",
+                "endDate": "1999-06-18T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "1999-06-19T05:25:00+00:00",
+            "endDate": "2002-06-19T05:25:00+00:00",
+            "period": "3 Y 0 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "1999-06-19T05:25:00+00:00",
+                "endDate": "1999-12-19T05:25:00+00:00",
+                "period": "0 Y 6 M 0 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "1999-12-19T05:25:00+00:00",
+                "endDate": "2000-02-12T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2000-02-12T05:25:00+00:00",
+                "endDate": "2000-05-13T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2000-05-13T05:25:00+00:00",
+                "endDate": "2000-07-16T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2000-07-16T05:25:00+00:00",
+                "endDate": "2000-12-27T05:25:00+00:00",
+                "period": "0 Y 5 M 12 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2000-12-27T05:25:00+00:00",
+                "endDate": "2001-05-22T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2001-05-22T05:25:00+00:00",
+                "endDate": "2001-11-12T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2001-11-12T05:25:00+00:00",
+                "endDate": "2002-04-16T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2002-04-16T05:25:00+00:00",
+                "endDate": "2002-06-19T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2002-06-19T05:25:00+00:00",
+            "endDate": "2003-05-14T05:25:00+00:00",
+            "period": "0 Y 10 M 24 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2002-06-19T05:25:00+00:00",
+                "endDate": "2002-07-05T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2002-07-05T05:25:00+00:00",
+                "endDate": "2002-08-01T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2002-08-01T05:25:00+00:00",
+                "endDate": "2002-08-20T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2002-08-20T05:25:00+00:00",
+                "endDate": "2002-10-08T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2002-10-08T05:25:00+00:00",
+                "endDate": "2002-11-21T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2002-11-21T05:25:00+00:00",
+                "endDate": "2003-01-12T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2003-01-12T05:25:00+00:00",
+                "endDate": "2003-02-28T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2003-02-28T05:25:00+00:00",
+                "endDate": "2003-03-19T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2003-03-19T05:25:00+00:00",
+                "endDate": "2003-05-13T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2003-05-14T05:25:00+00:00",
+            "endDate": "2004-11-12T05:25:00+00:00",
+            "period": "1 Y 6 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2003-05-14T05:25:00+00:00",
+                "endDate": "2003-06-29T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2003-06-29T05:25:00+00:00",
+                "endDate": "2003-07-31T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2003-07-31T05:25:00+00:00",
+                "endDate": "2003-10-21T05:25:00+00:00",
+                "period": "0 Y 2 M 21 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2003-10-21T05:25:00+00:00",
+                "endDate": "2004-01-02T05:25:00+00:00",
+                "period": "0 Y 2 M 12 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2004-01-02T05:25:00+00:00",
+                "endDate": "2004-03-29T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2004-03-29T05:25:00+00:00",
+                "endDate": "2004-06-15T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2004-06-15T05:25:00+00:00",
+                "endDate": "2004-07-17T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2004-07-17T05:25:00+00:00",
+                "endDate": "2004-10-16T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2004-10-16T05:25:00+00:00",
+                "endDate": "2004-11-12T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2004-11-12T05:25:00+00:00",
+            "endDate": "2005-12-01T05:25:00+00:00",
+            "period": "1 Y 0 M 18 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2004-11-12T05:25:00+00:00",
+                "endDate": "2004-12-04T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2004-12-04T05:25:00+00:00",
+                "endDate": "2005-01-31T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2005-01-31T05:25:00+00:00",
+                "endDate": "2005-03-23T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2005-03-23T05:25:00+00:00",
+                "endDate": "2005-05-23T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2005-05-23T05:25:00+00:00",
+                "endDate": "2005-07-16T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2005-07-16T05:25:00+00:00",
+                "endDate": "2005-08-07T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2005-08-07T05:25:00+00:00",
+                "endDate": "2005-10-10T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2005-10-10T05:25:00+00:00",
+                "endDate": "2005-10-29T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2005-10-29T05:25:00+00:00",
+                "endDate": "2005-11-30T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "JUP",
+        "startDate": "2005-12-01T05:25:00+00:00",
+        "endDate": "2021-12-01T05:25:00+00:00",
+        "period": "16 Years",
+        "antarDashas": [
+          {
+            "lord": "JUP",
+            "startDate": "2005-12-01T05:25:00+00:00",
+            "endDate": "2008-01-19T05:25:00+00:00",
+            "period": "2 Y 1 M 17 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2005-12-01T05:25:00+00:00",
+                "endDate": "2006-03-15T05:25:00+00:00",
+                "period": "0 Y 3 M 12 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2006-03-15T05:25:00+00:00",
+                "endDate": "2006-07-16T05:25:00+00:00",
+                "period": "0 Y 4 M 1 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2006-07-16T05:25:00+00:00",
+                "endDate": "2006-11-03T05:25:00+00:00",
+                "period": "0 Y 3 M 18 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2006-11-03T05:25:00+00:00",
+                "endDate": "2006-12-18T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2006-12-18T05:25:00+00:00",
+                "endDate": "2007-04-27T05:25:00+00:00",
+                "period": "0 Y 4 M 7 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2007-04-27T05:25:00+00:00",
+                "endDate": "2007-06-05T05:25:00+00:00",
+                "period": "0 Y 1 M 8 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2007-06-05T05:25:00+00:00",
+                "endDate": "2007-08-09T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2007-08-09T05:25:00+00:00",
+                "endDate": "2007-09-23T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2007-09-23T05:25:00+00:00",
+                "endDate": "2008-01-18T05:25:00+00:00",
+                "period": "0 Y 3 M 25 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2008-01-19T05:25:00+00:00",
+            "endDate": "2010-08-01T05:25:00+00:00",
+            "period": "2 Y 6 M 11 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2008-01-19T05:25:00+00:00",
+                "endDate": "2008-06-13T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2008-06-13T05:25:00+00:00",
+                "endDate": "2008-10-22T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2008-10-22T05:25:00+00:00",
+                "endDate": "2008-12-15T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2008-12-15T05:25:00+00:00",
+                "endDate": "2009-05-18T05:25:00+00:00",
+                "period": "0 Y 5 M 1 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2009-05-18T05:25:00+00:00",
+                "endDate": "2009-07-03T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2009-07-03T05:25:00+00:00",
+                "endDate": "2009-09-18T05:25:00+00:00",
+                "period": "0 Y 2 M 15 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2009-09-18T05:25:00+00:00",
+                "endDate": "2009-11-11T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2009-11-11T05:25:00+00:00",
+                "endDate": "2010-03-30T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2010-03-30T05:25:00+00:00",
+                "endDate": "2010-07-31T05:25:00+00:00",
+                "period": "0 Y 4 M 1 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2010-08-01T05:25:00+00:00",
+            "endDate": "2012-11-06T05:25:00+00:00",
+            "period": "2 Y 3 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2010-08-01T05:25:00+00:00",
+                "endDate": "2010-11-26T05:25:00+00:00",
+                "period": "0 Y 3 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2010-11-26T05:25:00+00:00",
+                "endDate": "2011-01-13T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2011-01-13T05:25:00+00:00",
+                "endDate": "2011-05-31T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2011-05-31T05:25:00+00:00",
+                "endDate": "2011-07-11T05:25:00+00:00",
+                "period": "0 Y 1 M 10 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2011-07-11T05:25:00+00:00",
+                "endDate": "2011-09-18T05:25:00+00:00",
+                "period": "0 Y 2 M 8 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2011-09-18T05:25:00+00:00",
+                "endDate": "2011-11-05T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2011-11-05T05:25:00+00:00",
+                "endDate": "2012-03-08T05:25:00+00:00",
+                "period": "0 Y 4 M 2 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2012-03-08T05:25:00+00:00",
+                "endDate": "2012-06-26T05:25:00+00:00",
+                "period": "0 Y 3 M 18 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2012-06-26T05:25:00+00:00",
+                "endDate": "2012-11-04T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2012-11-06T05:25:00+00:00",
+            "endDate": "2013-10-13T05:25:00+00:00",
+            "period": "0 Y 11 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2012-11-06T05:25:00+00:00",
+                "endDate": "2012-11-26T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2012-11-26T05:25:00+00:00",
+                "endDate": "2013-01-22T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2013-01-22T05:25:00+00:00",
+                "endDate": "2013-02-08T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2013-02-08T05:25:00+00:00",
+                "endDate": "2013-03-08T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2013-03-08T05:25:00+00:00",
+                "endDate": "2013-03-28T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2013-03-28T05:25:00+00:00",
+                "endDate": "2013-05-18T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2013-05-18T05:25:00+00:00",
+                "endDate": "2013-07-02T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2013-07-02T05:25:00+00:00",
+                "endDate": "2013-08-25T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2013-08-25T05:25:00+00:00",
+                "endDate": "2013-10-12T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2013-10-13T05:25:00+00:00",
+            "endDate": "2016-06-13T05:25:00+00:00",
+            "period": "2 Y 7 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2013-10-13T05:25:00+00:00",
+                "endDate": "2014-03-24T05:25:00+00:00",
+                "period": "0 Y 5 M 9 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2014-03-24T05:25:00+00:00",
+                "endDate": "2014-05-12T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2014-05-12T05:25:00+00:00",
+                "endDate": "2014-08-01T05:25:00+00:00",
+                "period": "0 Y 2 M 19 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2014-08-01T05:25:00+00:00",
+                "endDate": "2014-09-27T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2014-09-27T05:25:00+00:00",
+                "endDate": "2015-02-20T05:25:00+00:00",
+                "period": "0 Y 4 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2015-02-20T05:25:00+00:00",
+                "endDate": "2015-06-30T05:25:00+00:00",
+                "period": "0 Y 4 M 7 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2015-06-30T05:25:00+00:00",
+                "endDate": "2015-12-01T05:25:00+00:00",
+                "period": "0 Y 5 M 1 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2015-12-01T05:25:00+00:00",
+                "endDate": "2016-04-17T05:25:00+00:00",
+                "period": "0 Y 4 M 15 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2016-04-17T05:25:00+00:00",
+                "endDate": "2016-06-13T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2016-06-13T05:25:00+00:00",
+            "endDate": "2017-04-01T05:25:00+00:00",
+            "period": "0 Y 9 M 18 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2016-06-13T05:25:00+00:00",
+                "endDate": "2016-06-28T05:25:00+00:00",
+                "period": "0 Y 0 M 14 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2016-06-28T05:25:00+00:00",
+                "endDate": "2016-07-22T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2016-07-22T05:25:00+00:00",
+                "endDate": "2016-08-08T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2016-08-08T05:25:00+00:00",
+                "endDate": "2016-09-21T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2016-09-21T05:25:00+00:00",
+                "endDate": "2016-10-30T05:25:00+00:00",
+                "period": "0 Y 1 M 8 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2016-10-30T05:25:00+00:00",
+                "endDate": "2016-12-15T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2016-12-15T05:25:00+00:00",
+                "endDate": "2017-01-25T05:25:00+00:00",
+                "period": "0 Y 1 M 10 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2017-01-25T05:25:00+00:00",
+                "endDate": "2017-02-11T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2017-02-11T05:25:00+00:00",
+                "endDate": "2017-04-01T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2017-04-01T05:25:00+00:00",
+            "endDate": "2018-08-01T05:25:00+00:00",
+            "period": "1 Y 3 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2017-04-01T05:25:00+00:00",
+                "endDate": "2017-05-12T05:25:00+00:00",
+                "period": "0 Y 1 M 9 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2017-05-12T05:25:00+00:00",
+                "endDate": "2017-06-09T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2017-06-09T05:25:00+00:00",
+                "endDate": "2017-08-21T05:25:00+00:00",
+                "period": "0 Y 2 M 11 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2017-08-21T05:25:00+00:00",
+                "endDate": "2017-10-25T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2017-10-25T05:25:00+00:00",
+                "endDate": "2018-01-10T05:25:00+00:00",
+                "period": "0 Y 2 M 15 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2018-01-10T05:25:00+00:00",
+                "endDate": "2018-03-20T05:25:00+00:00",
+                "period": "0 Y 2 M 7 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2018-03-20T05:25:00+00:00",
+                "endDate": "2018-04-17T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2018-04-17T05:25:00+00:00",
+                "endDate": "2018-07-07T05:25:00+00:00",
+                "period": "0 Y 2 M 19 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2018-07-07T05:25:00+00:00",
+                "endDate": "2018-07-31T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2018-08-01T05:25:00+00:00",
+            "endDate": "2019-07-08T05:25:00+00:00",
+            "period": "0 Y 11 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2018-08-01T05:25:00+00:00",
+                "endDate": "2018-08-21T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2018-08-21T05:25:00+00:00",
+                "endDate": "2018-10-11T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2018-10-11T05:25:00+00:00",
+                "endDate": "2018-11-25T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2018-11-25T05:25:00+00:00",
+                "endDate": "2019-01-18T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2019-01-18T05:25:00+00:00",
+                "endDate": "2019-03-07T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2019-03-07T05:25:00+00:00",
+                "endDate": "2019-03-27T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2019-03-27T05:25:00+00:00",
+                "endDate": "2019-05-23T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2019-05-23T05:25:00+00:00",
+                "endDate": "2019-06-09T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2019-06-09T05:25:00+00:00",
+                "endDate": "2019-07-07T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2019-07-08T05:25:00+00:00",
+            "endDate": "2021-12-01T05:25:00+00:00",
+            "period": "2 Y 4 M 23 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2019-07-08T05:25:00+00:00",
+                "endDate": "2019-11-17T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2019-11-17T05:25:00+00:00",
+                "endDate": "2020-03-13T05:25:00+00:00",
+                "period": "0 Y 3 M 25 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2020-03-13T05:25:00+00:00",
+                "endDate": "2020-07-30T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2020-07-30T05:25:00+00:00",
+                "endDate": "2020-12-01T05:25:00+00:00",
+                "period": "0 Y 4 M 2 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2020-12-01T05:25:00+00:00",
+                "endDate": "2021-01-21T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2021-01-21T05:25:00+00:00",
+                "endDate": "2021-06-16T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2021-06-16T05:25:00+00:00",
+                "endDate": "2021-07-30T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2021-07-30T05:25:00+00:00",
+                "endDate": "2021-10-11T05:25:00+00:00",
+                "period": "0 Y 2 M 12 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2021-10-11T05:25:00+00:00",
+                "endDate": "2021-12-01T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "SAT",
+        "startDate": "2021-12-01T05:25:00+00:00",
+        "endDate": "2040-12-01T05:25:00+00:00",
+        "period": "19 Years",
+        "antarDashas": [
+          {
+            "lord": "SAT",
+            "startDate": "2021-12-01T05:25:00+00:00",
+            "endDate": "2024-12-04T05:25:00+00:00",
+            "period": "3 Y 0 M 3 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2021-12-01T05:25:00+00:00",
+                "endDate": "2022-05-24T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2022-05-24T05:25:00+00:00",
+                "endDate": "2022-10-27T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2022-10-27T05:25:00+00:00",
+                "endDate": "2022-12-30T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2022-12-30T05:25:00+00:00",
+                "endDate": "2023-07-01T05:25:00+00:00",
+                "period": "0 Y 6 M 0 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2023-07-01T05:25:00+00:00",
+                "endDate": "2023-08-25T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2023-08-25T05:25:00+00:00",
+                "endDate": "2023-11-25T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2023-11-25T05:25:00+00:00",
+                "endDate": "2024-01-28T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2024-01-28T05:25:00+00:00",
+                "endDate": "2024-07-11T05:25:00+00:00",
+                "period": "0 Y 5 M 12 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2024-07-11T05:25:00+00:00",
+                "endDate": "2024-12-04T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2024-12-04T05:25:00+00:00",
+            "endDate": "2027-08-14T05:25:00+00:00",
+            "period": "2 Y 8 M 9 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2024-12-04T05:25:00+00:00",
+                "endDate": "2025-04-22T05:25:00+00:00",
+                "period": "0 Y 4 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2025-04-22T05:25:00+00:00",
+                "endDate": "2025-06-18T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2025-06-18T05:25:00+00:00",
+                "endDate": "2025-11-29T05:25:00+00:00",
+                "period": "0 Y 5 M 11 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2025-11-29T05:25:00+00:00",
+                "endDate": "2026-01-17T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2026-01-17T05:25:00+00:00",
+                "endDate": "2026-04-09T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2026-04-09T05:25:00+00:00",
+                "endDate": "2026-06-05T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2026-06-05T05:25:00+00:00",
+                "endDate": "2026-10-30T05:25:00+00:00",
+                "period": "0 Y 4 M 25 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2026-10-30T05:25:00+00:00",
+                "endDate": "2027-03-10T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2027-03-10T05:25:00+00:00",
+                "endDate": "2027-08-13T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2027-08-14T05:25:00+00:00",
+            "endDate": "2028-09-22T05:25:00+00:00",
+            "period": "1 Y 1 M 9 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2027-08-14T05:25:00+00:00",
+                "endDate": "2027-09-07T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2027-09-07T05:25:00+00:00",
+                "endDate": "2027-11-14T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2027-11-14T05:25:00+00:00",
+                "endDate": "2027-12-04T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2027-12-04T05:25:00+00:00",
+                "endDate": "2028-01-07T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2028-01-07T05:25:00+00:00",
+                "endDate": "2028-01-31T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2028-01-31T05:25:00+00:00",
+                "endDate": "2028-04-01T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2028-04-01T05:25:00+00:00",
+                "endDate": "2028-05-25T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2028-05-25T05:25:00+00:00",
+                "endDate": "2028-07-28T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2028-07-28T05:25:00+00:00",
+                "endDate": "2028-09-22T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2028-09-22T05:25:00+00:00",
+            "endDate": "2031-11-23T05:25:00+00:00",
+            "period": "3 Y 2 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2028-09-22T05:25:00+00:00",
+                "endDate": "2029-04-03T05:25:00+00:00",
+                "period": "0 Y 6 M 10 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2029-04-03T05:25:00+00:00",
+                "endDate": "2029-05-31T05:25:00+00:00",
+                "period": "0 Y 1 M 27 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2029-05-31T05:25:00+00:00",
+                "endDate": "2029-09-04T05:25:00+00:00",
+                "period": "0 Y 3 M 5 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2029-09-04T05:25:00+00:00",
+                "endDate": "2029-11-10T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2029-11-10T05:25:00+00:00",
+                "endDate": "2030-05-03T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2030-05-03T05:25:00+00:00",
+                "endDate": "2030-10-04T05:25:00+00:00",
+                "period": "0 Y 5 M 2 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2030-10-04T05:25:00+00:00",
+                "endDate": "2031-04-05T05:25:00+00:00",
+                "period": "0 Y 6 M 0 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2031-04-05T05:25:00+00:00",
+                "endDate": "2031-09-16T05:25:00+00:00",
+                "period": "0 Y 5 M 11 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2031-09-16T05:25:00+00:00",
+                "endDate": "2031-11-22T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2031-11-23T05:25:00+00:00",
+            "endDate": "2032-11-04T05:25:00+00:00",
+            "period": "0 Y 11 M 12 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2031-11-23T05:25:00+00:00",
+                "endDate": "2031-12-10T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2031-12-10T05:25:00+00:00",
+                "endDate": "2032-01-08T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2032-01-08T05:25:00+00:00",
+                "endDate": "2032-01-28T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2032-01-28T05:25:00+00:00",
+                "endDate": "2032-03-20T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2032-03-20T05:25:00+00:00",
+                "endDate": "2032-05-05T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2032-05-05T05:25:00+00:00",
+                "endDate": "2032-06-29T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2032-06-29T05:25:00+00:00",
+                "endDate": "2032-08-17T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2032-08-17T05:25:00+00:00",
+                "endDate": "2032-09-06T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2032-09-06T05:25:00+00:00",
+                "endDate": "2032-11-03T05:25:00+00:00",
+                "period": "0 Y 1 M 27 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2032-11-04T05:25:00+00:00",
+            "endDate": "2034-06-05T05:25:00+00:00",
+            "period": "1 Y 7 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2032-11-04T05:25:00+00:00",
+                "endDate": "2032-12-22T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2032-12-22T05:25:00+00:00",
+                "endDate": "2033-01-25T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2033-01-25T05:25:00+00:00",
+                "endDate": "2033-04-22T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2033-04-22T05:25:00+00:00",
+                "endDate": "2033-07-08T05:25:00+00:00",
+                "period": "0 Y 2 M 15 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2033-07-08T05:25:00+00:00",
+                "endDate": "2033-10-08T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2033-10-08T05:25:00+00:00",
+                "endDate": "2033-12-29T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2033-12-29T05:25:00+00:00",
+                "endDate": "2034-02-01T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2034-02-01T05:25:00+00:00",
+                "endDate": "2034-05-08T05:25:00+00:00",
+                "period": "0 Y 3 M 4 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2034-05-08T05:25:00+00:00",
+                "endDate": "2034-06-05T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2034-06-05T05:25:00+00:00",
+            "endDate": "2035-07-15T05:25:00+00:00",
+            "period": "1 Y 1 M 9 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2034-06-05T05:25:00+00:00",
+                "endDate": "2034-06-29T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2034-06-29T05:25:00+00:00",
+                "endDate": "2034-08-29T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2034-08-29T05:25:00+00:00",
+                "endDate": "2034-10-22T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2034-10-22T05:25:00+00:00",
+                "endDate": "2034-12-25T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2034-12-25T05:25:00+00:00",
+                "endDate": "2035-02-20T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2035-02-20T05:25:00+00:00",
+                "endDate": "2035-03-16T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2035-03-16T05:25:00+00:00",
+                "endDate": "2035-05-23T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2035-05-23T05:25:00+00:00",
+                "endDate": "2035-06-12T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2035-06-12T05:25:00+00:00",
+                "endDate": "2035-07-15T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2035-07-15T05:25:00+00:00",
+            "endDate": "2038-05-21T05:25:00+00:00",
+            "period": "2 Y 10 M 6 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2035-07-15T05:25:00+00:00",
+                "endDate": "2035-12-18T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2035-12-18T05:25:00+00:00",
+                "endDate": "2036-05-05T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2036-05-05T05:25:00+00:00",
+                "endDate": "2036-10-17T05:25:00+00:00",
+                "period": "0 Y 5 M 12 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2036-10-17T05:25:00+00:00",
+                "endDate": "2037-03-13T05:25:00+00:00",
+                "period": "0 Y 4 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2037-03-13T05:25:00+00:00",
+                "endDate": "2037-05-13T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2037-05-13T05:25:00+00:00",
+                "endDate": "2037-11-03T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2037-11-03T05:25:00+00:00",
+                "endDate": "2037-12-25T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2037-12-25T05:25:00+00:00",
+                "endDate": "2038-03-22T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2038-03-22T05:25:00+00:00",
+                "endDate": "2038-05-21T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2038-05-21T05:25:00+00:00",
+            "endDate": "2040-12-01T05:25:00+00:00",
+            "period": "2 Y 6 M 12 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2038-05-21T05:25:00+00:00",
+                "endDate": "2038-09-21T05:25:00+00:00",
+                "period": "0 Y 4 M 1 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2038-09-21T05:25:00+00:00",
+                "endDate": "2039-02-14T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2039-02-14T05:25:00+00:00",
+                "endDate": "2039-06-25T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2039-06-25T05:25:00+00:00",
+                "endDate": "2039-08-18T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2039-08-18T05:25:00+00:00",
+                "endDate": "2040-01-19T05:25:00+00:00",
+                "period": "0 Y 5 M 1 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2040-01-19T05:25:00+00:00",
+                "endDate": "2040-03-05T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2040-03-05T05:25:00+00:00",
+                "endDate": "2040-05-21T05:25:00+00:00",
+                "period": "0 Y 2 M 15 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2040-05-21T05:25:00+00:00",
+                "endDate": "2040-07-14T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2040-07-14T05:25:00+00:00",
+                "endDate": "2040-11-30T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "MER",
+        "startDate": "2040-12-01T05:25:00+00:00",
+        "endDate": "2057-12-01T05:25:00+00:00",
+        "period": "17 Years",
+        "antarDashas": [
+          {
+            "lord": "MER",
+            "startDate": "2040-12-01T05:25:00+00:00",
+            "endDate": "2043-04-30T05:25:00+00:00",
+            "period": "2 Y 4 M 26 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2040-12-01T05:25:00+00:00",
+                "endDate": "2041-04-05T05:25:00+00:00",
+                "period": "0 Y 4 M 2 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2041-04-05T05:25:00+00:00",
+                "endDate": "2041-05-26T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2041-05-26T05:25:00+00:00",
+                "endDate": "2041-10-20T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2041-10-20T05:25:00+00:00",
+                "endDate": "2041-12-03T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2041-12-03T05:25:00+00:00",
+                "endDate": "2042-02-14T05:25:00+00:00",
+                "period": "0 Y 2 M 12 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2042-02-14T05:25:00+00:00",
+                "endDate": "2042-04-06T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2042-04-06T05:25:00+00:00",
+                "endDate": "2042-08-16T05:25:00+00:00",
+                "period": "0 Y 4 M 10 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2042-08-16T05:25:00+00:00",
+                "endDate": "2042-12-11T05:25:00+00:00",
+                "period": "0 Y 3 M 25 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2042-12-11T05:25:00+00:00",
+                "endDate": "2043-04-29T05:25:00+00:00",
+                "period": "0 Y 4 M 17 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2043-04-30T05:25:00+00:00",
+            "endDate": "2044-04-26T05:25:00+00:00",
+            "period": "0 Y 11 M 26 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2043-04-30T05:25:00+00:00",
+                "endDate": "2043-05-21T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2043-05-21T05:25:00+00:00",
+                "endDate": "2043-07-20T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2043-07-20T05:25:00+00:00",
+                "endDate": "2043-08-07T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2043-08-07T05:25:00+00:00",
+                "endDate": "2043-09-06T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2043-09-06T05:25:00+00:00",
+                "endDate": "2043-09-27T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2043-09-27T05:25:00+00:00",
+                "endDate": "2043-11-20T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2043-11-20T05:25:00+00:00",
+                "endDate": "2044-01-07T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2044-01-07T05:25:00+00:00",
+                "endDate": "2044-03-04T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2044-03-04T05:25:00+00:00",
+                "endDate": "2044-04-24T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2044-04-26T05:25:00+00:00",
+            "endDate": "2047-02-25T05:25:00+00:00",
+            "period": "2 Y 9 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2044-04-26T05:25:00+00:00",
+                "endDate": "2044-10-16T05:25:00+00:00",
+                "period": "0 Y 5 M 20 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2044-10-16T05:25:00+00:00",
+                "endDate": "2044-12-07T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2044-12-07T05:25:00+00:00",
+                "endDate": "2045-03-03T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2045-03-03T05:25:00+00:00",
+                "endDate": "2045-05-02T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2045-05-02T05:25:00+00:00",
+                "endDate": "2045-10-04T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2045-10-04T05:25:00+00:00",
+                "endDate": "2046-02-19T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2046-02-19T05:25:00+00:00",
+                "endDate": "2046-08-02T05:25:00+00:00",
+                "period": "0 Y 5 M 11 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2046-08-02T05:25:00+00:00",
+                "endDate": "2046-12-27T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2046-12-27T05:25:00+00:00",
+                "endDate": "2047-02-25T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2047-02-25T05:25:00+00:00",
+            "endDate": "2048-01-01T05:25:00+00:00",
+            "period": "0 Y 10 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2047-02-25T05:25:00+00:00",
+                "endDate": "2047-03-13T05:25:00+00:00",
+                "period": "0 Y 0 M 15 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2047-03-13T05:25:00+00:00",
+                "endDate": "2047-04-08T05:25:00+00:00",
+                "period": "0 Y 0 M 25 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2047-04-08T05:25:00+00:00",
+                "endDate": "2047-04-26T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2047-04-26T05:25:00+00:00",
+                "endDate": "2047-06-12T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2047-06-12T05:25:00+00:00",
+                "endDate": "2047-07-23T05:25:00+00:00",
+                "period": "0 Y 1 M 10 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2047-07-23T05:25:00+00:00",
+                "endDate": "2047-09-10T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2047-09-10T05:25:00+00:00",
+                "endDate": "2047-10-24T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2047-10-24T05:25:00+00:00",
+                "endDate": "2047-11-11T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2047-11-11T05:25:00+00:00",
+                "endDate": "2048-01-01T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2048-01-01T05:25:00+00:00",
+            "endDate": "2049-06-01T05:25:00+00:00",
+            "period": "1 Y 4 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2048-01-01T05:25:00+00:00",
+                "endDate": "2048-02-13T05:25:00+00:00",
+                "period": "0 Y 1 M 12 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2048-02-13T05:25:00+00:00",
+                "endDate": "2048-03-14T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2048-03-14T05:25:00+00:00",
+                "endDate": "2048-05-31T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2048-05-31T05:25:00+00:00",
+                "endDate": "2048-08-08T05:25:00+00:00",
+                "period": "0 Y 2 M 7 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2048-08-08T05:25:00+00:00",
+                "endDate": "2048-10-29T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2048-10-29T05:25:00+00:00",
+                "endDate": "2049-01-10T05:25:00+00:00",
+                "period": "0 Y 2 M 12 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2049-01-10T05:25:00+00:00",
+                "endDate": "2049-02-09T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2049-02-09T05:25:00+00:00",
+                "endDate": "2049-05-06T05:25:00+00:00",
+                "period": "0 Y 2 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2049-05-06T05:25:00+00:00",
+                "endDate": "2049-06-01T05:25:00+00:00",
+                "period": "0 Y 0 M 25 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2049-06-01T05:25:00+00:00",
+            "endDate": "2050-05-29T05:25:00+00:00",
+            "period": "0 Y 11 M 26 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2049-06-01T05:25:00+00:00",
+                "endDate": "2049-06-22T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2049-06-22T05:25:00+00:00",
+                "endDate": "2049-08-15T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2049-08-15T05:25:00+00:00",
+                "endDate": "2049-10-02T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2049-10-02T05:25:00+00:00",
+                "endDate": "2049-11-28T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2049-11-28T05:25:00+00:00",
+                "endDate": "2050-01-18T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2050-01-18T05:25:00+00:00",
+                "endDate": "2050-02-08T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2050-02-08T05:25:00+00:00",
+                "endDate": "2050-04-09T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2050-04-09T05:25:00+00:00",
+                "endDate": "2050-04-27T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2050-04-27T05:25:00+00:00",
+                "endDate": "2050-05-27T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2050-05-29T05:25:00+00:00",
+            "endDate": "2052-12-15T05:25:00+00:00",
+            "period": "2 Y 6 M 17 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2050-05-29T05:25:00+00:00",
+                "endDate": "2050-10-16T05:25:00+00:00",
+                "period": "0 Y 4 M 17 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2050-10-16T05:25:00+00:00",
+                "endDate": "2051-02-17T05:25:00+00:00",
+                "period": "0 Y 4 M 2 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2051-02-17T05:25:00+00:00",
+                "endDate": "2051-07-14T05:25:00+00:00",
+                "period": "0 Y 4 M 25 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2051-07-14T05:25:00+00:00",
+                "endDate": "2051-11-23T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2051-11-23T05:25:00+00:00",
+                "endDate": "2052-01-16T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2052-01-16T05:25:00+00:00",
+                "endDate": "2052-06-19T05:25:00+00:00",
+                "period": "0 Y 5 M 2 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2052-06-19T05:25:00+00:00",
+                "endDate": "2052-08-05T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2052-08-05T05:25:00+00:00",
+                "endDate": "2052-10-22T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2052-10-22T05:25:00+00:00",
+                "endDate": "2052-12-15T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2052-12-15T05:25:00+00:00",
+            "endDate": "2055-03-23T05:25:00+00:00",
+            "period": "2 Y 3 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2052-12-15T05:25:00+00:00",
+                "endDate": "2053-04-04T05:25:00+00:00",
+                "period": "0 Y 3 M 18 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2053-04-04T05:25:00+00:00",
+                "endDate": "2053-08-13T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2053-08-13T05:25:00+00:00",
+                "endDate": "2053-12-08T05:25:00+00:00",
+                "period": "0 Y 3 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2053-12-08T05:25:00+00:00",
+                "endDate": "2054-01-25T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2054-01-25T05:25:00+00:00",
+                "endDate": "2054-06-12T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2054-06-12T05:25:00+00:00",
+                "endDate": "2054-07-23T05:25:00+00:00",
+                "period": "0 Y 1 M 10 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2054-07-23T05:25:00+00:00",
+                "endDate": "2054-09-30T05:25:00+00:00",
+                "period": "0 Y 2 M 8 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2054-09-30T05:25:00+00:00",
+                "endDate": "2054-11-17T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2054-11-17T05:25:00+00:00",
+                "endDate": "2055-03-21T05:25:00+00:00",
+                "period": "0 Y 4 M 2 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2055-03-23T05:25:00+00:00",
+            "endDate": "2057-11-30T05:25:00+00:00",
+            "period": "2 Y 8 M 8 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2055-03-23T05:25:00+00:00",
+                "endDate": "2055-08-26T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2055-08-26T05:25:00+00:00",
+                "endDate": "2056-01-12T05:25:00+00:00",
+                "period": "0 Y 4 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2056-01-12T05:25:00+00:00",
+                "endDate": "2056-03-09T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2056-03-09T05:25:00+00:00",
+                "endDate": "2056-08-20T05:25:00+00:00",
+                "period": "0 Y 5 M 11 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2056-08-20T05:25:00+00:00",
+                "endDate": "2056-10-08T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2056-10-08T05:25:00+00:00",
+                "endDate": "2056-12-29T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2056-12-29T05:25:00+00:00",
+                "endDate": "2057-02-24T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2057-02-24T05:25:00+00:00",
+                "endDate": "2057-07-21T05:25:00+00:00",
+                "period": "0 Y 4 M 25 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2057-07-21T05:25:00+00:00",
+                "endDate": "2057-11-29T05:25:00+00:00",
+                "period": "0 Y 4 M 9 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "KET",
+        "startDate": "2057-12-01T05:25:00+00:00",
+        "endDate": "2064-12-01T05:25:00+00:00",
+        "period": "7 Years",
+        "antarDashas": [
+          {
+            "lord": "KET",
+            "startDate": "2057-12-01T05:25:00+00:00",
+            "endDate": "2058-04-29T05:25:00+00:00",
+            "period": "0 Y 4 M 27 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2057-12-01T05:25:00+00:00",
+                "endDate": "2057-12-10T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2057-12-10T05:25:00+00:00",
+                "endDate": "2058-01-04T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2058-01-04T05:25:00+00:00",
+                "endDate": "2058-01-11T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2058-01-11T05:25:00+00:00",
+                "endDate": "2058-01-23T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2058-01-23T05:25:00+00:00",
+                "endDate": "2058-02-01T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2058-02-01T05:25:00+00:00",
+                "endDate": "2058-02-23T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2058-02-23T05:25:00+00:00",
+                "endDate": "2058-03-15T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2058-03-15T05:25:00+00:00",
+                "endDate": "2058-04-08T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2058-04-08T05:25:00+00:00",
+                "endDate": "2058-04-29T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2058-04-29T05:25:00+00:00",
+            "endDate": "2059-06-29T05:25:00+00:00",
+            "period": "1 Y 2 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2058-04-29T05:25:00+00:00",
+                "endDate": "2058-07-09T05:25:00+00:00",
+                "period": "0 Y 2 M 9 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2058-07-09T05:25:00+00:00",
+                "endDate": "2058-07-30T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2058-07-30T05:25:00+00:00",
+                "endDate": "2058-09-04T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2058-09-04T05:25:00+00:00",
+                "endDate": "2058-09-29T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2058-09-29T05:25:00+00:00",
+                "endDate": "2058-12-02T05:25:00+00:00",
+                "period": "0 Y 2 M 2 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2058-12-02T05:25:00+00:00",
+                "endDate": "2059-01-28T05:25:00+00:00",
+                "period": "0 Y 1 M 25 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2059-01-28T05:25:00+00:00",
+                "endDate": "2059-04-05T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2059-04-05T05:25:00+00:00",
+                "endDate": "2059-06-04T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2059-06-04T05:25:00+00:00",
+                "endDate": "2059-06-29T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2059-06-29T05:25:00+00:00",
+            "endDate": "2059-11-04T05:25:00+00:00",
+            "period": "0 Y 4 M 6 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2059-06-29T05:25:00+00:00",
+                "endDate": "2059-07-05T05:25:00+00:00",
+                "period": "0 Y 0 M 6 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2059-07-05T05:25:00+00:00",
+                "endDate": "2059-07-16T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2059-07-16T05:25:00+00:00",
+                "endDate": "2059-07-23T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2059-07-23T05:25:00+00:00",
+                "endDate": "2059-08-11T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2059-08-11T05:25:00+00:00",
+                "endDate": "2059-08-28T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2059-08-28T05:25:00+00:00",
+                "endDate": "2059-09-17T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2059-09-17T05:25:00+00:00",
+                "endDate": "2059-10-05T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2059-10-05T05:25:00+00:00",
+                "endDate": "2059-10-12T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2059-10-12T05:25:00+00:00",
+                "endDate": "2059-11-02T05:25:00+00:00",
+                "period": "0 Y 0 M 21 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2059-11-04T05:25:00+00:00",
+            "endDate": "2060-06-04T05:25:00+00:00",
+            "period": "0 Y 7 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2059-11-04T05:25:00+00:00",
+                "endDate": "2059-11-22T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2059-11-22T05:25:00+00:00",
+                "endDate": "2059-12-04T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2059-12-04T05:25:00+00:00",
+                "endDate": "2060-01-05T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2060-01-05T05:25:00+00:00",
+                "endDate": "2060-02-02T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2060-02-02T05:25:00+00:00",
+                "endDate": "2060-03-07T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2060-03-07T05:25:00+00:00",
+                "endDate": "2060-04-06T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2060-04-06T05:25:00+00:00",
+                "endDate": "2060-04-18T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2060-04-18T05:25:00+00:00",
+                "endDate": "2060-05-24T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2060-05-24T05:25:00+00:00",
+                "endDate": "2060-06-04T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2060-06-04T05:25:00+00:00",
+            "endDate": "2060-10-31T05:25:00+00:00",
+            "period": "0 Y 4 M 27 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2060-06-04T05:25:00+00:00",
+                "endDate": "2060-06-13T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2060-06-13T05:25:00+00:00",
+                "endDate": "2060-07-05T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2060-07-05T05:25:00+00:00",
+                "endDate": "2060-07-25T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2060-07-25T05:25:00+00:00",
+                "endDate": "2060-08-18T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2060-08-18T05:25:00+00:00",
+                "endDate": "2060-09-08T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2060-09-08T05:25:00+00:00",
+                "endDate": "2060-09-17T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2060-09-17T05:25:00+00:00",
+                "endDate": "2060-10-12T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2060-10-12T05:25:00+00:00",
+                "endDate": "2060-10-19T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2060-10-19T05:25:00+00:00",
+                "endDate": "2060-10-31T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2060-10-31T05:25:00+00:00",
+            "endDate": "2061-11-19T05:25:00+00:00",
+            "period": "1 Y 0 M 18 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2060-10-31T05:25:00+00:00",
+                "endDate": "2060-12-28T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2060-12-28T05:25:00+00:00",
+                "endDate": "2061-02-17T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2061-02-17T05:25:00+00:00",
+                "endDate": "2061-04-19T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2061-04-19T05:25:00+00:00",
+                "endDate": "2061-06-12T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2061-06-12T05:25:00+00:00",
+                "endDate": "2061-07-04T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2061-07-04T05:25:00+00:00",
+                "endDate": "2061-09-06T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2061-09-06T05:25:00+00:00",
+                "endDate": "2061-09-25T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2061-09-25T05:25:00+00:00",
+                "endDate": "2061-10-27T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2061-10-27T05:25:00+00:00",
+                "endDate": "2061-11-18T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2061-11-19T05:25:00+00:00",
+            "endDate": "2062-10-26T05:25:00+00:00",
+            "period": "0 Y 11 M 6 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2061-11-19T05:25:00+00:00",
+                "endDate": "2062-01-03T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2062-01-03T05:25:00+00:00",
+                "endDate": "2062-02-26T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2062-02-26T05:25:00+00:00",
+                "endDate": "2062-04-15T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2062-04-15T05:25:00+00:00",
+                "endDate": "2062-05-05T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2062-05-05T05:25:00+00:00",
+                "endDate": "2062-07-01T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2062-07-01T05:25:00+00:00",
+                "endDate": "2062-07-18T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2062-07-18T05:25:00+00:00",
+                "endDate": "2062-08-15T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2062-08-15T05:25:00+00:00",
+                "endDate": "2062-09-04T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2062-09-04T05:25:00+00:00",
+                "endDate": "2062-10-25T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2062-10-26T05:25:00+00:00",
+            "endDate": "2063-12-05T05:25:00+00:00",
+            "period": "1 Y 1 M 9 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2062-10-26T05:25:00+00:00",
+                "endDate": "2062-12-29T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2062-12-29T05:25:00+00:00",
+                "endDate": "2063-02-24T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2063-02-24T05:25:00+00:00",
+                "endDate": "2063-03-20T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2063-03-20T05:25:00+00:00",
+                "endDate": "2063-05-27T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2063-05-27T05:25:00+00:00",
+                "endDate": "2063-06-16T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2063-06-16T05:25:00+00:00",
+                "endDate": "2063-07-20T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2063-07-20T05:25:00+00:00",
+                "endDate": "2063-08-13T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2063-08-13T05:25:00+00:00",
+                "endDate": "2063-10-13T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2063-10-13T05:25:00+00:00",
+                "endDate": "2063-12-05T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2063-12-05T05:25:00+00:00",
+            "endDate": "2064-12-01T05:25:00+00:00",
+            "period": "0 Y 11 M 27 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2063-12-05T05:25:00+00:00",
+                "endDate": "2064-01-25T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2064-01-25T05:25:00+00:00",
+                "endDate": "2064-02-15T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2064-02-15T05:25:00+00:00",
+                "endDate": "2064-04-15T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2064-04-15T05:25:00+00:00",
+                "endDate": "2064-05-03T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2064-05-03T05:25:00+00:00",
+                "endDate": "2064-06-02T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2064-06-02T05:25:00+00:00",
+                "endDate": "2064-06-23T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2064-06-23T05:25:00+00:00",
+                "endDate": "2064-08-16T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2064-08-16T05:25:00+00:00",
+                "endDate": "2064-10-03T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2064-10-03T05:25:00+00:00",
+                "endDate": "2064-11-29T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "VEN",
+        "startDate": "2064-12-01T05:25:00+00:00",
+        "endDate": "2084-12-01T05:25:00+00:00",
+        "period": "20 Years",
+        "antarDashas": [
+          {
+            "lord": "VEN",
+            "startDate": "2064-12-01T05:25:00+00:00",
+            "endDate": "2068-04-02T05:25:00+00:00",
+            "period": "3 Y 3 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2064-12-01T05:25:00+00:00",
+                "endDate": "2065-06-22T05:25:00+00:00",
+                "period": "0 Y 6 M 20 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2065-06-22T05:25:00+00:00",
+                "endDate": "2065-08-22T05:25:00+00:00",
+                "period": "0 Y 2 M 0 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2065-08-22T05:25:00+00:00",
+                "endDate": "2065-12-02T05:25:00+00:00",
+                "period": "0 Y 3 M 10 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2065-12-02T05:25:00+00:00",
+                "endDate": "2066-02-11T05:25:00+00:00",
+                "period": "0 Y 2 M 10 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2066-02-11T05:25:00+00:00",
+                "endDate": "2066-08-13T05:25:00+00:00",
+                "period": "0 Y 6 M 0 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2066-08-13T05:25:00+00:00",
+                "endDate": "2067-01-22T05:25:00+00:00",
+                "period": "0 Y 5 M 10 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2067-01-22T05:25:00+00:00",
+                "endDate": "2067-08-03T05:25:00+00:00",
+                "period": "0 Y 6 M 10 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2067-08-03T05:25:00+00:00",
+                "endDate": "2068-01-23T05:25:00+00:00",
+                "period": "0 Y 5 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2068-01-23T05:25:00+00:00",
+                "endDate": "2068-04-02T05:25:00+00:00",
+                "period": "0 Y 2 M 10 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2068-04-02T05:25:00+00:00",
+            "endDate": "2069-04-02T05:25:00+00:00",
+            "period": "1 Y 0 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2068-04-02T05:25:00+00:00",
+                "endDate": "2068-04-20T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2068-04-20T05:25:00+00:00",
+                "endDate": "2068-05-20T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2068-05-20T05:25:00+00:00",
+                "endDate": "2068-06-10T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2068-06-10T05:25:00+00:00",
+                "endDate": "2068-08-04T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2068-08-04T05:25:00+00:00",
+                "endDate": "2068-09-22T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2068-09-22T05:25:00+00:00",
+                "endDate": "2068-11-19T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2068-11-19T05:25:00+00:00",
+                "endDate": "2069-01-10T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2069-01-10T05:25:00+00:00",
+                "endDate": "2069-01-31T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2069-01-31T05:25:00+00:00",
+                "endDate": "2069-04-02T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2069-04-02T05:25:00+00:00",
+            "endDate": "2070-12-02T05:25:00+00:00",
+            "period": "1 Y 7 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2069-04-02T05:25:00+00:00",
+                "endDate": "2069-05-23T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2069-05-23T05:25:00+00:00",
+                "endDate": "2069-06-28T05:25:00+00:00",
+                "period": "0 Y 1 M 5 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2069-06-28T05:25:00+00:00",
+                "endDate": "2069-09-27T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2069-09-27T05:25:00+00:00",
+                "endDate": "2069-12-17T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2069-12-17T05:25:00+00:00",
+                "endDate": "2070-03-23T05:25:00+00:00",
+                "period": "0 Y 3 M 5 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2070-03-23T05:25:00+00:00",
+                "endDate": "2070-06-17T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2070-06-17T05:25:00+00:00",
+                "endDate": "2070-07-23T05:25:00+00:00",
+                "period": "0 Y 1 M 5 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2070-07-23T05:25:00+00:00",
+                "endDate": "2070-11-02T05:25:00+00:00",
+                "period": "0 Y 3 M 10 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2070-11-02T05:25:00+00:00",
+                "endDate": "2070-12-02T05:25:00+00:00",
+                "period": "0 Y 1 M 0 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2070-12-02T05:25:00+00:00",
+            "endDate": "2072-02-01T05:25:00+00:00",
+            "period": "1 Y 2 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2070-12-02T05:25:00+00:00",
+                "endDate": "2070-12-27T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2070-12-27T05:25:00+00:00",
+                "endDate": "2071-03-01T05:25:00+00:00",
+                "period": "0 Y 2 M 2 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2071-03-01T05:25:00+00:00",
+                "endDate": "2071-04-27T05:25:00+00:00",
+                "period": "0 Y 1 M 25 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2071-04-27T05:25:00+00:00",
+                "endDate": "2071-07-03T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2071-07-03T05:25:00+00:00",
+                "endDate": "2071-09-01T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2071-09-01T05:25:00+00:00",
+                "endDate": "2071-09-26T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2071-09-26T05:25:00+00:00",
+                "endDate": "2071-12-06T05:25:00+00:00",
+                "period": "0 Y 2 M 9 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2071-12-06T05:25:00+00:00",
+                "endDate": "2071-12-27T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2071-12-27T05:25:00+00:00",
+                "endDate": "2072-02-01T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2072-02-01T05:25:00+00:00",
+            "endDate": "2075-02-01T05:25:00+00:00",
+            "period": "3 Y 0 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2072-02-01T05:25:00+00:00",
+                "endDate": "2072-07-14T05:25:00+00:00",
+                "period": "0 Y 5 M 12 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2072-07-14T05:25:00+00:00",
+                "endDate": "2072-12-07T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2072-12-07T05:25:00+00:00",
+                "endDate": "2073-05-30T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2073-05-30T05:25:00+00:00",
+                "endDate": "2073-11-01T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2073-11-01T05:25:00+00:00",
+                "endDate": "2074-01-04T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2074-01-04T05:25:00+00:00",
+                "endDate": "2074-07-06T05:25:00+00:00",
+                "period": "0 Y 6 M 0 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2074-07-06T05:25:00+00:00",
+                "endDate": "2074-08-30T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2074-08-30T05:25:00+00:00",
+                "endDate": "2074-11-29T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2074-11-29T05:25:00+00:00",
+                "endDate": "2075-02-01T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2075-02-01T05:25:00+00:00",
+            "endDate": "2077-10-02T05:25:00+00:00",
+            "period": "2 Y 7 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2075-02-01T05:25:00+00:00",
+                "endDate": "2075-06-11T05:25:00+00:00",
+                "period": "0 Y 4 M 7 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2075-06-11T05:25:00+00:00",
+                "endDate": "2075-11-12T05:25:00+00:00",
+                "period": "0 Y 5 M 1 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2075-11-12T05:25:00+00:00",
+                "endDate": "2076-03-29T05:25:00+00:00",
+                "period": "0 Y 4 M 15 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2076-03-29T05:25:00+00:00",
+                "endDate": "2076-05-25T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2076-05-25T05:25:00+00:00",
+                "endDate": "2076-11-03T05:25:00+00:00",
+                "period": "0 Y 5 M 9 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2076-11-03T05:25:00+00:00",
+                "endDate": "2076-12-22T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2076-12-22T05:25:00+00:00",
+                "endDate": "2077-03-13T05:25:00+00:00",
+                "period": "0 Y 2 M 19 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2077-03-13T05:25:00+00:00",
+                "endDate": "2077-05-09T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2077-05-09T05:25:00+00:00",
+                "endDate": "2077-10-02T05:25:00+00:00",
+                "period": "0 Y 4 M 23 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2077-10-02T05:25:00+00:00",
+            "endDate": "2080-12-02T05:25:00+00:00",
+            "period": "3 Y 1 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2077-10-02T05:25:00+00:00",
+                "endDate": "2078-04-03T05:25:00+00:00",
+                "period": "0 Y 6 M 0 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2078-04-03T05:25:00+00:00",
+                "endDate": "2078-09-14T05:25:00+00:00",
+                "period": "0 Y 5 M 11 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2078-09-14T05:25:00+00:00",
+                "endDate": "2078-11-20T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2078-11-20T05:25:00+00:00",
+                "endDate": "2079-06-01T05:25:00+00:00",
+                "period": "0 Y 6 M 10 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2079-06-01T05:25:00+00:00",
+                "endDate": "2079-07-29T05:25:00+00:00",
+                "period": "0 Y 1 M 27 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2079-07-29T05:25:00+00:00",
+                "endDate": "2079-11-02T05:25:00+00:00",
+                "period": "0 Y 3 M 5 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2079-11-02T05:25:00+00:00",
+                "endDate": "2080-01-08T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2080-01-08T05:25:00+00:00",
+                "endDate": "2080-06-30T05:25:00+00:00",
+                "period": "0 Y 5 M 21 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2080-06-30T05:25:00+00:00",
+                "endDate": "2080-12-01T05:25:00+00:00",
+                "period": "0 Y 5 M 2 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2080-12-02T05:25:00+00:00",
+            "endDate": "2083-10-03T05:25:00+00:00",
+            "period": "2 Y 9 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2080-12-02T05:25:00+00:00",
+                "endDate": "2081-04-28T05:25:00+00:00",
+                "period": "0 Y 4 M 24 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2081-04-28T05:25:00+00:00",
+                "endDate": "2081-06-27T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2081-06-27T05:25:00+00:00",
+                "endDate": "2081-12-17T05:25:00+00:00",
+                "period": "0 Y 5 M 20 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2081-12-17T05:25:00+00:00",
+                "endDate": "2082-02-07T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2082-02-07T05:25:00+00:00",
+                "endDate": "2082-05-04T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2082-05-04T05:25:00+00:00",
+                "endDate": "2082-07-03T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2082-07-03T05:25:00+00:00",
+                "endDate": "2082-12-05T05:25:00+00:00",
+                "period": "0 Y 5 M 3 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2082-12-05T05:25:00+00:00",
+                "endDate": "2083-04-22T05:25:00+00:00",
+                "period": "0 Y 4 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2083-04-22T05:25:00+00:00",
+                "endDate": "2083-10-03T05:25:00+00:00",
+                "period": "0 Y 5 M 11 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2083-10-03T05:25:00+00:00",
+            "endDate": "2084-12-01T05:25:00+00:00",
+            "period": "1 Y 2 M 0 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2083-10-03T05:25:00+00:00",
+                "endDate": "2083-10-28T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2083-10-28T05:25:00+00:00",
+                "endDate": "2084-01-07T05:25:00+00:00",
+                "period": "0 Y 2 M 9 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2084-01-07T05:25:00+00:00",
+                "endDate": "2084-01-28T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2084-01-28T05:25:00+00:00",
+                "endDate": "2084-03-03T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2084-03-03T05:25:00+00:00",
+                "endDate": "2084-03-28T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2084-03-28T05:25:00+00:00",
+                "endDate": "2084-05-31T05:25:00+00:00",
+                "period": "0 Y 2 M 2 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2084-05-31T05:25:00+00:00",
+                "endDate": "2084-07-27T05:25:00+00:00",
+                "period": "0 Y 1 M 25 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2084-07-27T05:25:00+00:00",
+                "endDate": "2084-10-02T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2084-10-02T05:25:00+00:00",
+                "endDate": "2084-12-01T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "SUN",
+        "startDate": "2084-12-01T05:25:00+00:00",
+        "endDate": "2090-12-01T05:25:00+00:00",
+        "period": "6 Years",
+        "antarDashas": [
+          {
+            "lord": "SUN",
+            "startDate": "2084-12-01T05:25:00+00:00",
+            "endDate": "2085-03-21T05:25:00+00:00",
+            "period": "0 Y 3 M 17 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2084-12-01T05:25:00+00:00",
+                "endDate": "2084-12-07T05:25:00+00:00",
+                "period": "0 Y 0 M 5 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2084-12-07T05:25:00+00:00",
+                "endDate": "2084-12-16T05:25:00+00:00",
+                "period": "0 Y 0 M 9 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2084-12-16T05:25:00+00:00",
+                "endDate": "2084-12-22T05:25:00+00:00",
+                "period": "0 Y 0 M 6 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2084-12-22T05:25:00+00:00",
+                "endDate": "2085-01-08T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2085-01-08T05:25:00+00:00",
+                "endDate": "2085-01-23T05:25:00+00:00",
+                "period": "0 Y 0 M 14 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2085-01-23T05:25:00+00:00",
+                "endDate": "2085-02-09T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2085-02-09T05:25:00+00:00",
+                "endDate": "2085-02-25T05:25:00+00:00",
+                "period": "0 Y 0 M 15 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2085-02-25T05:25:00+00:00",
+                "endDate": "2085-03-03T05:25:00+00:00",
+                "period": "0 Y 0 M 6 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2085-03-03T05:25:00+00:00",
+                "endDate": "2085-03-21T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2085-03-21T05:25:00+00:00",
+            "endDate": "2085-09-20T05:25:00+00:00",
+            "period": "0 Y 5 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2085-03-21T05:25:00+00:00",
+                "endDate": "2085-04-05T05:25:00+00:00",
+                "period": "0 Y 0 M 15 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2085-04-05T05:25:00+00:00",
+                "endDate": "2085-04-16T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2085-04-16T05:25:00+00:00",
+                "endDate": "2085-05-13T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2085-05-13T05:25:00+00:00",
+                "endDate": "2085-06-06T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2085-06-06T05:25:00+00:00",
+                "endDate": "2085-07-05T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2085-07-05T05:25:00+00:00",
+                "endDate": "2085-07-31T05:25:00+00:00",
+                "period": "0 Y 0 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2085-07-31T05:25:00+00:00",
+                "endDate": "2085-08-11T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2085-08-11T05:25:00+00:00",
+                "endDate": "2085-09-11T05:25:00+00:00",
+                "period": "0 Y 1 M 0 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2085-09-11T05:25:00+00:00",
+                "endDate": "2085-09-20T05:25:00+00:00",
+                "period": "0 Y 0 M 9 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2085-09-20T05:25:00+00:00",
+            "endDate": "2086-01-26T05:25:00+00:00",
+            "period": "0 Y 4 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2085-09-20T05:25:00+00:00",
+                "endDate": "2085-09-27T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2085-09-27T05:25:00+00:00",
+                "endDate": "2085-10-16T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2085-10-16T05:25:00+00:00",
+                "endDate": "2085-11-02T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2085-11-02T05:25:00+00:00",
+                "endDate": "2085-11-22T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2085-11-22T05:25:00+00:00",
+                "endDate": "2085-12-10T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2085-12-10T05:25:00+00:00",
+                "endDate": "2085-12-17T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2085-12-17T05:25:00+00:00",
+                "endDate": "2086-01-07T05:25:00+00:00",
+                "period": "0 Y 0 M 21 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2086-01-07T05:25:00+00:00",
+                "endDate": "2086-01-13T05:25:00+00:00",
+                "period": "0 Y 0 M 6 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2086-01-13T05:25:00+00:00",
+                "endDate": "2086-01-24T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2086-01-26T05:25:00+00:00",
+            "endDate": "2086-12-21T05:25:00+00:00",
+            "period": "0 Y 10 M 23 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2086-01-26T05:25:00+00:00",
+                "endDate": "2086-03-16T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2086-03-16T05:25:00+00:00",
+                "endDate": "2086-04-29T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2086-04-29T05:25:00+00:00",
+                "endDate": "2086-06-20T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2086-06-20T05:25:00+00:00",
+                "endDate": "2086-08-06T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2086-08-06T05:25:00+00:00",
+                "endDate": "2086-08-25T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2086-08-25T05:25:00+00:00",
+                "endDate": "2086-10-19T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2086-10-19T05:25:00+00:00",
+                "endDate": "2086-11-04T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2086-11-04T05:25:00+00:00",
+                "endDate": "2086-12-01T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2086-12-01T05:25:00+00:00",
+                "endDate": "2086-12-20T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2086-12-21T05:25:00+00:00",
+            "endDate": "2087-10-09T05:25:00+00:00",
+            "period": "0 Y 9 M 17 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2086-12-21T05:25:00+00:00",
+                "endDate": "2087-01-29T05:25:00+00:00",
+                "period": "0 Y 1 M 8 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2087-01-29T05:25:00+00:00",
+                "endDate": "2087-03-16T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2087-03-16T05:25:00+00:00",
+                "endDate": "2087-04-26T05:25:00+00:00",
+                "period": "0 Y 1 M 10 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2087-04-26T05:25:00+00:00",
+                "endDate": "2087-05-13T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2087-05-13T05:25:00+00:00",
+                "endDate": "2087-07-01T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2087-07-01T05:25:00+00:00",
+                "endDate": "2087-07-16T05:25:00+00:00",
+                "period": "0 Y 0 M 14 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2087-07-16T05:25:00+00:00",
+                "endDate": "2087-08-09T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2087-08-09T05:25:00+00:00",
+                "endDate": "2087-08-26T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2087-08-26T05:25:00+00:00",
+                "endDate": "2087-10-09T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2087-10-09T05:25:00+00:00",
+            "endDate": "2088-09-20T05:25:00+00:00",
+            "period": "0 Y 11 M 11 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2087-10-09T05:25:00+00:00",
+                "endDate": "2087-12-03T05:25:00+00:00",
+                "period": "0 Y 1 M 24 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2087-12-03T05:25:00+00:00",
+                "endDate": "2088-01-21T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2088-01-21T05:25:00+00:00",
+                "endDate": "2088-02-10T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2088-02-10T05:25:00+00:00",
+                "endDate": "2088-04-08T05:25:00+00:00",
+                "period": "0 Y 1 M 27 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2088-04-08T05:25:00+00:00",
+                "endDate": "2088-04-25T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2088-04-25T05:25:00+00:00",
+                "endDate": "2088-05-24T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2088-05-24T05:25:00+00:00",
+                "endDate": "2088-06-13T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2088-06-13T05:25:00+00:00",
+                "endDate": "2088-08-04T05:25:00+00:00",
+                "period": "0 Y 1 M 21 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2088-08-04T05:25:00+00:00",
+                "endDate": "2088-09-19T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2088-09-20T05:25:00+00:00",
+            "endDate": "2089-07-27T05:25:00+00:00",
+            "period": "0 Y 10 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2088-09-20T05:25:00+00:00",
+                "endDate": "2088-11-03T05:25:00+00:00",
+                "period": "0 Y 1 M 13 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2088-11-03T05:25:00+00:00",
+                "endDate": "2088-11-21T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2088-11-21T05:25:00+00:00",
+                "endDate": "2089-01-12T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2089-01-12T05:25:00+00:00",
+                "endDate": "2089-01-28T05:25:00+00:00",
+                "period": "0 Y 0 M 15 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2089-01-28T05:25:00+00:00",
+                "endDate": "2089-02-23T05:25:00+00:00",
+                "period": "0 Y 0 M 25 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2089-02-23T05:25:00+00:00",
+                "endDate": "2089-03-13T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2089-03-13T05:25:00+00:00",
+                "endDate": "2089-04-29T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2089-04-29T05:25:00+00:00",
+                "endDate": "2089-06-09T05:25:00+00:00",
+                "period": "0 Y 1 M 10 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2089-06-09T05:25:00+00:00",
+                "endDate": "2089-07-27T05:25:00+00:00",
+                "period": "0 Y 1 M 18 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2089-07-27T05:25:00+00:00",
+            "endDate": "2089-12-02T05:25:00+00:00",
+            "period": "0 Y 4 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2089-07-27T05:25:00+00:00",
+                "endDate": "2089-08-03T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2089-08-03T05:25:00+00:00",
+                "endDate": "2089-08-24T05:25:00+00:00",
+                "period": "0 Y 0 M 21 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2089-08-24T05:25:00+00:00",
+                "endDate": "2089-08-30T05:25:00+00:00",
+                "period": "0 Y 0 M 6 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2089-08-30T05:25:00+00:00",
+                "endDate": "2089-09-10T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2089-09-10T05:25:00+00:00",
+                "endDate": "2089-09-17T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2089-09-17T05:25:00+00:00",
+                "endDate": "2089-10-06T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2089-10-06T05:25:00+00:00",
+                "endDate": "2089-10-23T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2089-10-23T05:25:00+00:00",
+                "endDate": "2089-11-12T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2089-11-12T05:25:00+00:00",
+                "endDate": "2089-11-30T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2089-12-02T05:25:00+00:00",
+            "endDate": "2090-12-01T05:25:00+00:00",
+            "period": "0 Y 11 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2089-12-02T05:25:00+00:00",
+                "endDate": "2090-02-01T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2090-02-01T05:25:00+00:00",
+                "endDate": "2090-02-19T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2090-02-19T05:25:00+00:00",
+                "endDate": "2090-03-21T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2090-03-21T05:25:00+00:00",
+                "endDate": "2090-04-11T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2090-04-11T05:25:00+00:00",
+                "endDate": "2090-06-05T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2090-06-05T05:25:00+00:00",
+                "endDate": "2090-07-24T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2090-07-24T05:25:00+00:00",
+                "endDate": "2090-09-20T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2090-09-20T05:25:00+00:00",
+                "endDate": "2090-11-11T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2090-11-11T05:25:00+00:00",
+                "endDate": "2090-12-01T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "MON",
+        "startDate": "2090-12-01T05:25:00+00:00",
+        "endDate": "2100-12-01T05:25:00+00:00",
+        "period": "10 Years",
+        "antarDashas": [
+          {
+            "lord": "MON",
+            "startDate": "2090-12-01T05:25:00+00:00",
+            "endDate": "2091-10-01T05:25:00+00:00",
+            "period": "0 Y 9 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2090-12-01T05:25:00+00:00",
+                "endDate": "2090-12-26T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2090-12-26T05:25:00+00:00",
+                "endDate": "2091-01-13T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2091-01-13T05:25:00+00:00",
+                "endDate": "2091-02-28T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2091-02-28T05:25:00+00:00",
+                "endDate": "2091-04-10T05:25:00+00:00",
+                "period": "0 Y 1 M 9 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2091-04-10T05:25:00+00:00",
+                "endDate": "2091-05-28T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2091-05-28T05:25:00+00:00",
+                "endDate": "2091-07-10T05:25:00+00:00",
+                "period": "0 Y 1 M 12 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2091-07-10T05:25:00+00:00",
+                "endDate": "2091-07-28T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2091-07-28T05:25:00+00:00",
+                "endDate": "2091-09-17T05:25:00+00:00",
+                "period": "0 Y 1 M 19 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2091-09-17T05:25:00+00:00",
+                "endDate": "2091-10-01T05:25:00+00:00",
+                "period": "0 Y 0 M 14 D"
+              }
+            ]
+          },
+          {
+            "lord": "MAR",
+            "startDate": "2091-10-01T05:25:00+00:00",
+            "endDate": "2092-05-01T05:25:00+00:00",
+            "period": "0 Y 6 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2091-10-01T05:25:00+00:00",
+                "endDate": "2091-10-13T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2091-10-13T05:25:00+00:00",
+                "endDate": "2091-11-14T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2091-11-14T05:25:00+00:00",
+                "endDate": "2091-12-12T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2091-12-12T05:25:00+00:00",
+                "endDate": "2092-01-15T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2092-01-15T05:25:00+00:00",
+                "endDate": "2092-02-14T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2092-02-14T05:25:00+00:00",
+                "endDate": "2092-02-26T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2092-02-26T05:25:00+00:00",
+                "endDate": "2092-04-02T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2092-04-02T05:25:00+00:00",
+                "endDate": "2092-04-13T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2092-04-13T05:25:00+00:00",
+                "endDate": "2092-05-01T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2092-05-01T05:25:00+00:00",
+            "endDate": "2093-10-31T05:25:00+00:00",
+            "period": "1 Y 5 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2092-05-01T05:25:00+00:00",
+                "endDate": "2092-07-22T05:25:00+00:00",
+                "period": "0 Y 2 M 21 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2092-07-22T05:25:00+00:00",
+                "endDate": "2092-10-03T05:25:00+00:00",
+                "period": "0 Y 2 M 12 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2092-10-03T05:25:00+00:00",
+                "endDate": "2092-12-29T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2092-12-29T05:25:00+00:00",
+                "endDate": "2093-03-17T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2093-03-17T05:25:00+00:00",
+                "endDate": "2093-04-18T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2093-04-18T05:25:00+00:00",
+                "endDate": "2093-07-18T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2093-07-18T05:25:00+00:00",
+                "endDate": "2093-08-14T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2093-08-14T05:25:00+00:00",
+                "endDate": "2093-09-29T05:25:00+00:00",
+                "period": "0 Y 1 M 15 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2093-09-29T05:25:00+00:00",
+                "endDate": "2093-10-31T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2093-10-31T05:25:00+00:00",
+            "endDate": "2095-03-02T05:25:00+00:00",
+            "period": "1 Y 3 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2093-10-31T05:25:00+00:00",
+                "endDate": "2094-01-04T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2094-01-04T05:25:00+00:00",
+                "endDate": "2094-03-22T05:25:00+00:00",
+                "period": "0 Y 2 M 15 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2094-03-22T05:25:00+00:00",
+                "endDate": "2094-05-30T05:25:00+00:00",
+                "period": "0 Y 2 M 7 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2094-05-30T05:25:00+00:00",
+                "endDate": "2094-06-27T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2094-06-27T05:25:00+00:00",
+                "endDate": "2094-09-16T05:25:00+00:00",
+                "period": "0 Y 2 M 19 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2094-09-16T05:25:00+00:00",
+                "endDate": "2094-10-10T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2094-10-10T05:25:00+00:00",
+                "endDate": "2094-11-20T05:25:00+00:00",
+                "period": "0 Y 1 M 9 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2094-11-20T05:25:00+00:00",
+                "endDate": "2094-12-18T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2094-12-18T05:25:00+00:00",
+                "endDate": "2095-03-01T05:25:00+00:00",
+                "period": "0 Y 2 M 11 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2095-03-02T05:25:00+00:00",
+            "endDate": "2096-09-30T05:25:00+00:00",
+            "period": "1 Y 6 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2095-03-02T05:25:00+00:00",
+                "endDate": "2095-06-02T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2095-06-02T05:25:00+00:00",
+                "endDate": "2095-08-23T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2095-08-23T05:25:00+00:00",
+                "endDate": "2095-09-26T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2095-09-26T05:25:00+00:00",
+                "endDate": "2095-12-31T05:25:00+00:00",
+                "period": "0 Y 3 M 4 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2095-12-31T05:25:00+00:00",
+                "endDate": "2096-01-29T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2096-01-29T05:25:00+00:00",
+                "endDate": "2096-03-17T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2096-03-17T05:25:00+00:00",
+                "endDate": "2096-04-20T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2096-04-20T05:25:00+00:00",
+                "endDate": "2096-07-16T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2096-07-16T05:25:00+00:00",
+                "endDate": "2096-09-30T05:25:00+00:00",
+                "period": "0 Y 2 M 15 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2096-09-30T05:25:00+00:00",
+            "endDate": "2098-03-01T05:25:00+00:00",
+            "period": "1 Y 4 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2096-09-30T05:25:00+00:00",
+                "endDate": "2096-12-12T05:25:00+00:00",
+                "period": "0 Y 2 M 12 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2096-12-12T05:25:00+00:00",
+                "endDate": "2097-01-11T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2097-01-11T05:25:00+00:00",
+                "endDate": "2097-04-07T05:25:00+00:00",
+                "period": "0 Y 2 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2097-04-07T05:25:00+00:00",
+                "endDate": "2097-05-03T05:25:00+00:00",
+                "period": "0 Y 0 M 25 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2097-05-03T05:25:00+00:00",
+                "endDate": "2097-06-15T05:25:00+00:00",
+                "period": "0 Y 1 M 12 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2097-06-15T05:25:00+00:00",
+                "endDate": "2097-07-15T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2097-07-15T05:25:00+00:00",
+                "endDate": "2097-10-01T05:25:00+00:00",
+                "period": "0 Y 2 M 16 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2097-10-01T05:25:00+00:00",
+                "endDate": "2097-12-09T05:25:00+00:00",
+                "period": "0 Y 2 M 7 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2097-12-09T05:25:00+00:00",
+                "endDate": "2098-03-01T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2098-03-01T05:25:00+00:00",
+            "endDate": "2098-09-30T05:25:00+00:00",
+            "period": "0 Y 6 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2098-03-01T05:25:00+00:00",
+                "endDate": "2098-03-13T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2098-03-13T05:25:00+00:00",
+                "endDate": "2098-04-18T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2098-04-18T05:25:00+00:00",
+                "endDate": "2098-04-29T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2098-04-29T05:25:00+00:00",
+                "endDate": "2098-05-17T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2098-05-17T05:25:00+00:00",
+                "endDate": "2098-05-29T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2098-05-29T05:25:00+00:00",
+                "endDate": "2098-06-30T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2098-06-30T05:25:00+00:00",
+                "endDate": "2098-07-28T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2098-07-28T05:25:00+00:00",
+                "endDate": "2098-08-31T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2098-08-31T05:25:00+00:00",
+                "endDate": "2098-09-30T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2098-09-30T05:25:00+00:00",
+            "endDate": "2100-06-01T05:25:00+00:00",
+            "period": "1 Y 7 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2098-09-30T05:25:00+00:00",
+                "endDate": "2099-01-10T05:25:00+00:00",
+                "period": "0 Y 3 M 10 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2099-01-10T05:25:00+00:00",
+                "endDate": "2099-02-09T05:25:00+00:00",
+                "period": "0 Y 1 M 0 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2099-02-09T05:25:00+00:00",
+                "endDate": "2099-04-01T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2099-04-01T05:25:00+00:00",
+                "endDate": "2099-05-07T05:25:00+00:00",
+                "period": "0 Y 1 M 5 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2099-05-07T05:25:00+00:00",
+                "endDate": "2099-08-06T05:25:00+00:00",
+                "period": "0 Y 3 M 0 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2099-08-06T05:25:00+00:00",
+                "endDate": "2099-10-26T05:25:00+00:00",
+                "period": "0 Y 2 M 20 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2099-10-26T05:25:00+00:00",
+                "endDate": "2100-01-30T05:25:00+00:00",
+                "period": "0 Y 3 M 5 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2100-01-30T05:25:00+00:00",
+                "endDate": "2100-04-26T05:25:00+00:00",
+                "period": "0 Y 2 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2100-04-26T05:25:00+00:00",
+                "endDate": "2100-06-01T05:25:00+00:00",
+                "period": "0 Y 1 M 5 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2100-06-01T05:25:00+00:00",
+            "endDate": "2100-12-01T05:25:00+00:00",
+            "period": "0 Y 5 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2100-06-01T05:25:00+00:00",
+                "endDate": "2100-06-10T05:25:00+00:00",
+                "period": "0 Y 0 M 9 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2100-06-10T05:25:00+00:00",
+                "endDate": "2100-06-25T05:25:00+00:00",
+                "period": "0 Y 0 M 15 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2100-06-25T05:25:00+00:00",
+                "endDate": "2100-07-06T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2100-07-06T05:25:00+00:00",
+                "endDate": "2100-08-02T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2100-08-02T05:25:00+00:00",
+                "endDate": "2100-08-26T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2100-08-26T05:25:00+00:00",
+                "endDate": "2100-09-24T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2100-09-24T05:25:00+00:00",
+                "endDate": "2100-10-20T05:25:00+00:00",
+                "period": "0 Y 0 M 25 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2100-10-20T05:25:00+00:00",
+                "endDate": "2100-10-31T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2100-10-31T05:25:00+00:00",
+                "endDate": "2100-12-01T05:25:00+00:00",
+                "period": "0 Y 1 M 0 D"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "lord": "MAR",
+        "startDate": "2100-12-01T05:25:00+00:00",
+        "endDate": "2107-12-01T05:25:00+00:00",
+        "period": "7 Years",
+        "antarDashas": [
+          {
+            "lord": "MAR",
+            "startDate": "2100-12-01T05:25:00+00:00",
+            "endDate": "2101-04-29T05:25:00+00:00",
+            "period": "0 Y 4 M 26 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MAR",
+                "startDate": "2100-12-01T05:25:00+00:00",
+                "endDate": "2100-12-10T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2100-12-10T05:25:00+00:00",
+                "endDate": "2101-01-01T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2101-01-01T05:25:00+00:00",
+                "endDate": "2101-01-21T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2101-01-21T05:25:00+00:00",
+                "endDate": "2101-02-14T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2101-02-14T05:25:00+00:00",
+                "endDate": "2101-03-07T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2101-03-07T05:25:00+00:00",
+                "endDate": "2101-03-16T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2101-03-16T05:25:00+00:00",
+                "endDate": "2101-04-10T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2101-04-10T05:25:00+00:00",
+                "endDate": "2101-04-17T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2101-04-17T05:25:00+00:00",
+                "endDate": "2101-04-29T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              }
+            ]
+          },
+          {
+            "lord": "RAH",
+            "startDate": "2101-04-29T05:25:00+00:00",
+            "endDate": "2102-05-17T05:25:00+00:00",
+            "period": "1 Y 0 M 17 D",
+            "pratyantarDashas": [
+              {
+                "lord": "RAH",
+                "startDate": "2101-04-29T05:25:00+00:00",
+                "endDate": "2101-06-25T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2101-06-25T05:25:00+00:00",
+                "endDate": "2101-08-15T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2101-08-15T05:25:00+00:00",
+                "endDate": "2101-10-15T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2101-10-15T05:25:00+00:00",
+                "endDate": "2101-12-08T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2101-12-08T05:25:00+00:00",
+                "endDate": "2101-12-30T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2101-12-30T05:25:00+00:00",
+                "endDate": "2102-03-04T05:25:00+00:00",
+                "period": "0 Y 2 M 2 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2102-03-04T05:25:00+00:00",
+                "endDate": "2102-03-23T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2102-03-23T05:25:00+00:00",
+                "endDate": "2102-04-24T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2102-04-24T05:25:00+00:00",
+                "endDate": "2102-05-16T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              }
+            ]
+          },
+          {
+            "lord": "JUP",
+            "startDate": "2102-05-17T05:25:00+00:00",
+            "endDate": "2103-04-23T05:25:00+00:00",
+            "period": "0 Y 11 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "JUP",
+                "startDate": "2102-05-17T05:25:00+00:00",
+                "endDate": "2102-07-01T05:25:00+00:00",
+                "period": "0 Y 1 M 14 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2102-07-01T05:25:00+00:00",
+                "endDate": "2102-08-24T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2102-08-24T05:25:00+00:00",
+                "endDate": "2102-10-11T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2102-10-11T05:25:00+00:00",
+                "endDate": "2102-10-31T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2102-10-31T05:25:00+00:00",
+                "endDate": "2102-12-27T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2102-12-27T05:25:00+00:00",
+                "endDate": "2103-01-13T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2103-01-13T05:25:00+00:00",
+                "endDate": "2103-02-10T05:25:00+00:00",
+                "period": "0 Y 0 M 28 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2103-02-10T05:25:00+00:00",
+                "endDate": "2103-03-02T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2103-03-02T05:25:00+00:00",
+                "endDate": "2103-04-22T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "SAT",
+            "startDate": "2103-04-23T05:25:00+00:00",
+            "endDate": "2104-06-01T05:25:00+00:00",
+            "period": "1 Y 1 M 8 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SAT",
+                "startDate": "2103-04-23T05:25:00+00:00",
+                "endDate": "2103-06-26T05:25:00+00:00",
+                "period": "0 Y 2 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2103-06-26T05:25:00+00:00",
+                "endDate": "2103-08-22T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2103-08-22T05:25:00+00:00",
+                "endDate": "2103-09-15T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2103-09-15T05:25:00+00:00",
+                "endDate": "2103-11-22T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2103-11-22T05:25:00+00:00",
+                "endDate": "2103-12-12T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2103-12-12T05:25:00+00:00",
+                "endDate": "2104-01-15T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2104-01-15T05:25:00+00:00",
+                "endDate": "2104-02-08T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2104-02-08T05:25:00+00:00",
+                "endDate": "2104-04-09T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2104-04-09T05:25:00+00:00",
+                "endDate": "2104-06-01T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              }
+            ]
+          },
+          {
+            "lord": "MER",
+            "startDate": "2104-06-01T05:25:00+00:00",
+            "endDate": "2105-05-29T05:25:00+00:00",
+            "period": "0 Y 11 M 26 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MER",
+                "startDate": "2104-06-01T05:25:00+00:00",
+                "endDate": "2104-07-22T05:25:00+00:00",
+                "period": "0 Y 1 M 20 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2104-07-22T05:25:00+00:00",
+                "endDate": "2104-08-12T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2104-08-12T05:25:00+00:00",
+                "endDate": "2104-10-11T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2104-10-11T05:25:00+00:00",
+                "endDate": "2104-10-29T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2104-10-29T05:25:00+00:00",
+                "endDate": "2104-11-28T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2104-11-28T05:25:00+00:00",
+                "endDate": "2104-12-19T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2104-12-19T05:25:00+00:00",
+                "endDate": "2105-02-11T05:25:00+00:00",
+                "period": "0 Y 1 M 23 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2105-02-11T05:25:00+00:00",
+                "endDate": "2105-03-31T05:25:00+00:00",
+                "period": "0 Y 1 M 17 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2105-03-31T05:25:00+00:00",
+                "endDate": "2105-05-27T05:25:00+00:00",
+                "period": "0 Y 1 M 26 D"
+              }
+            ]
+          },
+          {
+            "lord": "KET",
+            "startDate": "2105-05-29T05:25:00+00:00",
+            "endDate": "2105-10-25T05:25:00+00:00",
+            "period": "0 Y 4 M 26 D",
+            "pratyantarDashas": [
+              {
+                "lord": "KET",
+                "startDate": "2105-05-29T05:25:00+00:00",
+                "endDate": "2105-06-07T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2105-06-07T05:25:00+00:00",
+                "endDate": "2105-07-02T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2105-07-02T05:25:00+00:00",
+                "endDate": "2105-07-09T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2105-07-09T05:25:00+00:00",
+                "endDate": "2105-07-21T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2105-07-21T05:25:00+00:00",
+                "endDate": "2105-07-30T05:25:00+00:00",
+                "period": "0 Y 0 M 8 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2105-07-30T05:25:00+00:00",
+                "endDate": "2105-08-21T05:25:00+00:00",
+                "period": "0 Y 0 M 22 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2105-08-21T05:25:00+00:00",
+                "endDate": "2105-09-10T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2105-09-10T05:25:00+00:00",
+                "endDate": "2105-10-04T05:25:00+00:00",
+                "period": "0 Y 0 M 23 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2105-10-04T05:25:00+00:00",
+                "endDate": "2105-10-25T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              }
+            ]
+          },
+          {
+            "lord": "VEN",
+            "startDate": "2105-10-25T05:25:00+00:00",
+            "endDate": "2106-12-25T05:25:00+00:00",
+            "period": "1 Y 1 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "VEN",
+                "startDate": "2105-10-25T05:25:00+00:00",
+                "endDate": "2106-01-04T05:25:00+00:00",
+                "period": "0 Y 2 M 9 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2106-01-04T05:25:00+00:00",
+                "endDate": "2106-01-25T05:25:00+00:00",
+                "period": "0 Y 0 M 20 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2106-01-25T05:25:00+00:00",
+                "endDate": "2106-03-02T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2106-03-02T05:25:00+00:00",
+                "endDate": "2106-03-27T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2106-03-27T05:25:00+00:00",
+                "endDate": "2106-05-30T05:25:00+00:00",
+                "period": "0 Y 2 M 2 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2106-05-30T05:25:00+00:00",
+                "endDate": "2106-07-26T05:25:00+00:00",
+                "period": "0 Y 1 M 25 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2106-07-26T05:25:00+00:00",
+                "endDate": "2106-10-01T05:25:00+00:00",
+                "period": "0 Y 2 M 6 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2106-10-01T05:25:00+00:00",
+                "endDate": "2106-11-30T05:25:00+00:00",
+                "period": "0 Y 1 M 29 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2106-11-30T05:25:00+00:00",
+                "endDate": "2106-12-25T05:25:00+00:00",
+                "period": "0 Y 0 M 24 D"
+              }
+            ]
+          },
+          {
+            "lord": "SUN",
+            "startDate": "2106-12-25T05:25:00+00:00",
+            "endDate": "2107-05-02T05:25:00+00:00",
+            "period": "0 Y 4 M 5 D",
+            "pratyantarDashas": [
+              {
+                "lord": "SUN",
+                "startDate": "2106-12-25T05:25:00+00:00",
+                "endDate": "2106-12-31T05:25:00+00:00",
+                "period": "0 Y 0 M 6 D"
+              },
+              {
+                "lord": "MON",
+                "startDate": "2106-12-31T05:25:00+00:00",
+                "endDate": "2107-01-11T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2107-01-11T05:25:00+00:00",
+                "endDate": "2107-01-18T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2107-01-18T05:25:00+00:00",
+                "endDate": "2107-02-06T05:25:00+00:00",
+                "period": "0 Y 0 M 18 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2107-02-06T05:25:00+00:00",
+                "endDate": "2107-02-23T05:25:00+00:00",
+                "period": "0 Y 0 M 16 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2107-02-23T05:25:00+00:00",
+                "endDate": "2107-03-15T05:25:00+00:00",
+                "period": "0 Y 0 M 19 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2107-03-15T05:25:00+00:00",
+                "endDate": "2107-04-02T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2107-04-02T05:25:00+00:00",
+                "endDate": "2107-04-09T05:25:00+00:00",
+                "period": "0 Y 0 M 7 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2107-04-09T05:25:00+00:00",
+                "endDate": "2107-04-30T05:25:00+00:00",
+                "period": "0 Y 0 M 21 D"
+              }
+            ]
+          },
+          {
+            "lord": "MON",
+            "startDate": "2107-05-02T05:25:00+00:00",
+            "endDate": "2107-12-01T05:25:00+00:00",
+            "period": "0 Y 6 M 29 D",
+            "pratyantarDashas": [
+              {
+                "lord": "MON",
+                "startDate": "2107-05-02T05:25:00+00:00",
+                "endDate": "2107-05-20T05:25:00+00:00",
+                "period": "0 Y 0 M 17 D"
+              },
+              {
+                "lord": "MAR",
+                "startDate": "2107-05-20T05:25:00+00:00",
+                "endDate": "2107-06-01T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "RAH",
+                "startDate": "2107-06-01T05:25:00+00:00",
+                "endDate": "2107-07-03T05:25:00+00:00",
+                "period": "0 Y 1 M 1 D"
+              },
+              {
+                "lord": "JUP",
+                "startDate": "2107-07-03T05:25:00+00:00",
+                "endDate": "2107-07-31T05:25:00+00:00",
+                "period": "0 Y 0 M 27 D"
+              },
+              {
+                "lord": "SAT",
+                "startDate": "2107-07-31T05:25:00+00:00",
+                "endDate": "2107-09-03T05:25:00+00:00",
+                "period": "0 Y 1 M 3 D"
+              },
+              {
+                "lord": "MER",
+                "startDate": "2107-09-03T05:25:00+00:00",
+                "endDate": "2107-10-03T05:25:00+00:00",
+                "period": "0 Y 0 M 29 D"
+              },
+              {
+                "lord": "KET",
+                "startDate": "2107-10-03T05:25:00+00:00",
+                "endDate": "2107-10-15T05:25:00+00:00",
+                "period": "0 Y 0 M 12 D"
+              },
+              {
+                "lord": "VEN",
+                "startDate": "2107-10-15T05:25:00+00:00",
+                "endDate": "2107-11-20T05:25:00+00:00",
+                "period": "0 Y 1 M 4 D"
+              },
+              {
+                "lord": "SUN",
+                "startDate": "2107-11-20T05:25:00+00:00",
+                "endDate": "2107-12-01T05:25:00+00:00",
+                "period": "0 Y 0 M 10 D"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

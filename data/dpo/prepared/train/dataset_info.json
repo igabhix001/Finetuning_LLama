@@ -13,6 +13,14 @@
     "rejected": {
       "dtype": "string",
       "_type": "Value"
+    },
+    "category": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "chart_name": {
+      "dtype": "string",
+      "_type": "Value"
     }
   },
   "homepage": "",
