@@ -25,12 +25,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ── Suppress known false-positive tokenizer regex warning ─────────────────────
-# transformers incorrectly flags Llama 3.1 tokenizer as having a Mistral regex issue.
-# See: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84
-import warnings
-warnings.filterwarnings("ignore", message=".*incorrect regex pattern.*")
-warnings.filterwarnings("ignore", message=".*fix_mistral_regex.*")
+# NOTE: If you see tokenizer regex warnings, they indicate a REAL issue.
+# Do NOT suppress them. Investigate and fix the root cause.
 
 # ── Load configs ──────────────────────────────────────────────────────────────
 import argparse
@@ -102,10 +98,22 @@ else:
 
 # Check if model_path is local or HF hub
 if Path(model_path).exists():
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_path,
-        fix_mistral_regex=True  # CRITICAL: Fix Mistral tokenizer regex bug
-    )
+    # Try loading tokenizer first to check for warnings
+    import warnings
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
+        
+        # Check if Mistral regex warning appeared
+        has_mistral_warning = any("fix_mistral_regex" in str(warning.message) for warning in w)
+        
+        if has_mistral_warning:
+            print("   ⚠️  Mistral regex warning detected - reloading with fix")
+            tokenizer = AutoTokenizer.from_pretrained(
+                model_path,
+                fix_mistral_regex=True
+            )
+    
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
         torch_dtype=model_dtype,
@@ -113,11 +121,23 @@ if Path(model_path).exists():
         trust_remote_code=True,
     )
 else:
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_path,
-        token=hf_token,
-        fix_mistral_regex=True  # CRITICAL: Fix Mistral tokenizer regex bug
-    )
+    # Try loading tokenizer first to check for warnings
+    import warnings
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        tokenizer = AutoTokenizer.from_pretrained(model_path, token=hf_token)
+        
+        # Check if Mistral regex warning appeared
+        has_mistral_warning = any("fix_mistral_regex" in str(warning.message) for warning in w)
+        
+        if has_mistral_warning:
+            print("   ⚠️  Mistral regex warning detected - reloading with fix")
+            tokenizer = AutoTokenizer.from_pretrained(
+                model_path,
+                token=hf_token,
+                fix_mistral_regex=True
+            )
+    
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
         token=hf_token,
@@ -126,6 +146,14 @@ else:
         trust_remote_code=True,
     )
 
+# Log tokenizer details for verification
+print(f"\n   Tokenizer Details:")
+print(f"     Class: {tokenizer.__class__.__name__}")
+print(f"     Vocab size: {len(tokenizer)}")
+print(f"     Model max length: {tokenizer.model_max_length}")
+print(f"     BOS: {tokenizer.bos_token} (id: {tokenizer.bos_token_id})")
+print(f"     EOS: {tokenizer.eos_token} (id: {tokenizer.eos_token_id})")
+
 # CRITICAL: Create separate PAD token (do NOT use EOS as PAD)
 # PAD == EOS causes rejected sequences to look like they end immediately,
 # artificially inflating margins without semantic learning
@@ -133,9 +161,16 @@ if tokenizer.pad_token is None:
     tokenizer.add_special_tokens({'pad_token': '<|pad|>'})
     model.resize_token_embeddings(len(tokenizer))
     model.config.pad_token_id = tokenizer.pad_token_id
-    print(f"   ✓ Added separate PAD token: {tokenizer.pad_token} (id: {tokenizer.pad_token_id})")
+    print(f"     PAD: <|pad|> (id: {tokenizer.pad_token_id}) [ADDED]")
+elif tokenizer.pad_token_id == tokenizer.eos_token_id:
+    print(f"     ⚠️  WARNING: PAD == EOS (id: {tokenizer.pad_token_id})")
+    print(f"     Creating separate PAD token to prevent reward hacking...")
+    tokenizer.add_special_tokens({'pad_token': '<|pad|>'})
+    model.resize_token_embeddings(len(tokenizer))
+    model.config.pad_token_id = tokenizer.pad_token_id
+    print(f"     PAD: <|pad|> (id: {tokenizer.pad_token_id}) [FIXED]")
 else:
-    print(f"   ✓ PAD token already exists: {tokenizer.pad_token} (id: {tokenizer.pad_token_id})")
+    print(f"     PAD: {tokenizer.pad_token} (id: {tokenizer.pad_token_id}) [OK]")
 
 print(f"   ✓ Model loaded: {model.num_parameters():,} parameters")
 
