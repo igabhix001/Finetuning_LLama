@@ -89,7 +89,7 @@ def verify_tokenizer():
     expected = {
         'vocab_size': 128256,
         'bos_token': '<|begin_of_text|>',
-        'eos_token': '<|end_of_text|>',
+        'eos_token': '<|eot_id|>',  # Llama 3.1 Instruct uses <|eot_id|> for chat
         'model_max_length': 131072,
     }
     
