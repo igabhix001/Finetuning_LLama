@@ -243,13 +243,13 @@ print(f"     Max length: {config.get('max_length', 1024)}")
 
 es_patience = config.get("early_stopping_patience", 2)
 print(f"     Early stopping: patience={es_patience} evals on eval_loss")
-print(f"     Health guard: stop if margins > 3.0 or loss < 0.05")
+print(f"     Health guard: stop if margins > 6.0 or loss < 0.05")
 
 # ── Initialize DPO Trainer ────────────────────────────────────────────────────
 print("\n6. Initializing DPO Trainer...")
 callbacks = [
     EarlyStoppingCallback(early_stopping_patience=es_patience),
-    DPOHealthCallback(max_margin=3.0, min_loss=0.05),
+    DPOHealthCallback(max_margin=6.0, min_loss=0.05),  # Increased for aggressive beta=0.2
 ]
 
 trainer = DPOTrainer(
