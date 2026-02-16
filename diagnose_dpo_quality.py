@@ -27,6 +27,13 @@ def load_model(model_path, device="cuda"):
         device_map="auto",
         trust_remote_code=True,
     )
+    
+    # CRITICAL: Resize embeddings if tokenizer vocab size doesn't match model
+    # This happens when PAD token was added during DPO training
+    if len(tokenizer) != model.config.vocab_size:
+        print(f"   Resizing model embeddings: {model.config.vocab_size} → {len(tokenizer)}")
+        model.resize_token_embeddings(len(tokenizer))
+    
     model.eval()
     return model, tokenizer
 
