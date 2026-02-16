@@ -4,7 +4,7 @@ import os
 from collections import defaultdict
 
 # Load final dataset
-with open('data/dpo/dpo_pairs_FINAL_COMPLETE.jsonl', 'r', encoding='utf-8') as f:
+with open('data/dpo/dpo_pairs.jsonl', 'r', encoding='utf-8') as f:
     pairs = [json.loads(line) for line in f if line.strip()]
 
 print(f"Total pairs: {len(pairs)}")
