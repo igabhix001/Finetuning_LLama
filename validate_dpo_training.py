@@ -84,11 +84,11 @@ def validate_training():
         response = generate_response(sft_model, sft_tokenizer, prompt)
         sft_responses.append(response)
     
-    # Check if DPO model exists
-    dpo_checkpoint = Path("./checkpoints/dpo_lora/final")
+    # Check if merged DPO model exists
+    dpo_checkpoint = Path("./models/final_dpo")
     if not dpo_checkpoint.exists():
-        print("\n⚠️  DPO checkpoint not found yet. Training still in progress.")
-        print("Run this script again after training completes.")
+        print("\n⚠️  Merged DPO model not found. Run 16_merge_dpo_lora.py first.")
+        print("This script requires the merged model, not the LoRA adapter.")
         return
     
     print("\n3. Loading DPO model...")

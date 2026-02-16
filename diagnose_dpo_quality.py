@@ -178,6 +178,6 @@ def test_reward_hacking(sft_model_path, dpo_model_path, test_samples=5):
 
 if __name__ == "__main__":
     sft_model_path = "./models/merged_sft"
-    dpo_model_path = "./checkpoints/dpo_lora/final"  # Or merged final model
+    dpo_model_path = "./models/final_dpo"  # Merged DPO model (run 16_merge_dpo_lora.py first)
     
     results = test_reward_hacking(sft_model_path, dpo_model_path, test_samples=10)
