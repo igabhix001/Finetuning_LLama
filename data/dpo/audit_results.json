@@ -1,0 +1,1112 @@
+{
+  "total_pairs": 2557,
+  "name_mismatches": [],
+  "metadata_leaks": [],
+  "safety_issues": [
+    {
+      "pair_idx": 36,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya ji, aapka lagna Cancer hai, jo Moon dwara controlled hota hai."
+    },
+    {
+      "pair_idx": 61,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, aapka rashi Cancer hai, aur nakshatra Ashlesha hai, jiska lord Mercury hai."
+    },
+    {
+      "pair_idx": 105,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya Raj ji, aapka lagna Cancer hai jo Moon se governed hota hai."
+    },
+    {
+      "pair_idx": 176,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, your moon sign is Cancer."
+    },
+    {
+      "pair_idx": 314,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya Raj ji, your lagna is Cancer (Moon)."
+    },
+    {
+      "pair_idx": 397,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, your Moon sign is Cancer."
+    },
+    {
+      "pair_idx": 411,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, your lagna is Cancer, which is ruled by the Moon."
+    },
+    {
+      "pair_idx": 487,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Anuj ji, aapka rashi Cancer hai."
+    },
+    {
+      "pair_idx": 517,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya Raj ji, your Moon sign is Cancer, and it is placed in the Ashlesha nakshatra."
+    },
+    {
+      "pair_idx": 623,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya ji, your lagna is Cancer, which is ruled by the Moon."
+    },
+    {
+      "pair_idx": 711,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Anuj ji, aapki rashi Cancer hai aur aapka nakshatra Pushya hai."
+    },
+    {
+      "pair_idx": 845,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, wearing a Rudraksha can be beneficial, especially when it aligns with your planetary influences and supports your overall wellbeing. For someone with Cancer lagna, stabilizing Moon through a"
+    },
+    {
+      "pair_idx": 1038,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Anuj ji, your Moon sign is Cancer, as it was placed in the Cancer rasi at the time of your birth."
+    },
+    {
+      "pair_idx": 1218,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya ji, aapka lagna Cancer hai, jo Moon dwara controlled hota hai."
+    },
+    {
+      "pair_idx": 1243,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, aapka rashi Cancer hai, aur nakshatra Ashlesha hai, jiska lord Mercury hai."
+    },
+    {
+      "pair_idx": 1287,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya Raj ji, aapka lagna Cancer hai jo Moon se governed hota hai."
+    },
+    {
+      "pair_idx": 1358,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Palak ji, your moon sign is Cancer."
+    },
+    {
+      "pair_idx": 1497,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Priya Raj ji, your lagna is Cancer (Moon)."
+    },
+    {
+      "pair_idx": 2027,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Arjun ji, your moon sign is Cancer, ruled by Moon."
+    },
+    {
+      "pair_idx": 2159,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Anuj ji, your moon sign is Cancer, and it is placed in the nakshatra Pushya, which is ruled by Saturn."
+    },
+    {
+      "pair_idx": 2412,
+      "issues": [
+        "medical_diagnosis: \\bcancer\\b"
+      ],
+      "response_preview": "Anuj ji, your Moon sign is Cancer, as it was placed in the Cancer rasi at the time of your birth."
+    }
+  ],
+  "past_future_confusions": [
+    {
+      "pair_idx": 7,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I have any health issues in the past 5 years?",
+      "response_preview": "Aditya Raj ji, during the Mars-Sun AD from Jan 2023 to May 2023, Sun was the sub-lord connected to houses 5 and 12 which may have influenced health issues due to its linkage to illness and recovery. A"
+    },
+    {
+      "pair_idx": 9,
+      "future_years": [
+        "2025",
+        "2025",
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Abhi Raj ji, from 2020 to 2025, your career experienced various shifts due to the influence of Venus mahadasha, with specific antardashas marking different phases. In Venus-Rahu AD (May 2019 to May 20"
+    },
+    {
+      "pair_idx": 22,
+      "future_years": [
+        "2025",
+        "2026",
+        "2025"
+      ],
+      "prompt_preview": "When did I face the most obstacles in my career?",
+      "response_preview": "Abhi Raj ji, the period when you faced the most obstacles in your career was likely during the Venus-Saturn-Ketu pratyantar, from Dec 2025 to Feb 2026, which is ongoing right now. Ketu signifies house"
+    },
+    {
+      "pair_idx": 37,
+      "future_years": [
+        "2025",
+        "2025",
+        "2027"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Sushant ji, as of today, you are 19, quite young, and marriage typically occurs a bit later. However, your favorable marriage period was during Rahu-Jupiter AD from Jul 2021 to Nov 2023 with potential"
+    },
+    {
+      "pair_idx": 54,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "When did I likely have a health issue? Give me the month and year.",
+      "response_preview": "Anurag Kumar ji, your chart indicates potential health issues during the Moon-Sun antardasha, particularly in Oct 2023 to Apr 2024. During this period, Sun as 8th cusp sub-lord connects to houses 3,4,"
+    },
+    {
+      "pair_idx": 59,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "Did I have any health issues in the past 5 years?",
+      "response_preview": "Priya ji, over the past 5 years, particularly during the Venus-Rahu AD (Sep 2020 to Sep 2023), health-related concerns could have arisen due to Rahu's connection to houses 4, 10, 11, which can sometim"
+    },
+    {
+      "pair_idx": 74,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Aditya Raj ji, during the Mars mahadasha from Dec 2016 to Dec 2023, your career was influenced by various antardashas. In 2020, Mars-Mars was active, enhancing efforts and ambition as Mars connects to"
+    },
+    {
+      "pair_idx": 92,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "Did I have any health issues in the past 5 years?",
+      "response_preview": "Arisha ji, in the past five years, you were under Venus-Jupiter and currently in Venus-Saturn AD until Jul 2026. Venus-Jupiter (Sep 2020 to May 2023) had Jupiter connecting to houses 3,5,10,11, genera"
+    },
+    {
+      "pair_idx": 107,
+      "future_years": [
+        "2026",
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Sushant ji, from 2020 to 2021, you were in Rahu-Jupiter AD with Jupiter as the 7th cusp sub-lord signifying houses 2,6,10, supporting career growth. During Rahu-Saturn AD (Nov 2023 to Oct 2026), Satur"
+    },
+    {
+      "pair_idx": 114,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I face legal issues in the past?",
+      "response_preview": "Anuj ji, during the Mercury-Ketu antardasha (Oct 2020 to Oct 2021), Ketu's influence on houses 6,7,8 could have brought legal challenges. This period also connected to your Saturn maha dasha which sig"
+    },
+    {
+      "pair_idx": 124,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Yash ji, you entered Mercury mahadasha in Mar 2019, significantly influencing your career. From 2020 to 2021, Mercury AD supported career growth as it activated houses 10 and 11, both career-positive."
+    },
+    {
+      "pair_idx": 142,
+      "future_years": [
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Priya ji, during the period from 2020 to 2025, you were primarily under the influence of Venus Mahadasha, which supports career growth due to its connection with houses 10 and 11. In the Venus-Mars AD"
+    },
+    {
+      "pair_idx": 149,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "Did I have any health issues in the past 5 years?",
+      "response_preview": "Anuj ji, in the past 5 years, you were in the Mercury-Venus AD (Oct 2021 to Aug 2024) and Mercury-Sun AD (Aug 2024 to Jun 2025). Mercury and Venus connect to houses 5 and 11, which are generally suppo"
+    },
+    {
+      "pair_idx": 213,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "When did I graduate? Can you predict the year?",
+      "response_preview": "Abhi Raj ji, given your date of birth and current age, you likely graduated high school around the age of 17 or 18. This period corresponds with Venus-Jupiter AD (May 2022 to Jan 2025) which activates"
+    },
+    {
+      "pair_idx": 223,
+      "future_years": [
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Palak ji, during 2020 to 2023, you were in Venus-Rahu AD, with Rahu as the 10th cusp sub-lord signifying houses 3,9,10,12 ΓÇö a period of mixed opportunities and challenges, especially regarding highe"
+    },
+    {
+      "pair_idx": 224,
+      "future_years": [
+        "2026",
+        "2029"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Sushant ji, your marriage-related houses 2, 7, and 11 are primarily activated in your chart during the Rahu-Mercury AD, which will run from Oct 2026 to Apr 2029. However, since you are currently 19 ye"
+    },
+    {
+      "pair_idx": 264,
+      "future_years": [
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Yash ji, during 2020-2021, you were under Mercury-Mercury-Sun pratyantar ΓÇö Sun signifies houses 5,9,10 supporting career growth. In 2022-2023, Mercury-Venus AD saw Venus activating houses 2,6,11 fav"
+    },
+    {
+      "pair_idx": 288,
+      "future_years": [
+        "2025",
+        "2025",
+        "2028"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Priya Raj ji, during 2020 to 2023, you were under Venus-Rahu AD, with Rahu signifying houses 3,9,10,12, indicating a phase of exploration and learning, possibly involving higher studies or changes in "
+    },
+    {
+      "pair_idx": 336,
+      "future_years": [
+        "2025",
+        "2025",
+        "2028",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Priya Raj ji, during Feb 2020 to Feb 2023, you were under the Venus-Rahu antardasha where Rahu connects to houses 3,9,10,12, indicating potential for learning and career exploration but with possible "
+    },
+    {
+      "pair_idx": 358,
+      "future_years": [
+        "2026",
+        "2025",
+        "2026",
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Arisha ji, from Sep 2020 to May 2023, you were in Venus-Jupiter AD, where Jupiter is the 10th cusp sub-lord signifying houses 3,5,10,11, supporting growth in career-related activities, and you might h"
+    },
+    {
+      "pair_idx": 364,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Was there a period of emotional struggle in my past?",
+      "response_preview": "Sushant ji, during the Rahu-Jupiter antardasha (Jul 2021 to Nov 2023), the combination of Rahu and Jupiter connected with houses 5 and 11 which can sometimes bring emotional challenges due to their ex"
+    },
+    {
+      "pair_idx": 379,
+      "future_years": [
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Anuj ji, during 2020-2025, you navigated through the Mercury mahadasha with distinct antardashas activating career houses. In 2020-2021, Mercury-Ketu AD (career significators) highlighted shifts as Ke"
+    },
+    {
+      "pair_idx": 385,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Priya Raj ji, in your current Venus-Saturn AD, Saturn as a sub-lord connects to houses 3,6,8,12 which can indicate challenges and disruptions, including accidents. You are currently in the Venus-Satur"
+    },
+    {
+      "pair_idx": 395,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Anurag ji, from 2020 to 2021, you were in the Moon-Mercury AD, with Mercury as the 10th cusp sub-lord signifying houses 1,7,10 ΓÇö this period supported career growth and opportunities at age 13-14, r"
+    },
+    {
+      "pair_idx": 407,
+      "future_years": [
+        "2025",
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Yash ji, your chart shows that the most likely window for marriage would have been during the Mercury-Venus antardasha from Aug 2022 to Jun 2025, with peak months in the Mercury-Venus-Venus pratyantar"
+    },
+    {
+      "pair_idx": 415,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "What was the most significant event in 2023 for me?",
+      "response_preview": "Palak ji, in 2023, you were in the Venus-Jupiter antardasha, which ran from Feb 2023 to Oct 2025. Jupiter, as a significator of houses 1,3,6,9, often brings growth and changes related to education, tr"
+    },
+    {
+      "pair_idx": 417,
+      "future_years": [
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Aditya Raj ji, your primary marriage windows were during Mars mahadasha with Mars-Venus AD (Nov 2021 to Jan 2023) where Venus, signifying houses 2,7,11, was active. Given your age at that time would h"
+    },
+    {
+      "pair_idx": 419,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Sushant ji, from 2020 to 2021, you were in Rahu-Rahu AD where Rahu signifies houses 5,6,7,11 ΓÇö supporting learning and initial career exploration at age 14-15, a natural time for skill development. "
+    },
+    {
+      "pair_idx": 432,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "What was the most significant event in 2023 for me?",
+      "response_preview": "Palak ji, in 2023, you were in the Venus-Jupiter antardasha until Oct 2025, with Jupiter activating houses 1, 3, 6, and 9. This period likely emphasized personal growth and learning opportunities, as "
+    },
+    {
+      "pair_idx": 468,
+      "future_years": [
+        "2026",
+        "2027",
+        "2027"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Yash ji, you are currently 22, and analyzing your chart, marriage is indicated during Mercury-Moon AD (Apr 2026 to Sep 2027), with peak months May to Aug 2027 when Venus pratyantar activates houses 7,"
+    },
+    {
+      "pair_idx": 499,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Priya ji, your chart indicates that you are currently in the Venus-Jupiter-Rahu pratyantar dasha, which runs until May 2026. Rahu signifies houses 4 and 11, which are generally not associated with maj"
+    },
+    {
+      "pair_idx": 506,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "When did I likely have a health issue? Give me the month and year.",
+      "response_preview": "Abhi Raj ji, likely periods for health issues would have been during the antardasha of planets connected to the 6th or 8th houses, which signify health disruptions. Specifically, during the Ketu-Moon "
+    },
+    {
+      "pair_idx": 549,
+      "future_years": [
+        "2025",
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Anurag Kumar ji, during Mars-Rahu AD (Sep 2024 to Sep 2025), your 6th cusp sub-lord Mars, which connects to disruptive houses 3,5,8, could have triggered an accident-related event, particularly betwee"
+    },
+    {
+      "pair_idx": 561,
+      "future_years": [
+        "2025",
+        "2026",
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Priya ji, from 2020 to 2023, you were under the Venus-Rahu AD where Rahu as the 10th cusp significator influenced your career trajectory ΓÇö houses 4,10,11 activated opportunities and gains, particula"
+    },
+    {
+      "pair_idx": 569,
+      "future_years": [
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Anurag ji, during the Mars-Jupiter-Saturn pratyantar from Nov 2025 to Jan 2026, Saturn as the 8th cusp sub-lord signifies houses 1,5,8,10 which can indicate unexpected events or accidents. Given your "
+    },
+    {
+      "pair_idx": 598,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "What was the most significant event in 2023 for me?",
+      "response_preview": "Yash ji, during 2023, you were in the Mercury-Venus antardasha (Aug 2022 to Jun 2025) which has Venus as a sub-lord connected to houses 2,3,6,7,11, favoring personal relationships and financial improv"
+    },
+    {
+      "pair_idx": 604,
+      "future_years": [
+        "2025",
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Arisha ji, as per your chart, during the recent Venus-Saturn-Rahu pratyantar (Aug 2025 to Feb 2026), Rahu connects with houses 6 and 8 indicating potential health risks or accidents. Although this per"
+    },
+    {
+      "pair_idx": 605,
+      "future_years": [
+        "2025",
+        "2026",
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "When did I likely get my first job or start working?",
+      "response_preview": "Anurag Kumar ji, at age 18, the timing for your first job aligns with Mercury's significance of houses 2,6,10. During the ongoing Mars-Jupiter AD (Sep 2025 to Sep 2026), Jupiter signifies these career"
+    },
+    {
+      "pair_idx": 630,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "When did I buy my house?",
+      "response_preview": "Yash ji, the purchase of a house is often related to houses 4 and 11. You were in Mercury-Ketu AD from Aug 2021 to Aug 2022, where Ketu is linked to houses 1, 4, and 11, indicating a favorable period "
+    },
+    {
+      "pair_idx": 650,
+      "future_years": [
+        "2025",
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Anuj ji, from Oct 2020 to Oct 2021, you were in Mercury-Ketu AD which activated houses 3,4,5,10,11 indicating a period of potential changes or challenges in career paths. From Oct 2021 to Aug 2024, du"
+    },
+    {
+      "pair_idx": 663,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "When did I face the most obstacles in my career?",
+      "response_preview": "Arisha ji, the period you faced the most obstacles in your career was during the Venus-Saturn antardasha from May 2023 to Jul 2026, with challenges peaking in the Venus-Saturn-Ketu pratyantar (Apr 202"
+    },
+    {
+      "pair_idx": 675,
+      "future_years": [
+        "2025",
+        "2026",
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Anurag ji, there was a challenging period recently under Mars-Jupiter-Saturn pratyantar (Nov 2025 to Jan 2026), as Saturn signifies houses 8 and 12 which can indicate accidents or sudden events. This "
+    },
+    {
+      "pair_idx": 680,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I have any health issues in the past 5 years?",
+      "response_preview": "Arisha ji, during the Venus-Jupiter AD from Sep 2020 to May 2023, Jupiter as the 6th house significator could have brought some health concerns, particularly since it connects to houses 3, 5, and 10. "
+    },
+    {
+      "pair_idx": 688,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "When did I graduate? Can you predict the year?",
+      "response_preview": "Anurag Kumar ji, the most likely period for your graduation was during Moon-Venus AD from Feb 2022 to Oct 2023, aligning with high school completion around age 16. Venus, as a significator for educati"
+    },
+    {
+      "pair_idx": 731,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Yash ji, currently you are in Mercury-Sun-Ketu pratyantar which runs until Feb 2026, and Ketu connects to houses 1,4,8 indicating potential disruptions or accidents. It is possible that during this pe"
+    },
+    {
+      "pair_idx": 736,
+      "future_years": [
+        "2032",
+        "2025",
+        "2028"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Abhi Raj ji, considering your age and the timing provided by your chart, you are currently 20 and have not yet reached a natural marriage age. Your Venus mahadasha began in Mar 2012 and runs to Mar 20"
+    },
+    {
+      "pair_idx": 771,
+      "future_years": [
+        "2025",
+        "2028"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Priya Raj ji, during 2020 to 2023, you were under Venus-Rahu AD ΓÇö Rahu signifies houses 3,9,10 indicating career shifts and new opportunities, particularly around Apr to Sep 2021 when Rahu pratyanta"
+    },
+    {
+      "pair_idx": 807,
+      "future_years": [
+        "2026",
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Aditya Raj ji, you are currently in Rahu-Rahu-Venus pratyantar (until Feb 2026), and Venus signifies houses 1,4,6 which can indicate physical concerns or disruptions. The influence of the 6th house co"
+    },
+    {
+      "pair_idx": 809,
+      "future_years": [
+        "2026",
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Aditya Raj ji, you are currently in the Rahu-Rahu-Venus pratyantar (until Feb 2026), with Venus connecting to houses 1,4,6 ΓÇö while house 6 can indicate health issues, it doesn't strongly suggest an "
+    },
+    {
+      "pair_idx": 820,
+      "future_years": [
+        "2025",
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career from 2020 to 2025 year by year?",
+      "response_preview": "Yash ji, during 2020 to 2025, you were in Mercury mahadasha which supports career growth as Mercury signifies houses 10,11. From 2019 to Aug 2021, Mercury-Mercury AD was active focusing on establishin"
+    },
+    {
+      "pair_idx": 835,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "When did I buy my house?",
+      "response_preview": "Yash ji, you were most likely to buy a house during the Mercury-Venus antardasha (Aug 2022 to Jun 2025), as Venus is your 4th cusp sub-lord, indicating property-related matters. The strongest period f"
+    },
+    {
+      "pair_idx": 850,
+      "future_years": [
+        "2026",
+        "2025",
+        "2026"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Arisha ji, from Sep 2020 to May 2023, you were in Venus-Jupiter AD ΓÇö Jupiter is the 10th cusp sub-lord connecting to houses 3,5,10,11, indicating growth and learning in your career. Following this, "
+    },
+    {
+      "pair_idx": 854,
+      "future_years": [
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Anurag ji, during 2020 to 2025, your career was influenced by Moon maha-dasha, which ended in Apr 2024, and you are currently in Mars maha-dasha with Jupiter antardasha. In the Moon-Mercury period (Fe"
+    },
+    {
+      "pair_idx": 873,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Sushant ji, during your Rahu-Saturn-Ketu pratyantar (Oct 2024 to Dec 2024), Ketu was active and signifies houses 3, 8, 12, which are connected to sudden events and disruptions. This period has already"
+    },
+    {
+      "pair_idx": 893,
+      "future_years": [
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "What happened in my career year by year from 2020 to 2025?",
+      "response_preview": "Palak ji, starting in 2020, you were in Venus-Rahu AD where Rahu signified houses 3,9,10,12, likely bringing changes and opportunities in career. From Feb 2023 to Oct 2025, Venus-Jupiter AD was active"
+    },
+    {
+      "pair_idx": 905,
+      "future_years": [
+        "2025",
+        "2025"
+      ],
+      "prompt_preview": "Did I have any health issues in the past 5 years?",
+      "response_preview": "Yash ji, in the past five years, you were in the Mercury-Venus AD (Aug 2022 to Jun 2025) which had Venus as the sub-lord influencing houses 2,3,6,7,11 ΓÇö while house 6 can indicate health concerns, V"
+    },
+    {
+      "pair_idx": 912,
+      "future_years": [
+        "2025",
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Palak ji, you are currently in Venus-Saturn-Saturn pratyantar dasha (Oct 2025 to Apr 2026), where Saturn signifies houses 3,6,8, which can indicate health challenges or accidents. However, as this per"
+    },
+    {
+      "pair_idx": 938,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Anurag ji, currently you are in Mars-Jupiter AD with Mercury pratyantar (ongoing until Feb 2026), where Mercury signifies houses 1,7,8,10,12 ΓÇö house 8 can indicate accidents or sudden events. The ov"
+    },
+    {
+      "pair_idx": 952,
+      "future_years": [
+        "2026",
+        "2029",
+        "2027"
+      ],
+      "prompt_preview": "When did I get married?",
+      "response_preview": "Sushant ji, as you are currently 19 years old, it's unlikely that you have been married, given the natural timelines for such life events. In your chart, marriage is indicated during Rahu-Mercury AD ("
+    },
+    {
+      "pair_idx": 1022,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "When did I likely get my first job or start working?",
+      "response_preview": "Palak ji, you would have likely started working during the Venus-Jupiter antardasha from Feb 2023 to Oct 2025, when you'd be around 17 to 20 years old. Jupiter is a significator for career, connecting"
+    },
+    {
+      "pair_idx": 1045,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "When did I start my business?",
+      "response_preview": "Yash ji, your Mercury-Venus AD from Aug 2022 to Jun 2025, with Venus as a significator of houses 2,6,11, was a favorable period for starting a business. The peak pratyantar was Mercury-Venus-Venus fro"
+    },
+    {
+      "pair_idx": 1063,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "When did I graduate? Can you predict the year?",
+      "response_preview": "Yash ji, your likely graduation period falls under Mercury-Venus AD, which was active from Aug 2022 to Jun 2025, when you were approximately 18-21 years old. This period aligns with typical graduation"
+    },
+    {
+      "pair_idx": 1073,
+      "future_years": [
+        "2026",
+        "2025"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Palak ji, you are currently in Venus-Saturn AD with Saturn pratyantar until Apr 2026. Saturn connects to houses 3,6,8,12, which can indicate accidents or disruptions; this period began in Oct 2025, so"
+    },
+    {
+      "pair_idx": 1082,
+      "future_years": [
+        "2026",
+        "2026"
+      ],
+      "prompt_preview": "When did I start my business?",
+      "response_preview": "Anuj ji, your business initiation aligns with your Mercury-Venus AD (Oct 2021 to Aug 2024) because Venus, as the 10th cusp sub-lord, signifies houses 3, 4, 5, 10, and 11, which are favorable for start"
+    },
+    {
+      "pair_idx": 1086,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "When did I likely get my first job or start working?",
+      "response_preview": "Arisha ji, your first job or work-related opportunity likely began during the Venus-Mars AD (Jul 2016 to Sep 2017), aligning with your age of 11-12. Mars, as a sub-lord, signifies houses 2, 6, and 10,"
+    },
+    {
+      "pair_idx": 1144,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Was there a period of emotional struggle in my past?",
+      "response_preview": "Arisha ji, reviewing your past dasha periods reveals that during Venus-Rahu AD (Sep 2017 to Sep 2020), Rahu as the sub-lord connects with houses 5, 6, 9, 11, and can sometimes indicate emotional fluct"
+    },
+    {
+      "pair_idx": 1152,
+      "future_years": [
+        "2025"
+      ],
+      "prompt_preview": "What was the most significant event in 2023 for me?",
+      "response_preview": "Abhi Raj ji, in 2023, you were in the Venus-Jupiter antardasha (May 2022 to Jan 2025), and Jupiter is linked to houses 1,4,8,9, indicating significant focus on personal growth and education. Jupiter's"
+    },
+    {
+      "pair_idx": 1161,
+      "future_years": [
+        "2026"
+      ],
+      "prompt_preview": "Did I face a major accident recently?",
+      "response_preview": "Anuj ji, you are currently in the Mercury-Moon-Saturn pratyantar dasha (running until Apr 2026), where Saturn as your 6th and 8th house significator can pose challenges, including health or accident-r"
+    }
+  ],
+  "date_patterns": {
+    "Jul 2021 to Feb 2022": 13,
+    "Oct 2025 to Dec 2028": 59,
+    "Dec 2026 to Jun 2027": 55,
+    "Feb 2026 to Sep 2026": 66,
+    "Jan 2023 to May 2023": 7,
+    "May 2023 to Dec 2023": 15,
+    "May 2019 to May 2022": 41,
+    "May 2022 to Jan 2025": 16,
+    "Dec 2028 to Oct 2031": 7,
+    "Nov 2026 to Nov 2027": 22,
+    "Oct 2026 to Apr 2029": 25,
+    "May 2018 to Oct 2020": 2,
+    "Oct 2020 to Oct 2021": 13,
+    "Dec 2025 to Feb 2026": 5,
+    "Sep 2020 to Sep 2023": 20,
+    "Sep 2017 to Sep 2020": 17,
+    "Feb 2018 to Aug 2018": 2,
+    "Feb 2020 to Jul 2021": 12,
+    "Jul 2021 to Nov 2023": 23,
+    "Jul 2025 to Oct 2025": 4,
+    "Nov 2017 to Jul 2019": 6,
+    "Jul 2019 to Sep 2020": 13,
+    "Dec 2018 to Feb 2020": 12,
+    "Feb 2020 to Feb 2023": 17,
+    "Oct 2023 to Apr 2024": 7,
+    "Jan 2026 to Feb 2026": 20,
+    "Mar 2028 to Jan 2031": 13,
+    "Sep 2028 to Mar 2029": 9,
+    "Sep 2025 to Sep 2026": 22,
+    "Mar 2026 to May 2026": 42,
+    "Sep 2026 to Oct 2027": 29,
+    "Jan 2027 to Apr 2027": 25,
+    "Nov 2024 to Jan 2025": 2,
+    "Apr 2017 to Dec 2018": 10,
+    "Jul 2027 to Sep 2027": 3,
+    "Apr 2026 to Sep 2027": 47,
+    "May 2026 to Jul 2029": 32,
+    "Jul 2015 to Jul 2016": 3,
+    "May 2016 to Jul 2016": 2,
+    "Dec 2016 to Dec 2023": 2,
+    "Nov 2021 to Jan 2023": 18,
+    "Oct 2021 to Aug 2024": 36,
+    "Feb 2023 to Apr 2023": 3,
+    "Aug 2026 to Jan 2029": 18,
+    "May 2028 to Jul 2028": 2,
+    "Sep 2020 to May 2023": 16,
+    "May 2023 to Jul 2026": 8,
+    "Apr 2024 to Jun 2024": 3,
+    "Dec 2025 to May 2026": 22,
+    "Nov 2026 to May 2027": 10,
+    "Feb 2022 to Oct 2023": 43,
+    "Apr 2023 to Jun 2023": 2,
+    "Mar 2029 to May 2030": 9,
+    "Jul 2027 to Jan 2028": 15,
+    "Nov 2023 to Oct 2026": 5,
+    "Dec 2020 to Apr 2021": 2,
+    "Jul 2024 to Nov 2024": 2,
+    "Nov 2023 to Feb 2024": 2,
+    "Feb 2026 to Mar 2026": 15,
+    "May 2027 to Aug 2027": 3,
+    "Jun 2021 to Nov 2021": 2,
+    "Sep 2023 to May 2026": 9,
+    "Dec 2012 to Nov 2015": 3,
+    "Aug 2024 to Jun 2025": 5,
+    "Dec 2023 to Aug 2026": 2,
+    "Sep 2025 to Feb 2026": 11,
+    "Apr 2026 to Jun 2026": 12,
+    "May 2026 to Nov 2026": 4,
+    "Jan 2025 to Mar 2028": 22,
+    "Jul 2026 to May 2029": 21,
+    "Aug 2021 to Aug 2022": 14,
+    "Feb 2022 to Apr 2022": 2,
+    "Feb 2026 to Jul 2026": 18,
+    "Feb 2030 to May 2030": 2,
+    "Jun 2025 to Nov 2026": 17,
+    "Jul 2026 to Oct 2026": 18,
+    "Mar 2018 to May 2019": 16,
+    "Jul 2010 to Jul 2030": 2,
+    "Apr 2026 to Oct 2026": 23,
+    "Aug 2018 to Jan 2019": 2,
+    "Sep 2016 to Nov 2017": 2,
+    "Feb 2026 to Apr 2026": 18,
+    "Jun 2026 to Jul 2026": 2,
+    "Feb 2023 to Oct 2025": 13,
+    "Oct 2021 to Mar 2022": 2,
+    "Mar 2023 to May 2023": 2,
+    "Feb 2022 to Jun 2022": 4,
+    "Jul 2022 to Sep 2022": 2,
+    "May 2027 to Jul 2027": 2,
+    "Jul 2023 to Sep 2023": 4,
+    "Oct 2027 to Mar 2028": 10,
+    "Nov 2027 to Jan 2028": 3,
+    "Nov 2027 to May 2030": 4,
+    "From 2024 to Mar 2025": 2,
+    "May 2026 to Oct 2026": 8,
+    "Sep 2019 to Nov 2019": 2,
+    "Jul 2016 to Mar 2018": 5,
+    "Oct 2018 to Oct 2036": 2,
+    "Jul 2022 to Nov 2023": 2,
+    "Dec 2022 to Feb 2023": 3,
+    "Dec 2005 to Dec 2012": 2,
+    "Nov 2010 to Dec 2011": 6,
+    "Dec 2026 to Feb 2027": 5,
+    "Aug 2025 to Feb 2026": 3,
+    "May 2021 to Oct 2021": 2,
+    "Nov 2023 to May 2024": 2,
+    "Aug 2025 to Nov 2025": 6,
+    "Feb 2022 to Jul 2022": 2,
+    "Mar 2021 to Oct 2021": 2,
+    "Dec 2012 to Dec 2032": 4,
+    "Sep 2024 to Sep 2025": 7,
+    "Nov 2025 to Jan 2026": 3,
+    "Aug 2022 to Jun 2025": 27,
+    "Mar 2025 to Jun 2025": 1,
+    "Apr 2027 to Sep 2027": 11,
+    "Sep 2025 to Nov 2025": 4,
+    "Dec 2012 to Apr 2016": 5,
+    "Apr 2019 to Jul 2019": 1,
+    "Nov 2014 to Jul 2016": 3,
+    "Apr 2020 to Oct 2020": 1,
+    "Nov 2026 to Dec 2026": 3,
+    "Mar 2019 to Aug 2021": 4,
+    "Jul 2029 to Jan 2030": 3,
+    "Sep 2026 to Oct 2026": 1,
+    "February 2024 to July 2024": 1,
+    "December 2025 to May 2026": 1,
+    "March 2025 to August 2025": 1,
+    "Nov 2026 to Jan 2027": 2,
+    "May 2023 to Nov 2023": 1,
+    "Sep 2023 to Feb 2024": 1,
+    "Apr 2029 to May 2030": 1,
+    "Mar 2019 to Mar 2036": 1,
+    "Feb 2027 to Jul 2027": 5,
+    "Apr 2026 to May 2026": 4,
+    "Aug 2022 to Oct 2022": 1,
+    "Sep 2021 to Dec 2021": 1,
+    "Dec 2022 to May 2023": 1,
+    "Feb 2019 to Jul 2019": 1,
+    "Apr 2023 to Jul 2023": 1,
+    "Nov 2017 to Mar 2018": 1,
+    "Jan 2026 to Apr 2026": 3,
+    "Oct 2018 to Jul 2021": 1,
+    "Apr 2016 to Sep 2016": 1,
+    "Sep 2022 to Nov 2022": 1,
+    "Apr 2024 to Apr 2031": 2,
+    "Sep 2012 to Oct 2013": 7,
+    "May 2027 to Sep 2027": 1,
+    "May 2005 to Jul 2010": 3,
+    "Jun 2008 to Jul 2009": 3,
+    "Jul 2022 to Nov 2022": 2,
+    "May 2023 to Jul 2023": 2,
+    "Jul 2025 to Sep 2025": 2,
+    "From 2019 to Aug 2021": 2,
+    "Feb 2015 to Dec 2015": 2,
+    "Sep 2024 to Dec 2024": 3,
+    "Jul 2013 to Jul 2033": 2,
+    "Jul 2020 to Sep 2020": 2,
+    "Oct 2019 to Nov 2019": 2,
+    "Oct 2024 to Dec 2024": 2,
+    "Jul 2021 to Dec 2021": 2,
+    "Dec 2024 to May 2025": 2,
+    "Nov 2003 to Mar 2019": 2,
+    "Feb 2011 to Sep 2012": 5,
+    "Apr 2030 to May 2030": 2,
+    "Oct 2025 to Apr 2026": 3,
+    "Mar 2012 to Mar 2032": 2,
+    "Oct 2027 to Oct 2028": 3,
+    "Dec 2027 to Feb 2028": 2,
+    "Nov 2025 to Dec 2025": 2,
+    "Sep 2026 to Nov 2026": 5,
+    "Sep 2019 to Feb 2020": 2,
+    "Jun 2021 to Sep 2021": 2,
+    "Aug 2021 to Oct 2021": 3,
+    "Jan 2025 to Jun 2025": 2,
+    "Jul 2006 to Jul 2013": 2,
+    "Jun 2011 to Jul 2012": 2,
+    "Nov 2016 to Nov 2017": 2,
+    "Oct 2013 to Aug 2016": 8,
+    "Aug 2026 to Dec 2026": 2,
+    "Jul 2022 to Aug 2022": 2,
+    "Sep 2024 to Nov 2024": 2,
+    "Oct 2025 to Dec 2025": 2,
+    "Sep 2020 to Apr 2021": 2,
+    "Jul 2016 to Sep 2017": 2,
+    "Oct 2022 to Jul 2023": 2,
+    "Nov 2021 to Jan 2022": 2,
+    "Aug 2022 to Nov 2022": 2,
+    "Jul 2026 to Dec 2026": 6,
+    "May 2021 to Dec 2021": 2,
+    "Apr 2026 to Nov 2026": 2,
+    "Jul 2025 to Dec 2025": 4,
+    "Mar 2029 to May 2029": 2,
+    "Oct 2021 to Apr 2022": 2,
+    "Oct 2018 to Oct 2019": 1,
+    "Jun 2022 to Jun 2023": 2,
+    "Dec 2025 to Apr 2026": 1,
+    "Jun 2024 to Apr 2027": 1,
+    "Jan 2026 to Jun 2026": 2,
+    "Dec 2006 to Apr 2008": 2,
+    "Feb 2026 to Dec 2028": 2,
+    "Sep 2007 to Sep 2014": 1,
+    "Feb 2014 to Sep 2014": 1,
+    "Sep 2002 to Sep 2009": 1,
+    "Sep 2006 to Aug 2007": 1,
+    "Sep 2008 to Sep 2009": 1,
+    "Oct 2026 to Mar 2027": 2,
+    "Nov 2031 to Jun 2034": 1,
+    "Feb 2023 to Aug 2024": 2,
+    "Jul 2019 to Mar 2022": 3,
+    "Nov 2019 to Sep 2022": 1,
+    "Sep 2022 to Apr 2025": 1,
+    "Nov 2019 to May 2021": 1,
+    "Apr 2022 to May 2023": 1,
+    "Sep 2018 to Feb 2021": 1,
+    "Nov 2025 to May 2028": 1,
+    "Nov 2025 to Apr 2026": 1,
+    "Apr 2026 to Aug 2026": 3,
+    "Oct 2025 to Jan 2026": 1,
+    "Mar 2026 to Jun 2026": 4,
+    "Mar 2020 to Sep 2022": 1,
+    "Feb 2025 to Feb 2026": 1,
+    "May 2026 to Jul 2026": 1,
+    "May 2026 to Sep 2027": 1,
+    "May 2026 to Sep 2026": 5,
+    "Apr 2009 to Aug 2011": 1,
+    "Feb 2015 to Mar 2016": 1,
+    "Dec 2004 to Dec 2023": 1,
+    "Nov 2015 to Jun 2017": 1,
+    "Aug 2022 to Mar 2024": 1,
+    "Sep 2025 to Jul 2028": 1,
+    "May 2026 to Apr 2027": 2,
+    "Feb 2026 to May 2026": 3,
+    "Feb 2026 to Aug 2026": 3,
+    "Jun 2025 to Nov 2027": 3,
+    "Nov 2019 to Jan 2021": 1,
+    "Nov 2019 to Jan 2020": 1,
+    "Jan 2021 to Jan 2022": 1,
+    "Jul 2024 to Jul 2031": 1,
+    "Feb 2026 to Jun 2026": 3,
+    "Apr 2021 to Feb 2022": 2,
+    "Feb 2022 to Jul 2023": 1,
+    "Jul 2023 to Jul 2024": 1,
+    "Jul 2024 to Feb 2027": 1,
+    "Jan 2026 to Mar 2026": 1,
+    "Nov 2026 to Mar 2027": 2,
+    "Dec 2001 to Dec 2019": 1,
+    "Jun 2013 to Jun 2016": 2,
+    "Jan 2027 to Nov 2029": 4,
+    "Jan 2027 to Jul 2027": 1,
+    "May 2026 to Jun 2026": 3,
+    "Sep 2019 to Aug 2020": 1,
+    "Aug 2020 to Jan 2023": 2,
+    "May 2021 to Jun 2022": 2,
+    "Nov 2021 to Jul 2024": 1,
+    "May 2026 to May 2029": 3,
+    "Mar 2021 to Feb 2022": 1,
+    "Jan 2027 to Jun 2027": 3,
+    "Feb 2027 to Mar 2027": 1,
+    "May 2025 to Jul 2026": 3,
+    "Jul 2026 to Sep 2026": 1,
+    "Oct 2027 to Jun 2029": 1,
+    "Dec 2027 to Jan 2028": 1,
+    "Jul 2012 to Jan 2015": 1,
+    "Apr 2025 to Feb 2028": 2,
+    "Feb 2027 to Aug 2027": 1,
+    "Jul 2013 to Feb 2015": 1,
+    "Dec 2026 to Mar 2027": 1,
+    "Oct 2027 to Jan 2028": 1,
+    "Jun 2025 to Dec 2025": 1,
+    "Apr 2017 to Aug 2018": 1,
+    "Aug 2016 to Mar 2019": 5,
+    "Oct 2020 to Mar 2021": 1,
+    "Mar 2012 to Jul 2015": 1,
+    "Mar 2011 to Mar 2012": 2,
+    "Nov 2020 to Feb 2021": 1,
+    "Sep 2014 to Nov 2014": 1,
+    "Feb 2021 to Sep 2021": 1,
+    "Sep 2018 to Apr 2019": 1,
+    "Apr 2018 to Jul 2018": 1,
+    "Oct 2022 to Dec 2022": 1,
+    "Feb 2022 to May 2022": 1,
+    "Apr 2027 to Oct 2027": 1,
+    "Mar 2022 to Aug 2022": 1,
+    "May 2021 to Mar 2022": 1,
+    "May 2021 to Sep 2021": 1,
+    "Oct 2026 to Feb 2027": 1,
+    "Jun 2005 to Mar 2012": 1,
+    "Jan 2010 to Mar 2011": 1,
+    "May 2026 to Aug 2027": 1,
+    "Aug 2014 to Feb 2015": 1,
+    "Jun 2024 to Jul 2024": 1,
+    "Sep 2020 to Feb 2021": 1,
+    "May 2020 to Oct 2020": 1,
+    "Jun 2025 to Apr 2026": 1,
+    "Aug 2026 to Jun 2027": 1,
+    "Apr 2027 to Feb 2030": 2,
+    "Jun 2016 to Jun 2023": 1,
+    "Feb 2009 to Aug 2010": 1,
+    "Jan 2026 to Jan 2027": 1,
+    "Oct 2019 to Sep 2022": 1,
+    "Dec 2026 to May 2029": 1,
+    "Apr 2026 to Sep 2026": 2,
+    "Jan 2028 to Jul 2028": 1,
+    "Nov 2018 to Jan 2020": 1,
+    "Aug 2027 to Nov 2027": 1,
+    "Jun 2028 to Nov 2028": 1,
+    "Jan 2023 to Jan 2026": 1,
+    "Aug 2025 to Dec 2025": 1,
+    "May 2026 to Jan 2028": 1,
+    "Jul 2026 to Nov 2026": 1,
+    "Aug 2021 to Jan 2024": 1,
+    "Jan 2026 to Dec 2026": 1,
+    "Jul 2026 to Aug 2026": 1,
+    "May 2017 to Nov 2018": 1,
+    "Nov 2022 to Dec 2023": 1,
+    "Jun 2026 to Nov 2026": 1,
+    "Apr 2021 to Nov 2022": 1,
+    "May 2026 to Aug 2026": 1,
+    "Mar 2023 to Jul 2024": 1,
+    "Dec 2026 to Feb 2028": 1,
+    "Sep 2005 to Sep 2023": 1,
+    "Apr 2020 to Sep 2022": 1,
+    "Mar 2025 to Mar 2026": 1,
+    "Dec 2017 to Nov 2018": 1,
+    "Apr 2020 to Mar 2021": 1,
+    "Aug 2018 to Jul 2019": 1,
+    "Mar 2022 to May 2024": 1,
+    "Oct 2022 to Oct 2023": 1,
+    "Oct 2022 to Apr 2023": 1,
+    "Nov 2026 to Apr 2027": 1,
+    "Jul 2012 to Sep 2013": 1,
+    "May 2016 to Sep 2018": 1,
+    "Apr 2018 to Dec 2019": 1,
+    "Mar 2026 to Apr 2026": 1,
+    "Sep 2014 to May 2017": 1,
+    "Jan 2015 to Apr 2015": 1,
+    "Mar 2021 to Sep 2022": 1,
+    "Apr 2017 to Jun 2018": 1,
+    "Feb 2025 to Aug 2025": 1
+  },
+  "issue_rate": 3.4806413766132187
+}
