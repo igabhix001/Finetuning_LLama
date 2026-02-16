@@ -193,6 +193,14 @@ else:
         device_map="auto",
         trust_remote_code=True,
     )
+
+# CRITICAL: Resize reference model embeddings to match policy model
+# If we added a PAD token to policy model, ref model needs same vocab size
+if len(tokenizer) != ref_model.config.vocab_size:
+    print(f"   Resizing reference model embeddings: {ref_model.config.vocab_size} → {len(tokenizer)}")
+    ref_model.resize_token_embeddings(len(tokenizer))
+    ref_model.config.pad_token_id = tokenizer.pad_token_id
+
 ref_model.eval()  # Freeze reference model
 for param in ref_model.parameters():
     param.requires_grad = False
