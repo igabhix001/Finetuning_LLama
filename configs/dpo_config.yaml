@@ -11,7 +11,7 @@ train_data: "./data/dpo/prepared/train_filtered"
 eval_data: "./data/dpo/prepared/test_filtered"
 
 # DPO hyperparameters
-beta: 0.2  # Aggressive beta to overpower KL regularization
+beta: 0.1  # Conservative beta to prevent reward hacking (was 0.2)
 loss_type: "sigmoid"  # Standard DPO loss
 label_smoothing: 0.05  # cDPO: handle noisy synthetic preferences
 
@@ -20,7 +20,7 @@ num_train_epochs: 3
 per_device_train_batch_size: 1
 per_device_eval_batch_size: 1
 gradient_accumulation_steps: 16  # Effective batch size: 16
-learning_rate: 1.0e-5  # Aggressive LR to overcome KL pressure
+learning_rate: 5.0e-6  # Conservative LR to prevent reward hacking (was 1e-5)
 warmup_ratio: 0.1  # Shorter warmup
 weight_decay: 0.01  # Lighter regularization
 

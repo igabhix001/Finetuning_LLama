@@ -102,7 +102,10 @@ else:
 
 # Check if model_path is local or HF hub
 if Path(model_path).exists():
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_path,
+        fix_mistral_regex=True  # CRITICAL: Fix Mistral tokenizer regex bug
+    )
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
         torch_dtype=model_dtype,
@@ -110,7 +113,11 @@ if Path(model_path).exists():
         trust_remote_code=True,
     )
 else:
-    tokenizer = AutoTokenizer.from_pretrained(model_path, token=hf_token)
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_path,
+        token=hf_token,
+        fix_mistral_regex=True  # CRITICAL: Fix Mistral tokenizer regex bug
+    )
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
         token=hf_token,
@@ -119,9 +126,16 @@ else:
         trust_remote_code=True,
     )
 
+# CRITICAL: Create separate PAD token (do NOT use EOS as PAD)
+# PAD == EOS causes rejected sequences to look like they end immediately,
+# artificially inflating margins without semantic learning
 if tokenizer.pad_token is None:
-    tokenizer.pad_token = tokenizer.eos_token
-    model.config.pad_token_id = model.config.eos_token_id
+    tokenizer.add_special_tokens({'pad_token': '<|pad|>'})
+    model.resize_token_embeddings(len(tokenizer))
+    model.config.pad_token_id = tokenizer.pad_token_id
+    print(f"   ✓ Added separate PAD token: {tokenizer.pad_token} (id: {tokenizer.pad_token_id})")
+else:
+    print(f"   ✓ PAD token already exists: {tokenizer.pad_token} (id: {tokenizer.pad_token_id})")
 
 print(f"   ✓ Model loaded: {model.num_parameters():,} parameters")
 
@@ -243,13 +257,13 @@ print(f"     Max length: {config.get('max_length', 1024)}")
 
 es_patience = config.get("early_stopping_patience", 2)
 print(f"     Early stopping: patience={es_patience} evals on eval_loss")
-print(f"     Health guard: stop if margins > 6.0 or loss < 0.05")
+print(f"     Health guard: stop if margins > 3.0 or loss < 0.05")
 
 # ── Initialize DPO Trainer ────────────────────────────────────────────────────
 print("\n6. Initializing DPO Trainer...")
 callbacks = [
     EarlyStoppingCallback(early_stopping_patience=es_patience),
-    DPOHealthCallback(max_margin=6.0, min_loss=0.05),  # Increased for aggressive beta=0.2
+    DPOHealthCallback(max_margin=3.0, min_loss=0.05),  # Conservative for beta=0.1
 ]
 
 trainer = DPOTrainer(
