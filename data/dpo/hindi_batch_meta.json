@@ -1,0 +1,2509 @@
+{
+  "batch_id": "batch_6997172469648190b98ad4a8578b19dd",
+  "file_id": "file-Mvastp262cfrKWYmUm4nxs",
+  "model": "gpt-4o",
+  "count": 500,
+  "submitted_at": "2026-02-19T19:29:02.053845",
+  "combos": [
+    {
+      "name": "Amit Kumar",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "career",
+      "question": "Kab tak promotion milega?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "career",
+      "question": "Kya videsh mein kaam karne ka yoga hai mere chart mein?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "remedies",
+      "question": "Kya Rudraksha pehnna sahi rahega?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "remedies",
+      "question": "Career ke liye kaunsa puja karun?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Kaal Sarp Dosha hai?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "simple",
+      "question": "Abhi meri kaunsi mahadasha chal rahi hai?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Rahu dosha hai?"
+    },
+    {
+      "name": "Anuj",
+      "category": "obstacles",
+      "question": "Meri mehnat ka fal kyun nahi milta?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "marriage",
+      "question": "Kitni umar mein shaadi hogi meri?"
+    },
+    {
+      "name": "Sushant",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Aadhya Das",
+      "category": "past_event",
+      "question": "2019 mein jo hua tha, uska kya karan tha?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "health",
+      "question": "Mujhe neend nahi aati, koi planetary reason hai kya?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "past_event",
+      "question": "2023 mein mera rishta kyun toot gaya?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "health",
+      "question": "Meri tabiyat theek kab hogi?"
+    },
+    {
+      "name": "Yash",
+      "category": "marriage",
+      "question": "Mere liye shaadi ka sabse accha time kab hai?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "career",
+      "question": "Meri naukri kab lagegi?"
+    },
+    {
+      "name": "Amit Kumar",
+      "category": "financial",
+      "question": "Mujhe loan milega kya?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "past_event",
+      "question": "Pichle 3 saal bahut bure the, kyun?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "career",
+      "question": "Kab tak promotion milega?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "career",
+      "question": "Kya videsh mein kaam karne ka yoga hai mere chart mein?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "remedies",
+      "question": "Kya mujhe mandir jaana chahiye, kaunsa?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "health",
+      "question": "Kya meri health mein improvement hoga?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "marriage",
+      "question": "Meri shaadi kab hogi?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "career",
+      "question": "Mujhe konsa profession choose karna chahiye?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "obstacles",
+      "question": "Main depression mein hun, chart mein kya dikh raha hai?"
+    },
+    {
+      "name": "Sushant",
+      "category": "obstacles",
+      "question": "Kya mujh par kisi ki nazar lag gayi hai?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "past_event",
+      "question": "Pichle saal financial loss kyun hua?"
+    },
+    {
+      "name": "Sushant",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "marriage",
+      "question": "Meri shaadi kab hogi?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "marriage",
+      "question": "Meri shaadi mein Mangal dosha ka asar hai kya?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "past_event",
+      "question": "2018 se 2020 ke beech kya chal raha tha mere chart mein?"
+    },
+    {
+      "name": "Abhi Raj",
+      "category": "obstacles",
+      "question": "Main depression mein hun, chart mein kya dikh raha hai?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "remedies",
+      "question": "Konsa gemstone mujhe pehnna chahiye?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "health",
+      "question": "Kya is saal health ke liye koi bada risk hai?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "obstacles",
+      "question": "Kya Shani mujhe pareshan kar raha hai?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Yash",
+      "category": "financial",
+      "question": "Mujhe loan milega kya?"
+    },
+    {
+      "name": "Abhi Raj",
+      "category": "past_event",
+      "question": "2020 mein mere saath kya hua tha?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "marriage",
+      "question": "Kya mujhe achha life partner milega?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "marriage",
+      "question": "Meri shaadi mein Mangal dosha ka asar hai kya?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "career",
+      "question": "Mujhe konsa profession choose karna chahiye?"
+    },
+    {
+      "name": "Priya",
+      "category": "past_event",
+      "question": "2018 se 2020 ke beech kya chal raha tha mere chart mein?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "obstacles",
+      "question": "Kya Shani mujhe pareshan kar raha hai?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "marriage",
+      "question": "Mere liye shaadi ka sabse accha time kab hai?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Sushant",
+      "category": "health",
+      "question": "Kya meri surgery safe rahegi?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "career",
+      "question": "Meri job mein bahut tension hai, kab sudhrega?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "past_event",
+      "question": "2021 mein meri health kyun kharab hui thi?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "remedies",
+      "question": "Paison ki problem ke liye kya upay hai?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Palak",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "remedies",
+      "question": "Kya Rudraksha pehnna sahi rahega?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "past_event",
+      "question": "2018 se 2020 ke beech kya chal raha tha mere chart mein?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "marriage",
+      "question": "Kya mujhe apne sheher mein ya bahar shaadi hogi?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "marriage",
+      "question": "Kya mujhe apne sheher mein ya bahar shaadi hogi?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "past_event",
+      "question": "2018 se 2020 ke beech kya chal raha tha mere chart mein?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "career",
+      "question": "Kya mera business chalega?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "obstacles",
+      "question": "Kya mujh par kisi ki nazar lag gayi hai?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "financial",
+      "question": "Kab tak mera karz utrega?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "financial",
+      "question": "Kya gold mein invest karna sahi hai mere liye?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "past_event",
+      "question": "Pichle 3 saal bahut bure the, kyun?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "marriage",
+      "question": "Mera rishta kyun nahi ban raha?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "obstacles",
+      "question": "Kya mujh par kisi ki nazar lag gayi hai?"
+    },
+    {
+      "name": "Anuj",
+      "category": "health",
+      "question": "Kab tak ye health problem khatam hogi?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "health",
+      "question": "Kya meri health mein improvement hoga?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "simple",
+      "question": "Abhi kaunsa antardasha chal raha hai?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "past_event",
+      "question": "2021 mein meri health kyun kharab hui thi?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "marriage",
+      "question": "Meri shaadi kab hogi?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "remedies",
+      "question": "Konsa gemstone mujhe pehnna chahiye?"
+    },
+    {
+      "name": "Sushant",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "health",
+      "question": "Kya meri health mein improvement hoga?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "health",
+      "question": "Mujhe bahut stress ho raha hai, chart mein kya dikh raha hai?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "health",
+      "question": "Mujhe bahut stress ho raha hai, chart mein kya dikh raha hai?"
+    },
+    {
+      "name": "Abhi Raj",
+      "category": "financial",
+      "question": "Kab tak meri financial situation improve hogi?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "marriage",
+      "question": "Mera rishta kyun nahi ban raha?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "marriage",
+      "question": "Meri shaadi kab hogi?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "financial",
+      "question": "Kya gold mein invest karna sahi hai mere liye?"
+    },
+    {
+      "name": "Yash",
+      "category": "past_event",
+      "question": "2020 mein mere saath kya hua tha?"
+    },
+    {
+      "name": "Sushant",
+      "category": "marriage",
+      "question": "Kya love marriage hogi ya arranged?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "health",
+      "question": "Meri tabiyat theek kab hogi?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "marriage",
+      "question": "Meri shaadi mein Mangal dosha ka asar hai kya?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "past_event",
+      "question": "2020 mein mere saath kya hua tha?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "past_event",
+      "question": "2020 mein mere saath kya hua tha?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Priya",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "career",
+      "question": "Kya partnership business mujhe suit karega?"
+    },
+    {
+      "name": "Yash",
+      "category": "remedies",
+      "question": "Paison ki problem ke liye kya upay hai?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Palak",
+      "category": "simple",
+      "question": "Mere 7th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Kaal Sarp Dosha hai?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Amit Kumar",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Amit Kumar",
+      "category": "financial",
+      "question": "Kab tak meri financial situation improve hogi?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "obstacles",
+      "question": "Kya ye mushkil waqt jaldi khatam hoga?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "career",
+      "question": "Kya partnership business mujhe suit karega?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "financial",
+      "question": "Kya mujhe sudden dhana labh hoga?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "career",
+      "question": "Main bahut pareshan hun career se, kya hoga?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "financial",
+      "question": "Kya mujhe ghar kharidna chahiye is saal?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "financial",
+      "question": "Mujhe loan milega kya?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "career",
+      "question": "Kya partnership business mujhe suit karega?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "career",
+      "question": "Kya partnership business mujhe suit karega?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "remedies",
+      "question": "Paison ki problem ke liye kya upay hai?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "marriage",
+      "question": "Kya love marriage hogi ya arranged?"
+    },
+    {
+      "name": "Aadhya Das",
+      "category": "career",
+      "question": "Kab tak promotion milega?"
+    },
+    {
+      "name": "Yash",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "obstacles",
+      "question": "Mere saath bura kyun hota hai?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "remedies",
+      "question": "Shani ke liye kya upay karun?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "past_event",
+      "question": "2020 mein mere saath kya hua tha?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "obstacles",
+      "question": "Kya mere chart mein koi dosha hai?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "simple",
+      "question": "Mera lagna kya hai?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "health",
+      "question": "Kya is saal health ke liye koi bada risk hai?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "career",
+      "question": "Mujhe konsa profession choose karna chahiye?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "marriage",
+      "question": "Shaadi mein koi rukawat hai kya?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "obstacles",
+      "question": "Kya mujh par kisi ki nazar lag gayi hai?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "past_event",
+      "question": "2021 mein meri health kyun kharab hui thi?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "health",
+      "question": "Kya is saal health ke liye koi bada risk hai?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "simple",
+      "question": "Mera lagna kya hai?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "simple",
+      "question": "Mera lagna lord kaun hai?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "obstacles",
+      "question": "Meri mehnat ka fal kyun nahi milta?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Sushant",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "career",
+      "question": "Mujhe job change karni chahiye ya nahi?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "marriage",
+      "question": "Kya is saal koi rishta pakka hoga?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "career",
+      "question": "Kab tak promotion milega?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "financial",
+      "question": "Kya mujhe ghar kharidna chahiye is saal?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "health",
+      "question": "Mujhe neend nahi aati, koi planetary reason hai kya?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "career",
+      "question": "Meri naukri kab lagegi?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "financial",
+      "question": "Kya property mein invest karna sahi rahega?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "obstacles",
+      "question": "Mere saath bura kyun hota hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "remedies",
+      "question": "Rahu ke bure asar ko kaise kam karun?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "remedies",
+      "question": "Shaadi ke liye kya upay karun?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "remedies",
+      "question": "Shaadi ke liye kya upay karun?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "health",
+      "question": "Mujhe baar baar bimari kyun aati hai?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "marriage",
+      "question": "Kya mujhe apne sheher mein ya bahar shaadi hogi?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "simple",
+      "question": "Abhi kaunsa antardasha chal raha hai?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "simple",
+      "question": "Abhi kaunsa antardasha chal raha hai?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "obstacles",
+      "question": "Meri mehnat ka fal kyun nahi milta?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "simple",
+      "question": "Mera janm nakshatra kya hai?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "marriage",
+      "question": "Shaadi mein koi rukawat hai kya?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "obstacles",
+      "question": "Kya Shani mujhe pareshan kar raha hai?"
+    },
+    {
+      "name": "Yash",
+      "category": "marriage",
+      "question": "Kya mujhe apne sheher mein ya bahar shaadi hogi?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "financial",
+      "question": "Kya share market mein invest karna theek hai abhi?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "remedies",
+      "question": "Career ke liye kaunsa puja karun?"
+    },
+    {
+      "name": "Palak",
+      "category": "career",
+      "question": "Kya partnership business mujhe suit karega?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "past_event",
+      "question": "2019 mein jo hua tha, uska kya karan tha?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Anuj",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Priya",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "career",
+      "question": "Main bahut pareshan hun career se, kya hoga?"
+    },
+    {
+      "name": "Yash",
+      "category": "past_event",
+      "question": "2019 mein jo hua tha, uska kya karan tha?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "health",
+      "question": "Mujhe baar baar bimari kyun aati hai?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "remedies",
+      "question": "Shani ke liye kya upay karun?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "health",
+      "question": "Mujhe baar baar bimari kyun aati hai?"
+    },
+    {
+      "name": "Priya",
+      "category": "remedies",
+      "question": "Shaadi ke liye kya upay karun?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Aadhya Das",
+      "category": "career",
+      "question": "Meri naukri kab lagegi?"
+    },
+    {
+      "name": "Amit Kumar",
+      "category": "past_event",
+      "question": "2021 mein meri health kyun kharab hui thi?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "health",
+      "question": "Kab tak ye health problem khatam hogi?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "career",
+      "question": "Kya mera business chalega?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "marriage",
+      "question": "Kitni umar mein shaadi hogi meri?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "marriage",
+      "question": "Kya mujhe achha life partner milega?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Anuj",
+      "category": "financial",
+      "question": "Kab tak meri financial problems khatam hongi?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "simple",
+      "question": "Mera janm nakshatra kya hai?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "marriage",
+      "question": "Mere liye shaadi ka sabse accha time kab hai?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "health",
+      "question": "Kya meri health mein improvement hoga?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "simple",
+      "question": "Mera janm nakshatra kya hai?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Kaal Sarp Dosha hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "remedies",
+      "question": "Paison ki problem ke liye kya upay hai?"
+    },
+    {
+      "name": "Sushant",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Anuj",
+      "category": "marriage",
+      "question": "Kya is saal koi rishta pakka hoga?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "simple",
+      "question": "Mera lagna lord kaun hai?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "marriage",
+      "question": "Kya mujhe achha life partner milega?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "financial",
+      "question": "Meri income kab badhegi?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "career",
+      "question": "Kya mera business chalega?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "marriage",
+      "question": "Shaadi mein koi rukawat hai kya?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "simple",
+      "question": "Mere 7th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Aadhya Das",
+      "category": "simple",
+      "question": "Meri rashi kya hai?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "remedies",
+      "question": "Shaadi ke liye kya upay karun?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "marriage",
+      "question": "Meri shaadi mein Mangal dosha ka asar hai kya?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "remedies",
+      "question": "Kya Rudraksha pehnna sahi rahega?"
+    },
+    {
+      "name": "Amit Kumar",
+      "category": "simple",
+      "question": "Meri rashi kya hai?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "health",
+      "question": "Mujhe baar baar bimari kyun aati hai?"
+    },
+    {
+      "name": "Palak",
+      "category": "obstacles",
+      "question": "Har kaam last moment mein kyun bigad jaata hai?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "health",
+      "question": "Kab tak ye health problem khatam hogi?"
+    },
+    {
+      "name": "Palak",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "health",
+      "question": "Mujhe neend nahi aati, koi planetary reason hai kya?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "health",
+      "question": "Mujhe bahut stress ho raha hai, chart mein kya dikh raha hai?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "obstacles",
+      "question": "Meri mehnat ka fal kyun nahi milta?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "past_event",
+      "question": "2022 mein meri zindagi mein kya bada change aaya?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "financial",
+      "question": "Kya share market mein invest karna theek hai abhi?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "remedies",
+      "question": "Shaadi ke liye kya upay karun?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "career",
+      "question": "Mujhe job change karni chahiye ya nahi?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "health",
+      "question": "Kya meri surgery safe rahegi?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "financial",
+      "question": "Kab tak meri financial problems khatam hongi?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "obstacles",
+      "question": "Kya Shani mujhe pareshan kar raha hai?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "marriage",
+      "question": "Kitni umar mein shaadi hogi meri?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "past_event",
+      "question": "2018 se 2020 ke beech kya chal raha tha mere chart mein?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "career",
+      "question": "Mera interview hai, kya result accha hoga?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "marriage",
+      "question": "Kya meri shaadi ke baad zindagi khushhal rahegi?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "obstacles",
+      "question": "Kya mere chart mein koi dosha hai?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "remedies",
+      "question": "Paison ki problem ke liye kya upay hai?"
+    },
+    {
+      "name": "Yash",
+      "category": "health",
+      "question": "Kya is saal health ke liye koi bada risk hai?"
+    },
+    {
+      "name": "Abhi Raj",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Rahu dosha hai?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "marriage",
+      "question": "Kya mujhe achha life partner milega?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "marriage",
+      "question": "Mera rishta kyun nahi ban raha?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "career",
+      "question": "Mera interview hai, kya result accha hoga?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "financial",
+      "question": "Meri income kab badhegi?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "career",
+      "question": "Mujhe job change karni chahiye ya nahi?"
+    },
+    {
+      "name": "Anuj",
+      "category": "financial",
+      "question": "Kya gold mein invest karna sahi hai mere liye?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Kaal Sarp Dosha hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "simple",
+      "question": "Mere 7th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "past_event",
+      "question": "2022 mein meri zindagi mein kya bada change aaya?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "career",
+      "question": "Mera interview hai, kya result accha hoga?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "obstacles",
+      "question": "Kya ye mushkil waqt jaldi khatam hoga?"
+    },
+    {
+      "name": "Sushant",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "career",
+      "question": "Mera interview hai, kya result accha hoga?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "career",
+      "question": "Meri job mein bahut tension hai, kab sudhrega?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Yash",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Sushant",
+      "category": "simple",
+      "question": "Meri rashi kya hai?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "obstacles",
+      "question": "Kya mujh par kisi ki nazar lag gayi hai?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "remedies",
+      "question": "Paison ki problem ke liye kya upay hai?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Rahu dosha hai?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "marriage",
+      "question": "Mera rishta kyun nahi ban raha?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "health",
+      "question": "Kya is saal health ke liye koi bada risk hai?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "marriage",
+      "question": "Shaadi mein koi rukawat hai kya?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "marriage",
+      "question": "Mera rishta kyun nahi ban raha?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "simple",
+      "question": "Mera lagna kya hai?"
+    },
+    {
+      "name": "Amit Kumar",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "past_event",
+      "question": "Pichle 3 saal bahut bure the, kyun?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "obstacles",
+      "question": "Mere saath bura kyun hota hai?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "career",
+      "question": "Main bahut pareshan hun career se, kya hoga?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "career",
+      "question": "Mujhe konsa profession choose karna chahiye?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Anuj",
+      "category": "financial",
+      "question": "Kya property mein invest karna sahi rahega?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "financial",
+      "question": "Kya share market mein invest karna theek hai abhi?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "obstacles",
+      "question": "Mere saath bura kyun hota hai?"
+    },
+    {
+      "name": "Yash",
+      "category": "remedies",
+      "question": "Kya koi upay hai meri naukri ke liye?"
+    },
+    {
+      "name": "Maya Reddy",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "financial",
+      "question": "Kab tak meri financial situation improve hogi?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "career",
+      "question": "Mujhe job change karni chahiye ya nahi?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "financial",
+      "question": "Kya mujhe sudden dhana labh hoga?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "marriage",
+      "question": "Kya mujhe achha life partner milega?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "financial",
+      "question": "Kab tak meri financial situation improve hogi?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Kaal Sarp Dosha hai?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "financial",
+      "question": "Kya mujhe ghar kharidna chahiye is saal?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "financial",
+      "question": "Kab tak meri financial problems khatam hongi?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "financial",
+      "question": "Kya mujhe ghar kharidna chahiye is saal?"
+    },
+    {
+      "name": "Abhi Raj",
+      "category": "career",
+      "question": "Kya mujhe apna business shuru karna chahiye?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "marriage",
+      "question": "Kitni umar mein shaadi hogi meri?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Abhi Raj",
+      "category": "remedies",
+      "question": "Kya koi upay hai meri naukri ke liye?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "past_event",
+      "question": "Pichle 2 saal mein itni mushkilein kyun aayi?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "past_event",
+      "question": "2023 mein mera rishta kyun toot gaya?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "obstacles",
+      "question": "Meri mehnat ka fal kyun nahi milta?"
+    },
+    {
+      "name": "Sneha Gupta",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "financial",
+      "question": "Kya property mein invest karna sahi rahega?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "obstacles",
+      "question": "Main depression mein hun, chart mein kya dikh raha hai?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "remedies",
+      "question": "Rahu ke bure asar ko kaise kam karun?"
+    },
+    {
+      "name": "Sushant",
+      "category": "career",
+      "question": "Meri job mein bahut tension hai, kab sudhrega?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "financial",
+      "question": "Kya mujhe ghar kharidna chahiye is saal?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "past_event",
+      "question": "2019 mein jo hua tha, uska kya karan tha?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "simple",
+      "question": "Mere 7th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "financial",
+      "question": "Kya property mein invest karna sahi rahega?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "obstacles",
+      "question": "Mere saath bura kyun hota hai?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "marriage",
+      "question": "Meri shaadi kab hogi?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "financial",
+      "question": "Mujhe loan milega kya?"
+    },
+    {
+      "name": "Palak",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "career",
+      "question": "Mujhe konsa profession choose karna chahiye?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "career",
+      "question": "Kya mujhe apna business shuru karna chahiye?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "marriage",
+      "question": "Mere liye shaadi ka sabse accha time kab hai?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "obstacles",
+      "question": "Kya ye mushkil waqt jaldi khatam hoga?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "remedies",
+      "question": "Rahu ke bure asar ko kaise kam karun?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "career",
+      "question": "Main bahut pareshan hun career se, kya hoga?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "marriage",
+      "question": "Kya is saal koi rishta pakka hoga?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "career",
+      "question": "Kya partnership business mujhe suit karega?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Divya Singh",
+      "category": "obstacles",
+      "question": "Kya Shani mujhe pareshan kar raha hai?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "career",
+      "question": "Kya mujhe sarkari naukri milegi?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "remedies",
+      "question": "Konsa gemstone mujhe pehnna chahiye?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "health",
+      "question": "Meri tabiyat theek kab hogi?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "remedies",
+      "question": "Venus ko strong karne ke liye kya karun?"
+    },
+    {
+      "name": "Priya",
+      "category": "remedies",
+      "question": "Kya koi upay hai meri naukri ke liye?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "marriage",
+      "question": "Mera rishta kyun nahi ban raha?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "marriage",
+      "question": "Mere 7th house mein kya hai jo shaadi rok raha hai?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "remedies",
+      "question": "Career ke liye kaunsa puja karun?"
+    },
+    {
+      "name": "Rohit Singh",
+      "category": "simple",
+      "question": "Abhi meri kaunsi mahadasha chal rahi hai?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "financial",
+      "question": "Kab tak mera karz utrega?"
+    },
+    {
+      "name": "Yash",
+      "category": "health",
+      "question": "Mujhe baar baar bimari kyun aati hai?"
+    },
+    {
+      "name": "Kavya Singh",
+      "category": "simple",
+      "question": "Mera lagna lord kaun hai?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "simple",
+      "question": "Mere 7th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "marriage",
+      "question": "Kya mujhe achha life partner milega?"
+    },
+    {
+      "name": "Nikhil Kumar",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "simple",
+      "question": "Meri rashi kya hai?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Yash",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "remedies",
+      "question": "Kya koi upay hai meri naukri ke liye?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "health",
+      "question": "Kya is saal health ke liye koi bada risk hai?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "health",
+      "question": "Meri tabiyat theek kab hogi?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "health",
+      "question": "Kya meri bimari theek ho jayegi?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "financial",
+      "question": "Meri income kab badhegi?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "simple",
+      "question": "Mera janm nakshatra kya hai?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "health",
+      "question": "Kya meri health mein improvement hoga?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "simple",
+      "question": "Mera janm nakshatra kya hai?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "health",
+      "question": "Meri tabiyat theek kab hogi?"
+    },
+    {
+      "name": "Priya",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "financial",
+      "question": "Kya property mein invest karna sahi rahega?"
+    },
+    {
+      "name": "Yash",
+      "category": "marriage",
+      "question": "Kya meri shaadi ke baad zindagi khushhal rahegi?"
+    },
+    {
+      "name": "Arjun Kapoor",
+      "category": "financial",
+      "question": "Kya share market mein invest karna theek hai abhi?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Priya",
+      "category": "financial",
+      "question": "Kya mujhe sudden dhana labh hoga?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "past_event",
+      "question": "2021 mein meri health kyun kharab hui thi?"
+    },
+    {
+      "name": "Aadhya Das",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Priya",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "simple",
+      "question": "Abhi meri kaunsi mahadasha chal rahi hai?"
+    },
+    {
+      "name": "Vikrant Kumar",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Arisha Akhtar",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "financial",
+      "question": "Kab tak mera karz utrega?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "obstacles",
+      "question": "Har kaam last moment mein kyun bigad jaata hai?"
+    },
+    {
+      "name": "Anuj",
+      "category": "past_event",
+      "question": "2018 se 2020 ke beech kya chal raha tha mere chart mein?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "marriage",
+      "question": "Mere 7th house mein kya hai jo shaadi rok raha hai?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "financial",
+      "question": "Kya share market mein invest karna theek hai abhi?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "career",
+      "question": "Kab tak promotion milega?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "financial",
+      "question": "Kab tak mera karz utrega?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "marriage",
+      "question": "Kya meri shaadi ke baad zindagi khushhal rahegi?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "marriage",
+      "question": "Shaadi mein itni der kyun ho rahi hai?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "simple",
+      "question": "Abhi kaunsa antardasha chal raha hai?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "financial",
+      "question": "Meri income kab badhegi?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Priya Raj",
+      "category": "remedies",
+      "question": "Shaadi ke liye kya upay karun?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "marriage",
+      "question": "Kya meri shaadi ke baad zindagi khushhal rahegi?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "marriage",
+      "question": "Kya is saal koi rishta pakka hoga?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "health",
+      "question": "Kya meri surgery safe rahegi?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "marriage",
+      "question": "Kya mujhe apne sheher mein ya bahar shaadi hogi?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "remedies",
+      "question": "Rahu ke bure asar ko kaise kam karun?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "obstacles",
+      "question": "Sab kuch theek tha, achanak sab bigad gaya — kyun?"
+    },
+    {
+      "name": "Rohan Nair",
+      "category": "career",
+      "question": "Kab tak promotion milega?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "obstacles",
+      "question": "Har kaam last moment mein kyun bigad jaata hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "simple",
+      "question": "Mera nakshatra kya hai?"
+    },
+    {
+      "name": "Anuj",
+      "category": "health",
+      "question": "Mujhe baar baar bimari kyun aati hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Priyanka Nair",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Neha Singh",
+      "category": "simple",
+      "question": "Abhi kaunsa antardasha chal raha hai?"
+    },
+    {
+      "name": "Priya Gupta",
+      "category": "obstacles",
+      "question": "Kya mere chart mein koi dosha hai?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "past_event",
+      "question": "Pichle 3 saal bahut bure the, kyun?"
+    },
+    {
+      "name": "Sameer Patel",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Kaal Sarp Dosha hai?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "marriage",
+      "question": "Kya mujhe apne sheher mein ya bahar shaadi hogi?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "marriage",
+      "question": "Kya meri shaadi ke baad zindagi khushhal rahegi?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "simple",
+      "question": "Mere 7th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Priya",
+      "category": "marriage",
+      "question": "Kya mere chart mein vivah yoga hai?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Rahu dosha hai?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "past_event",
+      "question": "2023 mein mera rishta kyun toot gaya?"
+    },
+    {
+      "name": "Priya Sharma",
+      "category": "financial",
+      "question": "Is saal koi bada financial gain hoga kya?"
+    },
+    {
+      "name": "Vikram Verma",
+      "category": "financial",
+      "question": "Kya property mein invest karna sahi rahega?"
+    },
+    {
+      "name": "Isha Patel",
+      "category": "financial",
+      "question": "Mujhe loan milega kya?"
+    },
+    {
+      "name": "Nisha Verma",
+      "category": "health",
+      "question": "Mere papa ki health theek nahi hai, kab sudhrega?"
+    },
+    {
+      "name": "Ananya Verma",
+      "category": "financial",
+      "question": "Mujhe loan milega kya?"
+    },
+    {
+      "name": "Divya Rao",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "career",
+      "question": "Kya mera business chalega?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "remedies",
+      "question": "Konsa gemstone mujhe pehnna chahiye?"
+    },
+    {
+      "name": "Harsh Verma",
+      "category": "career",
+      "question": "Meri naukri mein koi problem aa rahi hai, kab theek hogi?"
+    },
+    {
+      "name": "Aadhya Das",
+      "category": "simple",
+      "question": "Mera lagna kya hai?"
+    },
+    {
+      "name": "Yash",
+      "category": "career",
+      "question": "Main bahut pareshan hun career se, kya hoga?"
+    },
+    {
+      "name": "Sudhir Singh",
+      "category": "remedies",
+      "question": "Rahu ke bure asar ko kaise kam karun?"
+    },
+    {
+      "name": "Arjun Mehta",
+      "category": "obstacles",
+      "question": "Mujhe lagta hai main bahut akela/akeli hun, kya chart mein kuch hai?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "obstacles",
+      "question": "Kya mere chart mein Pitra Dosha hai?"
+    },
+    {
+      "name": "Yash",
+      "category": "career",
+      "question": "Mujhe job change karni chahiye ya nahi?"
+    },
+    {
+      "name": "Sameer Khan",
+      "category": "financial",
+      "question": "Kya mujhe ghar kharidna chahiye is saal?"
+    },
+    {
+      "name": "Yash",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "marriage",
+      "question": "Kitni umar mein shaadi hogi meri?"
+    },
+    {
+      "name": "Ritu Gupta",
+      "category": "career",
+      "question": "Kab tak meri financial condition stable hogi career mein?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "career",
+      "question": "Mujhe konsa profession choose karna chahiye?"
+    },
+    {
+      "name": "Vikram Singh",
+      "category": "obstacles",
+      "question": "Meri mehnat ka fal kyun nahi milta?"
+    },
+    {
+      "name": "Priya",
+      "category": "financial",
+      "question": "Paisa aata hai lekin rukta nahi, kyun?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "marriage",
+      "question": "Mere 7th house mein kya hai jo shaadi rok raha hai?"
+    },
+    {
+      "name": "Sanjay Kumar",
+      "category": "career",
+      "question": "Meri job mein bahut tension hai, kab sudhrega?"
+    },
+    {
+      "name": "Rahul Singh",
+      "category": "remedies",
+      "question": "Shani ke liye kya upay karun?"
+    },
+    {
+      "name": "Siddharth Nair",
+      "category": "remedies",
+      "question": "Kya mujhe mandir jaana chahiye, kaunsa?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "career",
+      "question": "Kya is saal koi bada career break milega?"
+    },
+    {
+      "name": "Aditya Chawla",
+      "category": "marriage",
+      "question": "Kya meri shaadi is saal hogi?"
+    },
+    {
+      "name": "Deepika Chopra",
+      "category": "career",
+      "question": "Meri job mein bahut tension hai, kab sudhrega?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "financial",
+      "question": "Meri savings kyun nahi ho pa rahi?"
+    },
+    {
+      "name": "Anurag Kumar",
+      "category": "remedies",
+      "question": "Konsa gemstone mujhe pehnna chahiye?"
+    },
+    {
+      "name": "Yash",
+      "category": "simple",
+      "question": "Mere 10th house ka sub-lord kaun hai?"
+    },
+    {
+      "name": "Rajesh Patel",
+      "category": "financial",
+      "question": "Mera business loss mein hai, kab profit hoga?"
+    },
+    {
+      "name": "Anjali Desai",
+      "category": "marriage",
+      "question": "Kya meri shaadi ke baad zindagi khushhal rahegi?"
+    },
+    {
+      "name": "Priya",
+      "category": "obstacles",
+      "question": "Main bahut unlucky feel karta/karti hun, kyun?"
+    },
+    {
+      "name": "Meera Sharma",
+      "category": "past_event",
+      "question": "2021 mein meri health kyun kharab hui thi?"
+    },
+    {
+      "name": "Aditya Raj",
+      "category": "financial",
+      "question": "Kya mujhe sudden dhana labh hoga?"
+    },
+    {
+      "name": "Anurag Singh",
+      "category": "health",
+      "question": "Kya meri health mein improvement hoga?"
+    },
+    {
+      "name": "Varun Kapoor",
+      "category": "financial",
+      "question": "Kya mujhe paisa milega is saal?"
+    }
+  ]
+}
