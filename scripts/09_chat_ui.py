@@ -1128,6 +1128,14 @@ def predict(message, history, chart_data):
         yield safety_msg
         return
 
+    # Helper: detect if question is in Hindi/Hinglish (defined here so all intercepts below can use it)
+    def _is_hindi_q(q):
+        _hindi_kw = ['kya', 'hai', 'mera', 'meri', 'kab', 'kaise', 'batao', 'bataiye',
+                     'hogi', 'hoga', 'aapka', 'aapki', 'mujhe', 'kaisa', 'kahan',
+                     'shaadi', 'paisa', 'naukri', 'padhai', 'ghar', 'rishta', 'aaj']
+        words = q.lower().split()
+        return sum(1 for w in words if w in _hindi_kw) >= 2 or any(p in q.lower() for p in ['kab hogi', 'kya hoga', 'batao', 'bataiye', 'aaj ki'])
+
     # 2a-ext. Medical safety intercept — bypass model entirely for disease diagnosis queries
     if query_info["type"] == "medical_safety":
         native_name = ""
@@ -1182,14 +1190,6 @@ def predict(message, history, chart_data):
 
     # 2b. Direct factual intercepts — bypass model for questions we can answer perfectly
     q_lower = message.lower().strip()
-
-    # Helper: detect if question is in Hindi/Hinglish
-    def _is_hindi_q(q):
-        _hindi_kw = ['kya', 'hai', 'mera', 'meri', 'kab', 'kaise', 'batao', 'bataiye',
-                     'hogi', 'hoga', 'aapka', 'aapki', 'mujhe', 'kaisa', 'kahan',
-                     'shaadi', 'paisa', 'naukri', 'padhai', 'ghar', 'rishta', 'aaj']
-        words = q.lower().split()
-        return sum(1 for w in words if w in _hindi_kw) >= 2 or any(p in q.lower() for p in ['kab hogi', 'kya hoga', 'batao', 'bataiye', 'aaj ki'])
 
     # Extract native name for intercepts
     _intercept_name = ""
