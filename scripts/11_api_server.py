@@ -545,9 +545,33 @@ def _postprocess(text):
         (r'\b[Aa]pplying\s+(?:the\s+)?(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?(?:principles|system|methodology),?\b', ''),
         (r'\bBased\s+on\s+(?:your|the)\s+current\s+planetary\s+positions\s*(?:and\s+dasha\s+system)?,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+(?:chart\s+)?(?:details|data)\s+and\s+applying\s+KP\s+principles,?\b', ''),
-        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+provided\s+in\s+(?:your|the)\s+chart,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+(?:and\s+significator\s+(?:analysis|combinations?)\s+)?(?:provided\s+)?in\s+(?:your|the|this)\s+chart(?:\s+data)?,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?(?:planetary|chart)\s+(?:positions|data)\s+(?:provided|given)\s+(?:in\s+)?(?:your|the)\s+(?:chart|horoscope),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+in\s+your\s+chart,?\b', ''),
+        (r'\bsignificator\s+analysis\s+provided\s+in\s+this\s+chart\s+data,?\b', ''),
+        (r"\byour\s+natal\s+chart's\s+(?:\w+\s+){0,3}potential\b", 'your chart'),
+        (r'\bBased\s+on\s+(?:the\s+)?provided\s+dasha\s+sequence,?\b', ''),
+        (r'\bBased\s+on\s+your\s+planetary\s+positions\s+and\s+significator\s+combinations,?\b', ''),
+        (r',?\s*and\s+significator\s+combinations,?\b', ''),
+        (r'\bBased\s+on\s+your\s+(?:natal\s+)?chart\s+(?:details|configuration)\s+and\s+current\s+(?:planetary\s+positions|dasha\s+sequence),?\b', ''),
+        (r'\bBased\s+on\s+your\s+(?:natal\s+)?chart\s+(?:configuration|details)\s*,?\b', ''),
+        (r'\bAccording\s+to\s+your\s+birth\s+data,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?current\s+planetary\s+periods?\s+(?:running\s+)?in\s+your\s+chart,?\b', ''),
+        (r'\bThe\s+cosmic\s+energies\s+align\s+perfectly[^.!?]{0,60}[.!?]?', ''),
+        (r'\bcosmic\s+energies\s+align[^.!?]{0,60}[.!?]?', ''),
+        (r'\bchallenging\s+cosmic\s+energies[^.!?]{0,60}', ''),
+        (r'\bunafflicted\s+planetary\s+influences\s+suggest\s+(?:kar\s+rahe\s+hain|kar\s+rahe\s+hai|that),?\b', ''),
+        (r'\bmahadasha\s+ruler\s*:\s*[^.\n]{0,120}', ''),
+        (r'\banthardasha\s+ruler\s*:\s*[^.\n]{0,120}', ''),
+        (r'\bantardasha\s+ruler\s*:\s*[^.\n]{0,120}', ''),
+        (r'\bfunctions?\s+as\s+(?:primary|secondary)\s+significator\s+connecting\s+houses[^.!?]{0,80}', ''),
+        (r'\bacts?\s+as\s+(?:primary|secondary)\s+significator\s+(?:connecting|linking)[^.!?]{0,80}', ''),
         (r'\bThe\s+Pratyantar\s+Lord\'s\s+influence\s+adds\s+depth\s+to\s+this\s+prediction\.?\b', ''),
+        (r'\bprimary\s+period\s*:\s*', ''),
+        (r'\bcritical\s+antardasha\s*:\s*', ''),
+        (r'\bcurrent\s+(?:period|phase)\s*:\s*', ''),
+        (r'\bpeak\s+(?:period|window)\s*:\s*', ''),
+        (r'\bbecause\s*:\s*\n', ' — '),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -586,12 +610,40 @@ def _postprocess(text):
         "looking at the chart data", "examining the chart",
         "i will now analyze", "let me examine",
         "grounding rule", "as per the grounding",
+        "grounding principle", "grounding principles",
+        "rule-based system:", "verified methodology:",
+        "moderate confidence level", "confidence level: moderate",
+        "confidence level: high", "confidence level: low",
+        "sub-lord significance:", "planetary positions analysis:",
+        "core significators:", "primary significators:",
+        "secondary significators:", "key significators:",
+        "significator analysis:", "house activation:",
+        "dasha activation:", "planetary configuration:",
+        "chart analysis:", "kp analysis:",
+        "primary period:", "critical antardasha:",
+        "peak period:", "current period:",
+        "most promising combination:",
+        "mahadasha ruler:", "anthardasha ruler:", "antardasha ruler:",
+        "underlying mechanism involves", "the cosmic energies align",
+        "careerevent:", "positiveoutcome:", "specificdates:",
+        "bannedphrases:", "eventtype:", "scoringcriteria:",
+        "marriageevent:", "financialevent:", "emotionalevent:", "safetyflag:",
     ]
     for line in lines:
         stripped = line.strip().lower()
         if stripped.startswith("rules_used:") or stripped.startswith("rules used:"):
             continue
         if stripped.startswith("level:") or stripped.startswith("answer_end"):
+            continue
+        # Strip DPO training rubric metadata that leaks into model output
+        _rubric_prefixes = (
+            "careerevent:", "career event:", "positiveoutcome:", "positive outcome:",
+            "specificdates:", "specific dates:", "bannedphrases:", "banned phrases:",
+            "eventtype:", "event type:", "scoringcriteria:", "scoring criteria:",
+            "marriageevent:", "marriage event:", "financialevent:", "financial event:",
+            "emotionalevent:", "emotional event:", "safetyflag:", "safety flag:",
+        )
+        if any(stripped.startswith(p) for p in _rubric_prefixes):
             continue
         if any(filler in stripped for filler in _filler_phrases):
             continue
@@ -603,6 +655,27 @@ def _postprocess(text):
             continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
+
+    # ── Phase 8.45: Strip DPO rubric metadata labels that leak inline ──
+    _rubric_patterns = [
+        r'\bcareerevent\s*:\s*\S+[^\n]*',
+        r'\bpositiveoutcome\s*:\s*\S+[^\n]*',
+        r'\bspecificdates\s*:\s*\S+[^\n]*',
+        r'\bbannedphrases\s*:\s*\S+[^\n]*',
+        r'\beventtype\s*:\s*\S+[^\n]*',
+        r'\bscoringcriteria\s*:\s*\S+[^\n]*',
+        r'\bmarriageevent\s*:\s*\S+[^\n]*',
+        r'\bfinancialevent\s*:\s*\S+[^\n]*',
+        r'\bemotionalevent\s*:\s*\S+[^\n]*',
+        r'\bsafetyflag\s*:\s*\S+[^\n]*',
+        r'\bcareer\s+event\s*:\s*\S+[^\n]*',
+        r'\bpositive\s+outcome\s*:\s*\S+[^\n]*',
+        r'\bspecific\s+dates\s*:\s*\S+[^\n]*',
+        r'\bbanned\s+phrases\s*:\s*\S+[^\n]*',
+    ]
+    for _rp in _rubric_patterns:
+        result = re.sub(_rp, '', result, flags=re.IGNORECASE)
+    result = re.sub(r'\n{3,}', '\n\n', result)
 
     # ── Phase 8.5: Strip model-generated Hindi quotes on factual/timing queries ──
     # Keep quotes on: remedy, emotional, analysis (where motivational tone helps)
