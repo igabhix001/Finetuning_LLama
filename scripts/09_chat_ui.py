@@ -666,6 +666,16 @@ def _postprocess(text):
         (r'\bcurrent\s+(?:period|phase)\s*:\s*', ''),
         (r'\bpeak\s+(?:period|window)\s*:\s*', ''),
         (r'\bbecause\s*:\s*\n', ' — '),
+        (r'\bThe\s+most\s+promising\s+(?:period|window|time)\b[^.!?]{0,80}', ''),
+        (r'\bAchhe\s+baat\s+kehte\s+hain,?\s*', ''),
+        (r'\bKey\s+point\s+yeh\s+hai\s+ki[^.!?]{0,120}[.!?]?', ''),
+        (r'\bexact\s+timing\s+depend\s+(?:karti|karta)\s+hai[^.!?]{0,120}[.!?]?', ''),
+        (r',\s+as\s+one\s+of\s+your\s+(?:primary|secondary)\s+(?:wealth|career|marriage)\s+significator\s+planets,', ''),
+        (r'\bwhile\s+simultaneously\s+receiving\s+support\s+from[^.!?]{0,80}', ''),
+        (r'\boverall\s+period\s+remain\s+(?:karti|karta)\s+hai\s+highly\s+favorable[^.!?]{0,60}', ''),
+        (r'\bgets\s+activated\s+during\s+its\s+own\s+Pratyantar\s+period[^.!?]{0,80}', ''),
+        (r'\bSaturn\'s\s+natural\s+tendency\s+toward\s+limitation[^.!?]{0,120}[.!?]?', ''),
+        (r'\bprogress\s+remains\s+blocked\s+despite\s+apparent\s+opportunities\s+emerging\.?', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -674,7 +684,9 @@ def _postprocess(text):
     # Fix orphaned commas/spaces at sentence start (e.g. ", I can" → "I can")
     text = re.sub(r'(?:^|(?<=[\.\.!?]))\s*,\s*', ' ', text)
     # Fix orphaned comma after any period-space (e.g. "hain. , this" → "hain. This")
-    text = re.sub(r'(\.\s*),\s*', r'\1', text)
+    text = re.sub(r'(\.\.\s*),\s*', r'\1', text)
+    # Fix double comma after name+ji (e.g. "Rajesh ji, , your" → "Rajesh ji, your")
+    text = re.sub(r',\s*,+', ',', text)
     # Fix orphaned 'and' at start of text
     text = re.sub(r'^\s*and\s+', '', text, flags=re.IGNORECASE)
     # Fix double spaces from removed phrases
@@ -888,10 +900,19 @@ def _postprocess(text):
     sentences = re.split(r'(?<=[.!?])\s+', result.strip())
     if _query_type == "simple" and len(sentences) > 1:
         result = sentences[0]  # HARD 1-sentence cap for simple queries
-    elif _query_type == "timing" and len(sentences) > 3:
+    elif _query_type in ("timing", "emotional") and len(sentences) > 3:
         result = ' '.join(sentences[:3])
     elif len(sentences) > 4:
         result = ' '.join(sentences[:4])
+
+    # ── Phase 12.6: Hard character cap — trim to last sentence within 350 chars ──
+    _char_limit = {"simple": 180, "timing": 320, "emotional": 350, "past_event": 400, "remedy": 400}.get(_query_type, 350)
+    if len(result) > _char_limit:
+        _trimmed = result[:_char_limit]
+        _last_end = max(_trimmed.rfind('. '), _trimmed.rfind('! '), _trimmed.rfind('? '),
+                        _trimmed.rfind('.'), _trimmed.rfind('!'), _trimmed.rfind('?'))
+        if _last_end > _char_limit * 0.5:
+            result = result[:_last_end + 1].rstrip()
 
     # ── Phase 12.5: Strip trailing filler for simple queries ──
     if _query_type == "simple":
@@ -1075,14 +1096,14 @@ def _classify_query_type(question: str) -> dict:
         "favorable time", "auspicious time", "shubh samay",
     ]
     if any(p in q for p in timing_patterns):
-        return {"type": "timing", "max_paragraphs": 2, "temperature": 0.5, "max_tokens_override": 450}
+        return {"type": "timing", "max_paragraphs": 2, "temperature": 0.5, "max_tokens_override": 300}
 
     # ── 6. Remedy queries ──
     if _is_remedy_query(question):
         return {"type": "remedy", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": 500}
 
     # ── 7. Complex analysis — full response ──
-    return {"type": "analysis", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": None}
+    return {"type": "analysis", "max_paragraphs": 3, "temperature": 0.5, "max_tokens_override": 400}
 
 
 # Product recommendation sentence templates (varied for natural feel)
