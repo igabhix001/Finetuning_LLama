@@ -639,8 +639,11 @@ def _postprocess(text):
         (r'\b[Aa]pplying\s+(?:the\s+)?(?:KP|Krishnamurti)\s+(?:Paddhati\s+)?(?:principles|system|methodology),?\b', ''),
         (r'\bBased\s+on\s+(?:your|the)\s+current\s+planetary\s+positions\s*(?:and\s+dasha\s+system)?,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+(?:chart\s+)?(?:details|data)\s+and\s+applying\s+KP\s+principles,?\b', ''),
-        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+provided\s+in\s+(?:your|the)\s+chart,?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+(?:and\s+significator\s+(?:analysis|combinations?)\s+)?(?:provided\s+)?in\s+(?:your|the|this)\s+chart(?:\s+data)?,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?(?:planetary|chart)\s+(?:positions|data)\s+(?:provided|given)\s+(?:in\s+)?(?:your|the)\s+(?:chart|horoscope),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+in\s+your\s+chart,?\b', ''),
+        (r'\bsignificator\s+analysis\s+provided\s+in\s+this\s+chart\s+data,?\b', ''),
+        (r"\byour\s+natal\s+chart's\s+(?:\w+\s+){0,3}potential\b", 'your chart'),
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+dasha\s+sequence,?\b', ''),
         (r'\bBased\s+on\s+your\s+planetary\s+positions\s+and\s+significator\s+combinations,?\b', ''),
         (r',?\s*and\s+significator\s+combinations,?\b', ''),
@@ -751,12 +754,32 @@ def _postprocess(text):
         "antardasha ruler:",
         "underlying mechanism involves",
         "the cosmic energies align",
+        "careerevent:",
+        "positiveoutcome:",
+        "specificdates:",
+        "bannedphrases:",
+        "eventtype:",
+        "scoringcriteria:",
+        "marriageevent:",
+        "financialevent:",
+        "emotionalevent:",
+        "safetyflag:",
     ]
     for line in lines:
         stripped = line.strip().lower()
         if stripped.startswith("rules_used:") or stripped.startswith("rules used:"):
             continue
         if stripped.startswith("level:") or stripped.startswith("answer_end"):
+            continue
+        # Strip DPO training rubric metadata that leaks into model output
+        _rubric_prefixes = (
+            "careerevent:", "career event:", "positiveoutcome:", "positive outcome:",
+            "specificdates:", "specific dates:", "bannedphrases:", "banned phrases:",
+            "eventtype:", "event type:", "scoringcriteria:", "scoring criteria:",
+            "marriageevent:", "marriage event:", "financialevent:", "financial event:",
+            "emotionalevent:", "emotional event:", "safetyflag:", "safety flag:",
+        )
+        if any(stripped.startswith(p) for p in _rubric_prefixes):
             continue
         if any(filler in stripped for filler in _filler_phrases):
             continue
@@ -783,6 +806,27 @@ def _postprocess(text):
     ]
     for _sdp in _self_doubt_patterns:
         result = re.sub(_sdp, '', result, flags=re.IGNORECASE)
+
+    # ── Phase 8.45: Strip DPO rubric metadata labels that leak inline ──
+    _rubric_patterns = [
+        r'\bcareerevent\s*:\s*\S+[^\n]*',
+        r'\bpositiveoutcome\s*:\s*\S+[^\n]*',
+        r'\bspecificdates\s*:\s*\S+[^\n]*',
+        r'\bbannedphrases\s*:\s*\S+[^\n]*',
+        r'\beventtype\s*:\s*\S+[^\n]*',
+        r'\bscoringcriteria\s*:\s*\S+[^\n]*',
+        r'\bmarriageevent\s*:\s*\S+[^\n]*',
+        r'\bfinancialevent\s*:\s*\S+[^\n]*',
+        r'\bemotionalevent\s*:\s*\S+[^\n]*',
+        r'\bsafetyflag\s*:\s*\S+[^\n]*',
+        r'\bcareer\s+event\s*:\s*\S+[^\n]*',
+        r'\bpositive\s+outcome\s*:\s*\S+[^\n]*',
+        r'\bspecific\s+dates\s*:\s*\S+[^\n]*',
+        r'\bbanned\s+phrases\s*:\s*\S+[^\n]*',
+    ]
+    for _rp in _rubric_patterns:
+        result = re.sub(_rp, '', result, flags=re.IGNORECASE)
+    result = re.sub(r'\n{3,}', '\n\n', result)  # clean up blank lines from removals
 
     # ── Phase 8.5: Strip model-generated Hindi quotes on factual/timing queries ──
     # Keep quotes on: remedy, emotional, analysis (where motivational tone helps)
