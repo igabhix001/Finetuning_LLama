@@ -676,6 +676,26 @@ def _postprocess(text):
         (r'\bgets\s+activated\s+during\s+its\s+own\s+Pratyantar\s+period[^.!?]{0,80}', ''),
         (r'\bSaturn\'s\s+natural\s+tendency\s+toward\s+limitation[^.!?]{0,120}[.!?]?', ''),
         (r'\bprogress\s+remains\s+blocked\s+despite\s+apparent\s+opportunities\s+emerging\.?', ''),
+        (r'\band\s+significator\s+analysis\s+(?:in\s+this\s+chart(?:\s+data)?)?,?\b', ''),
+        (r'\banalysis\s+and\s+current\s+planetary\s+periods,?\b', ''),
+        (r'\bmaking\s+this\s+combination\s+highly\s+favorable[^.!?]{0,60}', ''),
+        (r'\bthis\s+combination\s+(?:is\s+)?highly\s+favorable[^.!?]{0,60}', ''),
+        (r'\bthrough\s+(?:their|its)\s+combined\s+significations\s+of\s+houses[^.!?]{0,60}', ''),
+        (r'\ball\s+crucial\s+for\s+(?:career|marriage|finance|health)\s+matters\.?', ''),
+        (r"\bit's\s+clear\s+that\s+you're\s+at\s+crossroads[^.!?]{0,80}", ''),
+        (r'\bMercury\s+governs\s+intelligence,\s+communication\s+skills[^.!?]{0,80}', ''),
+        (r'\bwhile\s+Saturn\s+provides\s+discipline,\s+persistence[^.!?]{0,80}', ''),
+        (r'\bnot\s+just\s+passing\s+but\s+achieving\s+substantial\s+recognition[^.!?]{0,80}', ''),
+        (r'\bthrough\s+this\s+academic\s+pursuit\.?', ''),
+        (r'\bappears?\s+to\s+be\s+temporary\s+in\s+nature\.?', ''),
+        (r'\byour\s+feelings\s+of\s+being\s+unlucky\s+appear[^.!?]{0,80}', ''),
+        (r'\bfull\s+force\s+of\s+Saturn\'s\s+restrictive\s+influence[^.!?]{0,80}', ''),
+        (r'\bSaturn\'s\s+(?:restrictive|limiting)\s+influence\s+combined\s+with[^.!?]{0,80}', ''),
+        (r'\bMercury\'s\s+analytical\s+yet\s+sometimes\s+critical\s+energy\.?', ''),
+        (r'\baccording\s+to\s+KP\s+(?:principles|astrology|methodology)\.?', ''),
+        (r'\bper\s+KP\s+(?:principles|astrology)\.?', ''),
+        (r'\bKP\s+(?:principles|methodology)\s+(?:suggest|indicate)[^.!?]{0,60}', ''),
+        (r'\bantharam\b', 'antardasha'),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -1094,6 +1114,9 @@ def _classify_query_type(question: str) -> dict:
         "when will", "kab hogi", "kab milegi", "kab hoga",
         "timing", "which year", "which month", "best period",
         "favorable time", "auspicious time", "shubh samay",
+        "exam", "interview", "pariksha", "test result", "get success",
+        "will i pass", "will i clear", "selection", "job offer",
+        "should i change", "change fields", "change career", "switch job",
     ]
     if any(p in q for p in timing_patterns):
         return {"type": "timing", "max_paragraphs": 2, "temperature": 0.5, "max_tokens_override": 300}

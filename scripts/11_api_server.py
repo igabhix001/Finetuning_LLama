@@ -311,6 +311,18 @@ def _postprocess(text):
         # Even without a name, strip the literal placeholder
         text = re.sub(r'\[Name\]\s*', '', text, flags=re.IGNORECASE)
 
+    # ── Phase 0.5: Correct hallucinated wrong names — replace any "X ji" that isn't the real name ──
+    if _native_name:
+        _first_name = _native_name.split()[0]
+        # Replace "WrongName ji," or "WrongName ji" at sentence start with correct name
+        def _fix_wrong_name(m):
+            wrong = m.group(1).strip()
+            # If the name in text doesn't match our known name at all, replace it
+            if wrong.lower() != _native_name.lower() and wrong.lower() != _first_name.lower():
+                return f"{_native_name} ji"
+            return m.group(0)
+        text = re.sub(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+ji\b', _fix_wrong_name, text)
+
     # ── Phase 1: Remove leaked internal tokens ──
     for token in ["ANSWER_END", "</s>", "<|eot_id|>", "<|end_of_text|>",
                   "<|start_header_id|>", "<|end_header_id|>", "<|begin_of_text|>"]:
@@ -553,6 +565,35 @@ def _postprocess(text):
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+dasha\s+sequence,?\b', ''),
         (r'\bBased\s+on\s+your\s+planetary\s+positions\s+and\s+significator\s+combinations,?\b', ''),
         (r',?\s*and\s+significator\s+combinations,?\b', ''),
+        (r'\band\s+significator\s+analysis\s+(?:in\s+this\s+chart(?:\s+data)?)?,?\b', ''),
+        (r'\banalysis\s+and\s+current\s+planetary\s+periods,?\b', ''),
+        (r'\bmaking\s+this\s+combination\s+highly\s+favorable[^.!?]{0,60}', ''),
+        (r'\bthis\s+combination\s+(?:is\s+)?highly\s+favorable[^.!?]{0,60}', ''),
+        (r'\bcrucially\s+house\s+\d+\s+along\s+with\s+house\s+\d+\s+for\s+\w+\s+-\s+', ''),
+        (r'\bfor\s+monetary\s+gains\.?\s*$', '.'),
+        (r'\bthrough\s+(?:their|its)\s+combined\s+significations\s+of\s+houses[^.!?]{0,60}', ''),
+        (r'\ball\s+crucial\s+for\s+(?:career|marriage|finance|health)\s+matters\.?', ''),
+        (r"\bit's\s+clear\s+that\s+you're\s+at\s+crossroads[^.!?]{0,80}", ''),
+        (r'\bSaturn\s+influencing\s+Mercury\s+through\s+their\s+combined\s+significations[^.!?]{0,80}', ''),
+        (r'\bMercury\s+governs\s+intelligence,\s+communication\s+skills,\s+and\s+analytical\s+abilities[^.!?]{0,80}', ''),
+        (r'\bwhile\s+Saturn\s+provides\s+discipline,\s+persistence,\s+and\s+methodical\s+approach[^.!?]{0,80}', ''),
+        (r'\bnot\s+just\s+passing\s+but\s+achieving\s+substantial\s+recognition[^.!?]{0,80}', ''),
+        (r'\bthrough\s+this\s+academic\s+pursuit\.?', ''),
+        (r'\bappear\s+to\s+be\s+temporary\s+in\s+nature\s+according\s+to\s+KP\s+principles\.?', ''),
+        (r'\baccording\s+to\s+KP\s+principles\.?', ''),
+        (r'\baccording\s+to\s+KP\s+astrology\.?', ''),
+        (r'\bper\s+KP\s+principles\.?', ''),
+        (r'\bper\s+KP\s+astrology\.?', ''),
+        (r'\bKP\s+principles\s+suggest[^.!?]{0,60}', ''),
+        (r'\bKP\s+methodology\s+indicates[^.!?]{0,60}', ''),
+        (r'\bappears\s+to\s+be\s+temporary\s+in\s+nature\.?', ''),
+        (r'\byour\s+feelings\s+of\s+being\s+unlucky\s+appear[^.!?]{0,80}', ''),
+        (r'\bfull\s+force\s+of\s+Saturn\'s\s+restrictive\s+influence[^.!?]{0,80}', ''),
+        (r'\bSaturn\'s\s+(?:restrictive|limiting)\s+influence\s+combined\s+with[^.!?]{0,80}', ''),
+        (r'\bMercury\'s\s+analytical\s+yet\s+sometimes\s+critical\s+energy\.?', ''),
+        (r'\bSaturn-Mercury\s+antharam\s+starting\b', 'Saturn-Mercury period from'),
+        (r'\bantharam\b', 'antardasha'),
+        (r'\banthardasha\b', 'antardasha'),
         (r'\bBased\s+on\s+your\s+(?:natal\s+)?chart\s+(?:details|configuration)\s+and\s+current\s+(?:planetary\s+positions|dasha\s+sequence),?\b', ''),
         (r'\bBased\s+on\s+your\s+(?:natal\s+)?chart\s+(?:configuration|details)\s*,?\b', ''),
         (r'\bAccording\s+to\s+your\s+birth\s+data,?\b', ''),
@@ -842,15 +883,15 @@ def _classify_query_type(question: str) -> dict:
     # ── 2. EMOTIONAL — before timing (e.g. 'scared' could appear in timing context) ──
     emotional_patterns = [
         "tough time", "going wrong", "obstacles", "struggling", "depressed",
-        "confused", "frustrated", "scared", "worried", "anxious", "hopeless",
+        "frustrated", "scared", "worried", "anxious", "hopeless",
         "everything is going wrong", "why is everything", "mushkil", "pareshani",
-        "takleef", "dukh", "tension", "problem", "suffering",
+        "takleef", "dukh", "tension", "suffering",
         "loser", "looser", "failure", "unlucky", "nothing works",
         "won't do anything", "no hope", "give up", "kuch nahi hoga",
         "feel very unlucky", "feel unlucky", "bad luck", "cursed",
-        "health has been troubling", "health troubling", "health issues",
-        "health concern", "not feeling well", "tabiyat kharab", "bimar",
-        "health problem", "body pain", "sleepless", "insomnia",
+        "health has been troubling", "health troubling",
+        "not feeling well", "tabiyat kharab", "bimar",
+        "body pain", "sleepless", "insomnia",
     ]
     if any(p in q for p in emotional_patterns):
         return {"type": "emotional", "max_paragraphs": 2, "temperature": 0.4, "max_tokens_override": 500}
@@ -886,6 +927,9 @@ def _classify_query_type(question: str) -> dict:
         "when will", "kab hogi", "kab milegi", "kab hoga",
         "timing", "which year", "which month", "best period",
         "favorable time", "auspicious time", "shubh samay",
+        "exam", "interview", "pariksha", "test result", "get success",
+        "will i pass", "will i clear", "selection", "job offer",
+        "should i change", "change fields", "change career", "switch job",
     ]
     if any(p in q for p in timing_patterns):
         return {"type": "timing", "max_paragraphs": 2, "temperature": 0.5, "max_tokens_override": 300}
