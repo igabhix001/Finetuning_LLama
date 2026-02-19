@@ -641,7 +641,14 @@ def _postprocess(text):
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+(?:chart\s+)?(?:details|data)\s+and\s+applying\s+KP\s+principles,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?planetary\s+positions\s+provided\s+in\s+(?:your|the)\s+chart,?\b', ''),
         (r'\bBased\s+on\s+(?:the\s+)?(?:planetary|chart)\s+(?:positions|data)\s+(?:provided|given)\s+(?:in\s+)?(?:your|the)\s+(?:chart|horoscope),?\b', ''),
+        (r'\bBased\s+on\s+(?:the\s+)?provided\s+dasha\s+sequence,?\b', ''),
+        (r'\bBased\s+on\s+your\s+planetary\s+positions\s+and\s+significator\s+combinations,?\b', ''),
+        (r',?\s*and\s+significator\s+combinations,?\b', ''),
         (r'\bThe\s+Pratyantar\s+Lord\'s\s+influence\s+adds\s+depth\s+to\s+this\s+prediction\.?\b', ''),
+        (r'\bprimary\s+period\s*:\s*', ''),
+        (r'\bcritical\s+antardasha\s*:\s*', ''),
+        (r'\bcurrent\s+(?:period|phase)\s*:\s*', ''),
+        (r'\bpeak\s+(?:period|window)\s*:\s*', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -722,6 +729,12 @@ def _postprocess(text):
         "planetary configuration:",
         "chart analysis:",
         "kp analysis:",
+        "primary period:",
+        "critical antardasha:",
+        "peak period:",
+        "current period:",
+        "most promising combination:",
+        "most promising combination ye present kar raha hai:",
     ]
     for line in lines:
         stripped = line.strip().lower()
