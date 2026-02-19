@@ -644,11 +644,22 @@ def _postprocess(text):
         (r'\bBased\s+on\s+(?:the\s+)?provided\s+dasha\s+sequence,?\b', ''),
         (r'\bBased\s+on\s+your\s+planetary\s+positions\s+and\s+significator\s+combinations,?\b', ''),
         (r',?\s*and\s+significator\s+combinations,?\b', ''),
+        (r'\bBased\s+on\s+your\s+(?:natal\s+)?chart\s+(?:details|configuration)\s+and\s+current\s+(?:planetary\s+positions|dasha\s+sequence),?\b', ''),
+        (r'\bBased\s+on\s+your\s+(?:natal\s+)?chart\s+(?:configuration|details)\s*,?\b', ''),
+        (r'\bAccording\s+to\s+your\s+birth\s+data,?\b', ''),
+        (r'\bThe\s+cosmic\s+energies\s+align\s+perfectly[^.!?]{0,60}[.!?]?', ''),
+        (r'\bcosmic\s+energies\s+align[^.!?]{0,60}[.!?]?', ''),
+        (r'\bmahadasha\s+ruler\s*:\s*[^.\n]{0,120}', ''),
+        (r'\banthardasha\s+ruler\s*:\s*[^.\n]{0,120}', ''),
+        (r'\bantardasha\s+ruler\s*:\s*[^.\n]{0,120}', ''),
+        (r'\bfunctions?\s+as\s+(?:primary|secondary)\s+significator\s+connecting\s+houses[^.!?]{0,80}', ''),
+        (r'\bacts?\s+as\s+(?:primary|secondary)\s+significator\s+(?:connecting|linking)[^.!?]{0,80}', ''),
         (r'\bThe\s+Pratyantar\s+Lord\'s\s+influence\s+adds\s+depth\s+to\s+this\s+prediction\.?\b', ''),
         (r'\bprimary\s+period\s*:\s*', ''),
         (r'\bcritical\s+antardasha\s*:\s*', ''),
         (r'\bcurrent\s+(?:period|phase)\s*:\s*', ''),
         (r'\bpeak\s+(?:period|window)\s*:\s*', ''),
+        (r'\bbecause\s*:\s*\n', ' — '),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -735,6 +746,11 @@ def _postprocess(text):
         "current period:",
         "most promising combination:",
         "most promising combination ye present kar raha hai:",
+        "mahadasha ruler:",
+        "anthardasha ruler:",
+        "antardasha ruler:",
+        "underlying mechanism involves",
+        "the cosmic energies align",
     ]
     for line in lines:
         stripped = line.strip().lower()
