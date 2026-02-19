@@ -696,6 +696,15 @@ def _postprocess(text):
         (r'\bper\s+KP\s+(?:principles|astrology)\.?', ''),
         (r'\bKP\s+(?:principles|methodology)\s+(?:suggest|indicate)[^.!?]{0,60}', ''),
         (r'\bantharam\b', 'antardasha'),
+        (r'\bbased\s+on\s+the\s+current\s+planetary\s+periods?\s+(?:running\s+)?in\s+your\s+(?:life|chart),?\b', ''),
+        (r'\bbased\s+on\s+the\s+current\s+planetary\s+period\s+you\'re\s+experiencing[^,\.!?]{0,60}[,]?', ''),
+        (r'\bbased\s+on\s+the\s+significator\s+analysis\s+in\s+your\s+chart,?\b', ''),
+        (r'\bKP\s+Analysis\s+for\s+[A-Za-z\s]+Query\s*\n?', ''),
+        (r'\bdepend\s+karte\s+hain\s+specific\s+planetary\s+combinations\s+par\s+jo\s+aapke\s+birth\s+chart\s+mein\s+signify\s+kar\s+rahe\s+hain\.?', ''),
+        (r'\baapke\s+career\s+prospects\s+ke\s+liye\s+remedy\s+recommendations\s+depend\s+karte\s+hain[^.!?]{0,120}[.!?]?', ''),
+        (r'\bremedy\s+recommendations\s+depend\s+(?:karte|karta)\s+hain[^.!?]{0,120}[.!?]?', ''),
+        (r'\bhar\s+planet\s+ki\s+strength\s+ko\s+address\s+karna\s+padega\s+appropriate\s+remedial\s+measures\s+se\.?', ''),
+        (r'\bKyunki\s+aapke\s+paas\s+multiple\s+planets\s+serve\s+kar\s+rahe\s+hain\s+houses\s+[\d,\s]+ke\s+saath\s+as\s+career\s+significators,?', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
