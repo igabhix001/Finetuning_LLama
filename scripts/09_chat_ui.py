@@ -274,6 +274,22 @@ def _postprocess(text):
         text = text.replace("[name]", _native_name)
         # Handle pattern: "[Name] Aditya Raj ji" → "Aditya Raj ji" (model outputs both)
         text = re.sub(rf'{re.escape(_native_name)}\s+{re.escape(_native_name)}', _native_name, text)
+
+        # ── Phase 0.5: Wrong-name hallucination fix ──
+        # Model sometimes uses a name from training data (e.g. "Priya ji") instead of
+        # the actual chart owner's name. Detect and replace any "Firstname ji" or
+        # "Full Name ji" that does NOT match the actual native name.
+        _correct_first = _native_name.split()[0]
+        def _fix_wrong_name(m):
+            # m.group(1) = the name before " ji"
+            wrong = m.group(1).strip()
+            # If it matches the correct name (full or first), keep it
+            if wrong.lower() == _native_name.lower() or wrong.lower() == _correct_first.lower():
+                return m.group(0)
+            # Otherwise replace with correct name ji
+            return f"{_native_name} ji"
+        # Match "SomeName ji" or "Some Name ji" (1-3 word names before ji)
+        text = re.sub(r'\b([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+){0,2})\s+ji\b', _fix_wrong_name, text)
     else:
         # Even without a name, strip the literal placeholder
         text = re.sub(r'\[Name\]\s*', '', text, flags=re.IGNORECASE)
@@ -764,10 +780,17 @@ def _postprocess(text):
         result = "\n\n".join(paragraphs[:3])
 
     # ── Phase 11: Remove trailing incomplete sentences ──
-    if result and result[-1] not in '.!?"\n)}':
-        last_period = max(result.rfind('. '), result.rfind('.\n'), result.rfind('.'))
-        if last_period > len(result) * 0.4:
-            result = result[:last_period + 1]
+    # Only truncate if the text ends mid-sentence (no terminal punctuation)
+    # and there's a clear sentence boundary to cut at
+    if result and result.rstrip()[-1] not in '.!?"\u0964\n)}':
+        # Find the last sentence-ending punctuation
+        _last_dot = max(result.rfind('. '), result.rfind('.\n'), result.rfind('! '),
+                        result.rfind('? '), result.rfind('.\u0964'))
+        # Only truncate if: (a) a boundary exists AND (b) it's past 40% of text
+        # AND (c) the trailing fragment is at least 8 chars (real incomplete sentence)
+        _trailing = result[_last_dot + 1:].strip() if _last_dot > 0 else result
+        if _last_dot > len(result) * 0.4 and len(_trailing) >= 8:
+            result = result[:_last_dot + 1].rstrip()
 
     # ── Phase 11.5: Empathy prefix for emotional queries ──
     if _query_type == "emotional":
@@ -1230,6 +1253,53 @@ def predict(message, history, chart_data):
             yield f"{_intercept_name_ji}, aapka naam {_intercept_name} hai."
         else:
             yield "Aapka chart data abhi load nahi hai. Please apni birth chart JSON left panel mein paste karein."
+        return
+
+    # 2b-ext. Direct chart-fact intercepts — lagna, rasi, nakshatra (language-aware)
+    # These bypass the model entirely — model often responds in Hindi for English queries
+    _lagna_patterns_en = ["what is my lagna", "what's my lagna", "my lagna", "my ascendant",
+                          "what is my ascendant", "what's my ascendant", "rising sign"]
+    _lagna_patterns_hi = ["mera lagna", "meri lagna", "mera ascendant", "lagna kya hai",
+                          "lagna kya he", "lagna batao", "lagna bataiye"]
+    if chart_data and any(p in q_lower for p in _lagna_patterns_en + _lagna_patterns_hi):
+        _lagna_m = re.search(r'"lagna"\s*:\s*"([^"]+)"', chart_data)
+        _lagna_lord_m = re.search(r'"lagnaLord"\s*:\s*"([^"]+)"', chart_data)
+        if _lagna_m:
+            _lagna_val = _lagna_m.group(1)
+            _lagna_lord = _lagna_lord_m.group(1) if _lagna_lord_m else ""
+            _lord_full = {"SUN":"Sun","MON":"Moon","MAR":"Mars","MER":"Mercury",
+                          "JUP":"Jupiter","VEN":"Venus","SAT":"Saturn",
+                          "RAH":"Rahu","KET":"Ketu"}.get(_lagna_lord, _lagna_lord)
+            if _is_hindi_q(q_lower):
+                yield f"{_intercept_name_ji}, aapka lagna {_lagna_val} hai" + (f", jo {_lord_full} se ruled hai." if _lord_full else ".")
+            else:
+                yield f"{_intercept_name_ji}, your lagna (ascendant) is {_lagna_val}" + (f", ruled by {_lord_full}." if _lord_full else ".")
+        return
+
+    _rasi_patterns_en = ["what is my rasi", "what's my rasi", "my moon sign", "what is my moon sign",
+                         "what's my moon sign", "my rashi", "what is my rashi"]
+    _rasi_patterns_hi = ["mera rasi", "meri rasi", "mera rashi", "rasi kya hai", "rashi kya hai",
+                         "moon sign kya hai", "rasi batao"]
+    if chart_data and any(p in q_lower for p in _rasi_patterns_en + _rasi_patterns_hi):
+        _rasi_m = re.search(r'"rasi"\s*:\s*"([^"]+)"', chart_data)
+        if _rasi_m:
+            _rasi_val = _rasi_m.group(1)
+            if _is_hindi_q(q_lower):
+                yield f"{_intercept_name_ji}, aapka rasi (moon sign) {_rasi_val} hai."
+            else:
+                yield f"{_intercept_name_ji}, your rasi (moon sign) is {_rasi_val}."
+        return
+
+    _nak_patterns_en = ["what is my nakshatra", "what's my nakshatra", "my birth star", "my nakshatra"]
+    _nak_patterns_hi = ["mera nakshatra", "meri nakshatra", "nakshatra kya hai", "nakshatra batao"]
+    if chart_data and any(p in q_lower for p in _nak_patterns_en + _nak_patterns_hi):
+        _nak_m = re.search(r'"nakshatra"\s*:\s*"([^"]+)"', chart_data)
+        if _nak_m:
+            _nak_val = _nak_m.group(1)
+            if _is_hindi_q(q_lower):
+                yield f"{_intercept_name_ji}, aapka janma nakshatra {_nak_val} hai."
+            else:
+                yield f"{_intercept_name_ji}, your birth nakshatra is {_nak_val}."
         return
 
     # 2c. Non-astrology conversation intercepts — greetings, feedback, meta-questions
