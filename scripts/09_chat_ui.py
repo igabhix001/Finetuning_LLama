@@ -292,21 +292,102 @@ def _postprocess(text):
     text = re.sub(r'```[^`]*```', '', text, flags=re.DOTALL)  # code blocks
     text = re.sub(r'`([^`]+)`', r'\1', text)              # inline code
 
-    # ── Phase 3: Remove hallucinated references ──
+    # ── Phase 3: Remove hallucinated references + training metadata leaks ──
     text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
     text = re.sub(r'rules_used:\s*[A-Z_0-9,\s]+', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\bKP_[A-Z]{2,4}_\d{3,5}\b', '', text)
     text = re.sub(r'\[KP_[A-Z_0-9]+\]', '', text)
     text = re.sub(r'\[rule_id\]', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\((?:Source|Ref|Reference|Page|Ch(?:apter)?)[^)]{0,60}\)', '', text, flags=re.IGNORECASE)
+    # Strip training-data metadata that leaks into model output
+    text = re.sub(r'rulesused:\s*\S+', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\b(?:timingmethod|maxperiod|minperiod|seasonality|reference|events|duration):\s*[^\n.!?]{0,60}', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bKPGEN\d+\w*\b', '', text)
+    text = re.sub(r'\bKPTIM\d+\w*\b', '', text)
+    text = re.sub(r'\bKPADIUS\d+\w*\b', '', text)
+    # Strip any remaining ALL-CAPS rule codes like KPGEN0956ADIUS0285
+    text = re.sub(r'\b[A-Z]{2,8}\d{4,}[A-Z0-9]*\b', '', text)
 
     # ── Phase 3.5: Health safety — strip dangerous medical claims ──
     # NOTE: "cancer" alone is NOT replaced — it's a zodiac sign (Cancer/Karka).
     # Only replace cancer in medical contexts like "cancer treatment", "cancer risk".
+    # ALSO strip: "YES you have Cancer", "you have cancer", "do you have cancer" responses
+    # "YES you have Cancer" / "you have cancer" / "diagnosed with cancer"
+    text = re.sub(
+        r'(?:yes[,!]?\s+)?(?:you\s+(?:have|had|are\s+diagnosed\s+with)|diagnosed\s+with)\s+cancer',
+        'health challenges are indicated in your chart',
+        text, flags=re.IGNORECASE
+    )
+    # Hindi: "Aapko cancer hai" / "aapko tumour hai"
+    text = re.sub(
+        r'aapko\s+(?:cancer|tumou?r)(?:\s+(?:hai|hoga|hogi|hua|hui|ho\s+sakta|ho\s+sakti))?',
+        'aapko health challenges hain',
+        text, flags=re.IGNORECASE
+    )
+    # "mujhe cancer hai"
+    text = re.sub(
+        r'mujhe\s+(?:cancer|tumou?r)(?:\s+(?:hai|hoga|hogi|hua|hui))?',
+        'mujhe health challenges hain',
+        text, flags=re.IGNORECASE
+    )
     _dangerous_terms = [
         r'cancer[- ](?:related|treatment|risk|diagnosis|patient|surgery|therapy|cells?)',
         r'(?:breast|lung|blood|skin|colon|prostate|ovarian|cervical)\s+cancer',
+        r'cancer[!,]?\s+(?:the\s+timing|timing\s+is|is\s+confirmed)',
         r'\btumou?r\b', r'\bmalignant\b', r'\bbenign\b',
+        r'potential\s+hospitalization',
+        r'hospitalization\s+risks?',
+        r'risk\s+of\s+hospitalization',
+        r'surgical\s+(?:risk|procedure|intervention)',
+        r'medical\s+(?:emergency|crisis|condition)',
+        r'(?:serious|critical|severe)\s+(?:health|illness|disease)',
+        r'(?:health|physical)\s+(?:deterioration|decline)',
+        r'(?:chronic|acute)\s+(?:illness|disease|condition)',
+        r'(?:organ|kidney|liver|heart)\s+(?:failure|damage|disease)',
+        r'blood\s+(?:pressure|sugar)\s+(?:issue|problem|concern)',
+        r'neurological\s+(?:issue|problem|condition)',
+        r'immune\s+(?:system\s+)?(?:weakness|deficiency|compromise)',
+        r'(?:physical|mental)\s+breakdown',
+        r'(?:life|health)\s+(?:threatening|critical|serious)\s+(?:period|time|phase)',
+        r'maraka\s+(?:period|dasha|lord|planet)',
+        r'(?:death|fatal)\s+(?:period|dasha|time|year)',
+        r'(?:8th|eighth)\s+house\s+(?:affliction|problem|issue|danger)',
+        r'longevity\s+(?:concern|issue|risk|threat)',
+        r'ayu\s+(?:kshaya|loss|reduction)',
+        r'(?:mrityu|mritu)\s+(?:yoga|period|dasha)',
+        r'(?:accident|injury)\s+(?:risk|prone|likely|possible)\s+in\s+(?:this|the|your)',
+        r'accident\s+(?:period|time|phase|window)',
+        r'injury\s+(?:period|time|phase|window)',
+        r'(?:fall|fracture|surgery)\s+(?:risk|possible|likely|indicated)',
+        r'(?:poison|toxic)\s+(?:exposure|risk|danger)',
+        r'(?:mental|emotional)\s+(?:breakdown|collapse|crisis)',
+        r'suicid(?:e|al)',
+        r'self[- ]harm',
+        r'(?:depression|anxiety)\s+(?:diagnosis|disorder|condition)',
+        r'psychiatric\s+(?:issue|condition|disorder)',
+        r'(?:nervous|mental)\s+(?:breakdown|disorder|illness)',
+        r'(?:psycho|schizo)\w+',
+        r'bipolar\s+(?:disorder|condition)',
+        r'(?:dementia|alzheimer)',
+        r'(?:stroke|paralysis|coma)',
+        r'(?:blindness|deafness|disability)\s+(?:risk|possible|indicated)',
+        r'(?:infertility|impotence|sterility)\s+(?:risk|indicated|possible)',
+        r'(?:miscarriage|abortion)\s+(?:risk|possible|likely|indicated)',
+        r'(?:premature|early)\s+death',
+        r'(?:short|reduced)\s+(?:life|lifespan|longevity)',
+        r'will\s+(?:not|never)\s+(?:recover|survive|live\s+long)',
+        r'(?:no|little)\s+(?:hope|chance)\s+of\s+(?:recovery|survival)',
+        r'(?:grave|serious|critical)\s+(?:prognosis|outlook|condition)',
+        r'(?:terminal|incurable|untreatable)\s+(?:illness|disease|condition)',
+        r'(?:last|final)\s+(?:days|months|years)\s+(?:of\s+)?(?:life|living)',
+        r'(?:dying|death)\s+(?:is|seems|appears)\s+(?:near|close|imminent|soon)',
+        r'(?:not\s+long\s+to\s+live|limited\s+time\s+left)',
+        r'(?:will\s+die|going\s+to\s+die|shall\s+die)\s+(?:in|by|around|during)',
+        r'(?:death|end\s+of\s+life)\s+(?:is|seems|appears)\s+(?:near|close|imminent)',
+        r'(?:life\s+expectancy|expected\s+lifespan)',
+        r'(?:fatal|lethal|deadly)\s+(?:period|dasha|time|phase)',
+        r'(?:8th|12th)\s+(?:lord|house)\s+(?:activated|active|strong)\s+(?:indicates?|shows?|suggests?)\s+(?:death|danger|risk)',
+        r'(?:Saturn|Rahu|Ketu|Mars)\s+(?:in|aspecting)\s+(?:8th|12th)\s+(?:indicates?|shows?|suggests?)\s+(?:death|danger|risk|harm)',
         r'heart\s+attack', r'heart\s+disease', r'cardiac\s+arrest',
         r'\bdiabetes\b', r'\bHIV\b', r'\bAIDS\b',
         r'tuberculosis', r'epilepsy',
@@ -409,6 +490,41 @@ def _postprocess(text):
             return raw[:4]  # '20626' → '2062' — still wrong, try '20' + raw[2:4]
         return raw[:4]
     text = re.sub(r'\b20\d{3,5}\b', _fix_year_typo, text)
+
+    # ── Phase 6.55: Age impossibility guard — catch implausible event ages ──
+    # e.g. "first job Oct 2025" for someone born 1986 (age 39) is impossible
+    _birth_date_pp = getattr(_postprocess, '_birth_date', None)
+    _query_type_pp = getattr(_postprocess, '_query_type', 'analysis')
+    _user_q_pp = getattr(_postprocess, '_user_question', '').lower()
+    _is_first_event_q = any(kw in _user_q_pp for kw in [
+        'first job', 'first work', 'pehli naukri', 'pehla kaam',
+        'graduation', 'graduate', 'college', 'degree', 'board exam',
+        'school', 'first relationship', 'first love', 'pehla pyaar',
+        'childhood', 'birth', 'born',
+    ])
+    if _birth_date_pp and _is_first_event_q:
+        from datetime import date as _d_cls
+        _today_pp = _d_cls.today()
+        _age_now = (_today_pp - _birth_date_pp).days // 365
+        # For first-job queries: flag any future date as impossible if person is >30
+        # (they already had their first job years ago)
+        if _age_now > 28:
+            _first_job_future_pat = re.compile(
+                r'(?:Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?|Jan(?:uary)?|Feb(?:ruary)?|'
+                r'Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?)'
+                r'\s+20(?:2[5-9]|3[0-9])\b',
+                re.IGNORECASE
+            )
+            if _first_job_future_pat.search(text) and 'first job' in _user_q_pp:
+                # Replace the entire response with age-aware correction
+                _native_pp = getattr(_postprocess, '_native_name', '') or ''
+                _name_ji_pp = f"{_native_pp} ji" if _native_pp else 'Ji'
+                text = (
+                    f"{_name_ji_pp}, at age {_age_now} your first job would have happened "
+                    f"many years ago — likely around age 21-25. Please ask about your "
+                    f"career history (e.g. 'What happened in my career from 2010 to 2015?') "
+                    f"for accurate past-event analysis."
+                )
 
     # ── Phase 6.6: Date sanity — strip sentences with years before birth year ──
     _birth_year = getattr(_postprocess, '_birth_year', None)
@@ -556,6 +672,40 @@ def _postprocess(text):
         "looking at the chart data", "examining the chart",
         "i will now analyze", "let me examine",
         "grounding rule", "as per the grounding",
+        "grounding principle", "grounding principles",
+        "krishnamurti ji ke principle ke according",
+        "jis method se hum predictions banate hain woh bilkul reliable nahi",
+        "predictions banate hain woh bilkul reliable nahi",
+        "sirf immediate future events hi predict kar sakte hain",
+        "koi bhi attempt longer-term predictions ke liye complete nonsense",
+        "timing precision: jab significant",
+        "cosmic rhythms perfectly align",
+        "rule-based system:",
+        "verified methodology:",
+        "moderate confidence level",
+        "confidence level: moderate",
+        "confidence level: high",
+        "confidence level: low",
+        "this is a rule-based",
+        "rule based system",
+        "sub-lord significance:",
+        "planetary positions analysis:",
+        "love vs arranged marriage",
+        "career prospects analysis",
+        "financial analysis:",
+        "peak financial growth period:",
+        "timing precision:",
+        "sub-lord significance:",
+        "core significators:",
+        "primary significators:",
+        "secondary significators:",
+        "key significators:",
+        "significator analysis:",
+        "house activation:",
+        "dasha activation:",
+        "planetary configuration:",
+        "chart analysis:",
+        "kp analysis:",
     ]
     for line in lines:
         stripped = line.strip().lower()
@@ -573,6 +723,21 @@ def _postprocess(text):
             continue
         cleaned.append(line)
     result = "\n".join(cleaned).rstrip()
+
+    # ── Phase 8.4: Strip self-doubt / reliability-undermining phrases ──
+    _self_doubt_patterns = [
+        r'(?:jis\s+method\s+se\s+hum\s+predictions\s+banate\s+hain)[^.!?]{0,100}[.!?]',
+        r'(?:predictions?\s+(?:are|is)\s+(?:not|never)\s+(?:100%|fully|completely)\s+(?:reliable|accurate|certain))[^.!?]{0,80}[.!?]',
+        r'(?:astrology\s+(?:cannot|can\'t|does\s+not)\s+(?:guarantee|predict\s+with\s+certainty))[^.!?]{0,80}[.!?]',
+        r'(?:no\s+astrologer\s+can\s+(?:guarantee|be\s+100%|predict\s+exactly))[^.!?]{0,80}[.!?]',
+        r'(?:these\s+are\s+(?:just|only)\s+(?:indications?|possibilities|probabilities))[^.!?]{0,60}[.!?]',
+        r'(?:koi\s+bhi\s+attempt\s+longer-term\s+predictions)[^.!?]{0,80}[.!?]',
+        r'(?:sirf\s+immediate\s+future\s+events\s+hi\s+predict)[^.!?]{0,80}[.!?]',
+        r'(?:cosmic\s+rhythms\s+perfectly\s+align)[^.!?]{0,80}[.!?]',
+        r'(?:timing\s+precision:\s*jab)[^.!?]{0,80}[.!?]',
+    ]
+    for _sdp in _self_doubt_patterns:
+        result = re.sub(_sdp, '', result, flags=re.IGNORECASE)
 
     # ── Phase 8.5: Strip model-generated Hindi quotes on factual/timing queries ──
     # Keep quotes on: remedy, emotional, analysis (where motivational tone helps)
@@ -713,6 +878,43 @@ def _classify_query_type(question: str) -> dict:
     # Broad regex: catches 'will will you die', 'will i die', 'will you die', typos
     if any(p in q for p in safety_patterns) or re.search(r'\bwill\s+\w+\s+die\b', q) or re.search(r'\bdie\b', q):
         return {"type": "safety", "max_paragraphs": 2, "temperature": 0.3, "max_tokens_override": 300}
+
+    # ── 1b-ext. MEDICAL DIAGNOSIS — cancer/disease queries → safety redirect ──
+    # These must be caught at query level BEFORE reaching the model
+    _medical_query_patterns = [
+        r'do\s+i\s+have\s+cancer', r'kya\s+mujhe\s+cancer\s+hai',
+        r'do\s+i\s+have\s+(?:diabetes|hiv|aids|tumor|tumour|disease)',
+        r'am\s+i\s+(?:sick|ill|dying|going\s+to\s+die)',
+        r'will\s+i\s+get\s+cancer', r'cancer\s+(?:risk|chance|possibility)',
+        r'do\s+i\s+have\s+(?:a\s+)?(?:serious|terminal|chronic)\s+(?:illness|disease|condition)',
+        r'will\s+i\s+(?:get|develop|have)\s+(?:a\s+)?(?:serious|terminal|chronic|deadly)\s+(?:illness|disease)',
+        r'kya\s+mujhe\s+(?:cancer|bimari|gambhir\s+bimari)\s+(?:hai|hogi|hoga)',
+        r'mujhe\s+(?:cancer|tumor|bimari)\s+(?:hai|hoga|hogi)',
+        r'(?:diagnose|diagnosis)\s+(?:for|of|with)\s+(?:cancer|disease)',
+        r'(?:cancer|tumor|tumour)\s+(?:in\s+my|mera|meri)',
+        r'kya\s+main\s+(?:bimar|sick|ill)\s+(?:hun|hoon|ho)',
+        r'meri\s+(?:bimari|illness|disease)\s+(?:kya|kab|kyun)',
+        r'will\s+i\s+be\s+hospitalized',
+        r'kab\s+(?:hospital|admit)\s+(?:hoga|hogi|jaana)',
+    ]
+    if any(re.search(p, q) for p in _medical_query_patterns):
+        return {"type": "medical_safety", "max_paragraphs": 1, "temperature": 0.3, "max_tokens_override": 200}
+
+    # ── 1c. SELF-DOUBT / META — "can you predict", "how accurate are you" → confident intercept ──
+    _meta_confidence_patterns = [
+        r'can\s+you\s+(?:really\s+)?predict',
+        r'how\s+accurate\s+(?:are\s+you|is\s+this)',
+        r'(?:are|is)\s+(?:kp\s+)?astrology\s+(?:accurate|reliable|real|true)',
+        r'do\s+you\s+(?:really\s+)?know\s+(?:the\s+)?future',
+        r'(?:can|could)\s+astrology\s+(?:really\s+)?(?:predict|tell)',
+        r'kya\s+(?:aap|tum)\s+(?:sach\s+mein\s+)?(?:predict|bata)\s+(?:kar\s+sakte|sakte\s+ho)',
+        r'kya\s+astrology\s+(?:sach|sahi|accurate)\s+(?:hai|hoti)',
+        r'how\s+reliable\s+(?:is|are)\s+(?:your|these|kp)\s+(?:predictions?|readings?)',
+        r'(?:are|is)\s+(?:your|these)\s+predictions?\s+(?:accurate|reliable|correct)',
+        r'kya\s+(?:yeh|ye)\s+predictions?\s+(?:sach|sahi|accurate)\s+(?:hain|hai)',
+    ]
+    if any(re.search(p, q) for p in _meta_confidence_patterns):
+        return {"type": "meta_confidence", "max_paragraphs": 1, "temperature": 0.3, "max_tokens_override": 200}
 
     # ── 1b. INAPPROPRIATE — sexual orientation, personal judgments → firm redirect ──
     inappropriate_patterns = [
@@ -926,6 +1128,58 @@ def predict(message, history, chart_data):
         yield safety_msg
         return
 
+    # 2a-ext. Medical safety intercept — bypass model entirely for disease diagnosis queries
+    if query_info["type"] == "medical_safety":
+        native_name = ""
+        if chart_data:
+            _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+            if _nm:
+                native_name = _nm.group(1).strip()
+        name_ji = f"{native_name} ji" if native_name else "Ji"
+        _is_hindi = _is_hindi_q(message.lower())
+        if _is_hindi:
+            medical_msg = (
+                f"{name_ji}, yeh sawaal astrology ke scope se bahar hai. "
+                f"Kisi bhi bimari ka diagnosis sirf qualified doctor hi kar sakte hain — "
+                f"please ek doctor se milein. KP astrology health ke general trends dikha sakti hai, "
+                f"lekin medical diagnosis nahi kar sakti. Aapki sehat sabse zaroori hai. 🙏"
+            )
+        else:
+            medical_msg = (
+                f"{name_ji}, astrology cannot diagnose medical conditions — "
+                f"please consult a qualified doctor for any health concerns. "
+                f"KP astrology can indicate general health trends and timing of health-related periods, "
+                f"but it is not a substitute for medical advice. Your health comes first. 🙏"
+            )
+        yield medical_msg
+        return
+
+    # 2a-ext2. Meta-confidence intercept — confident response about KP accuracy
+    if query_info["type"] == "meta_confidence":
+        native_name = ""
+        if chart_data:
+            _nm = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
+            if _nm:
+                native_name = _nm.group(1).strip()
+        name_ji = f"{native_name} ji" if native_name else "Ji"
+        _is_hindi = _is_hindi_q(message.lower())
+        if _is_hindi:
+            confidence_msg = (
+                f"{name_ji}, KP Astrology ek precise system hai jo sub-lords, cusps, aur dasha timing "
+                f"ka use karke month-level predictions deta hai — yeh generic sun-sign astrology se "
+                f"kaafi alag aur accurate hai. Main aapke chart ke actual dasha dates padhkar "
+                f"specific timing deta hun, isliye predictions itni precise hoti hain."
+            )
+        else:
+            confidence_msg = (
+                f"{name_ji}, KP Astrology is a precise system that uses sub-lords, cusps, and dasha "
+                f"timing to give month-level predictions — far more accurate than generic sun-sign astrology. "
+                f"I read the actual dasha dates from your chart to give specific timing, "
+                f"which is why the predictions are precise and actionable."
+            )
+        yield confidence_msg
+        return
+
     # 2b. Direct factual intercepts — bypass model for questions we can answer perfectly
     q_lower = message.lower().strip()
 
@@ -1101,15 +1355,25 @@ def predict(message, history, chart_data):
                "Please shorten the chart data or question.")
         return
 
-    # Extract birth year and native name from chart for postprocess
+    # Extract birth year, birth date, and native name from chart for postprocess
     _postprocess._birth_year = None
+    _postprocess._birth_date = None
     _postprocess._native_name = None
     _postprocess._query_type = query_info["type"]
     _postprocess._user_question = message
+    _birth_year_val = None
     if chart_data:
         _by_match = re.search(r'"date"\s*:\s*"(\d{2})\.(\d{2})\.(\d{4})"', chart_data)
         if _by_match:
-            _postprocess._birth_year = int(_by_match.group(3))
+            _birth_year_val = int(_by_match.group(3))
+            _postprocess._birth_year = _birth_year_val
+            try:
+                from datetime import date as _date_cls
+                _postprocess._birth_date = _date_cls(
+                    int(_by_match.group(3)), int(_by_match.group(2)), int(_by_match.group(1))
+                )
+            except Exception:
+                pass
         _name_match = re.search(r'"name"\s*:\s*"([^"]+)"', chart_data)
         if _name_match:
             _postprocess._native_name = _name_match.group(1).strip()
