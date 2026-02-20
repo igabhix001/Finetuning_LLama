@@ -6,7 +6,7 @@ import json
 import time
 import sys
 
-GRADIO_URL = "https://c8dc533634e053e403.gradio.live"
+GRADIO_URL = "https://083d65b36620bc2f85.gradio.live"
 
 # Load Arjun Mehta kundali
 with open(r"d:\Dataset_preprossecing_pipeline\Finetuning_LLama\sample_kundali\kundali_Arjun_Mehta.json") as f:

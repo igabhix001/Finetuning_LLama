@@ -932,6 +932,8 @@ def _postprocess(text):
                 r'^Aapka [a-z]+ (?:ke baare mein|timing ke liye)[^.!?]{0,100}[,.]\s*',
                 r'^Apni [a-z]+ (?:ke liye|purchase ki)[^.!?]{0,100}[,.]\s*',
                 r'^(?:Aapke|Aapki|Aapka|Apni|Apna) \w+[^.!?]{0,120}[,.]\s*(?=[A-Z])',
+                r'^(?:Yeh|Ye) (?:dual|ek|aapka|aapki|aapke|combination|period|planet)\b[^.!?]{0,120}[,.]\s*',
+                r'^(?:Iska|Inke|Inki|Iske) \w+[^.!?]{0,100}[,.]\s*',
             ]
             for _hs in _hinglish_starters:
                 result = re.sub(_hs, '', result, flags=re.IGNORECASE)
