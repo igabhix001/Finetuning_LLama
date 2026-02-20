@@ -783,6 +783,28 @@ def _postprocess(text):
         (r'\bwas\s+highly\s+beneficial\s+for\s+all\s+ventures[^.!?]{0,60}[.!?]?', ''),
         (r'\bCurrent\s+Favorable\s+Period\s*:\s*[^.!?]{0,200}[.!?]?', ''),
         (r'\bShort-Term\s+Recovery\s*:\s*[^.!?]{0,200}[.!?]?', ''),
+        # ── New patterns from Round 10 test results ──
+        (r'\badditional\s+supportive\s+planetary\s+positions\s+required\s+confirmation\.?', ''),
+        (r'\bwe\s+must\s+examine\s+which\s+houses[^.!?]{0,120}[.!?]?', ''),
+        (r'\bwe\s+must\s+examine\s+(?:the\s+)?(?:chart|dasha|significators)[^.!?]{0,120}[.!?]?', ''),
+        (r'\brequires?\s+(?:further|deeper|more)\s+examination[^.!?]{0,80}[.!?]?', ''),
+        (r'\brequires?\s+confirmation[^.!?]{0,60}[.!?]?', ''),
+        (r'\bwithout\s+knowing\s+(?:exactly|precisely)[^.!?]{0,100}[.!?]?', ''),
+        (r'\bwithout\s+(?:precise|exact)\s+question\s+context[^.!?]{0,100}[.!?]?', ''),
+        (r'\binsufficient\s+(?:dasha|chart|planetary)\s+information\s+available[^.!?]{0,120}[.!?]?', ''),
+        (r'\bappears?\s+to\s+have\s+been\s+significant\s+challenges\s+around\s*,', 'showed challenges'),
+        (r'\bparticularly\s+involving\s+(?:property\s+disputes|police\s+investigations|theft)[^.!?]{0,150}[.!?]?', ''),
+        (r'\bpotential\s+involvement\s+with\s+police[^.!?]{0,120}[.!?]?', ''),
+        (r'\brelated\s+to\s+theft\s+incidents[^.!?]{0,100}[.!?]?', ''),
+        (r'\bpresents?\s+mixed\s+influences\s+affecting[^.!?]{0,100}[.!?]?', ''),
+        (r'\bwhen\s+natives?\s+face\s+prolonged\s+difficulties[^.!?]{0,120}[.!?]?', ''),
+        (r'\bthey\s+typically\s+occupy\s+Venus-Saturn\s+mahadashas[^.!?]{0,100}[.!?]?', ''),
+        (r'\baccording\s+to\s+fundamental\s+KP\s+methodology[^.!?]{0,120}[.!?]?', ''),
+        (r'\bHamara\s+\w[^.!?]{0,200}(?:upay|helpful|balance)[^.!?]{0,60}[.!?]?', ''),
+        (r'\bIs\s+samay\s+ke\s+liye\s+hamara[^.!?]{0,200}[.!?]?', ''),
+        (r'\bhamara\s+(?:Zodiac|Silver|Gold|Cosmic|Maha|Karungali)[^.!?]{0,200}[.!?]?', ''),
+        (r'\bwear\s+our\s+[A-Z][^.!?]{0,150}[.!?]?', ''),
+        (r'\bour\s+(?:Zodiac|Shukra|Maha|Karungali|Ram\s+Naam|Silver)[^.!?]{0,150}[.!?]?', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -1070,25 +1092,62 @@ def _postprocess(text):
         if kept:
             result = ' '.join(kept[:1])  # Force 1 sentence for simple
 
-    # ── Phase 13: Language enforcement — strip Hinglish filler from English responses ──
-    # The model is SFT-baked in Hinglish. We can't translate, but we can strip the
-    # most common Hinglish sentence starters and connectors that appear on English questions.
+    # ── Phase 13: Language enforcement — detect and fix Hindi responses on English questions ──
     _user_question = getattr(_postprocess, '_user_question', '')
     if _user_question:
-        _hindi_markers = [
+        # Detect if question is Hindi/Hinglish
+        _hindi_q_markers = [
             'kya', 'hai', 'mera', 'meri', 'kab', 'kaise', 'kaisa',
             'hogi', 'hoga', 'karu', 'batao', 'bataiye', 'shaadi',
             'paisa', 'naukri', 'padhai', 'ghar', 'rishta',
             'aapka', 'aapki', 'mujhe', 'humein', 'kahan',
+            'bahut', 'tension', 'pareshan', 'karna', 'chahiye',
         ]
         q_words = _user_question.lower().split()
-        hindi_count = sum(1 for w in q_words if w in _hindi_markers)
-        is_hindi_question = (hindi_count >= 2 or
-            any(w in _user_question.lower() for w in
-                ['kab hogi', 'kya hoga', 'kaise hoga', 'batao', 'bataiye', 'aaj ki']))
+        hindi_q_count = sum(1 for w in q_words if w in _hindi_q_markers)
+        is_hindi_question = (hindi_q_count >= 2 or
+            any(ph in _user_question.lower() for ph in
+                ['kab hogi', 'kya hoga', 'kaise hoga', 'batao', 'bataiye',
+                 'aaj ki', 'karna chahiye', 'kab milega', 'kab hoga']))
 
         if not is_hindi_question:
-            # English question — strip Hinglish sentence starters that the model inserts
+            # English question — detect if response is Hindi-dominant
+            _hindi_resp_markers = [
+                'mein hain', 'karta hai', 'karti hai', 'hoga', 'hogi',
+                'ke liye', 'ke baare', 'aapko', 'aapke', 'aapki', 'aapka',
+                'lekin', 'kyunki', 'isliye', 'jabki', 'jahan',
+                'signify karta', 'signify karti', 'activate hoga',
+                'chalega', 'chalegi', 'milega', 'milegi',
+            ]
+            resp_lower = result.lower()
+            hindi_resp_count = sum(1 for m in _hindi_resp_markers if m in resp_lower)
+
+            # Count sentences and how many are Hindi
+            _sentences = re.split(r'(?<=[.!?])\s+', result.strip())
+            _hindi_sent_count = 0
+            for _s in _sentences:
+                _s_lower = _s.lower()
+                if sum(1 for m in _hindi_resp_markers if m in _s_lower) >= 2:
+                    _hindi_sent_count += 1
+
+            _is_hindi_response = (hindi_resp_count >= 4 or
+                (_hindi_sent_count >= 2 and len(_sentences) <= 4))
+
+            if _is_hindi_response:
+                # Response is Hindi but question was English — keep only English sentences
+                _english_sents = []
+                for _s in _sentences:
+                    _s_lower = _s.lower()
+                    _s_hindi = sum(1 for m in _hindi_resp_markers if m in _s_lower)
+                    if _s_hindi < 2:  # sentence is mostly English
+                        _english_sents.append(_s)
+                if len(_english_sents) >= 1:
+                    result = ' '.join(_english_sents)
+                # If nothing survived, keep original (better than empty)
+                if len(result.strip()) < 20:
+                    result = ' '.join(_sentences)  # restore
+
+            # Always strip Hinglish sentence starters on English questions
             _hinglish_starters = [
                 r'^Aapke liye ek favorable\b[^.!?]{0,120}[.!?]?\s*',
                 r'^Aapke liye\b[^.!?]{0,80}[,.]\s*',
@@ -1096,13 +1155,15 @@ def _postprocess(text):
                 r'^Aapka [a-z]+ (?:ke baare mein|timing ke liye)[^.!?]{0,100}[,.]\s*',
                 r'^Apni [a-z]+ (?:ke liye|purchase ki)[^.!?]{0,100}[,.]\s*',
                 r'^(?:Aapke|Aapki|Aapka|Apni|Apna) \w+[^.!?]{0,120}[,.]\s*(?=[A-Z])',
+                r'^(?:Currently\s+)?aap\s+(?:Venus|Saturn|Jupiter|Mars|Mercury|Moon|Sun|Rahu|Ketu)[^.!?]{0,150}[.!?]\s*',
+                r'^(?:Aap\s+)?(?:Venus|Saturn|Jupiter|Mars|Mercury|Moon|Sun|Rahu|Ketu)-\w+\s+(?:AD|MD|dasha)\s+mein[^.!?]{0,150}[.!?]\s*',
             ]
             for _hs in _hinglish_starters:
+                _before = result
                 result = re.sub(_hs, '', result, flags=re.IGNORECASE)
+                if len(result.strip()) < 20:
+                    result = _before  # restore if over-stripped
             result = result.strip()
-            # If after stripping the response is now empty or too short, don't strip
-            if len(result) < 20:
-                result = text  # restore original
 
     return result
 
