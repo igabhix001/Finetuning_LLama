@@ -967,8 +967,9 @@ def _postprocess(text):
                     _s_hindi = sum(1 for w in _hindi_body_words if w in _s_lower)
                     _s_words = len(_s.split())
                     _has_date = bool(_date_pat.search(_s))
-                    # Keep sentence if: has a date, OR Hindi word density < 25%
-                    if _has_date or (_s_words > 0 and (_s_hindi / _s_words) < 0.25):
+                    _hindi_density = (_s_hindi / _s_words) if _s_words > 0 else 0
+                    # Keep sentence if: (has a date AND density < 40%), OR density < 25%
+                    if (_has_date and _hindi_density < 0.40) or _hindi_density < 0.25:
                         _english_sents.append(_s)
                 if len(_english_sents) >= 1:
                     result = ' '.join(_english_sents).strip()

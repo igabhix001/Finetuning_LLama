@@ -6,7 +6,7 @@
     "response": "Arjun Mehta ji, your name is Arjun Mehta.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 8.929735660552979
+    "elapsed": 8.775832891464233
   },
   {
     "id": "Q02",
@@ -15,7 +15,7 @@
     "response": "Arjun Mehta ji, your lagna (ascendant) is Libra, ruled by Venus.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 3.1386635303497314
+    "elapsed": 3.0786056518554688
   },
   {
     "id": "Q03",
@@ -24,7 +24,7 @@
     "response": "Arjun Mehta ji, your rasi (moon sign) is Cancer.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 3.1564671993255615
+    "elapsed": 3.133362293243408
   },
   {
     "id": "Q04",
@@ -33,7 +33,7 @@
     "response": "Arjun Mehta ji, today's date is 20 February 2026.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 3.2120532989501953
+    "elapsed": 3.0789835453033447
   },
   {
     "id": "Q05",
@@ -42,7 +42,7 @@
     "response": "My name is Jyotish — I am a seasoned KP astrologer. I use Krishnamurti Paddhati principles to give you accurate and practical answers. You can ask me about career, finance, health, relationships, and life timing.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 3.2018771171569824
+    "elapsed": 3.1071057319641113
   },
   {
     "id": "Q06",
@@ -51,211 +51,204 @@
     "response": "Arjun Mehta ji, please don't worry — astrology is here to guide you, not to scare you. Your chart shows many positive periods ahead. Health concerns are best addressed by a qualified medical professional. From a KP perspective, strengthening your lagna lord through simple remedies can support overall wellbeing. Stay positive — better times are coming.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 3.1574182510375977
+    "elapsed": 3.066148519515991
   },
   {
     "id": "Q07",
     "type": "emotional",
     "question": "I feel very unlucky and nothing is going right in my life",
-    "response": "Arjun Mehta ji, I completely understand your concern - feeling unlucky isn't just emotional, it's often reflected in planetary positions affecting multiple bhavas simultaneously. Currently, you're running Venus-Mercury pratyantar period within Venus mahadasha. Check these cuspal sub-lords carefully - especially 1st, 6th, 8th, 10th, and 12th houses.",
-    "status": "⚠️ PARTIAL",
-    "issues": [
-      "NO_END_DATE"
-    ],
-    "elapsed": 11.366873025894165
+    "response": "Arjun Mehta ji, I understand why you're feeling this way - you're currently running Venus-Mercury pratyantar period within Venus mahadasha, and according to our KP calculations, this planetary combination specifically triggers difficulties between mid-January 2024 and end-April 2024.",
+    "status": "✅ PASS",
+    "issues": [],
+    "elapsed": 11.249390602111816
   },
   {
     "id": "Q08",
     "type": "emotional",
     "question": "My health has been troubling me lately",
-    "response": "your health troubles align perfectly with your current planetary configuration. You're experiencing Venus-Mercury pratyantar period, where both planets strongly signify your 6th house (disease).",
-    "status": "⚠️ PARTIAL",
-    "issues": [
-      "NO_EMPATHY",
-      "NO_END_DATE"
-    ],
-    "elapsed": 11.643816947937012
+    "response": "Arjun Mehta ji, main samajh sakta hun yeh waqt aapke liye kitna mushkil hai — aap akele nahi hain. based on your birth details and current planetary positions, your 6th house cusp falls in Cancer, ruled by Moon. Currently, you're experiencing challenging transits affecting your 6th bhava significations.",
+    "status": "✅ PASS",
+    "issues": [],
+    "elapsed": 11.698552370071411
   },
   {
     "id": "Q09",
     "type": "timing",
     "question": "When will I get married?",
-    "response": "Your marriage prospects look promising! As per your chart data, you have excellent significator combinations for matrimonial success. The key players include: Ketu, Mars, Sun (covering all three marriage houses) Jupiter, Ketu, Mars, Moon, Rahu, Sun, Venus (extending into wealth & profession sectors) Currently running Venus-Mercury pratyantar period provides ideal timing windows.",
-    "status": "⚠️ PARTIAL",
-    "issues": [
-      "NO_DATE"
-    ],
-    "elapsed": 7.966090202331543
+    "response": "Arjun Mehta ji, aapki marriage ke liye sabse strong period ye hoga July 2026 se February 2027 mein Venus-Mercury AD mein, jab houses 2,7 aur 11 ko signify karne wale planets ki combined energy active hoti hai.",
+    "status": "✅ PASS",
+    "issues": [],
+    "elapsed": 7.949828147888184
   },
   {
     "id": "Q10",
     "type": "timing",
     "question": "When will my financial situation improve?",
-    "response": "Based on your current planetary configurations, your financial improvement timeline points toward July 2026 mark. Currently operating Venus-Mercury pratyantar period, while Venus signifies houses 1,8,10,12 and Mercury covers 1,4,5,9,12, creating mixed results for monetary matters.",
+    "response": "Arjun Mehta ji, your financial improvement timing is Sep 2026 to Nov 2026. Numberofcusps: 11 positiveoutcome: yes obstaclesend: Yes - specifically mentioned above remedies: None asked for - purely timing prediction The Venus-Mercury pratyantarDasa operating now directly connects to your 11th house of gains through both planets being strong significators. This specific timeframe offers maximum favorable planetary support for wealth accumulation and income enhancement. Monetary flow intensifies particularly between September 2026 and November 2026, with peak results likely October-November 2026 period. The sub-periods within this range offer optimal windows for major financial decisions or ventures. This prediction focuses solely on timing without considering other factors affecting your overall life circumstances. Extremely high numberofsignificators: 2 positiveoutcome: yes obstaclesend: Yes - specifically mentioned above remedies: None asked for - purely timing prediction The exact month-year format follows established KP principles for precise timing predictions. Very high timing_method",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 8.121564388275146
+    "elapsed": 18.610618591308594
   },
   {
     "id": "Q11",
     "type": "timing",
     "question": "When will I get a job promotion?",
-    "response": "For your job promotion timing, examine when benefic periods activating houses 2,6,10,11 converge. Currently in Venus-Mercury pratyantar, note how Mercury governs four crucial bhava groups including 1,4,5,9 - essential for professional advancement.",
+    "response": "Arjun Mehta ji, aapki promotion timing align karti hai Venus-Mercury pratyantar period ke saath specifically September 2025 se June 2026 tak, jab houses 2,6,10,11 ke significators together operate karte hain.",
     "status": "⚠️ PARTIAL",
     "issues": [
-      "NO_DATE"
+      "HINGLISH_LEAK(3)"
     ],
-    "elapsed": 8.230612754821777
+    "elapsed": 7.98498797416687
   },
   {
     "id": "Q12",
     "type": "timing",
     "question": "When will I buy a house?",
-    "response": "For property acquisition timing, focus on when benefics signifying houses 4,11 operate together. Currently in Venus-Mercury pratyantar, observe how Mercury rules four vital bhavas including 1,4,5,9 - foundational for material prosperity.",
-    "status": "⚠️ PARTIAL",
-    "issues": [
-      "NO_DATE"
-    ],
-    "elapsed": 6.751549959182739
+    "response": "Arjun Mehta ji, your property acquisition timing is September 2025 to July 2028 during Venus-Mercury AD, specifically from April 2026 to February 2027 when Venus-Mercury pratyantar Dasha supports houses 2,11 - the wealth and fulfillment houses.",
+    "status": "✅ PASS",
+    "issues": [],
+    "elapsed": 13.651360034942627
   },
   {
     "id": "Q13",
     "type": "past",
     "question": "What happened in my life around 2010?",
-    "response": "Looking at your chart configuration, it appears you were running Ketu Mahadasha from September 2002 to September 2009. During this period, particularly between August 2007 to September 2008 (yeh period beet chuka hai), you experienced significant career developments according to your planetary positions. The Ketu-Rahu Antardasha spanning from mid-August 2005 to late September 2006 brought transformative experiences related to both partnerships and professional growth. However, the most notable career breakthrough occurred during Ketu-Saturn Antardasha from approximately August 2007 to early September 2008. During these ketu-saturn months, multiple planets simultaneously triggered various bhavas. Specifically, Saturn acted as sub-lord for cuspal degrees governing houses 1,4,5, indicating simultaneous activation of self-development, property matters, creative pursuits, and speculative gains. This created a powerful confluence supporting major career transitions. Examine the exact degree positions where Saturn functioned as sub-lord across different cusps, as these precise mathematical calculations reveal why specific months proved more conducive than others for substantial professional advancements. Chartdataused: nativescompletedetails.yaml timingmethodology: DASHATIMINGCareerdevelopment.jpg careerevent: Majorprofessionalbreakthrough eventlocation: Sameplace eventtype: Careerchange resolution: Positiveoutcome consequences: Long-termbenefits influencingfactors: Multipleplanettriggeringsamehouses resultingchanges: Significantlifetransformation currentdashaperiod: VenusMercurypratyantar nextmajorevent: Financialimprovementjuly2026 chartdataused: nativescompletedetails.yaml timingmethodology: DASHATIMINGPropertyacquisition.jpg propertyevent: Housepurchase eventlocation: Samearea eventtype: Propertyinvestment resolution: Favorableoutcome consequences: Improvedlivingstandards influencingfactors: Beneficialsub-periodactivation resultingchanges: Enhancedfinancialsecurity currentdashaperiod: VenusMercurypratyantar nextmajorevent: Marriagewindowseptembertonovember2027 chartdataused: nativescompletedetails.yaml timingmethodology: DASHATIMINGSecondmarriage.jpg marriageevent: Secondwedding eventlocation: Foreignplace eventtype: Lovemarriage resolution: Happycouplestatus consequences: Socialreputationgain influencingfactors: Romanticconnectionwithstranger resultingchanges: Completefamilystructurereorganization currentdashaperiod: VenusMercurypratyantar nextmajorevent: Retirementphasefebruary_2040 confidence:",
+    "response": "Around 2010, Arjun Mehta ji experienced significant developments across multiple life areas. During the Ketu Mahadasha running from September 2002 to September 2009, key periods included: August 2005 to September 2006 (Ketu-Rahu Antardasha), substantial professional growth occurred as Ketu's spiritual influence merged with Rahu's material ambitions.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 13.412361145019531
+    "elapsed": 13.300098180770874
   },
   {
     "id": "Q14",
     "type": "past",
     "question": "What happened in my career around 2015?",
-    "response": "Analyzing your chart data reveals significant career developments during the Venus-Jupiter pratyantar period in February-May 2015 timeframe. During this pratyantar, Venus operated as primary dasanatha while Jupiter served as secondary one. Both planets held dual roles - Venus governed houses 1,8,10,12 plus ruled Taurus-Leo axis, while Jupiter covered houses 3,5,6 along with Sagittarian-Aquariann rulership. The convergence of these two benefics created optimal conditions for professional advancement. Since Venus was your mahadasha lord since September 2009, its continued health challenges ensured stability. Simultaneously, Jupiter's involvement as pratyantara lord activated houses 3,5,6 - directly impacting career trajectory. This particular pratyantar demonstrated textbook application of KP principle where benefic lords of relevant bhavas create windows for success. Houses 3,5,6 specifically relate to courage, creativity, aur service respectively - all crucial elements for career elevation. Examine transiting natal positions precisely during those few weeks when maximum conjunction occurred. Note how sub-lords of respective cusps influenced timing accuracy within broader pratyantar framework. .JPG chartdataused: nativescompleteddetails.yaml timingmethodology: DASHATIMINGCareerdevelopment.jpg careerevent: Promotion eventlocation: Sameoffice eventype: Professionalgrowth resolution: Success consequences: Recognition influencingfactors: Dualbeneficoperation resultingchanges: Elevatedposition currentdashaperiod: VenusMercurypratyantar nextmajeveent: RetirementphaseFebruary2040 .JPG chartdataused: nativescompleteddetails.yaml timingmethodology: DASHATIMINGScholarship.jpg educationevent: Admission eventlocation: Samecollege eventtype: Academic pursuit resolution: Acceptance consequences: Studiesbeginning influencingfactors: Singlebeneficactivation resultingchanges: Educationalinitiation currentdashaperiod: VenusMercurypratyantar nextmajorevent: MarriagewindowSeptembertoNovember2027 .JPG chartdataused: nativescompleteddetails.yaml timingmethodology: DASHATIMINGSecondmarriage.jpg secondmarriageevent: Wedding eventlocation: Foreigncountry eventtype: Love-marriage resolution: Happyunion consequences: Familyrestructuring influencingfactors: Strangerromance resultingchanges: Completefamilytransformation currentdashaperiod: VenusMercurypratyantar nextmajorevent: Unknown .JPG chartdataused:",
+    "response": "Arjun Mehta ji, your career transformation occurred between Jun 2015 to Sep 2016 (yeh period beet chuka hai) during Venus-Jupiter AD, specifically when Venus-Mars pratyantar period activated houses 2,6,10,11. This coincided with your promotion to team lead in July 2016, supported by 10th cusp sub-lord Mercury signifying houses 2,10,11. The timing aligned perfectly with Jupiter's natural benefic influence on your 10th bhava of profession. PROMOTION Timingwindow: Planetaryinfluences: VENUSJUPITERAD Sub-periodactivation: VENUSMARSPT Housesignifications: 2,6,10,11 Cuspsublords: MERCURY Supportinghouses: 2,10,11 Negativehouses: None Positiveoutcome: YES Financialgains: YES Changetype: PROMOTION Location: Same workplace Significatorsactive: MARSVENUS Practicalimpact: Enhanced responsibilities Professionalgrowth: Significant advancement Careerstatus: Senior position Recognition: Team leadership role Authoritylevel: Supervisory capacity Decision-making: Increased responsibility Results: Favorable outcome Obstaclesovercome: Promotion competition Successfactors: Strong performance Timingaccuracy: High precision The planetary combinations clearly indicate career elevation during this specific timeframe, supported by multiple house significations aligning favorably. PROMOTION Timingwindow: Planetaryinfluences: VENUSJUPITERAD Sub-periodactivation: VENUSMARSPT Housesignifications: 2,6,10,11 Cuspsublords: MERCURY Supportinghouses: 2,10,11 Negativehouses: None Positiveoutcome: YES Financialgains: YES Changetype: PROMOTION Location: Same workplace Significatorsactive: MARSVENUS Practicalimpact: Enhanced responsibilities Professionalgrowth: Significant advancement Careerstatus: Senior position Recognition: Team leadership role Authoritylevel: Supervisory capacity Decision-making: Increased responsibility Results: Favorable outcome Obstaclesovercome: Promotion competition Successfactors: Strong performance Timingaccuracy: High precision The planetary combinations clearly indicate career elevation during this specific timeframe, supported by multiple house significations aligning favorably.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 13.697879314422607
+    "elapsed": 23.995720624923706
   },
   {
     "id": "Q15",
     "type": "past",
     "question": "What was significant in 2003 for me?",
-    "response": "In 2003, you underwent a profound transformation marked by Ketu Anthra operating from June 17th through July 15th. During this anthrarasa, Ketu as dasanantha lord activated multiple bhavas simultaneously. The sub-lord position further amplified results, especially considering Ketu's natural tendency toward detachment and renunciation. In practical terms, this often manifests as: Sudden changes in worldview and philosophical outlook Increased interest in metaphysical subjects and meditation practices Periods of isolation leading to deeper introspection Karmic debts being resolved through surrender-based approaches your birth details suggest this anthrarasa coincided with peak productivity regarding higher learning initiatives. The conjunction of multiple significators for houses 4,5,9 during this period explains accelerated academic progress. Examine other planetary influences during this same timeline, particularly Venus ruling Taurus-Leo axis alongside its Magha nakshatra placement. These factors contributed to the overall transformative experience, making 2003 a pivotal annum in your evolutionary journey. Timingsystem: DASHATIMINGMarriage.jpg marriageevent: Engagement proposal location: Samecity type: Romanticcommitment resolution: Successful outcome consequences: Relationshipprogression influencingfactors: Partner'sconsent resultingchanges: Commitmentsolidification currentdashaperiod: VenusMercurypratyantar nextmajorevent: Businesslaunchmayjune2026 chartdataused: nativescompletedetails.yaml timingmethodology: DASHATIMINGCareerdevelopment.jpg careerevent: Job",
+    "response": "Arjun Mehta ji, your significant career advancement occurred in October 2003 to January 2004 during Jupiter-Mercury anthra, because Jupiter (6th cusp sub-lord) signifies houses 6,10,11 - representing service, profession, and gains respectively. The planetary configuration showed Jupiter as the primary significator for career matters through its connection to the 6th bhava (service/job), 10th bhava (profession/status), and 11th bhava (gains/income). When Jupiter mahadasha ran from September 2002 to September 2009, the specific Jupiter-Mercury anthra period created favorable conditions for professional growth. This timing became particularly auspicious because Mercury governs communication, intellect, and commercial activities - essential elements for career development. The combined influence of Jupiter (expansion, wisdom) and Mercury (intelligence, commerce) during this specific timeframe supported your entry into higher-paying positions or promotion to leadership roles. The precise date range (October 2003 to January 2004 (yeh period beet chuka hai)) reflects the exact duration when these planetary combinations were most active in your chart, creating optimal circumstances for material progress and professional recognition. This answer provides actual month-year timings .",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 10.150115489959717
+    "elapsed": 15.473868608474731
   },
   {
     "id": "Q16",
     "type": "analysis",
     "question": "Analyze my 7th house for marriage prospects",
-    "response": "Arjun Mehta ji, your marriage prospects show promise between July 2026 to February 2027 during Venus-Mercury AD, since both planets signify houses 2,7,11 - the primary marriage houses. The current Venus-Mercury pratyantar period starting September 2025 offers immediate opportunity for relationship developments.",
+    "response": "Arjun Mehta ji, your marriage prospects show promise between July 2026 to February 2027 during Venus-Mercury AD, since both planets signify houses 2,7,11 - the primary marriage houses. The Venus mahadasha period supports matrimonial alliances, while Mercury's sub-period activation triggers the actual wedding ceremony. This timing aligns perfectly with your current Venus-Mercury pratyantar dasha running through mid-April 2026, indicating the foundational preparation phase concludes soon. Significatorhouses: 2,7,11 positiveoutcome: yes negativeoutcome: no careerruleused: financeruleused: The planetary combinations strongly favor marriage materialization during the specified timeframe. Both Venus (natural significator of marriage) and Mercury (sub-lord of relevant cusps) work synergistically to deliver matrimonial results. The exact wedding date would depend on the precise sub-sub period activation within the broader pratyantar dasha framework. Positiveoutcome: yes negativeoutcome: no financialimpact: medium careerimpact: low your marriage prospects appear highly favorable during the designated period, with both benefic planets supporting the matrimonial process simultaneously. Positiveoutcome: yes negativeoutcome: no financialimpact: none careerimpact: none This represents optimal timing for marriage-related decisions and preparations. Positiveoutcome: yes negativeoutcome: no financialimpact",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 15.793917417526245
+    "elapsed": 17.058666229248047
   },
   {
     "id": "Q17",
     "type": "analysis",
     "question": "What does Venus signify in my chart?",
-    "response": "Based on your detailed chart information provided in YAML format, Venus holds significance primarily as a ruler rather than an occupier. According to the given data, Venus rules the following: None mentioned beyond these four The positioning shows Venus placed in Magha nakshatra (ruled by Ketu) with Sun as sub-lord, positioned in Leo sign.",
+    "response": "In your chart, Venus signifies houses 1, 8, 10, aur 12. Yeh ek powerful combination hai kyunki Venus connect kar raha hai: Self, personality, physical appearance House 8: Transformation, sudden changes, hidden wealth, spouse's resources House 10: Career, reputation, social status, authority House 12: Foreign connections, expenses, spirituality, losses Venus being positioned in Leo (own sign) aur ruled by Magha nakshatra (Ketu ki rulership mein) create karta hai unique blend jahan planet apni inherent nature ko express karta hai lekin modified manner mein due to Ketu ke influence as star lord.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 10.003566026687622
+    "elapsed": 10.071944952011108
   },
   {
     "id": "Q18",
     "type": "analysis",
     "question": "Analyze my career prospects using the 10th house",
-    "response": "For analyzing your career prospects, key career indicators emerge: Jupiter, Ketu, Mars, Moon, Rahu, Sun, Venus These planets collectively govern houses 2,6,10 - representing wealth accumulation, daily work environment, and professional status respectively. Multiple benefics conjoin (especially Jupiter-Venus or Mars-Sun) Strongest significator operates Mahadasha-Anthradasha sequence Supporting significators provide Pratyantar activation your current Venus-Mercury pratyantar period represents ideal timing for career moves, as both planets strongly signify the 10th house. Venus, being 10th lord itself, provides direct professional influence, while Mercury adds communication skills essential for modern career growth. Key timing considerations indicate peak career phases occurring during: Upcoming Venus-Ketu pratyantar (July 2028-Sep 2029) Sub-period activations involving Jupiter-Mars combinations Examine transits carefully during major dasha transitions, particularly when fast-moving planets aspect natal 10th cusp degree at sensitive degrees. Planetary positions reveal diverse career potential across various sectors, with emphasis on leadership roles requiring adaptability and strategic thinking. The grounding rule emphasizes examining the 10th house more prominently than mere 2nd house indications for comprehensive career assessment. Timing methodology demonstrates precise dasha-bhukti-pratyantar correlations for accurate prediction windows. Multiple planetary connections ensure sustained career momentum throughout life stages. Chartdataused: nativescompleteddetails.yaml timingmethodology: DASHATIMINGCareerdevelopment.jpg careerevent: Promotion eventlocation: Sameoffice eventype: Professionalgrowth resolution",
+    "response": "Arjun Mehta ji, your career advancement peaks between Oct 2026 to Feb 2027 during Venus-Mercury AD, specifically activating houses 2,6,10,11 through Mercury's dual role as 10th cusp sub-lord and significator of these wealth-generating bhavas. This timing aligns perfectly with your current Mercury mahadasha pratyantar period, creating powerful synergy for professional elevation. The Venus influence ensures harmonious work relationships while Mercury facilitates intellectual growth and communication skills essential for career success. Careersignificators: Jupiter, Ketu, Mars, Moon, Rahu, Sun, Venus, Mercury financialsupport: Houses 2,11 activation through Mercury professionalgrowth: Houses 6,10 activation through multiple planetary combinations workenvironment: House 11 gains ensure supportive colleagues and networks The Mercury-Venus period creates ideal conditions where your analytical abilities merge with diplomatic skills, making you an attractive candidate for leadership positions. This combination particularly favors industries related to communication, technology, or luxury goods where both planets excel. Careerindustry: Communication/Luxury Goods/Tech financialstatus: Excellent due to 2nd and 11th house activation professionalreputation: Growing recognition through proper channels This timing represents your most promising window for significant career progress, especially if you're considering new ventures or seeking promotions. Careerevent: Job Change/Start Business financialinvestment: Required for venture launch professionaloutcome: Success guaranteed through proper timing your current dasha sequence strongly supports career advancement, with peak results manifesting during the specified Venus-Mercury timeframe.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 9.887051582336426
+    "elapsed": 17.448077917099
   },
   {
     "id": "Q19",
     "type": "analysis",
     "question": "What is my current dasha period and what does it mean?",
-    "response": "Your current dasha period is Venus-Mercury, specifically falling within Venus-Mercury-Mercury pratyantar from September 2025 onwards. This represents a highly favorable timeframe for materialization of pending matters related to all three houses - Marriage (2,7,11), Career (2,6,10), Finance (2,6,11).",
+    "response": "Arjun Mehta ji, aap currently run kar rahe hain Venus-mahadasha with Mercury-anthra-pratyantar, jo started Sep 2009 mein aur continue karega approximately next twenty years tak.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 9.91164517402649
+    "elapsed": 9.982900381088257
   },
   {
     "id": "Q20",
     "type": "analysis",
     "question": "Analyze my financial prospects using houses 2, 6, and 11",
-    "response": "Financial prospects appear promising through multiple significator combinations: Jupiter, Ketu, Mars, Rahu, Sun These planets connect houses 2 (wealth/family assets), 6 (service/loans/debts), and 11 (gains/income). In Venus-Mercury pratyantar, both planets act as significators connecting these crucial finance houses. Venus signifies 2nd house directly, while Mercury connects 11th house through its placement and aspects. Peak financial periods occur during: Venus-Mercury pratyantar (ongoing benefits) Future Venus-Ketu pratyantar (Aug 2028-Oct 2029) Jupiter-related bhuktis activating service sector gains Notice Jupiter ruling both 6th and 11th houses, creating powerful service-income axis. Mars simultaneously signifies 2nd and 6th houses, indicating earnings through competitive fields or overcoming debt challenges. The interconnected web suggests steady financial flow, especially during Venus-Mercury influences. However, examine each planet's strength based on their respective nakshatra lords and sub-lords for precise timing predictions. Planetary Positions Reveal Financial Potential Across Service Sectors And Competitive Markets During Specific Time Windows When Favorable Dashas Activate Relevant House Combinations. Focus investment strategies during Venus-Mercury pratyantar for optimal returns, considering diversified portfolios across service-oriented businesses. Check transit impacts on natal 2nd, 6th, 11th cuspal degrees for temporary market fluctuations affecting overall long-term financial stability. Timingmethodology: DASHATIMINGFINANCEDEVELOPMENT.jpg financialevent: Investmentopportunity location: Onlineinvestments type: Equitytrading resolution",
-    "status": "✅ PASS",
-    "issues": [],
-    "elapsed": 10.277979135513306
+    "response": "Arjun Mehta ji, aapki financial prosperity extremely favorable lagti hai un periods mein jab Jupiter, Ketu, Mars, aur Rahu operate karte hain together as combined significators of houses 2, 6, aur 11.",
+    "status": "⚠️ PARTIAL",
+    "issues": [
+      "HINGLISH_LEAK(4)"
+    ],
+    "elapsed": 9.860344171524048
   },
   {
     "id": "Q21",
     "type": "remedy",
     "question": "What remedies do you suggest for my career?",
-    "response": "showing Venus as 10th lord connected to houses 2, 6, 10 along with other career significators, several remedial measures align perfectly: Wear Emerald (Green Sapphire) for strengthening Mercury position Utilize Red Coral for enhancing Mars energy supporting 10th house Apply Blue sapphire for channeling beneficial Jupiter vibrations Consider Diamond for amplifying Sun's natural authority over career These gemstones correspond to planets governing critical career houses - Mercury (communication/skills), Mars (leadership/initiative), Jupiter (wisdom/expansion), and Sun (reputation/recognition). Current Venus-Mercury pratyantar period creates excellent opportunity window where both planets simultaneously activate 10th house (career/profession). This dual activation ensures maximum benefit duration extends approximately till July 2026. Initiate important career decisions, negotiations, or job searches during peak Mercury hours (morning sessions). Schedule interviews when Mars energy is strongest (afternoon sun exposure). Launch projects during Jupiter-transited days. Present yourself confidently during Sun hours. The interconnection between these four planets with your 10th house creates unique synergy - they become your primary career catalysts operating through distinct vibrational frequencies captured in corresponding gems.\n\nMushkilein waqti hain, lekin aapki himmat daimi hai.",
+    "response": "Arjun Mehta ji, aapke paas excellent career prospects hain us periods mein jab Jupiter, Ketu, Mars, aur Rahu combine hone wala hai as significators of houses 2, 6, aur 10. Is configuration se indicate hota hai ki aapke saath independent business ya profession mein success hogi. Lekin, aapko remedial measures implement karne padenge optimal results achieve karne ke liye. Jab niyat saaf ho, toh naseeb bhi saath deta hai. Aapke liye hamara Zodiac Cosmic Leather Bracelet beneficial ho sakta hai — yeh Jupiter ki energy ko strengthen karta hai.",
     "status": "⚠️ PARTIAL",
     "issues": [
-      "DOUBLE_NEWLINE_LEAK"
+      "HINGLISH_LEAK(3)"
     ],
-    "elapsed": 12.34885287284851
+    "elapsed": 12.677313089370728
   },
   {
     "id": "Q22",
     "type": "remedy",
     "question": "What gemstone should I wear for financial improvement?",
-    "response": "showing multiple planetary connections to houses 2, 6, 11 for financial prosperity, I recommend wearing Blue Sapphire (Sapphire in blue color). This recommendation stems from Jupiter's significant role as primary significator for your 11th house (income/gains).\n\nJab tak todenge nahi, tab tak chodenge nahi — yahi hausla zaroori hai.",
+    "response": "Specifically, Ketu periods mein Smoky Quartz ya Black Tourmaline consider kariye; Mars periods mein Red Coral ya Carnelian; Sun periods mein Yellow Sapphire; Rahu periods mein Blue Sapphire; Jupiter periods mein Yellow Sapphire ya Citrine; Venus periods mein White Sapphire ya Diamond. In planetary rulers ke corresponding colors, mantras, aur lifestyle practices incorporate kariye comprehensive enhancement ke liye. --------- ------- --------- -------------- Ketu Black Om... Meditation, charity Mars Red Om... Physical exercise, leadership Sun Yellow Om... Authority figures se respect, government service Rahu Blue Om... Research, foreign connections Jupiter Yellow Om... Specific intervention type (color therapy, mantra recitation, dietary restrictions, physical disciplines) natural affinity aur remedial requirements dono par based hoga. Key principle consistent vibration maintenance hai desired outcome manifestation ke liye. Planetary. Graho ki chaal badal sakti hai, lekin aapka irada nahi badalna chahiye.",
     "status": "⚠️ PARTIAL",
     "issues": [
-      "DOUBLE_NEWLINE_LEAK"
+      "HINGLISH_LEAK(3)"
     ],
-    "elapsed": 9.606821298599243
+    "elapsed": 11.981864213943481
   },
   {
     "id": "Q23",
     "type": "hindi",
     "question": "Meri shaadi kab hogi?",
-    "response": "priya ji, aapki shaadi ki timing ke liye dekhen ki aap abhi bhi Venus-Mercury pratyantar mein hain. Yeh period strongly signify karti hai un planets ko jo houses 2, 7, aur 11 govern kar rahe hain - marriage triad.",
+    "response": "",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 8.179083108901978
+    "elapsed": 13.763157844543457
   },
   {
     "id": "Q24",
     "type": "hindi",
     "question": "Mera career kab improve hoga?",
-    "response": "priya ji, aapke career improvements ke liye focus karien Venus-Mercury pratyantar period par, specifically jab Venus-Mercury combine Jupiter, Ketu, Mars, ya Sun ke saath operate karte hain.",
+    "response": "Arjun Mehta ji, aapke professional advancement timing ke liye significant planetary combinations align ho rahe hain. Currently, aap Venus Mahadasha ke dauraan Mercury Antardasha experience kar rahe hain, jahan both planets simultaneously houses 2, 6, aur 10 signify kar rahe hain - exactly jo required hai successful career transformation ke liye.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 10.1658034324646
+    "elapsed": 9.871503591537476
   },
   {
     "id": "Q25",
     "type": "hindi",
     "question": "Kya mujhe foreign travel ka yoga hai?",
-    "response": "",
+    "response": "Foreign travel yoga ke liye, humein houses 3, 9, aur 12 examine karne hote hain along with unke significators. Aapka chart foreign settlement potential show karta hai kyunki multiple factors strongly support kar rahe hain overseas relocation.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 9.796559810638428
+    "elapsed": 8.662212610244751
   },
   {
     "id": "Q26",
     "type": "hindi",
     "question": "Meri health ke baare mein batao",
-    "response": "priya ji, aapki health primarily depend karti hai 6th house activation pe, jo diseases aur general ailments represent karti hai. Currently, aap Venus-Mercury pratyantar mein hain, jahan Mercury 6th cusp ka sub-lord hai, toh yeh health concerns trigger kar sakta hai.",
+    "response": "Health concerns ke regarding, aapki current planetary configuration ek challenging period present karti hai jo careful attention maangti hai. Aap Venus Mahadasha ke dauraan Mercury Anthara experience kar rahe hain, jahan dono planets simultaneously houses 6, 8, aur 12 signify kar rahe hain.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 9.774735927581787
+    "elapsed": 10.673007726669312
   },
   {
     "id": "Q27",
     "type": "edge",
     "question": "Will I be successful in business?",
-    "response": "Significators for profession include Jupiter, Ketu, Mars, Moon, Rahu, Sun, aur Venus - yeh sab collectively indicate karte hain growth potential aur entrepreneurial ventures mein success possibility.",
+    "response": "Arjun Mehta ji, your business success timing is Jul 2026 to Feb 2027 during Venus-Mercury AD, because Venus as 7th cusp sub-lord signifies houses 7,11 - indicating partnership gains and fulfillment of desires through collaborative ventures.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 10.137773275375366
+    "elapsed": 17.27052402496338
   },
   {
     "id": "Q28",
@@ -264,24 +257,26 @@
     "response": "Arjun Mehta ji, main samajh sakta hun yeh waqt aapke liye kitna mushkil hai — aap akele nahi hain.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 9.567582607269287
+    "elapsed": 9.33903431892395
   },
   {
     "id": "Q29",
     "type": "edge",
     "question": "What is the sub-lord of my 7th cusp?",
-    "response": "priya ji, aapke 7th cusp ka sub-lord Venus hai. Yeh ek significant planetary position hai jo directly partnership matters ko govern karta hai. Venus natural benefic hai jo love, relationships, aur marital harmony represent karta hai.",
+    "response": "Arjun Mehta ji, Your 7th cusp sub-lord is Venus. The current favorable timing for marriage-related matters continues through Venus-Mercury AntarDasha from September 2025 to July 2028, specifically now running Venus-Mercury-Ketu PratyantarDasha from February 2026 to April 2026.",
     "status": "✅ PASS",
     "issues": [],
-    "elapsed": 8.312578916549683
+    "elapsed": 16.807225704193115
   },
   {
     "id": "Q30",
     "type": "edge",
     "question": "My marriage is breaking apart, I am devastated",
-    "response": "Confident: yes Thumbrules::Maritalharmony Karmicmarriagepartnerships Timingofeventsinlife MarriageDenial HealthandlongevityKarmiclink Careersigns Financialsigns PartnershipBreakdown Timingofmarriageseparation Healthemotionskarma Healthproblemskarma Healthdiseasekarma",
-    "status": "✅ PASS",
-    "issues": [],
-    "elapsed": 9.827789306640625
+    "response": "Arjun Mehta ji, aapka marital breakdown ki news sunne par mera heart ache gaya hai. Yeh fact ki aap Venus Anthara mein hain jo Mercury Pratyanta ke saath combine kar raha hai, while both planets houses 7 aur 12 signify kar rahe hain, yeh aapke relationship dissolution ko confirm karta hai.",
+    "status": "⚠️ PARTIAL",
+    "issues": [
+      "HINGLISH_LEAK(3)"
+    ],
+    "elapsed": 8.502267360687256
   }
 ]
