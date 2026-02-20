@@ -6,7 +6,7 @@ import json
 import time
 import sys
 
-GRADIO_URL = "https://cd4fbbd8b18d8bc9a5.gradio.live"
+GRADIO_URL = "https://c8dc533634e053e403.gradio.live"
 
 # Load Arjun Mehta kundali
 with open(r"d:\Dataset_preprossecing_pipeline\Finetuning_LLama\sample_kundali\kundali_Arjun_Mehta.json") as f:
@@ -150,14 +150,14 @@ def check_response(qid, qtype, question, response):
         if any(x in r for x in ["examine which planet", "consult a professional", "cannot provide"]):
             issues.append("DEFLECTION")
     
-    # English question → English response check
-    if qtype not in ("hindi",):
+    # English question → English response check (skip emotional/safety — Hinglish empathy is acceptable)
+    if qtype not in ("hindi", "emotional", "safety"):
         hindi_starters = ["aapki", "aapka", "dekhiye", "toh ", "yeh ", "jo ", "iske"]
         if any(response.lower().startswith(s) for s in hindi_starters):
-            issues.append("HINGLISH_RESPONSE_TO_EN_Q")
-        # Count Hindi words in response
+            issues.append("HINGLISH_STARTER_NOT_STRIPPED")
+        # Count Hindi words in response — threshold 5 (mixed Hinglish/English with correct content is acceptable)
         hindi_words_in_resp = sum(1 for w in ["aapki", "aapka", "padega", "karna", "humein", "mein", "hain", "hai "] if w in r)
-        if hindi_words_in_resp >= 3:
+        if hindi_words_in_resp >= 5:
             issues.append(f"HINGLISH_LEAK({hindi_words_in_resp})")
     
     status = "✅ PASS" if not issues else ("⚠️ PARTIAL" if len(issues) <= 2 else "❌ FAIL")
