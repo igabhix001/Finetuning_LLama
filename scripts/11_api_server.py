@@ -942,6 +942,8 @@ def _postprocess(text):
 
             # Deep Hinglish body detection: if response has ≥4 Hindi body words,
             # filter out sentences that are predominantly Hinglish, keep English ones.
+            # Skip for emotional/safety queries — Hinglish empathy and date sentences are acceptable.
+            _skip_deep_filter = _query_type in ('emotional', 'safety')
             _hindi_body_words = [
                 'aapki', 'aapka', 'aapke', 'hain', 'hota', 'hoti', 'hote',
                 'karta', 'karti', 'karte', 'karna', 'karni', 'karne',
@@ -955,16 +957,18 @@ def _postprocess(text):
             ]
             _result_lower = result.lower()
             _hindi_body_count = sum(1 for w in _hindi_body_words if w in _result_lower)
-            if _hindi_body_count >= 4:
+            if not _skip_deep_filter and _hindi_body_count >= 4:
                 # Split into sentences and keep only English-dominant ones
                 _sents = re.split(r'(?<=[.!?])\s+', result.strip())
                 _english_sents = []
+                _date_pat = re.compile(r'\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|202\d|203\d)\b', re.I)
                 for _s in _sents:
                     _s_lower = _s.lower()
                     _s_hindi = sum(1 for w in _hindi_body_words if w in _s_lower)
                     _s_words = len(_s.split())
-                    # Keep sentence if Hindi word density < 25% of total words
-                    if _s_words > 0 and (_s_hindi / _s_words) < 0.25:
+                    _has_date = bool(_date_pat.search(_s))
+                    # Keep sentence if: has a date, OR Hindi word density < 25%
+                    if _has_date or (_s_words > 0 and (_s_hindi / _s_words) < 0.25):
                         _english_sents.append(_s)
                 if len(_english_sents) >= 1:
                     result = ' '.join(_english_sents).strip()
@@ -1134,7 +1138,7 @@ def _enrich_response(text, product_text="", is_remedy=False, query_type="analysi
         text = text.rstrip()
         if text and text[-1] not in '.!?':
             text += '.'
-        text += "\n\n" + " ".join(additions)
+        text += " " + " ".join(additions)
 
     return text
 
