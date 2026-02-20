@@ -34,6 +34,7 @@ wandb>=0.16.0
 vllm>=0.2.7
 uvicorn>=0.25.0
 fastapi>=0.108.0
+gradio>=4.0.0
 
 # HuggingFace CLI
 huggingface-hub>=0.20.0

@@ -3,6 +3,8 @@
 
 **Charts Used**: 47 real kundali charts  
 **Questions**: 265 unique prompts across 14 categories  
+**DPO Pairs (final)**: 2,519 pairs in `data/dpo/dpo_pairs_final.jsonl` (8.34 MB)  
+**Last Updated**: Feb 20, 2026 — Round 13 post-processing fixes applied  
 
 ---
 
@@ -218,6 +220,81 @@ Q: "Kab marunga?" → "The native's 8th house shows affliction from **Saturn** a
 
 Return ONLY the response text. No labels, no "Rejected:", no explanation.
 ```
+
+---
+
+## Critical Rules Added Post-V4 (Feb 2026)
+
+These rules were discovered during live testing and are now enforced via post-processing in `09_chat_ui.py` and `11_api_server.py`. They MUST be reflected in the next DPO batch.
+
+### 1. Query Classification Order (CRITICAL — safety bug fixed)
+
+The model must classify queries in this EXACT order. Earlier versions had safety at position 4, causing "when will I die?" to match timing patterns first:
+
+```
+1. SAFETY (death/longevity) → compassionate redirect, NEVER timing answer
+2. EMOTIONAL (distress/hopelessness) → empathy prefix first
+3. SIMPLE FACTUAL (name/lagna/rashi/dob/age/today's date) → 1 sentence only
+4. PAST EVENT (what happened in year X) → 3 short paragraphs
+5. TIMING (when will X happen) → 2-3 sentences, specific month-year
+6. REMEDY (upay/gemstone/product) → Hindi quote + product SKU
+7. ANALYSIS (career/finance/health analysis) → full response, 4 sentences max
+```
+
+Safety trigger patterns: "when will i die", "kab marunga", "kab marungi", "will i survive", "marr jaunga", "marne wala", "how long will i live"
+
+### 2. Language Matching (CRITICAL — #1 client complaint)
+
+- English question → 100% English response. ZERO Hindi/Hinglish mixing.
+- Hindi/Hinglish question → respond fully in Hindi/Hinglish.
+- Mixed/Hinglish question → respond in Hinglish.
+- Safety and emotional redirects must ALSO match the question language.
+
+**Rejected pattern (wrong)**: User asks "When will I get married?" → model responds in Hinglish  
+**Chosen pattern (correct)**: User asks "When will I get married?" → model responds 100% in English
+
+### 3. API Output Format (client requirement)
+
+The API `/chat` endpoint must return JSON with these fields:
+```json
+{
+  "answer": "Arisha Akhtar ji, your marriage window is Jul 2026 to Feb 2027...",
+  "prediction": "Jul 2026 to Feb 2027 during Venus-Mercury AD",
+  "product_reco": "karungali-bracelet-108"
+}
+```
+- `prediction`: populated only for timing/analysis queries (null otherwise)
+- `product_reco`: populated ONLY when user explicitly asks for remedies (null otherwise)
+
+### 4. Conversation History
+
+The model now receives the last 4 conversation turns (25% of input budget). This enables follow-up questions like "but I didn't get married in 2025" to be answered correctly with context.
+
+### 5. Filler Phrases — BANNED (post-processing strips these, model should never generate)
+
+```
+"Based on planetary positions provided..."
+"Based on the current planetary periods running in your life..."
+"According to KP principles..."
+"Using KP methodology..."
+"Let me analyze this situation..."
+"The Pratyantar Lord's influence adds depth..."
+"Pending deeper analysis..."
+"Confidence: medium"
+"KP Analysis for X Query"
+"The native" (always use person's name + ji)
+```
+
+### 6. Date Format — ABSOLUTE ZERO EXCEPTIONS
+
+- ✅ CORRECT: "Jul 2026", "Mar 2027 to Aug 2027", "Oct 2025 (yeh period beet chuka hai)"
+- ❌ WRONG: "2026-07", "2025-10", "upcoming period", "soon", "favorable time"
+
+### 7. Tense Awareness (today = Feb 20, 2026)
+
+- Any date before Feb 2026 → PAST tense: "this period has already passed"
+- Any date spanning Feb 2026 → ONGOING: "you are currently in..."
+- Any date after Feb 2026 → FUTURE tense: "starting from..."
 
 ---
 
