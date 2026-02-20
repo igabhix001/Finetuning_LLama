@@ -462,8 +462,16 @@ def _postprocess(text):
     # ── Phase 6: Remove numbered lists and bullet points ──
     text = re.sub(r'(?:^|\n)\s*\d+[.)]\s+', ' ', text)
     text = re.sub(r'(?:^|\n)\s*[-•●◦▪]\s+', ' ', text)
+    # Strip double-newline + section header lines (e.g. "\n\nForeign Travel Indicators:")
+    text = re.sub(r'\n{2,}[A-Z][^\n]{0,60}:\s*\n?', ' ', text)
+    # Strip standalone section headers on their own line (e.g. "\n\nCurrent Mahadasha\n")
+    text = re.sub(r'\n{2,}[A-Z][A-Za-z ]{2,40}\n', ' ', text)
+    # Collapse all remaining double newlines to single space
+    text = re.sub(r'\n{2,}', ' ', text)
     # Collapse lines that start mid-sentence (model outputs bullet content on new lines)
     text = re.sub(r'\n([a-z])', r' \1', text)
+    # Collapse remaining single newlines
+    text = re.sub(r'\n', ' ', text)
     text = re.sub(r'  +', ' ', text)
 
     # ── Phase 6.5: Convert ISO dates to readable format ──
@@ -931,6 +939,35 @@ def _postprocess(text):
             # If after stripping the response is now empty or too short, don't strip
             if len(result) < 20:
                 result = text  # restore original
+
+            # Deep Hinglish body detection: if response has ≥4 Hindi body words,
+            # filter out sentences that are predominantly Hinglish, keep English ones.
+            _hindi_body_words = [
+                'aapki', 'aapka', 'aapke', 'hain', 'hota', 'hoti', 'hote',
+                'karta', 'karti', 'karte', 'karna', 'karni', 'karne',
+                'mein', 'se', 'ke', 'ki', 'ka', 'ko', 'par', 'pe',
+                'hai ', 'tha ', 'thi ', 'the ', 'tha.', 'thi.', 'the.',
+                'dekhte', 'dekhna', 'samajh', 'isliye', 'kyunki',
+                'jab', 'tab', 'toh', 'aur ', 'ya ', 'lekin', 'phir',
+                'bahut', 'achha', 'acchi', 'zyada', 'thoda', 'bilkul',
+                'padega', 'sakta', 'sakti', 'sakte', 'chahiye',
+                'dwara', 'wala', 'wali', 'wale', 'waala',
+            ]
+            _result_lower = result.lower()
+            _hindi_body_count = sum(1 for w in _hindi_body_words if w in _result_lower)
+            if _hindi_body_count >= 4:
+                # Split into sentences and keep only English-dominant ones
+                _sents = re.split(r'(?<=[.!?])\s+', result.strip())
+                _english_sents = []
+                for _s in _sents:
+                    _s_lower = _s.lower()
+                    _s_hindi = sum(1 for w in _hindi_body_words if w in _s_lower)
+                    _s_words = len(_s.split())
+                    # Keep sentence if Hindi word density < 25% of total words
+                    if _s_words > 0 and (_s_hindi / _s_words) < 0.25:
+                        _english_sents.append(_s)
+                if len(_english_sents) >= 1:
+                    result = ' '.join(_english_sents).strip()
 
     return result
 
