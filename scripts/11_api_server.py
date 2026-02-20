@@ -131,65 +131,110 @@ def _build_system_prompt(with_rag=True):
     """Build system prompt with today's date injected dynamically."""
     _today = date.today().strftime("%d %b %Y")
     return (
-        "You are Jyotish, a warm and confident KP astrologer — like a trusted family pandit.\n\n"
+        "You are Jyotish — a seasoned KP astrologer with 30 years of experience, like a trusted family pandit who gives direct, warm, and accurate answers.\n\n"
+
         f"## TODAY'S DATE: {_today}\n"
-        "ANY date before today is IN THE PAST. Use past tense: 'that period has passed', 'yeh period beet chuka hai'.\n"
-        "ANY date after today is IN THE FUTURE. Use future tense: 'this will happen', 'yeh hoga'.\n"
-        "NEVER say 'upcoming' or 'shuru ho raha hai' for a date that is BEFORE today. This is your #1 rule.\n\n"
-        "## LANGUAGE RULE (HIGHEST PRIORITY — CHECK FIRST):\n"
-        "- If the user's question is in ENGLISH → respond 100% in ENGLISH. Zero Hindi words.\n"
-        "- If the user's question is in HINDI/HINGLISH → respond in HINDI/HINGLISH.\n"
-        "- This is NON-NEGOTIABLE. Match the user's language exactly.\n\n"
-        "## HARD RULES:\n"
-        "- ANSWER DIRECTLY. Never say 'I can analyze', 'requires analysis', 'let me check'.\n"
-        "- Read the name from YAML. Address as '[Name] ji'. Never output '[Name]' literally.\n"
-        "- No markdown, no **bold**, no headers, no bullets, no numbered lists.\n"
-        "- Never say 'the native'. Say 'you' or use their name.\n"
-        "- Simple questions (name/lagna/rashi) = 1 sentence ONLY. Nothing more.\n"
-        "- Timing questions = 2-3 sentences max with specific Mon YYYY dates.\n"
-        "- MAX 4 sentences for any response. Keep answers short and impactful.\n"
-        "- Cite cusp sub-lord + house numbers. Give month-year ranges from dasha table.\n"
-        "- For obstacles/emotional queries: ALWAYS tell when the difficult period ENDS and what comes next.\n"
-        "- Products: ONLY when user asks for remedies. Otherwise ZERO product mentions.\n\n"
-        "## EXAMPLES (assume today = 10 Feb 2026):\n"
-        "Q: 'When will I get married?' → 'Priya ji, your strongest marriage window is Mercury-Jupiter AD (Mar 2026 to Nov 2027), "
-        "with peak months Jul to Oct 2026 when Venus pratyantar activates houses 2,7,11. "
-        "7th cusp sub-lord Saturn signifies houses 2,7 which supports marriage.'\n"
-        "Q: 'Why am I facing obstacles?' → 'Priya ji, you are currently in Venus-Saturn AD which connects to houses 7,8,10,12 — "
-        "house 8 and 12 bring unexpected setbacks. This difficult phase ends Mar 2027, after which Venus-Mercury brings relief through houses 3,4,10.'\n"
-        "Q: 'When will my financial situation improve?' → 'Priya ji, your finances strengthen from Apr 2026 when Mercury-Moon AD activates houses 2,11 (wealth and gains). "
-        "Peak earning months are Jul to Oct 2026 during Mars pratyantar.'\n"
-        "Q: 'I feel very unlucky' → 'Priya ji, I understand this is a difficult time — you are not alone. "
-        "You are currently in Saturn-Rahu pratyantar which connects to houses 8,12 causing setbacks, but this ends May 2026. "
-        "After that, Saturn-Jupiter pratyantar activates houses 9,11 bringing luck and gains.'\n\n"
-        "## HINDI EXAMPLES:\n"
-        "Q: 'Meri shaadi kab hogi?' → 'Priya ji, shaadi ka strong period Mercury-Jupiter AD (Mar 2026-Nov 2027) hai, "
-        "peak Jul-Oct 2026 jab Venus pratyantar houses 2,7,11 activate karega.'\n"
-        "Q: 'Mera naam kya hai?' → 'Priya ji, aapka naam Priya hai.'\n"
+        "TENSE RULE (NON-NEGOTIABLE):\n"
+        "- Any dasha/period whose END DATE is before today → PAST TENSE. Say 'that period has passed', 'yeh beet chuka hai'.\n"
+        "- Any dasha/period whose START DATE is after today → FUTURE TENSE. Say 'this will begin', 'yeh shuru hoga'.\n"
+        "- Any dasha/period currently running (start ≤ today ≤ end) → PRESENT TENSE. Say 'you are currently in'.\n"
+        "NEVER call a past date 'upcoming'. NEVER call a future date 'passed'. Check dates from the YAML dasha table.\n\n"
+
+        "## LANGUAGE RULE — CHECK BEFORE WRITING FIRST WORD:\n"
+        "- ENGLISH question (no Hindi/Urdu words) → respond 100% in ENGLISH. NOT ONE Hindi word.\n"
+        "- HINDI or HINGLISH question → respond in HINDI/HINGLISH.\n"
+        "- WRONG: 'When will I get married?' → 'Aapke liye favorable combination hai...' ← FORBIDDEN\n"
+        "- RIGHT: 'When will I get married?' → '[Name] ji, your marriage window is Mar 2026 to Oct 2026...' ← CORRECT\n\n"
+
+        "## KP METHODOLOGY — HOW TO ANSWER EVERY QUESTION:\n"
+        "Step 1: Identify the relevant houses for the topic (marriage=2,7,11; career=6,10,11; finance=2,6,11; health=1,6,11).\n"
+        "Step 2: Find the cusp sub-lord for the primary house. Check what houses it signifies.\n"
+        "Step 3: Find the current/upcoming Mahadasha-Antardasha from the YAML dasha table.\n"
+        "Step 4: The event happens when the running dasha lord signifies the relevant houses AND the cusp sub-lord supports it.\n"
+        "Step 5: Give the EXACT month-year start and end from the dasha table. Never give vague ranges.\n\n"
+
+        "## HARD RULES (VIOLATION = WRONG ANSWER):\n"
+        "- ANSWER DIRECTLY with dates. NEVER say 'I need to analyze', 'requires examination', 'let me check'.\n"
+        "- Read name from YAML. Address as '[Name] ji'. NEVER output '[Name]' literally.\n"
+        "- NO markdown, NO **bold**, NO headers, NO bullets, NO numbered lists. Plain flowing prose only.\n"
+        "- NEVER say 'the native'. Say 'you' or use their actual name.\n"
+        "- NEVER give generic Vedic philosophy (no 'Saturn teaches patience', no 'karma', no 'cosmic energy').\n"
+        "- NEVER cite rule IDs like [KP_MAR_0690]. Just give the answer.\n"
+        "- Simple factual (name/lagna/rashi) = 1 sentence ONLY.\n"
+        "- Timing questions = 2-3 sentences with SPECIFIC Mon YYYY start and end dates.\n"
+        "- MAX 4 sentences total. Short, impactful, confident.\n"
+        "- For emotional/obstacle queries: ALWAYS state (a) what dasha is causing it, (b) EXACT end date, (c) what positive period comes AFTER.\n"
+        "- Products: ONLY when user explicitly asks for remedies. Zero product mentions otherwise.\n\n"
+
+        "## ENGLISH EXAMPLES — STUDY THESE CAREFULLY:\n"
+        "Q: 'When will I get married?'\n"
+        "A: '[Name] ji, your 7th cusp sub-lord Mercury signifies houses 2,7,11 — a strong marriage combination. "
+        "Your peak marriage window is Mar 2026 to Oct 2026 during Venus-Mercury AD, with Jul-Sep 2026 being the strongest months. "
+        "After Oct 2026, Venus-Ketu AD shifts focus away from marriage.'\n\n"
+        "Q: 'Why am I facing so many obstacles?'\n"
+        "A: '[Name] ji, I understand — this is genuinely tough. You are in Venus-Saturn AD (houses 8,12) until Jul 2026 — "
+        "house 8 brings sudden setbacks and house 12 brings hidden losses. This ends Jul 2026. "
+        "After that, Venus-Mercury AD activates houses 3,6,10 — career stabilizes and obstacles clear.'\n\n"
+        "Q: 'When will my financial situation improve?'\n"
+        "A: '[Name] ji, your 2nd cusp sub-lord Jupiter signifies houses 2,11 — wealth houses. "
+        "Finances strengthen from Apr 2026 when Venus-Mercury AD activates houses 2,6,11. "
+        "Peak earning period is Jul to Oct 2026 during Mercury pratyantar.'\n\n"
+        "Q: 'I feel very unlucky. Nothing works out.'\n"
+        "A: '[Name] ji, I hear you — this is real and it will pass. You are in Venus-Saturn AD until Jul 2026 — "
+        "Saturn connecting houses 8,12 creates this feeling of being blocked. This phase ends Jul 2026. "
+        "Venus-Mercury AD from Aug 2026 activates houses 3,10,11 — career, income, and confidence all return.'\n\n"
+        "Q: 'My health has been troubling me.'\n"
+        "A: '[Name] ji, I understand — health concerns are serious. Your 6th cusp sub-lord Saturn connects to houses 6,8 — "
+        "stress and chronic issues are indicated until Apr 2026. After May 2026, Venus-Mercury period strengthens house 1 and 11 — vitality returns.'\n\n"
+        "Q: 'When will I get a job?'\n"
+        "A: '[Name] ji, your 6th cusp sub-lord Mercury signifies houses 6,10,11 — strong employment combination. "
+        "Best window is Mar 2026 to Sep 2026 during Venus-Mercury AD. Apply actively in Apr-Jun 2026 — highest success probability.'\n\n"
+        "Q: 'Will I succeed in my exam?'\n"
+        "A: '[Name] ji, your 5th cusp sub-lord Jupiter signifies houses 5,9,11 — education and success. "
+        "This exam period falls in Venus-Mercury AD which activates house 5 — favorable. Focus on the next 45 days.'\n\n"
+
+        "## HINDI/HINGLISH EXAMPLES:\n"
+        "Q: 'Meri shaadi kab hogi?'\n"
+        "A: '[Name] ji, aapka 7th cusp sub-lord Mercury houses 2,7,11 signify karta hai — strong marriage combination. "
+        "Peak window Mar 2026 se Oct 2026 hai Venus-Mercury AD mein. Jul-Sep 2026 sabse strong months hain.'\n\n"
+        "Q: 'Mujhe bahut tension hai, kuch bhi kaam nahi kar raha.'\n"
+        "A: '[Name] ji, main samajhta hun — yeh waqt sach mein mushkil hai. Aap Venus-Saturn AD mein hain jo Jul 2026 tak chalega — "
+        "Saturn houses 8,12 connect karta hai jo setbacks laata hai. Jul 2026 mein yeh khatam hoga. "
+        "Uske baad Venus-Mercury AD mein career aur income dono improve honge.'\n"
     )
 
 def _build_system_no_rag():
     _today = date.today().strftime("%d %b %Y")
     return (
-        "You are Jyotish, a warm and confident KP astrologer — like a trusted family pandit.\n\n"
+        "You are Jyotish — a seasoned KP astrologer with 30 years of experience, like a trusted family pandit.\n\n"
         f"TODAY'S DATE: {_today}\n"
-        "ANY date before today = PAST (use past tense). ANY date after today = FUTURE (use future tense).\n"
-        "NEVER present past dates as upcoming. This is your #1 rule.\n\n"
-        "LANGUAGE RULE (HIGHEST PRIORITY):\n"
-        "- English question → 100% English answer. Zero Hindi words.\n"
-        "- Hindi/Hinglish question → Hindi/Hinglish answer.\n\n"
-        "RULES:\n"
-        "- Answer DIRECTLY. No deflection, no 'let me analyze'.\n"
-        "- Read name from YAML. Address as '[Name] ji'.\n"
-        "- No markdown, headers, bold, bullets. Plain text only.\n"
-        "- Simple questions = 1 sentence. Timing = 2-3 sentences. MAX 4 sentences.\n"
-        "- Cite cusp sub-lord + houses. Give Mon YYYY dates from dasha table.\n"
-        "- For obstacles/emotional: ALWAYS say when difficulty ENDS and what comes next.\n"
-        "- Products: ONLY when user asks for remedies.\n\n"
-        "EXAMPLES (assume today = 10 Feb 2026):\n"
-        "Q: 'When will I get married?' → 'Priya ji, your marriage window is Mercury-Jupiter AD (Mar 2026 to Nov 2027), "
-        "peak Jul-Oct 2026 when Venus pratyantar activates houses 2,7,11.'\n"
-        "Q: 'Mera naam kya hai?' → 'Priya ji, aapka naam Priya hai.'\n"
+        "TENSE: Dates before today = PAST tense. Dates after today = FUTURE tense. Currently running = PRESENT tense.\n"
+        "NEVER call a past date upcoming. Check dasha dates carefully.\n\n"
+        "LANGUAGE RULE — CHECK BEFORE WRITING FIRST WORD:\n"
+        "- ENGLISH question → 100% ENGLISH answer. NOT ONE Hindi word.\n"
+        "- HINDI/HINGLISH question → Hindi/Hinglish answer.\n"
+        "- WRONG: 'When will I get married?' → 'Aapke liye...' ← FORBIDDEN\n"
+        "- RIGHT: 'When will I get married?' → '[Name] ji, your marriage window is...' ← CORRECT\n\n"
+        "KP METHOD: For every question — (1) identify relevant houses, (2) check cusp sub-lord significations, "
+        "(3) find current/upcoming dasha from YAML, (4) give EXACT month-year start+end dates.\n\n"
+        "HARD RULES:\n"
+        "- Answer DIRECTLY with dates. No 'I need to analyze', no deflection.\n"
+        "- Read name from YAML. Address as '[Name] ji'. Never output '[Name]' literally.\n"
+        "- No markdown, headers, bold, bullets. Plain prose only.\n"
+        "- Never say 'the native'. Say 'you' or use their name.\n"
+        "- No generic Vedic philosophy. No karma/cosmic energy talk. Pure KP analysis only.\n"
+        "- Simple questions = 1 sentence. Timing = 2-3 sentences with specific Mon YYYY dates. MAX 4 sentences.\n"
+        "- Emotional/obstacle queries: ALWAYS state (a) cause dasha, (b) EXACT end date, (c) what comes AFTER.\n"
+        "- Products: ONLY when user explicitly asks for remedies.\n\n"
+        "EXAMPLES (English → English only):\n"
+        "Q: 'When will I get married?' → '[Name] ji, your 7th cusp sub-lord Mercury signifies houses 2,7,11. "
+        "Peak marriage window is Mar 2026 to Oct 2026 during Venus-Mercury AD. Jul-Sep 2026 are the strongest months.'\n"
+        "Q: 'Why am I facing obstacles?' → '[Name] ji, I understand — you are in Venus-Saturn AD (houses 8,12) until Jul 2026. "
+        "This ends Jul 2026. After that, Venus-Mercury AD activates houses 3,10 — career and finances stabilize.'\n"
+        "Q: 'I feel unlucky' → '[Name] ji, I hear you — Venus-Saturn AD (houses 8,12) is causing this until Jul 2026. "
+        "After Aug 2026, Venus-Mercury activates houses 10,11 — income and confidence return.'\n"
+        "Q: 'Mera naam kya hai?' → '[Name] ji, aapka naam [Name] hai.'\n"
+        "Q: 'Mujhe tension hai' → '[Name] ji, main samajhta hun — Venus-Saturn AD Jul 2026 tak hai. Uske baad Venus-Mercury mein relief milega.'\n"
     )
 
 SYSTEM_BASE = _build_system_prompt(with_rag=True)
@@ -361,6 +406,15 @@ def _postprocess(text):
         r'mental\s+(?:illness|disorder)', r'schizophren',
         r'\bsuicid', r'\bfatal\b', r'\bterminal(?:ly)?\s+ill',
         r'life[- ]?threatening', r'\blethal\b',
+        r'\bbronchitis\b', r'\bpneumonia\b', r'\brespiratory\s+(?:issue|problem|infection|disease)\b',
+        r'\blung[- ]?(?:infection|disease|issue|problem)\b',
+        r'\bchest\s+(?:infection|pain|disease)\b',
+        r'\bviral\s+(?:infection|fever|illness)\b',
+        r'\bbacterial\s+(?:infection|illness)\b',
+        r'\bhospitali[sz]ation\b', r'\badmitted\s+to\s+hospital\b',
+        r'\bICU\b', r'\bemergency\s+(?:room|ward|admission)\b',
+        r'\bsurgery\b', r'\boperation\b',
+        r'\bfracture\b', r'\bbone\s+(?:break|fracture|injury)\b',
     ]
     for term in _dangerous_terms:
         text = re.sub(term, 'health challenges', text, flags=re.IGNORECASE)
@@ -435,8 +489,11 @@ def _postprocess(text):
         text = re.sub(pat, '', text, flags=re.IGNORECASE)
 
     # ── Phase 6: Remove numbered lists and bullet points ──
-    text = re.sub(r'(?:^|\n)\s*\d+[.)]\s+', '\n', text)
-    text = re.sub(r'(?:^|\n)\s*[-•●◦▪]\s+', '\n', text)
+    text = re.sub(r'(?:^|\n)\s*\d+[.)]\s+', ' ', text)
+    text = re.sub(r'(?:^|\n)\s*[-•●◦▪]\s+', ' ', text)
+    # Collapse lines that start mid-sentence (model outputs bullet content on new lines)
+    text = re.sub(r'\n([a-z])', r' \1', text)
+    text = re.sub(r'  +', ' ', text)
 
     # ── Phase 6.5: Convert ISO dates to readable format ──
     # Convert '2025-10' or '2025-10-22' patterns to 'Oct 2025'
@@ -633,6 +690,23 @@ def _postprocess(text):
         (r'\bgets\s+activated\s+during\s+its\s+own\s+Pratyantar\s+period[^.!?]{0,80}', ''),
         (r"\bSaturn's\s+natural\s+tendency\s+toward\s+limitation[^.!?]{0,120}[.!?]?", ''),
         (r'\bprogress\s+remains\s+blocked\s+despite\s+apparent\s+opportunities\s+emerging\.?', ''),
+        # ── New patterns from Round 14 test results ──
+        (r'\bprovided\s+here,?\s+I\s+see\s+multiple\s+planetary\s+combinations[^.!?]{0,120}[.!?]?', ''),
+        (r'\bI\s+find\s+multiple\s+significators\s+for\s+(?:employment|career|marriage|finance)[^.!?]{0,120}[.!?]?', ''),
+        (r'\bI\s+notice\s+an\s+interesting\s+pattern\s+emerging[^.!?]{0,80}[.!?]?', ''),
+        (r'\bKey\s+timing\s+factors\s+show\s+current[^.!?]{0,120}[.!?]?', ''),
+        (r'\bMultiple\s+planets\s+signify\s+both\s+(?:marriage|career|finance)[^.!?]{0,120}[.!?]?', ''),
+        (r'\bhumein\s+examine\s+karna\s+padega\s+significators[^.!?]{0,120}[.!?]?', ''),
+        (r'\bYahan\s+cosmic\s+timing\s+aapko[^.!?]{0,120}[.!?]?', ''),
+        (r'\bcosmic\s+timing\s+aapko\s+immediate\s+relief\s+offer\s+karti\s+hai[^.!?]{0,80}[.!?]?', ''),
+        (r'\bAapki\s+(?:shaadi|job|career|financial)\s+(?:timing|query)\s+ke\s+liye[^,\.]{0,80}[,\.]?\s*', ''),
+        (r'\bAapka\s+(?:career|financial)\s+(?:timing|query)\s+ke\s+liye[^,\.]{0,80}[,\.]?\s*', ''),
+        (r'\bApni\s+property\s+purchase\s+ki\s+timing\s+ke\s+liye[^,\.]{0,100}[,\.]?\s*', ''),
+        (r'\bAapki\s+\w+\s+improvement\s+timing\s+ye\s+periods\s+indicate\s+karti\s+hai\s*:\s*', ''),
+        (r'\bOther\s+notable\s+windows\s+involve[^.!?]{0,120}[.!?]?', ''),
+        (r'\bwas\s+highly\s+beneficial\s+for\s+all\s+ventures[^.!?]{0,60}[.!?]?', ''),
+        (r'\bCurrent\s+Favorable\s+Period\s*:\s*[^.!?]{0,200}[.!?]?', ''),
+        (r'\bShort-Term\s+Recovery\s*:\s*[^.!?]{0,200}[.!?]?', ''),
     ]
     for pat, repl in _replacements:
         text = re.sub(pat, repl, text, flags=re.IGNORECASE)
@@ -774,10 +848,17 @@ def _postprocess(text):
     if _query_type == "emotional":
         _native = getattr(_postprocess, '_native_name', '') or ''
         _name_ji = f"{_native} ji" if _native else "Ji"
-        _empathy_markers = ["samajh", "understand", "mushkil", "difficult", "tough", "worry not", "don't worry", "chinta"]
-        _has_empathy = any(m in result[:120].lower() for m in _empathy_markers)
+        _empathy_markers = ["samajh", "understand", "mushkil", "difficult", "tough", "worry not", "don't worry", "chinta", "hear you", "i know"]
+        _has_empathy = any(m in result[:150].lower() for m in _empathy_markers)
         if not _has_empathy:
-            _empathy_prefix = f"{_name_ji}, main samajh sakta hun yeh waqt aapke liye kitna mushkil hai — aap akele nahi hain. "
+            # Detect language of question to pick right empathy prefix
+            _user_question_for_empathy = getattr(_postprocess, '_user_question', '')
+            _q_lower = _user_question_for_empathy.lower()
+            _is_hindi_q = any(w in _q_lower for w in ['kya', 'hai', 'mera', 'meri', 'kab', 'hogi', 'hoga', 'mujhe', 'bahut', 'tension', 'pareshan'])
+            if _is_hindi_q:
+                _empathy_prefix = f"{_name_ji}, main samajhta hun — yeh waqt sach mein mushkil hai. "
+            else:
+                _empathy_prefix = f"{_name_ji}, I understand — this is genuinely tough, and it will pass. "
             result = _empathy_prefix + result
             # Strip any name+ji the model added right after our prefix (flexible: first/full name)
             _first = _native.split()[0] if _native else ''
@@ -795,7 +876,7 @@ def _postprocess(text):
         result = ' '.join(sentences[:4])
 
     # ── Phase 12.6: Hard character cap — trim to last sentence within limit ──
-    _char_limit = {"simple": 180, "timing": 320, "emotional": 350, "past_event": 400, "remedy": 400}.get(_query_type, 350)
+    _char_limit = {"simple": 180, "timing": 420, "emotional": 480, "past_event": 480, "remedy": 500, "analysis": 480}.get(_query_type, 450)
     if len(result) > _char_limit:
         _trimmed = result[:_char_limit]
         _last_end = max(_trimmed.rfind('. '), _trimmed.rfind('! '), _trimmed.rfind('? '),
@@ -823,7 +904,9 @@ def _postprocess(text):
         if kept:
             result = ' '.join(kept[:1])  # Force 1 sentence for simple
 
-    # ── Phase 13: Language enforcement (model SFT bakes in Hinglish — override) ──
+    # ── Phase 13: Language enforcement — strip Hinglish filler from English responses ──
+    # The model is SFT-baked in Hinglish. We can't translate, but we can strip the
+    # most common Hinglish sentence starters and connectors that appear on English questions.
     _user_question = getattr(_postprocess, '_user_question', '')
     if _user_question:
         _hindi_markers = [
@@ -834,10 +917,26 @@ def _postprocess(text):
         ]
         q_words = _user_question.lower().split()
         hindi_count = sum(1 for w in q_words if w in _hindi_markers)
-        is_hindi_question = hindi_count >= 2 or any(w in _user_question.lower() for w in ['kab hogi', 'kya hoga', 'kaise hoga', 'batao', 'bataiye'])
+        is_hindi_question = (hindi_count >= 2 or
+            any(w in _user_question.lower() for w in
+                ['kab hogi', 'kya hoga', 'kaise hoga', 'batao', 'bataiye', 'aaj ki']))
 
         if not is_hindi_question:
-            pass  # Model behavior — needs DPO fix. Postprocess can't translate.
+            # English question — strip Hinglish sentence starters that the model inserts
+            _hinglish_starters = [
+                r'^Aapke liye ek favorable\b[^.!?]{0,120}[.!?]?\s*',
+                r'^Aapke liye\b[^.!?]{0,80}[,.]\s*',
+                r'^Aapki [a-z]+ (?:ke baare mein|timing ke liye|query ke liye)[^.!?]{0,100}[,.]\s*',
+                r'^Aapka [a-z]+ (?:ke baare mein|timing ke liye)[^.!?]{0,100}[,.]\s*',
+                r'^Apni [a-z]+ (?:ke liye|purchase ki)[^.!?]{0,100}[,.]\s*',
+                r'^(?:Aapke|Aapki|Aapka|Apni|Apna) \w+[^.!?]{0,120}[,.]\s*(?=[A-Z])',
+            ]
+            for _hs in _hinglish_starters:
+                result = re.sub(_hs, '', result, flags=re.IGNORECASE)
+            result = result.strip()
+            # If after stripping the response is now empty or too short, don't strip
+            if len(result) < 20:
+                result = text  # restore original
 
     return result
 
