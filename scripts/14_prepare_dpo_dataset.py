@@ -26,8 +26,11 @@ from pathlib import Path
 from datasets import Dataset, DatasetDict
 
 parser = argparse.ArgumentParser(description="Prepare DPO dataset for training")
-parser.add_argument("--input", type=str, default="data/dpo/dpo_pairs.jsonl", help="Input JSONL file")
-parser.add_argument("--output-dir", type=str, default="data/dpo/prepared", help="Output directory")
+parser.add_argument("--input", type=str, default="data/dpo_consultation/dpo_consultation.jsonl",
+                    help="Input JSONL file (new: data/dpo_consultation/dpo_consultation.jsonl, "
+                         "legacy: data/dpo/dpo_pairs_final.jsonl)")
+parser.add_argument("--output-dir", type=str, default="data/dpo_consultation/prepared",
+                    help="Output directory")
 parser.add_argument("--split", type=float, default=0.1, help="Validation split ratio")
 parser.add_argument("--seed", type=int, default=42, help="Random seed")
 args = parser.parse_args()
@@ -95,18 +98,28 @@ if combos_path.exists():
     print(f"\u2713 Loaded {len(combos_map)} combos for YAML context reconstruction")
 
 def format_prompt(pair: dict) -> dict:
-    """Format a DPO pair into Llama 3.1 chat template with YAML chart context."""
+    """Format a DPO pair into Llama 3.1 chat template with YAML chart context.
+
+    Supports both:
+    - New consultation pairs (20_generate_dpo_consultation.py): have 'system' and
+      'chart_yaml' fields already embedded in the prompt context.
+    - Legacy pairs (13_generate_dpo_dataset.py): use combos_map for YAML lookup.
+    """
     question = pair.get("prompt", "")
     chart_yaml = pair.get("chart_yaml", "")
-    chart_name = pair.get("chart_name", "")
+    chart_name = pair.get("chart_name", pair.get("metadata", {}).get("chart_name", ""))
     chosen = pair.get("chosen", "")
     rejected = pair.get("rejected", "")
-    category = pair.get("category", "")
+    category = pair.get("category", pair.get("metadata", {}).get("qtype", ""))
 
-    # Try to get full YAML from combos_map if chart_yaml is truncated
-    if chart_name and question:
+    # Use pair's own system prompt if present (new consultation pairs),
+    # otherwise fall back to the built-in SYSTEM_PROMPT (legacy pairs).
+    system = pair.get("system", SYSTEM_PROMPT)
+
+    # Try to get full YAML from combos_map if chart_yaml is truncated (legacy)
+    if chart_name and question and not chart_yaml:
         full_yaml = combos_map.get((question, chart_name), "")
-        if full_yaml and len(full_yaml) > len(chart_yaml):
+        if full_yaml:
             chart_yaml = full_yaml
 
     # Build user message — YAML format for chart context
@@ -120,7 +133,7 @@ def format_prompt(pair: dict) -> dict:
     # Format as Llama 3.1 chat template
     prompt = (
         f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
-        f"{SYSTEM_PROMPT}<|eot_id|>"
+        f"{system}<|eot_id|>"
         f"<|start_header_id|>user<|end_header_id|>\n\n"
         f"{user_msg}<|eot_id|>"
         f"<|start_header_id|>assistant<|end_header_id|>\n\n"

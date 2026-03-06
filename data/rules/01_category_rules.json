@@ -1,0 +1,3304 @@
+{
+  "version": "1.0",
+  "description": "KP Astrology Category-Wise Rules — 200 core rules across 8 life domains",
+  "source": "KP Readers Vol 1-6",
+  "rules": [
+    {
+      "rule_id": "KP_MAR_001",
+      "category": "marriage",
+      "topic": "marriage_promise",
+      "rule_text": "If 7th cusp sub-lord signifies houses 2, 7, or 11, marriage is promised. If it signifies 6, 8, or 12, there will be denial or delay.",
+      "houses_involved": [
+        2,
+        7,
+        11
+      ],
+      "negative_houses": [
+        6,
+        8,
+        12
+      ],
+      "keywords": [
+        "marriage",
+        "7th cusp",
+        "sub-lord",
+        "promise",
+        "denial"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MAR_002",
+      "category": "marriage",
+      "topic": "marriage_timing",
+      "rule_text": "Marriage timing is confirmed when the dasha/antardasha lord signifies houses 2, 7, and 11 simultaneously. The stronger the connection, the sooner the event.",
+      "houses_involved": [
+        2,
+        7,
+        11
+      ],
+      "keywords": [
+        "marriage timing",
+        "dasha",
+        "antardasha"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MAR_003",
+      "category": "marriage",
+      "topic": "love_marriage",
+      "rule_text": "Love marriage is indicated when the 5th cusp sub-lord also signifies the 7th house, or when Venus and the 5th lord are connected to the 7th house.",
+      "houses_involved": [
+        5,
+        7,
+        11
+      ],
+      "keywords": [
+        "love marriage",
+        "5th house",
+        "Venus"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MAR_004",
+      "category": "marriage",
+      "topic": "arranged_marriage",
+      "rule_text": "Arranged marriage is indicated when Saturn or Jupiter signifies the 7th house without 5th house connection. Family involvement is shown by 4th house connection.",
+      "houses_involved": [
+        4,
+        7,
+        11
+      ],
+      "keywords": [
+        "arranged marriage",
+        "Saturn",
+        "Jupiter"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_005",
+      "category": "marriage",
+      "topic": "marriage_delay",
+      "rule_text": "Marriage delay occurs when the 7th cusp sub-lord signifies 6, 8, or 12 houses, or when Saturn aspects the 7th cusp sub-lord without positive house connections.",
+      "houses_involved": [
+        6,
+        8,
+        12
+      ],
+      "keywords": [
+        "marriage delay",
+        "Saturn",
+        "6th house",
+        "12th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MAR_006",
+      "category": "marriage",
+      "topic": "spouse_characteristics",
+      "rule_text": "Spouse characteristics are determined by the 7th cusp sub-lord's sign, nakshatra, and the planets signifying the 7th house. Venus indicates beauty; Mercury indicates intelligence; Jupiter indicates wisdom.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse",
+        "7th cusp",
+        "characteristics"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_007",
+      "category": "marriage",
+      "topic": "second_marriage",
+      "rule_text": "Second marriage is possible when the 7th cusp sub-lord signifies 8th house (transformation) and the 9th house (second spouse in KP). Rahu involvement adds foreign or unconventional element.",
+      "houses_involved": [
+        7,
+        8,
+        9
+      ],
+      "keywords": [
+        "second marriage",
+        "8th house",
+        "9th house",
+        "Rahu"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_008",
+      "category": "marriage",
+      "topic": "marital_happiness",
+      "rule_text": "Marital happiness is indicated when Venus and the 7th cusp sub-lord both signify positive houses (2, 7, 11). Affliction by Saturn or Mars to the 7th house causes friction.",
+      "houses_involved": [
+        2,
+        7,
+        11
+      ],
+      "keywords": [
+        "marital happiness",
+        "Venus",
+        "7th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MAR_009",
+      "category": "marriage",
+      "topic": "divorce_separation",
+      "rule_text": "Divorce or separation is indicated when the 7th cusp sub-lord strongly signifies the 12th house (loss of partnership) along with the 6th house (disputes). Rahu adds sudden separation.",
+      "houses_involved": [
+        6,
+        12
+      ],
+      "keywords": [
+        "divorce",
+        "separation",
+        "12th house",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_010",
+      "category": "marriage",
+      "topic": "foreign_spouse",
+      "rule_text": "Foreign or inter-cultural marriage is indicated when Rahu signifies the 7th house, or when the 7th cusp sub-lord is Rahu or placed in a foreign sign (Gemini, Virgo, Sagittarius, Aquarius).",
+      "houses_involved": [
+        7,
+        12
+      ],
+      "keywords": [
+        "foreign spouse",
+        "Rahu",
+        "inter-cultural"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_001",
+      "category": "career",
+      "topic": "job_change",
+      "rule_text": "For job change, check 10th cusp sub-lord. If it signifies houses 5 or 9, there will be change. If it signifies 6, 8, or 12, there are obstacles to change.",
+      "houses_involved": [
+        10
+      ],
+      "favorable_houses": [
+        5,
+        9
+      ],
+      "negative_houses": [
+        6,
+        8,
+        12
+      ],
+      "keywords": [
+        "job change",
+        "10th cusp",
+        "career change"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_002",
+      "category": "career",
+      "topic": "career_success",
+      "rule_text": "Career success is indicated when the 10th cusp sub-lord signifies houses 2, 6, and 10 simultaneously. The 11th house connection brings gains and recognition.",
+      "houses_involved": [
+        2,
+        6,
+        10,
+        11
+      ],
+      "keywords": [
+        "career success",
+        "10th cusp",
+        "recognition"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_003",
+      "category": "career",
+      "topic": "government_job",
+      "rule_text": "Government job is indicated when the Sun signifies the 10th house, or when the 10th cusp sub-lord is Sun or is in Sun's nakshatra. Leo or Aries connection strengthens this.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "government job",
+        "Sun",
+        "10th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_004",
+      "category": "career",
+      "topic": "business_vs_job",
+      "rule_text": "Business is indicated when the 7th house (partnerships) is stronger than the 6th house (service). If 6th cusp sub-lord signifies 10th, the person is suited for service/employment.",
+      "houses_involved": [
+        6,
+        7,
+        10
+      ],
+      "keywords": [
+        "business",
+        "job",
+        "service",
+        "employment"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_005",
+      "category": "career",
+      "topic": "promotion",
+      "rule_text": "Promotion timing: when dasha/antardasha lords signify houses 2, 10, and 11. The 10th house brings status, 2nd brings income increase, 11th brings fulfillment of ambition.",
+      "houses_involved": [
+        2,
+        10,
+        11
+      ],
+      "keywords": [
+        "promotion",
+        "status",
+        "income increase"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_006",
+      "category": "career",
+      "topic": "career_field",
+      "rule_text": "Career field is determined by the strongest planet signifying the 10th house. Sun=government/authority, Moon=public/hospitality, Mars=engineering/military, Mercury=communication/IT, Jupiter=teaching/law, Venus=arts/luxury, Saturn=labor/mining, Rahu=technology/foreign, Ketu=research/spirituality.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "career field",
+        "profession",
+        "10th house planets"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_007",
+      "category": "career",
+      "topic": "job_loss",
+      "rule_text": "Job loss or career setback occurs when the dasha lord signifies the 12th house (loss) and the 8th house (sudden change) without positive 10th house connection.",
+      "houses_involved": [
+        8,
+        12
+      ],
+      "keywords": [
+        "job loss",
+        "career setback",
+        "12th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_008",
+      "category": "career",
+      "topic": "foreign_career",
+      "rule_text": "Foreign career or overseas job is indicated when the 10th cusp sub-lord signifies the 12th house (foreign lands) along with the 9th house (long journeys). Rahu strengthens this.",
+      "houses_involved": [
+        9,
+        10,
+        12
+      ],
+      "keywords": [
+        "foreign career",
+        "overseas",
+        "12th house",
+        "Rahu"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_009",
+      "category": "career",
+      "topic": "self_employment",
+      "rule_text": "Self-employment and entrepreneurship: when the 10th cusp sub-lord signifies the 7th house (own business) and the 11th house (gains). Sun or Mars as significator adds leadership.",
+      "houses_involved": [
+        7,
+        10,
+        11
+      ],
+      "keywords": [
+        "self-employment",
+        "entrepreneurship",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_010",
+      "category": "career",
+      "topic": "career_change_field",
+      "rule_text": "Complete career field change is indicated when the 10th cusp sub-lord changes its primary house signification during a major dasha transition. Rahu or Ketu involvement brings sudden shifts.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "career change",
+        "field change",
+        "Rahu",
+        "Ketu"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_001",
+      "category": "finance",
+      "topic": "wealth_accumulation",
+      "rule_text": "Wealth accumulation is indicated when the 2nd cusp sub-lord signifies houses 2, 11, and 8 (inheritance). The stronger the connection, the greater the wealth.",
+      "houses_involved": [
+        2,
+        8,
+        11
+      ],
+      "keywords": [
+        "wealth",
+        "accumulation",
+        "2nd cusp"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MON_002",
+      "category": "finance",
+      "topic": "financial_improvement",
+      "rule_text": "Financial improvement timing: when dasha/antardasha lords signify houses 2 (wealth) and 11 (gains). The 6th house connection brings income through service/effort.",
+      "houses_involved": [
+        2,
+        6,
+        11
+      ],
+      "keywords": [
+        "financial improvement",
+        "income",
+        "gains"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MON_003",
+      "category": "finance",
+      "topic": "sudden_wealth",
+      "rule_text": "Sudden wealth, windfall, or inheritance is indicated when the 8th cusp sub-lord signifies houses 2 and 11. Rahu involvement brings unexpected gains from foreign sources.",
+      "houses_involved": [
+        2,
+        8,
+        11
+      ],
+      "keywords": [
+        "sudden wealth",
+        "windfall",
+        "inheritance",
+        "8th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_004",
+      "category": "finance",
+      "topic": "debt_clearance",
+      "rule_text": "Debt clearance is indicated when the 6th cusp sub-lord (loans/debts) signifies the 11th house (gains/fulfillment). The dasha period must also activate houses 2 and 11.",
+      "houses_involved": [
+        6,
+        11
+      ],
+      "keywords": [
+        "debt",
+        "loan clearance",
+        "6th house",
+        "11th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MON_005",
+      "category": "finance",
+      "topic": "financial_loss",
+      "rule_text": "Financial loss is indicated when the 2nd cusp sub-lord signifies the 12th house (expenses/losses) without 11th house support. Saturn's influence brings slow drain.",
+      "houses_involved": [
+        2,
+        12
+      ],
+      "keywords": [
+        "financial loss",
+        "expenses",
+        "12th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_006",
+      "category": "finance",
+      "topic": "investment_gains",
+      "rule_text": "Investment gains through stocks, speculation, or real estate: when the 5th cusp sub-lord (speculation) signifies houses 2 and 11. Jupiter's involvement brings wisdom in investments.",
+      "houses_involved": [
+        2,
+        5,
+        11
+      ],
+      "keywords": [
+        "investment",
+        "speculation",
+        "5th house",
+        "gains"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_007",
+      "category": "finance",
+      "topic": "salary_increase",
+      "rule_text": "Salary increase or bonus: when the dasha lord signifies houses 2 (income), 6 (service), and 11 (gains). The 10th house connection brings recognition that leads to raise.",
+      "houses_involved": [
+        2,
+        6,
+        10,
+        11
+      ],
+      "keywords": [
+        "salary increase",
+        "bonus",
+        "income"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_HEA_001",
+      "category": "health",
+      "topic": "general_health",
+      "rule_text": "General health is assessed through the 1st cusp sub-lord. If it signifies houses 1, 6, and 8, health challenges are indicated. Strong 1st house connection maintains vitality.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "health",
+        "vitality",
+        "1st cusp",
+        "6th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_HEA_002",
+      "category": "health",
+      "topic": "health_recovery",
+      "rule_text": "Health recovery timing: when dasha/antardasha lords signify houses 1 (self/vitality) and 11 (fulfillment/recovery). The 6th house connection shows the nature of illness.",
+      "houses_involved": [
+        1,
+        6,
+        11
+      ],
+      "keywords": [
+        "health recovery",
+        "illness",
+        "1st house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_003",
+      "category": "health",
+      "topic": "chronic_illness",
+      "rule_text": "Chronic health issues are indicated when Saturn signifies the 6th house and the 1st cusp sub-lord connects to the 8th house. Long-term treatment is shown by 12th house involvement.",
+      "houses_involved": [
+        1,
+        6,
+        8,
+        12
+      ],
+      "keywords": [
+        "chronic illness",
+        "Saturn",
+        "6th house",
+        "8th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_004",
+      "category": "health",
+      "topic": "surgery",
+      "rule_text": "Surgery or medical procedure is indicated when Mars signifies the 6th house and the dasha period activates houses 1, 6, and 8. The 12th house shows hospitalization.",
+      "houses_involved": [
+        1,
+        6,
+        8,
+        12
+      ],
+      "keywords": [
+        "surgery",
+        "Mars",
+        "hospitalization",
+        "12th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_005",
+      "category": "health",
+      "topic": "mental_health",
+      "rule_text": "Mental health challenges are indicated when Moon (mind) is afflicted and the 4th house (emotional peace) sub-lord connects to the 6th or 8th house. Saturn brings depression; Rahu brings anxiety.",
+      "houses_involved": [
+        4,
+        6,
+        8
+      ],
+      "keywords": [
+        "mental health",
+        "Moon",
+        "depression",
+        "anxiety"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_001",
+      "category": "education",
+      "topic": "education_success",
+      "rule_text": "Education success is indicated when the 4th cusp sub-lord (basic education) signifies houses 4, 9, and 11. Mercury and Jupiter as significators strengthen academic performance.",
+      "houses_involved": [
+        4,
+        9,
+        11
+      ],
+      "keywords": [
+        "education",
+        "academic success",
+        "4th cusp",
+        "Mercury",
+        "Jupiter"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_EDU_002",
+      "category": "education",
+      "topic": "higher_education",
+      "rule_text": "Higher education and advanced degrees: when the 9th cusp sub-lord signifies houses 4, 9, and 11. Jupiter's involvement brings wisdom; Mercury brings technical expertise.",
+      "houses_involved": [
+        4,
+        9,
+        11
+      ],
+      "keywords": [
+        "higher education",
+        "degree",
+        "9th cusp",
+        "Jupiter"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_EDU_003",
+      "category": "education",
+      "topic": "education_abroad",
+      "rule_text": "Education abroad is indicated when the 9th cusp sub-lord signifies the 12th house (foreign lands) along with the 4th or 9th house. Rahu involvement adds foreign connection.",
+      "houses_involved": [
+        9,
+        12
+      ],
+      "keywords": [
+        "education abroad",
+        "foreign study",
+        "12th house",
+        "Rahu"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_004",
+      "category": "education",
+      "topic": "education_interruption",
+      "rule_text": "Education interruption or failure: when the 4th cusp sub-lord signifies the 12th house (loss) or 8th house (sudden change) without positive 9th or 11th house connection.",
+      "houses_involved": [
+        4,
+        8,
+        12
+      ],
+      "keywords": [
+        "education interruption",
+        "failure",
+        "12th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_001",
+      "category": "children",
+      "topic": "children_promise",
+      "rule_text": "Children are promised when the 5th cusp sub-lord signifies houses 2, 5, and 11. Jupiter's involvement brings blessings of children. Affliction by Saturn or Ketu delays.",
+      "houses_involved": [
+        2,
+        5,
+        11
+      ],
+      "keywords": [
+        "children",
+        "5th cusp",
+        "Jupiter",
+        "progeny"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CHI_002",
+      "category": "children",
+      "topic": "children_timing",
+      "rule_text": "Childbirth timing: when dasha/antardasha lords signify houses 5 (children), 2 (family), and 11 (fulfillment). The 9th house connection brings fortune for the child.",
+      "houses_involved": [
+        2,
+        5,
+        9,
+        11
+      ],
+      "keywords": [
+        "childbirth timing",
+        "5th house",
+        "dasha"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CHI_003",
+      "category": "children",
+      "topic": "child_delay",
+      "rule_text": "Delay in having children: when the 5th cusp sub-lord signifies the 6th house (obstacles) or 8th house (transformation) without positive 5th or 11th house connection.",
+      "houses_involved": [
+        5,
+        6,
+        8
+      ],
+      "keywords": [
+        "child delay",
+        "5th house",
+        "6th house",
+        "obstacles"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_001",
+      "category": "property",
+      "topic": "property_purchase",
+      "rule_text": "Property purchase is indicated when the 4th cusp sub-lord signifies houses 4, 11, and 12 (investment in property). Mars involvement brings land/real estate gains.",
+      "houses_involved": [
+        4,
+        11,
+        12
+      ],
+      "keywords": [
+        "property",
+        "purchase",
+        "4th cusp",
+        "Mars"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_PRO_002",
+      "category": "property",
+      "topic": "property_timing",
+      "rule_text": "Property purchase timing: when dasha/antardasha lords signify houses 4 (home), 11 (gains), and 12 (investment/expenses for property). The 2nd house brings family home.",
+      "houses_involved": [
+        2,
+        4,
+        11,
+        12
+      ],
+      "keywords": [
+        "property timing",
+        "home purchase",
+        "4th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_PRO_003",
+      "category": "property",
+      "topic": "property_sale",
+      "rule_text": "Property sale is indicated when the 4th cusp sub-lord signifies the 3rd house (change of residence) and 12th house (disposal of assets). Saturn brings delayed sale.",
+      "houses_involved": [
+        3,
+        4,
+        12
+      ],
+      "keywords": [
+        "property sale",
+        "3rd house",
+        "12th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_TRA_001",
+      "category": "travel",
+      "topic": "foreign_travel",
+      "rule_text": "Foreign travel is indicated when the 12th cusp sub-lord signifies houses 3, 9, and 12. Rahu's involvement brings sudden or unconventional foreign trips. The 9th house shows long journeys.",
+      "houses_involved": [
+        3,
+        9,
+        12
+      ],
+      "keywords": [
+        "foreign travel",
+        "12th cusp",
+        "Rahu",
+        "9th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_TRA_002",
+      "category": "travel",
+      "topic": "foreign_settlement",
+      "rule_text": "Foreign settlement or long-term stay abroad: when the 12th cusp sub-lord signifies houses 4 (home) and 12 (foreign lands) simultaneously. Rahu or Ketu involvement strengthens this.",
+      "houses_involved": [
+        4,
+        12
+      ],
+      "keywords": [
+        "foreign settlement",
+        "abroad",
+        "12th house",
+        "Rahu"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_001",
+      "category": "misc",
+      "topic": "luck_fortune",
+      "rule_text": "General luck and fortune are assessed through the 9th cusp sub-lord. If it signifies houses 1, 9, and 11, the person is generally fortunate. Jupiter as significator brings divine grace.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "luck",
+        "fortune",
+        "9th cusp",
+        "Jupiter"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_002",
+      "category": "misc",
+      "topic": "obstacles_challenges",
+      "rule_text": "Obstacles and challenges arise when the dasha lord signifies houses 6 (enemies/debts), 8 (sudden setbacks), and 12 (losses) without positive house connections.",
+      "houses_involved": [
+        6,
+        8,
+        12
+      ],
+      "keywords": [
+        "obstacles",
+        "challenges",
+        "6th house",
+        "8th house",
+        "12th house"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MIS_003",
+      "category": "misc",
+      "topic": "spiritual_growth",
+      "rule_text": "Spiritual growth and inclination: when Ketu signifies the 9th or 12th house, or when the 12th cusp sub-lord is Ketu or Jupiter. Saturn brings discipline in spiritual practice.",
+      "houses_involved": [
+        9,
+        12
+      ],
+      "keywords": [
+        "spiritual growth",
+        "Ketu",
+        "Jupiter",
+        "12th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_011",
+      "category": "marriage",
+      "topic": "marriage_compatibility",
+      "rule_text": "Marriage compatibility is assessed through the 7th cusp sub-lord and Venus. If both signify harmonious houses (1, 5, 7, 9, 11), compatibility is strong.",
+      "houses_involved": [
+        1,
+        5,
+        7,
+        9,
+        11
+      ],
+      "keywords": [
+        "compatibility",
+        "Venus",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_012",
+      "category": "marriage",
+      "topic": "early_marriage",
+      "rule_text": "Early marriage (before 25) is indicated when Venus is strong and the 7th cusp sub-lord signifies houses 2, 7, 11 without Saturn's delay influence.",
+      "houses_involved": [
+        2,
+        7,
+        11
+      ],
+      "keywords": [
+        "early marriage",
+        "Venus",
+        "youth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_013",
+      "category": "marriage",
+      "topic": "late_marriage",
+      "rule_text": "Late marriage (after 30) occurs when Saturn aspects or signifies the 7th house, or when the 7th cusp sub-lord is in Saturn's star.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "late marriage",
+        "Saturn",
+        "delay"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_MAR_014",
+      "category": "marriage",
+      "topic": "spouse_profession",
+      "rule_text": "Spouse's profession is indicated by planets signifying the 7th house. Sun=government, Moon=public sector, Mars=technical, Mercury=business/communication, Jupiter=teaching/law, Venus=arts, Saturn=labor, Rahu=IT/foreign.",
+      "houses_involved": [
+        7,
+        10
+      ],
+      "keywords": [
+        "spouse profession",
+        "7th house",
+        "career"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_015",
+      "category": "marriage",
+      "topic": "spouse_wealth",
+      "rule_text": "Wealthy spouse is indicated when the 7th cusp sub-lord also signifies the 2nd house (wealth) and 11th house (gains). Jupiter or Venus strengthens prosperity.",
+      "houses_involved": [
+        2,
+        7,
+        11
+      ],
+      "keywords": [
+        "wealthy spouse",
+        "prosperity",
+        "2nd house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_016",
+      "category": "marriage",
+      "topic": "spouse_appearance",
+      "rule_text": "Spouse's physical appearance: Venus=beautiful/fair, Mars=athletic/reddish, Saturn=dark/thin, Moon=fair/round face, Sun=wheatish/authoritative, Mercury=youthful, Jupiter=well-built, Rahu=unusual features.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse appearance",
+        "physical features",
+        "Venus"
+      ],
+      "confidence": "low"
+    },
+    {
+      "rule_id": "KP_MAR_017",
+      "category": "marriage",
+      "topic": "multiple_marriages",
+      "rule_text": "Multiple marriages are indicated when the 7th cusp sub-lord signifies both 7th and 9th houses (second spouse), with Rahu or Venus involvement showing multiple relationships.",
+      "houses_involved": [
+        7,
+        9
+      ],
+      "keywords": [
+        "multiple marriages",
+        "Rahu",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_018",
+      "category": "marriage",
+      "topic": "secret_relationship",
+      "rule_text": "Secret or hidden relationship is indicated when the 12th house (secrets) is connected to the 5th house (romance) or 7th house (partnership). Rahu adds clandestine element.",
+      "houses_involved": [
+        5,
+        7,
+        12
+      ],
+      "keywords": [
+        "secret relationship",
+        "12th house",
+        "Rahu"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_019",
+      "category": "marriage",
+      "topic": "marriage_after_breakup",
+      "rule_text": "Marriage after breakup or failed relationship: when the 7th cusp sub-lord signifies 6th house (separation from first) and then 11th house (fulfillment in second).",
+      "houses_involved": [
+        6,
+        7,
+        11
+      ],
+      "keywords": [
+        "breakup",
+        "second chance",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_020",
+      "category": "marriage",
+      "topic": "spouse_from_workplace",
+      "rule_text": "Spouse from workplace or professional circle: when the 7th cusp sub-lord signifies the 6th house (service/colleagues) or 10th house (profession).",
+      "houses_involved": [
+        6,
+        7,
+        10
+      ],
+      "keywords": [
+        "workplace romance",
+        "colleague",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_011",
+      "category": "career",
+      "topic": "job_stability",
+      "rule_text": "Job stability is indicated when Saturn signifies the 6th or 10th house, providing long-term employment. Jupiter adds growth within the same organization.",
+      "houses_involved": [
+        6,
+        10
+      ],
+      "keywords": [
+        "job stability",
+        "Saturn",
+        "long-term"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_012",
+      "category": "career",
+      "topic": "multiple_income_sources",
+      "rule_text": "Multiple income sources: when the 11th cusp sub-lord signifies houses 2, 6, and 10 simultaneously, indicating gains from various professional activities.",
+      "houses_involved": [
+        2,
+        6,
+        10,
+        11
+      ],
+      "keywords": [
+        "multiple income",
+        "side business",
+        "11th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_013",
+      "category": "career",
+      "topic": "creative_career",
+      "rule_text": "Creative career (arts, design, media): when Venus or Moon signifies the 10th house, or when the 5th house (creativity) is connected to the 10th house.",
+      "houses_involved": [
+        5,
+        10
+      ],
+      "keywords": [
+        "creative career",
+        "Venus",
+        "arts"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_014",
+      "category": "career",
+      "topic": "technical_career",
+      "rule_text": "Technical/engineering career: when Mars or Mercury signifies the 10th house. Mars=mechanical/electrical, Mercury=IT/software, Saturn=civil/structural.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "technical career",
+        "Mars",
+        "Mercury",
+        "engineering"
+      ],
+      "confidence": "high"
+    },
+    {
+      "rule_id": "KP_CAR_015",
+      "category": "career",
+      "topic": "medical_career",
+      "rule_text": "Medical/healthcare career: when the 6th house (healing) is connected to the 10th house, with Mars (surgery) or Jupiter (medicine) as significators.",
+      "houses_involved": [
+        6,
+        10
+      ],
+      "keywords": [
+        "medical career",
+        "healthcare",
+        "Mars",
+        "Jupiter"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_021",
+      "category": "marriage",
+      "topic": "spouse_education",
+      "rule_text": "Spouse's education level is indicated by the 9th house connection to the 7th house. Jupiter signifies higher education; Mercury indicates technical/business education.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse education",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_022",
+      "category": "marriage",
+      "topic": "spouse_family",
+      "rule_text": "Spouse's family background: 2nd house (family wealth) and 4th house (family status) connection to 7th house. Jupiter=respected family, Saturn=humble background.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse family",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_023",
+      "category": "marriage",
+      "topic": "marriage_location",
+      "rule_text": "Marriage location (home/destination): 4th house=home city, 12th house=foreign/distant place, 3rd house=nearby city.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "marriage location",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_024",
+      "category": "marriage",
+      "topic": "wedding_timing",
+      "rule_text": "Wedding ceremony timing: when dasha lords activate houses 2 (family gathering), 7 (marriage), and 11 (celebration).",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "wedding timing",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_025",
+      "category": "marriage",
+      "topic": "pre_marriage_relationship",
+      "rule_text": "Pre-marriage relationship duration: 5th house (romance) to 7th house (marriage) transition timing shows courtship period.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "pre marriage relationship",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_026",
+      "category": "marriage",
+      "topic": "spouse_age_difference",
+      "rule_text": "Age difference with spouse: Saturn=older spouse, Moon/Venus=younger spouse, Sun/Jupiter=similar age.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse age difference",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_027",
+      "category": "marriage",
+      "topic": "marriage_obstacles",
+      "rule_text": "Obstacles in marriage: 6th house (disputes), 8th house (sudden breaks), 12th house (separation) afflicting 7th cusp sub-lord.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "marriage obstacles",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_028",
+      "category": "marriage",
+      "topic": "inter_caste_marriage",
+      "rule_text": "Inter-caste marriage: Rahu or Ketu signifying 7th house, or 7th cusp sub-lord in dual signs (Gemini, Sagittarius, Pisces).",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "inter caste marriage",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_029",
+      "category": "marriage",
+      "topic": "marriage_happiness_duration",
+      "rule_text": "Long-term marital happiness: Venus and 7th cusp sub-lord both in benefic houses (1,4,5,7,9,10,11) without malefic aspects.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "marriage happiness duration",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_030",
+      "category": "marriage",
+      "topic": "remarriage_after_divorce",
+      "rule_text": "Remarriage after divorce: 7th cusp sub-lord signifies 9th house (second spouse) with positive 2nd and 11th house connections.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "remarriage after divorce",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_031",
+      "category": "marriage",
+      "topic": "spouse_health",
+      "rule_text": "Spouse's health: 8th house (longevity of spouse) and 6th house (illness of spouse) connections to 7th cusp sub-lord.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse health",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_032",
+      "category": "marriage",
+      "topic": "marriage_registration",
+      "rule_text": "Legal marriage registration: 10th house (legal matters) connection to 7th house during dasha period.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "marriage registration",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_033",
+      "category": "marriage",
+      "topic": "elopement",
+      "rule_text": "Elopement or secret marriage: 12th house (secrecy) strongly connected to 5th (romance) and 7th (marriage) without 4th house (family).",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "elopement",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_034",
+      "category": "marriage",
+      "topic": "spouse_profession_change",
+      "rule_text": "Spouse's career change after marriage: 10th house from 7th (spouse's career) signified by dasha lord.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse profession change",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_035",
+      "category": "marriage",
+      "topic": "marriage_expenses",
+      "rule_text": "Marriage expenses and dowry: 12th house (expenses) and 2nd house (family wealth) activation during marriage dasha.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "marriage expenses",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_036",
+      "category": "marriage",
+      "topic": "spouse_siblings",
+      "rule_text": "Spouse's siblings: 3rd house from 7th (9th house overall) shows spouse's younger siblings; 11th house from 7th (5th house) shows elder siblings.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse siblings",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_037",
+      "category": "marriage",
+      "topic": "marriage_delay_remedy",
+      "rule_text": "Remedies for marriage delay: when Saturn delays 7th house, strengthen Venus and worship deities of 7th cusp sub-lord.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "marriage delay remedy",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_038",
+      "category": "marriage",
+      "topic": "love_vs_arranged_timing",
+      "rule_text": "Love marriage happens earlier (Venus dasha); arranged marriage happens in Saturn/Jupiter dasha with family involvement.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "love vs arranged timing",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_039",
+      "category": "marriage",
+      "topic": "spouse_foreign_origin",
+      "rule_text": "Spouse from foreign country: Rahu in 7th, or 7th cusp sub-lord in 12th house with 9th house (foreign travel) connection.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "spouse foreign origin",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MAR_040",
+      "category": "marriage",
+      "topic": "multiple_proposals",
+      "rule_text": "Multiple marriage proposals: 7th cusp sub-lord signifies 11th house (multiple gains) with Venus in strong position.",
+      "houses_involved": [
+        7
+      ],
+      "keywords": [
+        "multiple proposals",
+        "marriage",
+        "7th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_016",
+      "category": "career",
+      "topic": "teaching_career",
+      "rule_text": "Teaching/education career: Jupiter or Mercury signifying 10th house with 4th house (education) or 9th house (higher learning) connection.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "teaching career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_017",
+      "category": "career",
+      "topic": "legal_career",
+      "rule_text": "Legal/law career: Jupiter signifying 10th house with 9th house (law/justice) connection. Saturn adds litigation practice.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "legal career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_018",
+      "category": "career",
+      "topic": "finance_career",
+      "rule_text": "Finance/banking career: Venus or Mercury signifying 10th house with 2nd house (wealth) and 11th house (gains) connection.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "finance career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_019",
+      "category": "career",
+      "topic": "sales_marketing",
+      "rule_text": "Sales/marketing career: Mercury (communication) and Venus (persuasion) signifying 10th house with 3rd house (communication).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "sales marketing",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_020",
+      "category": "career",
+      "topic": "research_career",
+      "rule_text": "Research/science career: Ketu or Saturn signifying 10th house with 8th house (deep investigation) connection.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "research career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_021",
+      "category": "career",
+      "topic": "politics_career",
+      "rule_text": "Politics/public service: Sun or Jupiter signifying 10th house with 9th house (governance) and 11th house (mass gains).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "politics career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_022",
+      "category": "career",
+      "topic": "sports_career",
+      "rule_text": "Sports/athletics career: Mars signifying 10th house with 5th house (sports/competition) and 3rd house (physical effort).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "sports career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_023",
+      "category": "career",
+      "topic": "writing_journalism",
+      "rule_text": "Writing/journalism career: Mercury signifying 10th house with 3rd house (communication) and 9th house (publishing).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "writing journalism",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_024",
+      "category": "career",
+      "topic": "hospitality_career",
+      "rule_text": "Hospitality/hotel career: Moon or Venus signifying 10th house with 4th house (comfort) and 12th house (service).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "hospitality career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_025",
+      "category": "career",
+      "topic": "real_estate_career",
+      "rule_text": "Real estate career: Mars or Saturn signifying 10th house with 4th house (property) and 11th house (gains).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "real estate career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_026",
+      "category": "career",
+      "topic": "spiritual_career",
+      "rule_text": "Spiritual/religious career: Jupiter or Ketu signifying 10th house with 9th house (dharma) and 12th house (moksha).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "spiritual career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_027",
+      "category": "career",
+      "topic": "freelance_work",
+      "rule_text": "Freelance/contract work: Mercury or Rahu signifying 10th house with 3rd house (self-effort) without 6th house (permanent service).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "freelance work",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_028",
+      "category": "career",
+      "topic": "agriculture_career",
+      "rule_text": "Agriculture/farming: Saturn or Moon signifying 10th house with 4th house (land) connection.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "agriculture career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_029",
+      "category": "career",
+      "topic": "aviation_career",
+      "rule_text": "Aviation/pilot career: Rahu signifying 10th house with 9th house (long travel) and 12th house (foreign).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "aviation career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_030",
+      "category": "career",
+      "topic": "social_work",
+      "rule_text": "Social work/NGO: Moon or Jupiter signifying 10th house with 11th house (community) and 12th house (service).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "social work",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_031",
+      "category": "career",
+      "topic": "consulting_career",
+      "rule_text": "Consulting/advisory: Jupiter or Mercury signifying 10th house with 9th house (wisdom) and 11th house (clients).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "consulting career",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_032",
+      "category": "career",
+      "topic": "startup_founder",
+      "rule_text": "Startup/entrepreneurship: Sun or Rahu signifying 10th house with 7th house (business) and 11th house (innovation).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "startup founder",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_033",
+      "category": "career",
+      "topic": "career_peak",
+      "rule_text": "Career peak/pinnacle: Sun or Jupiter dasha with 10th cusp sub-lord signifying houses 2, 10, 11 simultaneously.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "career peak",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_034",
+      "category": "career",
+      "topic": "career_stagnation",
+      "rule_text": "Career stagnation: Saturn dasha with 10th cusp sub-lord signifying 6th or 8th house without 11th house support.",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "career stagnation",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CAR_035",
+      "category": "career",
+      "topic": "job_transfer",
+      "rule_text": "Job transfer/relocation: 3rd house (change of place) and 10th house (career) signified by dasha lord with 12th house (new location).",
+      "houses_involved": [
+        10
+      ],
+      "keywords": [
+        "job transfer",
+        "career",
+        "10th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_008",
+      "category": "finance",
+      "topic": "lottery_gains",
+      "rule_text": "Lottery/gambling gains: 5th house (speculation) and 8th house (sudden gains) signifying 2nd and 11th houses. Rahu adds luck.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "lottery gains",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_009",
+      "category": "finance",
+      "topic": "inheritance_timing",
+      "rule_text": "Inheritance timing: 8th cusp sub-lord signifies houses 2 and 11 during dasha period. Jupiter brings ancestral wealth.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "inheritance timing",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_010",
+      "category": "finance",
+      "topic": "business_profit",
+      "rule_text": "Business profit: 7th house (business) and 10th house (profession) both signifying 2nd and 11th houses.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "business profit",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_011",
+      "category": "finance",
+      "topic": "stock_market_success",
+      "rule_text": "Stock market success: 5th cusp sub-lord (speculation) signifies 2nd and 11th houses. Mercury adds trading skills.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "stock market success",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_012",
+      "category": "finance",
+      "topic": "property_income",
+      "rule_text": "Property/rental income: 4th house (property) signifying 11th house (gains). Saturn brings long-term rental income.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "property income",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_013",
+      "category": "finance",
+      "topic": "foreign_income",
+      "rule_text": "Foreign income/earnings: 12th house (foreign) signifying 2nd and 11th houses. Rahu strengthens foreign money.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "foreign income",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_014",
+      "category": "finance",
+      "topic": "partnership_gains",
+      "rule_text": "Partnership business gains: 7th cusp sub-lord signifies 2nd, 10th, and 11th houses without 6th or 12th affliction.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "partnership gains",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_015",
+      "category": "finance",
+      "topic": "insurance_claim",
+      "rule_text": "Insurance claim/settlement: 8th house (insurance) signifying 11th house (gains) during favorable dasha.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "insurance claim",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_016",
+      "category": "finance",
+      "topic": "tax_refund",
+      "rule_text": "Tax refund/recovery: 6th house (government dues) signifying 11th house (recovery) with 2nd house support.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "tax refund",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_017",
+      "category": "finance",
+      "topic": "salary_arrears",
+      "rule_text": "Salary arrears/bonus: 2nd house (income) and 11th house (gains) activated by dasha lord with 6th house (service) connection.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "salary arrears",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_018",
+      "category": "finance",
+      "topic": "financial_crisis",
+      "rule_text": "Financial crisis: 2nd cusp sub-lord signifies 6th (debts), 8th (sudden loss), 12th (expenses) without 11th house support.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "financial crisis",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_019",
+      "category": "finance",
+      "topic": "bankruptcy_risk",
+      "rule_text": "Bankruptcy/major loss: 2nd and 11th cusp sub-lords both signify 12th house with Saturn or Rahu affliction.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "bankruptcy risk",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_020",
+      "category": "finance",
+      "topic": "loan_approval",
+      "rule_text": "Loan approval: 6th cusp sub-lord (loans) signifies 2nd house (receiving money) and 11th house (fulfillment).",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "loan approval",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_021",
+      "category": "finance",
+      "topic": "debt_trap",
+      "rule_text": "Debt trap/accumulation: 6th cusp sub-lord signifies 8th and 12th houses without 11th house (repayment capacity).",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "debt trap",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_022",
+      "category": "finance",
+      "topic": "gold_investment",
+      "rule_text": "Gold/jewelry investment: Venus signifying 2nd house (wealth) and 11th house (gains) with 4th house (assets).",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "gold investment",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_023",
+      "category": "finance",
+      "topic": "crypto_trading",
+      "rule_text": "Cryptocurrency/modern trading: Rahu signifying 5th house (speculation) and 11th house (gains) with Mercury (technology).",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "crypto trading",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_024",
+      "category": "finance",
+      "topic": "pension_benefits",
+      "rule_text": "Pension/retirement benefits: Saturn signifying 2nd and 11th houses in old age dasha periods.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "pension benefits",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_025",
+      "category": "finance",
+      "topic": "commission_income",
+      "rule_text": "Commission/incentive income: 3rd house (self-effort) and 10th house (profession) signifying 2nd and 11th houses.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "commission income",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_026",
+      "category": "finance",
+      "topic": "royalty_income",
+      "rule_text": "Royalty/passive income: 5th house (creativity) or 9th house (publishing) signifying 2nd and 11th houses.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "royalty income",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_027",
+      "category": "finance",
+      "topic": "financial_independence",
+      "rule_text": "Financial independence: 2nd and 11th cusp sub-lords both strong, signifying each other without 6th, 8th, 12th affliction.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "financial independence",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_028",
+      "category": "finance",
+      "topic": "charity_donations",
+      "rule_text": "Charity/donations: 12th house (giving away) activated during Jupiter or Venus dasha with 9th house (dharma).",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "charity donations",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_029",
+      "category": "finance",
+      "topic": "financial_fraud",
+      "rule_text": "Financial fraud/cheating: Rahu or Ketu afflicting 2nd house with 6th (disputes) or 8th (sudden loss) connection.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "financial fraud",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MON_030",
+      "category": "finance",
+      "topic": "wealth_preservation",
+      "rule_text": "Wealth preservation: Saturn signifying 2nd and 11th houses, providing stability and long-term accumulation.",
+      "houses_involved": [
+        2,
+        11
+      ],
+      "keywords": [
+        "wealth preservation",
+        "finance",
+        "wealth"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_006",
+      "category": "health",
+      "topic": "digestive_issues",
+      "rule_text": "Digestive/stomach issues: 6th cusp sub-lord in earthy signs (Taurus, Virgo, Capricorn) with Mars or Saturn affliction.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "digestive issues",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_007",
+      "category": "health",
+      "topic": "respiratory_problems",
+      "rule_text": "Respiratory/lung issues: 6th cusp sub-lord in airy signs (Gemini, Libra, Aquarius) with Mercury or Saturn affliction.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "respiratory problems",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_008",
+      "category": "health",
+      "topic": "heart_conditions",
+      "rule_text": "Cardiac/heart issues: Sun or Mars afflicting 4th house (heart) or 6th house with Leo sign involvement.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "heart conditions",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_009",
+      "category": "health",
+      "topic": "kidney_problems",
+      "rule_text": "Kidney/urinary issues: Venus afflicted in 6th house or 6th cusp sub-lord in Libra/Scorpio with Saturn.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "kidney problems",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_010",
+      "category": "health",
+      "topic": "diabetes_risk",
+      "rule_text": "Diabetes/blood sugar: Jupiter afflicted in 6th house or 6th cusp sub-lord with Venus in watery signs.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "diabetes risk",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_011",
+      "category": "health",
+      "topic": "blood_pressure",
+      "rule_text": "Blood pressure issues: Mars or Sun afflicting 6th house with 1st house (vitality) connection.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "blood pressure",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_012",
+      "category": "health",
+      "topic": "joint_pain",
+      "rule_text": "Joint/bone pain: Saturn signifying 6th house with 1st house (body) affliction in earthy signs.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "joint pain",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_013",
+      "category": "health",
+      "topic": "skin_diseases",
+      "rule_text": "Skin diseases: Mars, Saturn, or Rahu afflicting 6th house in fiery signs (Aries, Leo, Sagittarius).",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "skin diseases",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_014",
+      "category": "health",
+      "topic": "eye_problems",
+      "rule_text": "Eye/vision problems: Sun or Moon afflicted in 6th house or 2nd house (eyes) with Saturn/Rahu.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "eye problems",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_015",
+      "category": "health",
+      "topic": "dental_issues",
+      "rule_text": "Dental/teeth problems: Saturn afflicting 2nd house (mouth/teeth) or 6th house in Capricorn/Aquarius.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "dental issues",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_016",
+      "category": "health",
+      "topic": "migraine_headache",
+      "rule_text": "Migraine/headaches: Mars or Rahu afflicting 1st house (head) or 6th house in Aries.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "migraine headache",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_017",
+      "category": "health",
+      "topic": "anxiety_disorders",
+      "rule_text": "Anxiety/panic disorders: Rahu afflicting Moon (mind) or 4th house with 6th or 8th house connection.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "anxiety disorders",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_018",
+      "category": "health",
+      "topic": "insomnia",
+      "rule_text": "Insomnia/sleep disorders: Saturn or Rahu afflicting Moon or 4th house (rest) with 6th house connection.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "insomnia",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_019",
+      "category": "health",
+      "topic": "accident_prone",
+      "rule_text": "Accident proneness: Mars signifying 6th and 8th houses with 1st house (body) affliction during dasha.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "accident prone",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_020",
+      "category": "health",
+      "topic": "allergies",
+      "rule_text": "Allergies/immune issues: Mercury or Moon afflicted in 6th house with Rahu in airy or watery signs.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "allergies",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_021",
+      "category": "health",
+      "topic": "thyroid_problems",
+      "rule_text": "Thyroid issues: Venus or Mercury afflicted in 6th house in Taurus (throat) with Saturn.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "thyroid problems",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_022",
+      "category": "health",
+      "topic": "liver_issues",
+      "rule_text": "Liver problems: Jupiter afflicted in 6th house or 5th house (liver) with Mars or Saturn in fiery signs.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "liver issues",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_023",
+      "category": "health",
+      "topic": "gynecological_issues",
+      "rule_text": "Gynecological issues (women): Moon or Venus afflicted in 6th or 8th house in watery signs.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "gynecological issues",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_024",
+      "category": "health",
+      "topic": "prostate_issues",
+      "rule_text": "Prostate issues (men): Mars or Saturn afflicting 6th or 8th house in Scorpio with age factor.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "prostate issues",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_HEA_025",
+      "category": "health",
+      "topic": "recovery_speed",
+      "rule_text": "Recovery speed from illness: 1st and 11th house strength; Jupiter or Venus dasha brings faster healing.",
+      "houses_involved": [
+        1,
+        6,
+        8
+      ],
+      "keywords": [
+        "recovery speed",
+        "health",
+        "6th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_005",
+      "category": "education",
+      "topic": "scholarship",
+      "rule_text": "Scholarship/financial aid for education: 4th or 9th cusp sub-lord signifies 2nd and 11th houses with Jupiter.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "scholarship",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_006",
+      "category": "education",
+      "topic": "competitive_exam",
+      "rule_text": "Competitive exam success: Mercury strong, 4th cusp sub-lord signifies 4th, 9th, 11th houses during exam dasha.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "competitive exam",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_007",
+      "category": "education",
+      "topic": "engineering_degree",
+      "rule_text": "Engineering degree: Mars or Mercury signifying 4th and 9th houses with technical sign (Gemini, Virgo, Aquarius).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "engineering degree",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_008",
+      "category": "education",
+      "topic": "medical_degree",
+      "rule_text": "Medical degree: Mars or Jupiter signifying 4th and 9th houses with 6th house (healing) connection.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "medical degree",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_009",
+      "category": "education",
+      "topic": "mba_degree",
+      "rule_text": "MBA/business degree: Mercury or Jupiter signifying 9th house with 7th house (business) and 10th house (career).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "mba degree",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_010",
+      "category": "education",
+      "topic": "phd_research",
+      "rule_text": "PhD/research degree: Ketu or Saturn signifying 9th house with 8th house (deep study) and 12th house (isolation).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "phd research",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_011",
+      "category": "education",
+      "topic": "arts_degree",
+      "rule_text": "Arts/humanities degree: Venus or Moon signifying 4th and 9th houses with 5th house (creativity).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "arts degree",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_012",
+      "category": "education",
+      "topic": "law_degree",
+      "rule_text": "Law degree: Jupiter signifying 9th house (law) with 10th house (profession) and 6th house (litigation).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "law degree",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_013",
+      "category": "education",
+      "topic": "distance_learning",
+      "rule_text": "Distance/online education: Rahu or Mercury signifying 4th or 9th house with 12th house (remote) connection.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "distance learning",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_014",
+      "category": "education",
+      "topic": "education_loan",
+      "rule_text": "Education loan: 6th cusp sub-lord (loans) signifies 4th or 9th house (education) with 2nd house (money).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "education loan",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_015",
+      "category": "education",
+      "topic": "dropout_risk",
+      "rule_text": "Education dropout: 4th or 9th cusp sub-lord signifies 12th house (loss) or 8th house (break) without 11th house.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "dropout risk",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_016",
+      "category": "education",
+      "topic": "exam_failure",
+      "rule_text": "Exam failure: Mercury weak, 4th cusp sub-lord signifies 6th (obstacles) or 8th (sudden setback) during exam.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "exam failure",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_017",
+      "category": "education",
+      "topic": "topper_rank",
+      "rule_text": "Top rank/excellence: Mercury and Jupiter both strong, 4th and 9th cusp sub-lords signify 1st, 9th, 11th houses.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "topper rank",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_018",
+      "category": "education",
+      "topic": "vocational_training",
+      "rule_text": "Vocational/skill training: 3rd house (skills) and 10th house (profession) signified by 4th cusp sub-lord.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "vocational training",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_019",
+      "category": "education",
+      "topic": "language_learning",
+      "rule_text": "Language learning: Mercury signifying 4th house with 3rd house (communication) and 9th house (foreign language).",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "language learning",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_EDU_020",
+      "category": "education",
+      "topic": "education_gap",
+      "rule_text": "Gap year/education break: 4th cusp sub-lord signifies 3rd house (change) or 12th house (pause) during dasha.",
+      "houses_involved": [
+        4,
+        9
+      ],
+      "keywords": [
+        "education gap",
+        "education",
+        "4th house",
+        "9th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_004",
+      "category": "children",
+      "topic": "first_child_gender",
+      "rule_text": "First child gender: Male if Mars/Sun/Jupiter signifies 5th house; Female if Moon/Venus signifies 5th house.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "first child gender",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_005",
+      "category": "children",
+      "topic": "twins_possibility",
+      "rule_text": "Twins/multiple births: 5th cusp sub-lord in dual signs (Gemini, Sagittarius, Pisces) with Mercury or Jupiter.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "twins possibility",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_006",
+      "category": "children",
+      "topic": "child_health",
+      "rule_text": "Child's health: 5th cusp sub-lord should not signify 6th or 8th house; Jupiter protection brings healthy child.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "child health",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_007",
+      "category": "children",
+      "topic": "adoption",
+      "rule_text": "Adoption of child: 5th cusp sub-lord signifies 12th house (not own) with 9th house (legal) and 11th house (fulfillment).",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "adoption",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_008",
+      "category": "children",
+      "topic": "ivf_success",
+      "rule_text": "IVF/medical assistance: 5th cusp sub-lord signifies 6th house (medical) and 11th house (success) with Mars (surgery).",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "ivf success",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_009",
+      "category": "children",
+      "topic": "miscarriage_risk",
+      "rule_text": "Miscarriage risk: 5th cusp sub-lord signifies 12th house (loss) or 8th house (sudden end) with Mars or Ketu affliction.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "miscarriage risk",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_010",
+      "category": "children",
+      "topic": "child_education",
+      "rule_text": "Child's education success: 5th house (children) and 9th house (education) both strong with Jupiter or Mercury.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "child education",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_011",
+      "category": "children",
+      "topic": "child_career",
+      "rule_text": "Child's career prospects: 5th house (children) and 10th house (career) connection shows child's professional success.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "child career",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_012",
+      "category": "children",
+      "topic": "child_marriage",
+      "rule_text": "Child's marriage: 5th house (children) and 7th house (marriage) connection during appropriate dasha period.",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "child marriage",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_013",
+      "category": "children",
+      "topic": "son_preference",
+      "rule_text": "Son birth: Sun, Mars, or Jupiter strongly signifying 5th house in masculine signs (Aries, Gemini, Leo, Libra, Sagittarius, Aquarius).",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "son preference",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_014",
+      "category": "children",
+      "topic": "daughter_preference",
+      "rule_text": "Daughter birth: Moon or Venus strongly signifying 5th house in feminine signs (Taurus, Cancer, Virgo, Scorpio, Capricorn, Pisces).",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "daughter preference",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_CHI_015",
+      "category": "children",
+      "topic": "child_abroad",
+      "rule_text": "Child settling abroad: 5th house (children) and 12th house (foreign) connection with 9th house (long travel).",
+      "houses_involved": [
+        5
+      ],
+      "keywords": [
+        "child abroad",
+        "children",
+        "5th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_004",
+      "category": "property",
+      "topic": "ancestral_property",
+      "rule_text": "Ancestral property inheritance: 4th house (property) and 8th house (inheritance) signified by dasha lord.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "ancestral property",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_005",
+      "category": "property",
+      "topic": "property_dispute",
+      "rule_text": "Property dispute: 4th cusp sub-lord signifies 6th house (disputes) or 8th house (conflict) with Mars or Saturn.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property dispute",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_006",
+      "category": "property",
+      "topic": "property_profit",
+      "rule_text": "Property sale profit: 4th cusp sub-lord signifies 3rd house (sale) and 11th house (gains) during favorable dasha.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property profit",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_007",
+      "category": "property",
+      "topic": "property_loss",
+      "rule_text": "Property loss/forced sale: 4th cusp sub-lord signifies 12th house (loss) or 8th house (sudden) with 6th house (debts).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property loss",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_008",
+      "category": "property",
+      "topic": "land_purchase",
+      "rule_text": "Land/plot purchase: Mars signifying 4th house with 11th house (gains) and 12th house (investment).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "land purchase",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_009",
+      "category": "property",
+      "topic": "apartment_purchase",
+      "rule_text": "Apartment/flat purchase: Venus or Moon signifying 4th house with 11th and 12th houses in urban signs.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "apartment purchase",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_010",
+      "category": "property",
+      "topic": "villa_purchase",
+      "rule_text": "Villa/independent house: Sun or Jupiter signifying 4th house with 2nd house (wealth) and 11th house (luxury).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "villa purchase",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_011",
+      "category": "property",
+      "topic": "property_construction",
+      "rule_text": "Property construction: Mars signifying 4th house with 10th house (building) and 12th house (expenses).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property construction",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_012",
+      "category": "property",
+      "topic": "property_renovation",
+      "rule_text": "Property renovation: 4th cusp sub-lord signifies 3rd house (change) and 12th house (expenses) with Mars.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property renovation",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_013",
+      "category": "property",
+      "topic": "property_rental",
+      "rule_text": "Renting property (as tenant): 4th cusp sub-lord signifies 12th house (expenses) without 11th house (ownership).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property rental",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_014",
+      "category": "property",
+      "topic": "property_loan",
+      "rule_text": "Property loan/mortgage: 6th cusp sub-lord (loans) signifies 4th house (property) and 11th house (approval).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property loan",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_015",
+      "category": "property",
+      "topic": "property_documentation",
+      "rule_text": "Property legal documentation: 10th house (legal) signifying 4th house (property) during registration dasha.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property documentation",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_016",
+      "category": "property",
+      "topic": "property_location",
+      "rule_text": "Property location: 4th cusp sub-lord in watery signs=near water, earthy=land, fiery=hills, airy=open area.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property location",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_017",
+      "category": "property",
+      "topic": "property_direction",
+      "rule_text": "Property direction: 4th cusp sub-lord planet's natural direction (Sun=East, Moon=NW, Mars=South, etc.).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property direction",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_018",
+      "category": "property",
+      "topic": "commercial_property",
+      "rule_text": "Commercial property: 4th house (property) and 10th house (business) signified with 7th house (trade).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "commercial property",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_019",
+      "category": "property",
+      "topic": "agricultural_land",
+      "rule_text": "Agricultural land: 4th house (land) and Saturn (agriculture) with earthy signs (Taurus, Virgo, Capricorn).",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "agricultural land",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_PRO_020",
+      "category": "property",
+      "topic": "property_abroad",
+      "rule_text": "Property in foreign country: 4th house (property) and 12th house (foreign) signified by Rahu or 9th house.",
+      "houses_involved": [
+        4
+      ],
+      "keywords": [
+        "property abroad",
+        "property",
+        "4th house"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_004",
+      "category": "misc",
+      "topic": "court_case_win",
+      "rule_text": "Court case victory: 6th cusp sub-lord signifies 11th house (victory over enemies) with Jupiter or Sun strength.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "court case win",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_005",
+      "category": "misc",
+      "topic": "court_case_loss",
+      "rule_text": "Court case defeat: 6th cusp sub-lord signifies 12th house (loss) or 8th house (sudden adverse) with Saturn.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "court case loss",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_006",
+      "category": "misc",
+      "topic": "vehicle_purchase",
+      "rule_text": "Vehicle purchase: 4th cusp sub-lord (vehicles) signifies 11th house (gains) and 12th house (expenses) with Venus or Mars.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "vehicle purchase",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_007",
+      "category": "misc",
+      "topic": "vehicle_accident",
+      "rule_text": "Vehicle accident: Mars afflicting 4th house (vehicles) or 3rd house (short travel) with 6th or 8th house.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "vehicle accident",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_008",
+      "category": "misc",
+      "topic": "pet_animals",
+      "rule_text": "Pet animals: 6th house (small animals) signified positively with Venus or Moon; avoid if 6th cusp sub-lord in 8th/12th.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "pet animals",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_009",
+      "category": "misc",
+      "topic": "theft_loss",
+      "rule_text": "Theft/burglary: 4th house (home) or 2nd house (wealth) afflicted by Rahu or Saturn in 6th, 8th, or 12th house.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "theft loss",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_010",
+      "category": "misc",
+      "topic": "fame_recognition",
+      "rule_text": "Fame/public recognition: 10th cusp sub-lord signifies 1st, 5th, 10th, 11th houses with Sun or Jupiter strength.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "fame recognition",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_011",
+      "category": "misc",
+      "topic": "scandal_defamation",
+      "rule_text": "Scandal/defamation: 10th house (reputation) afflicted by Rahu or Saturn signifying 6th, 8th, or 12th house.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "scandal defamation",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_012",
+      "category": "misc",
+      "topic": "relocation_city",
+      "rule_text": "City relocation: 3rd house (change of place) and 4th house (home) signified by dasha lord with 12th house (leaving).",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "relocation city",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_013",
+      "category": "misc",
+      "topic": "pilgrimage_travel",
+      "rule_text": "Pilgrimage/spiritual travel: 9th house (pilgrimage) and 12th house (travel) signified by Jupiter or Ketu.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "pilgrimage travel",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_014",
+      "category": "misc",
+      "topic": "competition_success",
+      "rule_text": "Competition/contest success: 5th house (competition) and 11th house (victory) signified with Mars or Sun strength.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "competition success",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "KP_MIS_015",
+      "category": "misc",
+      "topic": "lottery_win",
+      "rule_text": "Lottery/lucky win: 5th house (speculation) and 8th house (sudden) signifying 2nd and 11th houses with Rahu or Jupiter.",
+      "houses_involved": [
+        1,
+        9,
+        11
+      ],
+      "keywords": [
+        "lottery win",
+        "general",
+        "miscellaneous"
+      ],
+      "confidence": "medium"
+    }
+  ]
+}

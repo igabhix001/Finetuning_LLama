@@ -1,0 +1,216 @@
+{
+  "version": "1.0",
+  "description": "KP Dasha Interpretation Rules — Mahadasha and Antardasha period predictions",
+  "source": "KP Readers Vol 1-6",
+  "rules": [
+    {"rule_id": "KP_DASH_SUN_001", "maha_dasha": "Sun", "antar_dasha": null, "period_years": 6,
+     "general_themes": ["authority", "government", "father", "ego", "recognition", "health"],
+     "favorable_if_signifies": [1, 2, 6, 10, 11], "challenging_if_signifies": [6, 8, 12],
+     "prediction": "Sun Mahadasha brings focus on career, authority, and recognition. Government connections strengthen. Father's health or relationship becomes prominent. Ego conflicts possible. Good for leadership roles.",
+     "keywords": ["Sun dasha", "authority", "career", "government"]},
+
+    {"rule_id": "KP_DASH_SUN_MON", "maha_dasha": "Sun", "antar_dasha": "Moon",
+     "prediction": "Sun-Moon period brings emotional sensitivity alongside career ambitions. Public recognition possible. Mother's health or relationship highlighted. Mind and ego may conflict. Good for public-facing roles.",
+     "favorable_houses": [1, 2, 4, 10, 11], "keywords": ["Sun-Moon", "public recognition", "mother"]},
+
+    {"rule_id": "KP_DASH_SUN_MAR", "maha_dasha": "Sun", "antar_dasha": "Mars",
+     "prediction": "Sun-Mars period is energetic and action-oriented. Career advancement through bold moves. Property matters active. Possible conflicts with authority. Good for sports, military, engineering.",
+     "favorable_houses": [1, 3, 6, 10, 11], "keywords": ["Sun-Mars", "energy", "property", "career"]},
+
+    {"rule_id": "KP_DASH_SUN_RAH", "maha_dasha": "Sun", "antar_dasha": "Rahu",
+     "prediction": "Sun-Rahu period brings sudden changes in career and status. Foreign connections emerge. Unconventional opportunities arise. Ego challenges from unexpected sources. Technology or foreign career possible.",
+     "favorable_houses": [2, 10, 11, 12], "keywords": ["Sun-Rahu", "sudden change", "foreign", "technology"]},
+
+    {"rule_id": "KP_DASH_SUN_JUP", "maha_dasha": "Sun", "antar_dasha": "Jupiter",
+     "prediction": "Sun-Jupiter is one of the most auspicious periods. Wisdom, fortune, and career success combine. Teaching, law, or advisory roles flourish. Children and marriage matters are positive. Spiritual growth.",
+     "favorable_houses": [1, 2, 5, 9, 10, 11], "keywords": ["Sun-Jupiter", "fortune", "wisdom", "auspicious"]},
+
+    {"rule_id": "KP_DASH_SUN_SAT", "maha_dasha": "Sun", "antar_dasha": "Saturn",
+     "prediction": "Sun-Saturn creates tension between authority and discipline. Career obstacles and delays. Hard work required for recognition. Father-son conflicts possible. Health of bones/joints may be affected.",
+     "challenging_houses": [1, 8, 12], "keywords": ["Sun-Saturn", "obstacles", "discipline", "delays"]},
+
+    {"rule_id": "KP_DASH_SUN_MER", "maha_dasha": "Sun", "antar_dasha": "Mercury",
+     "prediction": "Sun-Mercury brings intellectual sharpness and communication skills. Business, writing, and education flourish. Short travels for career. Good for IT, media, and commerce.",
+     "favorable_houses": [2, 3, 6, 10, 11], "keywords": ["Sun-Mercury", "communication", "business", "intellect"]},
+
+    {"rule_id": "KP_DASH_SUN_KET", "maha_dasha": "Sun", "antar_dasha": "Ketu",
+     "prediction": "Sun-Ketu brings spiritual inclination and detachment from material pursuits. Past karma surfaces. Sudden events in career. Research and occult interests emerge.",
+     "favorable_houses": [9, 12], "keywords": ["Sun-Ketu", "spirituality", "detachment", "past karma"]},
+
+    {"rule_id": "KP_DASH_SUN_VEN", "maha_dasha": "Sun", "antar_dasha": "Venus",
+     "prediction": "Sun-Venus brings luxury, romance, and artistic pursuits alongside career. Marriage matters active. Creative fields flourish. Good for arts and entertainment.",
+     "favorable_houses": [2, 5, 7, 10, 11], "keywords": ["Sun-Venus", "romance", "luxury", "arts"]},
+
+    {"rule_id": "KP_DASH_MON_001", "maha_dasha": "Moon", "antar_dasha": null, "period_years": 10,
+     "general_themes": ["emotions", "mother", "public", "mind", "changes", "travel"],
+     "favorable_if_signifies": [1, 2, 4, 7, 10, 11], "challenging_if_signifies": [6, 8, 12],
+     "prediction": "Moon Mahadasha is emotionally intense. Public life and popularity increase. Mother's health prominent. Mind is active and changeable. Good for hospitality, public service, and real estate.",
+     "keywords": ["Moon dasha", "emotions", "public", "mother", "mind"]},
+
+    {"rule_id": "KP_DASH_MAR_001", "maha_dasha": "Mars", "antar_dasha": null, "period_years": 7,
+     "general_themes": ["energy", "property", "siblings", "courage", "conflicts", "surgery"],
+     "favorable_if_signifies": [1, 3, 6, 10, 11], "challenging_if_signifies": [6, 8, 12],
+     "prediction": "Mars Mahadasha brings energy, courage, and action. Property matters active. Sibling relationships highlighted. Possible accidents or surgeries if Mars afflicted. Good for sports, military, engineering.",
+     "keywords": ["Mars dasha", "energy", "property", "courage", "action"]},
+
+    {"rule_id": "KP_DASH_MAR_VEN", "maha_dasha": "Mars", "antar_dasha": "Venus",
+     "prediction": "Mars-Venus brings passion, romance, and creative energy. Marriage matters active if both signify 2,7,11. Property purchase possible. Arts and luxury flourish.",
+     "favorable_houses": [2, 5, 7, 11], "keywords": ["Mars-Venus", "romance", "marriage", "property"]},
+
+    {"rule_id": "KP_DASH_MAR_JUP", "maha_dasha": "Mars", "antar_dasha": "Jupiter",
+     "prediction": "Mars-Jupiter is highly auspicious for career, wealth, and wisdom. Property gains. Children matters positive. Legal matters resolve favorably. Good for leadership and expansion.",
+     "favorable_houses": [1, 2, 5, 9, 10, 11], "keywords": ["Mars-Jupiter", "auspicious", "wealth", "expansion"]},
+
+    {"rule_id": "KP_DASH_MAR_SAT", "maha_dasha": "Mars", "antar_dasha": "Saturn",
+     "prediction": "Mars-Saturn is one of the most challenging periods. Conflicts, obstacles, and delays. Accidents possible. Hard work with little reward. Patience required.",
+     "challenging_houses": [6, 8, 12], "keywords": ["Mars-Saturn", "challenging", "obstacles", "accidents"]},
+
+    {"rule_id": "KP_DASH_RAH_001", "maha_dasha": "Rahu", "antar_dasha": null, "period_years": 18,
+     "general_themes": ["sudden changes", "foreign", "technology", "unconventional", "obsession"],
+     "favorable_if_signifies": [2, 6, 10, 11], "challenging_if_signifies": [1, 6, 8, 12],
+     "prediction": "Rahu Mahadasha brings sudden and dramatic life changes. Foreign connections and unconventional paths emerge. Technology and innovation flourish. Obsessive tendencies. Illusions and deceptions possible.",
+     "keywords": ["Rahu dasha", "sudden change", "foreign", "technology", "unconventional"]},
+
+    {"rule_id": "KP_DASH_RAH_JUP", "maha_dasha": "Rahu", "antar_dasha": "Jupiter",
+     "prediction": "Rahu-Jupiter brings expansion through unconventional wisdom. Foreign education or spiritual growth. Career advancement through networking. Marriage possible if both signify 2,7,11. Generally positive.",
+     "favorable_houses": [2, 5, 9, 10, 11], "keywords": ["Rahu-Jupiter", "expansion", "wisdom", "foreign education"]},
+
+    {"rule_id": "KP_DASH_RAH_SAT", "maha_dasha": "Rahu", "antar_dasha": "Saturn",
+     "prediction": "Rahu-Saturn is one of the most challenging combinations. Sudden losses, delays, and obstacles. Health challenges. Career setbacks. Foreign-related problems. Requires extreme patience.",
+     "challenging_houses": [6, 8, 12], "keywords": ["Rahu-Saturn", "challenging", "losses", "obstacles"]},
+
+    {"rule_id": "KP_DASH_RAH_MER", "maha_dasha": "Rahu", "antar_dasha": "Mercury",
+     "prediction": "Rahu-Mercury brings sharp intellect and communication skills. Technology and IT careers flourish. Business opportunities through foreign connections. Writing and media success.",
+     "favorable_houses": [2, 3, 6, 10, 11], "keywords": ["Rahu-Mercury", "technology", "communication", "business"]},
+
+    {"rule_id": "KP_DASH_RAH_VEN", "maha_dasha": "Rahu", "antar_dasha": "Venus",
+     "prediction": "Rahu-Venus brings intense romantic experiences and luxury. Marriage possible if both signify 2,7,11. Foreign romantic connections. Arts and entertainment flourish.",
+     "favorable_houses": [2, 5, 7, 11], "keywords": ["Rahu-Venus", "romance", "luxury", "marriage", "foreign"]},
+
+    {"rule_id": "KP_DASH_RAH_SUN", "maha_dasha": "Rahu", "antar_dasha": "Sun",
+     "prediction": "Rahu-Sun brings sudden career opportunities and recognition. Government connections through unconventional means. Ego conflicts with authority. Foreign career possible.",
+     "favorable_houses": [2, 10, 11], "keywords": ["Rahu-Sun", "career", "recognition", "government"]},
+
+    {"rule_id": "KP_DASH_RAH_MON", "maha_dasha": "Rahu", "antar_dasha": "Moon",
+     "prediction": "Rahu-Moon brings emotional turbulence and mental restlessness. Public life changes suddenly. Mother's health highlighted. Possible anxiety or mood swings. Travel to foreign lands.",
+     "challenging_houses": [4, 6, 8, 12], "keywords": ["Rahu-Moon", "emotional", "mental", "travel", "mother"]},
+
+    {"rule_id": "KP_DASH_RAH_MAR", "maha_dasha": "Rahu", "antar_dasha": "Mars",
+     "prediction": "Rahu-Mars brings sudden energy and aggression. Property matters active. Accidents possible. Career changes through bold unconventional moves. Conflicts with siblings.",
+     "challenging_houses": [6, 8, 12], "keywords": ["Rahu-Mars", "aggression", "property", "accidents"]},
+
+    {"rule_id": "KP_DASH_RAH_KET", "maha_dasha": "Rahu", "antar_dasha": "Ketu",
+     "prediction": "Rahu-Ketu brings spiritual crisis and material-spiritual conflict. Past karma surfaces strongly. Sudden losses and detachment. Mystical experiences.",
+     "keywords": ["Rahu-Ketu", "spiritual", "karma", "detachment", "losses"]},
+
+    {"rule_id": "KP_DASH_JUP_001", "maha_dasha": "Jupiter", "antar_dasha": null, "period_years": 16,
+     "general_themes": ["wisdom", "expansion", "fortune", "children", "teaching", "spirituality"],
+     "favorable_if_signifies": [1, 2, 5, 9, 10, 11], "challenging_if_signifies": [6, 8, 12],
+     "prediction": "Jupiter Mahadasha is generally the most auspicious period. Wisdom, fortune, and expansion in all areas. Marriage, children, and career all benefit. Spiritual growth. Teaching and advisory roles flourish.",
+     "keywords": ["Jupiter dasha", "fortune", "wisdom", "expansion", "auspicious"]},
+
+    {"rule_id": "KP_DASH_JUP_VEN", "maha_dasha": "Jupiter", "antar_dasha": "Venus",
+     "prediction": "Jupiter-Venus is highly auspicious for marriage, romance, and luxury. Career in arts or luxury sectors flourishes. Children matters positive. Financial gains. One of the best periods for relationships.",
+     "favorable_houses": [2, 5, 7, 9, 11], "keywords": ["Jupiter-Venus", "marriage", "luxury", "auspicious"]},
+
+    {"rule_id": "KP_DASH_JUP_JUP", "maha_dasha": "Jupiter", "antar_dasha": "Jupiter",
+     "prediction": "Jupiter-Jupiter is the most auspicious sub-period. Maximum fortune, wisdom, and expansion. Marriage, children, career all at peak. Spiritual growth. Divine grace. Major positive life events.",
+     "favorable_houses": [1, 2, 5, 9, 10, 11], "keywords": ["Jupiter-Jupiter", "most auspicious", "fortune", "peak"]},
+
+    {"rule_id": "KP_DASH_JUP_SAT", "maha_dasha": "Jupiter", "antar_dasha": "Saturn",
+     "prediction": "Jupiter-Saturn brings disciplined expansion. Hard work leads to lasting success. Career stability. Property gains through patience. Spiritual discipline. Slower but solid progress.",
+     "favorable_houses": [2, 6, 10, 11], "keywords": ["Jupiter-Saturn", "discipline", "stability", "patience"]},
+
+    {"rule_id": "KP_DASH_JUP_MER", "maha_dasha": "Jupiter", "antar_dasha": "Mercury",
+     "prediction": "Jupiter-Mercury brings intellectual wisdom and communication success. Education, writing, and business flourish. Good for teaching, law, and advisory roles.",
+     "favorable_houses": [2, 3, 9, 10, 11], "keywords": ["Jupiter-Mercury", "intellect", "education", "communication"]},
+
+    {"rule_id": "KP_DASH_SAT_001", "maha_dasha": "Saturn", "antar_dasha": null, "period_years": 19,
+     "general_themes": ["discipline", "delays", "karma", "hard work", "restriction", "longevity"],
+     "favorable_if_signifies": [2, 6, 10, 11], "challenging_if_signifies": [1, 4, 7, 8, 12],
+     "prediction": "Saturn Mahadasha is the longest and most karmic period. Hard work, discipline, and patience are tested. Delays in all matters. Career through service and perseverance. Spiritual lessons.",
+     "keywords": ["Saturn dasha", "discipline", "delays", "karma", "hard work"]},
+
+    {"rule_id": "KP_DASH_SAT_VEN", "maha_dasha": "Saturn", "antar_dasha": "Venus",
+     "prediction": "Saturn-Venus brings delayed but lasting romantic relationships. Marriage possible if both signify 2,7,11. Career in arts or luxury with discipline. Financial stability through hard work.",
+     "favorable_houses": [2, 7, 10, 11], "keywords": ["Saturn-Venus", "delayed romance", "marriage", "stability"]},
+
+    {"rule_id": "KP_DASH_SAT_JUP", "maha_dasha": "Saturn", "antar_dasha": "Jupiter",
+     "prediction": "Saturn-Jupiter brings disciplined wisdom and slow but steady expansion. Career stability. Spiritual growth through discipline. Property gains through patience.",
+     "favorable_houses": [2, 9, 10, 11], "keywords": ["Saturn-Jupiter", "wisdom", "stability", "expansion"]},
+
+    {"rule_id": "KP_DASH_SAT_MER", "maha_dasha": "Saturn", "antar_dasha": "Mercury",
+     "prediction": "Saturn-Mercury brings disciplined intellect and methodical communication. Technical and analytical work flourishes. Business through hard work. Research and analysis succeed.",
+     "favorable_houses": [2, 6, 10, 11], "keywords": ["Saturn-Mercury", "discipline", "intellect", "technical"]},
+
+    {"rule_id": "KP_DASH_SAT_SAT", "maha_dasha": "Saturn", "antar_dasha": "Saturn",
+     "prediction": "Saturn-Saturn is the most karmic sub-period. Maximum delays and restrictions. Hard work with slow rewards. Major life lessons. Patience is the only path.",
+     "keywords": ["Saturn-Saturn", "karmic", "delays", "restrictions", "discipline"]},
+
+    {"rule_id": "KP_DASH_MER_001", "maha_dasha": "Mercury", "antar_dasha": null, "period_years": 17,
+     "general_themes": ["intellect", "communication", "business", "education", "adaptability"],
+     "favorable_if_signifies": [1, 2, 6, 10, 11], "challenging_if_signifies": [6, 8, 12],
+     "prediction": "Mercury Mahadasha brings intellectual sharpness and communication success. Business, education, and writing flourish. Short travels. Good for IT, media, commerce, and teaching.",
+     "keywords": ["Mercury dasha", "intellect", "communication", "business", "education"]},
+
+    {"rule_id": "KP_DASH_MER_VEN", "maha_dasha": "Mercury", "antar_dasha": "Venus",
+     "prediction": "Mercury-Venus brings creative communication and romantic expression. Arts, media, and entertainment flourish. Marriage matters active if both signify 2,7,11.",
+     "favorable_houses": [2, 5, 7, 10, 11], "keywords": ["Mercury-Venus", "creative", "romance", "arts"]},
+
+    {"rule_id": "KP_DASH_MER_JUP", "maha_dasha": "Mercury", "antar_dasha": "Jupiter",
+     "prediction": "Mercury-Jupiter is excellent for education, wisdom, and business expansion. Teaching and advisory roles flourish. Legal matters resolve favorably. Financial gains through intellect.",
+     "favorable_houses": [2, 5, 9, 10, 11], "keywords": ["Mercury-Jupiter", "education", "wisdom", "expansion"]},
+
+    {"rule_id": "KP_DASH_MER_MER", "maha_dasha": "Mercury", "antar_dasha": "Mercury",
+     "prediction": "Mercury-Mercury is peak intellectual period. Communication, education, and business at maximum. Multiple opportunities in media, IT, and commerce. Adaptability and wit are strongest.",
+     "favorable_houses": [2, 3, 6, 10, 11], "keywords": ["Mercury-Mercury", "peak intellect", "communication", "business"]},
+
+    {"rule_id": "KP_DASH_VEN_001", "maha_dasha": "Venus", "antar_dasha": null, "period_years": 20,
+     "general_themes": ["love", "beauty", "luxury", "arts", "marriage", "comfort"],
+     "favorable_if_signifies": [2, 5, 7, 10, 11], "challenging_if_signifies": [6, 8, 12],
+     "prediction": "Venus Mahadasha is the longest and often most enjoyable period. Love, beauty, luxury, and comfort dominate. Marriage and relationships flourish. Arts and entertainment careers peak.",
+     "keywords": ["Venus dasha", "love", "luxury", "marriage", "arts", "comfort"]},
+
+    {"rule_id": "KP_DASH_VEN_VEN", "maha_dasha": "Venus", "antar_dasha": "Venus",
+     "prediction": "Venus-Venus is the most luxurious and romantic sub-period. Marriage highly likely if Venus signifies 2,7,11. Arts and entertainment at peak. Financial gains. Very positive.",
+     "favorable_houses": [2, 5, 7, 10, 11], "keywords": ["Venus-Venus", "most romantic", "marriage", "luxury"]},
+
+    {"rule_id": "KP_DASH_VEN_MER", "maha_dasha": "Venus", "antar_dasha": "Mercury",
+     "prediction": "Venus-Mercury brings creative communication and business in luxury or arts. Marriage matters active. Education in arts or design. Good for media, fashion, and entertainment.",
+     "favorable_houses": [2, 5, 7, 10, 11], "keywords": ["Venus-Mercury", "creative business", "arts", "marriage"]},
+
+    {"rule_id": "KP_DASH_VEN_JUP", "maha_dasha": "Venus", "antar_dasha": "Jupiter",
+     "prediction": "Venus-Jupiter is highly auspicious. Marriage, children, and luxury all peak. Career in arts or luxury with wisdom. Financial gains. Spiritual beauty. One of the best sub-periods.",
+     "favorable_houses": [2, 5, 7, 9, 11], "keywords": ["Venus-Jupiter", "auspicious", "marriage", "children", "luxury"]},
+
+    {"rule_id": "KP_DASH_VEN_SAT", "maha_dasha": "Venus", "antar_dasha": "Saturn",
+     "prediction": "Venus-Saturn brings disciplined romance and delayed luxury. Marriage with maturity and commitment. Career in arts through hard work. Financial stability. Relationships become serious.",
+     "favorable_houses": [2, 7, 10, 11], "keywords": ["Venus-Saturn", "disciplined romance", "commitment", "stability"]},
+
+    {"rule_id": "KP_DASH_VEN_RAH", "maha_dasha": "Venus", "antar_dasha": "Rahu",
+     "prediction": "Venus-Rahu brings unconventional romance and luxury. Foreign romantic connections. Sudden relationship changes. Arts and technology combine. Exciting but potentially unstable.",
+     "favorable_houses": [2, 7, 11, 12], "keywords": ["Venus-Rahu", "unconventional", "foreign romance", "luxury"]},
+
+    {"rule_id": "KP_DASH_VEN_MON", "maha_dasha": "Venus", "antar_dasha": "Moon",
+     "prediction": "Venus-Moon brings emotional romance and public popularity. Marriage matters very active. Mother's health positive. Real estate gains. Public-facing creative roles flourish.",
+     "favorable_houses": [2, 4, 7, 10, 11], "keywords": ["Venus-Moon", "romance", "public", "marriage"]},
+
+    {"rule_id": "KP_DASH_VEN_MAR", "maha_dasha": "Venus", "antar_dasha": "Mars",
+     "prediction": "Venus-Mars brings passionate romance and energetic creativity. Property gains. Marriage possible with intensity. Good for sports, arts, and property.",
+     "favorable_houses": [2, 4, 7, 11], "keywords": ["Venus-Mars", "passionate", "romance", "property"]},
+
+    {"rule_id": "KP_DASH_VEN_SUN", "maha_dasha": "Venus", "antar_dasha": "Sun",
+     "prediction": "Venus-Sun brings creative authority and recognition in arts. Career in entertainment or luxury. Government roles in creative fields. Father's health highlighted.",
+     "favorable_houses": [2, 5, 10, 11], "keywords": ["Venus-Sun", "creative authority", "arts career"]},
+
+    {"rule_id": "KP_DASH_VEN_KET", "maha_dasha": "Venus", "antar_dasha": "Ketu",
+     "prediction": "Venus-Ketu brings spiritual detachment from luxury and romance. Past karma in relationships. Mystical beauty. Some material losses but spiritual gains. Introspection in relationships.",
+     "keywords": ["Venus-Ketu", "spiritual", "detachment", "karma", "relationships"]},
+
+    {"rule_id": "KP_DASH_KET_001", "maha_dasha": "Ketu", "antar_dasha": null, "period_years": 7,
+     "general_themes": ["detachment", "spirituality", "past karma", "sudden events", "moksha"],
+     "favorable_if_signifies": [9, 12], "challenging_if_signifies": [1, 4, 7, 10],
+     "prediction": "Ketu Mahadasha brings spiritual inclination and detachment from material world. Past karma resolves. Sudden events and losses. Research and occult flourish. Isolation and introspection.",
+     "keywords": ["Ketu dasha", "spirituality", "detachment", "karma", "sudden events"]}
+  ]
+}

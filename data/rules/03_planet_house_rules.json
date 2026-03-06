@@ -1,0 +1,3982 @@
+{
+  "version": "1.0",
+  "description": "KP Planet-House Combination Rules — 9 planets x 12 houses + special cases",
+  "source": "KP Readers Vol 1-6, ",
+  "planet_natures": {
+    "Sun": {
+      "nature": [
+        "authority",
+        "ego",
+        "father",
+        "government",
+        "vitality",
+        "leadership",
+        "soul"
+      ],
+      "gives": "Status, recognition, power, confidence"
+    },
+    "Moon": {
+      "nature": [
+        "mind",
+        "mother",
+        "emotions",
+        "public",
+        "changes",
+        "nurturing"
+      ],
+      "gives": "Emotional connection, public popularity, mental peace"
+    },
+    "Mars": {
+      "nature": [
+        "energy",
+        "courage",
+        "aggression",
+        "blood",
+        "surgery",
+        "property",
+        "siblings"
+      ],
+      "gives": "Drive, courage, conflicts, accidents"
+    },
+    "Mercury": {
+      "nature": [
+        "intellect",
+        "communication",
+        "business",
+        "education",
+        "wit",
+        "duality"
+      ],
+      "gives": "Intelligence, commerce, writing, adaptability"
+    },
+    "Jupiter": {
+      "nature": [
+        "wisdom",
+        "expansion",
+        "children",
+        "fortune",
+        "teaching",
+        "dharma"
+      ],
+      "gives": "Growth, wisdom, luck, optimism"
+    },
+    "Venus": {
+      "nature": [
+        "love",
+        "beauty",
+        "luxury",
+        "arts",
+        "comfort",
+        "romance",
+        "marriage"
+      ],
+      "gives": "Attraction, harmony, material comforts, aesthetics"
+    },
+    "Saturn": {
+      "nature": [
+        "discipline",
+        "delay",
+        "karma",
+        "labor",
+        "elderly",
+        "restriction",
+        "longevity"
+      ],
+      "gives": "Patience, hard work, delays, obstacles, endurance"
+    },
+    "Rahu": {
+      "nature": [
+        "obsession",
+        "foreign",
+        "unconventional",
+        "sudden",
+        "technology",
+        "illusion"
+      ],
+      "gives": "Sudden changes, foreign connections, unconventional paths"
+    },
+    "Ketu": {
+      "nature": [
+        "detachment",
+        "spirituality",
+        "past karma",
+        "moksha",
+        "sudden loss"
+      ],
+      "gives": "Spiritual inclination, sudden events, detachment from material"
+    }
+  },
+  "house_domains": {
+    "1": "Self, personality, physical body, general vitality",
+    "2": "Wealth, family, speech, food, face, accumulated assets",
+    "3": "Courage, siblings, short journeys, communication, efforts",
+    "4": "Mother, home, property, vehicles, education, emotional peace",
+    "5": "Children, romance, creativity, speculation, intelligence",
+    "6": "Disease, enemies, debts, service, daily work, obstacles",
+    "7": "Marriage, spouse, partnerships, business partners",
+    "8": "Longevity, inheritance, sudden gains/losses, occult, transformation",
+    "9": "Fortune, father, higher education, religion, long journeys, dharma",
+    "10": "Career, status, profession, government, public reputation",
+    "11": "Gains, fulfillment, friends, elder siblings, aspirations",
+    "12": "Losses, expenses, foreign lands, spirituality, hospitalization, moksha"
+  },
+  "combinations": [
+    {
+      "rule_id": "KP_PH_SUN_01",
+      "planet": "Sun",
+      "house": 1,
+      "strength": "very_favorable",
+      "interpretation_english": "Sun in 1st house gives strong personality, leadership, and vitality. Natural authority and confidence. Government connections. Father's influence on personality is strong.",
+      "career_hints": "Government, administration, politics, medicine",
+      "keywords": [
+        "leadership",
+        "authority",
+        "vitality",
+        "government"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_02",
+      "planet": "Sun",
+      "house": 2,
+      "strength": "favorable",
+      "interpretation_english": "Sun in 2nd house brings wealth through government or authority roles. Strong speech and family pride. Income from leadership positions.",
+      "career_hints": "Banking, government finance, family business",
+      "keywords": [
+        "wealth",
+        "speech",
+        "family",
+        "government income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_03",
+      "planet": "Sun",
+      "house": 3,
+      "strength": "favorable",
+      "interpretation_english": "Sun in 3rd house gives courage and communication skills. Siblings may be in government. Short journeys for career. Bold and direct communication style.",
+      "career_hints": "Media, journalism, government communication",
+      "keywords": [
+        "courage",
+        "communication",
+        "siblings",
+        "bold"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_04",
+      "planet": "Sun",
+      "house": 4,
+      "strength": "mixed",
+      "interpretation_english": "Sun in 4th house brings property through government. Mother may be authoritative. Possible ego conflicts at home.",
+      "career_hints": "Real estate, government housing, education administration",
+      "keywords": [
+        "property",
+        "mother",
+        "home",
+        "government"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_05",
+      "planet": "Sun",
+      "house": 5,
+      "strength": "favorable",
+      "interpretation_english": "Sun in 5th house gives creative intelligence and leadership in speculation. Children may be in government. Romance with authority figures.",
+      "career_hints": "Entertainment, education, stock market",
+      "keywords": [
+        "creativity",
+        "children",
+        "romance",
+        "speculation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_06",
+      "planet": "Sun",
+      "house": 6,
+      "strength": "very_favorable",
+      "interpretation_english": "Sun in 6th house is excellent for defeating enemies and overcoming obstacles. Government service. Strong in competitions and litigation.",
+      "career_hints": "Military, law enforcement, medicine, government service",
+      "keywords": [
+        "service",
+        "enemies defeated",
+        "government",
+        "competition"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_07",
+      "planet": "Sun",
+      "house": 7,
+      "strength": "challenging",
+      "interpretation_english": "Sun in 7th house can cause ego conflicts in marriage. Spouse may be authoritative. Business partnerships with authority figures. Possible delay in marriage.",
+      "career_hints": "Government partnerships, diplomatic roles",
+      "keywords": [
+        "marriage ego",
+        "spouse authority",
+        "partnerships"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_08",
+      "planet": "Sun",
+      "house": 8,
+      "strength": "challenging",
+      "interpretation_english": "Sun in 8th house brings sudden changes in career and status. Inheritance from father. Interest in occult and research.",
+      "career_hints": "Research, insurance, occult, government investigation",
+      "keywords": [
+        "transformation",
+        "inheritance",
+        "occult",
+        "sudden change"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_09",
+      "planet": "Sun",
+      "house": 9,
+      "strength": "very_favorable",
+      "interpretation_english": "Sun in 9th house gives fortune through government and authority. Father is fortunate or in government. Higher education in leadership fields.",
+      "career_hints": "Law, government, higher education, religion",
+      "keywords": [
+        "fortune",
+        "father",
+        "higher education",
+        "government"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_10",
+      "planet": "Sun",
+      "house": 10,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Sun in 10th house is the best position for career. Government job or leadership role is strongly indicated. Public recognition and status.",
+      "career_hints": "Politics, government, CEO, administration, medicine",
+      "keywords": [
+        "career peak",
+        "government",
+        "leadership",
+        "recognition"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_11",
+      "planet": "Sun",
+      "house": 11,
+      "strength": "very_favorable",
+      "interpretation_english": "Sun in 11th house brings gains through government and authority. Powerful friends in high positions. Fulfillment of ambitions through leadership.",
+      "career_hints": "Government networking, political connections",
+      "keywords": [
+        "gains",
+        "powerful friends",
+        "ambitions",
+        "government"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SUN_12",
+      "planet": "Sun",
+      "house": 12,
+      "strength": "mixed",
+      "interpretation_english": "Sun in 12th house brings expenses through ego. Foreign government connections. Spiritual authority. Possible isolation or foreign posting.",
+      "career_hints": "Foreign government, spiritual leadership, research",
+      "keywords": [
+        "foreign",
+        "spiritual",
+        "expenses",
+        "isolation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_01",
+      "planet": "Moon",
+      "house": 1,
+      "strength": "favorable",
+      "interpretation_english": "Moon in 1st house gives emotional and changeable personality. Public popularity. Nurturing nature. Mind is active and sensitive.",
+      "career_hints": "Public service, hospitality, nursing, counseling",
+      "keywords": [
+        "emotional",
+        "public",
+        "nurturing",
+        "changeable"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_02",
+      "planet": "Moon",
+      "house": 2,
+      "strength": "favorable",
+      "interpretation_english": "Moon in 2nd house brings wealth through public or food-related business. Emotional speech. Family is emotionally connected. Income fluctuates with public mood.",
+      "career_hints": "Food industry, public business, family business",
+      "keywords": [
+        "wealth fluctuation",
+        "emotional family",
+        "food",
+        "public"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_03",
+      "planet": "Moon",
+      "house": 3,
+      "strength": "favorable",
+      "interpretation_english": "Moon in 3rd house gives emotional communication and creative writing. Siblings are emotionally close. Short journeys for emotional reasons. Public communication skills.",
+      "career_hints": "Journalism, media, public relations, writing",
+      "keywords": [
+        "emotional communication",
+        "siblings",
+        "writing",
+        "public"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_04",
+      "planet": "Moon",
+      "house": 4,
+      "strength": "very_favorable",
+      "interpretation_english": "Moon in 4th house is the best position for emotional peace. Strong mother connection. Beautiful home. Real estate gains. Emotional security through family.",
+      "career_hints": "Real estate, hospitality, food industry, education",
+      "keywords": [
+        "emotional peace",
+        "mother",
+        "home",
+        "real estate"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_05",
+      "planet": "Moon",
+      "house": 5,
+      "strength": "favorable",
+      "interpretation_english": "Moon in 5th house gives emotional creativity and romance. Children are emotionally sensitive. Gains through public entertainment. Speculation based on intuition.",
+      "career_hints": "Entertainment, children's education, public arts",
+      "keywords": [
+        "emotional creativity",
+        "children",
+        "romance",
+        "intuition"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_06",
+      "planet": "Moon",
+      "house": 6,
+      "strength": "challenging",
+      "interpretation_english": "Moon in 6th house can cause emotional health issues, especially digestive or mental stress. Enemies may be women or public figures. Service to public is indicated.",
+      "career_hints": "Healthcare, public service, social work",
+      "keywords": [
+        "emotional health",
+        "mental stress",
+        "public service",
+        "enemies"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_07",
+      "planet": "Moon",
+      "house": 7,
+      "strength": "favorable",
+      "interpretation_english": "Moon in 7th house brings emotional and nurturing spouse. Public partnerships. Marriage to someone in public-facing role. Emotional business partnerships.",
+      "career_hints": "Public partnerships, hospitality business",
+      "keywords": [
+        "emotional spouse",
+        "public",
+        "partnerships",
+        "nurturing"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_08",
+      "planet": "Moon",
+      "house": 8,
+      "strength": "challenging",
+      "interpretation_english": "Moon in 8th house brings emotional transformation and interest in occult. Inheritance through mother or women. Emotional ups and downs. Longevity affected by emotional health.",
+      "career_hints": "Research, psychology, occult, insurance",
+      "keywords": [
+        "emotional transformation",
+        "occult",
+        "inheritance",
+        "longevity"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_09",
+      "planet": "Moon",
+      "house": 9,
+      "strength": "very_favorable",
+      "interpretation_english": "Moon in 9th house gives fortune through public and emotional connections. Father is emotionally supportive. Long journeys for emotional fulfillment. Higher education in public service.",
+      "career_hints": "Religion, public service, travel, education",
+      "keywords": [
+        "fortune",
+        "emotional father",
+        "long journeys",
+        "public service"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_10",
+      "planet": "Moon",
+      "house": 10,
+      "strength": "very_favorable",
+      "interpretation_english": "Moon in 10th house gives career in public service, hospitality, or food industry. Public recognition. Emotional connection to career. Fame through public.",
+      "career_hints": "Politics, hospitality, food industry, public service",
+      "keywords": [
+        "public career",
+        "recognition",
+        "hospitality",
+        "emotional"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_11",
+      "planet": "Moon",
+      "house": 11,
+      "strength": "very_favorable",
+      "interpretation_english": "Moon in 11th house brings gains through public and emotional connections. Friends are emotionally supportive. Aspirations fulfilled through public work. Multiple income from public.",
+      "career_hints": "Public networking, social media, hospitality business",
+      "keywords": [
+        "public gains",
+        "emotional friends",
+        "aspirations",
+        "multiple income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MON_12",
+      "planet": "Moon",
+      "house": 12,
+      "strength": "mixed",
+      "interpretation_english": "Moon in 12th house brings emotional expenses and foreign connections. Spiritual emotional nature. Possible isolation or foreign settlement. Sleep issues possible.",
+      "career_hints": "Foreign service, spirituality, healthcare abroad",
+      "keywords": [
+        "emotional expenses",
+        "foreign",
+        "spiritual",
+        "isolation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_01",
+      "planet": "Mars",
+      "house": 1,
+      "strength": "favorable",
+      "interpretation_english": "Mars in 1st house gives strong physical energy, courage, and drive. Athletic ability. Possible aggression. Leadership through action. Accident-prone if afflicted.",
+      "career_hints": "Military, sports, engineering, surgery, police",
+      "keywords": [
+        "energy",
+        "courage",
+        "athletic",
+        "aggressive"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_02",
+      "planet": "Mars",
+      "house": 2,
+      "strength": "challenging",
+      "interpretation_english": "Mars in 2nd house can cause harsh speech and financial conflicts. Wealth through effort and courage. Family disputes possible. Income from engineering or real estate.",
+      "career_hints": "Real estate, engineering, construction, finance",
+      "keywords": [
+        "harsh speech",
+        "financial effort",
+        "family disputes",
+        "courage wealth"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_03",
+      "planet": "Mars",
+      "house": 3,
+      "strength": "very_favorable",
+      "interpretation_english": "Mars in 3rd house gives exceptional courage and communication drive. Siblings may be in military or sports. Short journeys for action. Bold and direct communication.",
+      "career_hints": "Military, sports journalism, media, communication",
+      "keywords": [
+        "courage",
+        "bold communication",
+        "siblings military",
+        "action"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_04",
+      "planet": "Mars",
+      "house": 4,
+      "strength": "mixed",
+      "interpretation_english": "Mars in 4th house brings property gains through effort. Possible conflicts at home. Mother may be strong-willed. Real estate through hard work. Vehicles and property.",
+      "career_hints": "Real estate, construction, engineering, vehicles",
+      "keywords": [
+        "property",
+        "home conflicts",
+        "construction",
+        "vehicles"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_05",
+      "planet": "Mars",
+      "house": 5,
+      "strength": "favorable",
+      "interpretation_english": "Mars in 5th house gives energetic creativity and bold romance. Children may be athletic or courageous. Gains through speculation with courage. Competitive intelligence.",
+      "career_hints": "Sports, entertainment, stock trading, education",
+      "keywords": [
+        "energetic creativity",
+        "athletic children",
+        "bold romance",
+        "speculation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_06",
+      "planet": "Mars",
+      "house": 6,
+      "strength": "very_favorable",
+      "interpretation_english": "Mars in 6th house is excellent for defeating enemies and overcoming obstacles. Strong in competitions. Military or police career. Health through physical activity.",
+      "career_hints": "Military, police, sports, surgery, law enforcement",
+      "keywords": [
+        "enemies defeated",
+        "competition",
+        "military",
+        "physical strength"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_07",
+      "planet": "Mars",
+      "house": 7,
+      "strength": "challenging",
+      "interpretation_english": "Mars in 7th house (Mangal Dosha) can cause conflicts in marriage. Spouse may be aggressive or in military/sports. Possible delay in marriage. Business partnerships with energy.",
+      "career_hints": "Business partnerships in energy/sports/real estate",
+      "keywords": [
+        "marriage conflicts",
+        "Mangal Dosha",
+        "aggressive spouse",
+        "business energy"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_08",
+      "planet": "Mars",
+      "house": 8,
+      "strength": "mixed",
+      "interpretation_english": "Mars in 8th house brings sudden events and transformation. Inheritance through effort. Interest in occult and surgery. Accident risks if afflicted. Longevity through courage.",
+      "career_hints": "Surgery, military, research, insurance, occult",
+      "keywords": [
+        "sudden events",
+        "transformation",
+        "surgery",
+        "accident risk"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_09",
+      "planet": "Mars",
+      "house": 9,
+      "strength": "favorable",
+      "interpretation_english": "Mars in 9th house gives fortune through courage and action. Father may be in military or sports. Long journeys for adventure. Higher education in engineering or law.",
+      "career_hints": "Military law, engineering, adventure travel, sports",
+      "keywords": [
+        "fortune through courage",
+        "father military",
+        "adventure",
+        "engineering"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_10",
+      "planet": "Mars",
+      "house": 10,
+      "strength": "very_favorable",
+      "interpretation_english": "Mars in 10th house gives career in engineering, military, sports, or surgery. Energetic and action-oriented career. Leadership through courage. Public recognition for bravery.",
+      "career_hints": "Military, engineering, sports, surgery, police",
+      "keywords": [
+        "career energy",
+        "military",
+        "engineering",
+        "action"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_11",
+      "planet": "Mars",
+      "house": 11,
+      "strength": "very_favorable",
+      "interpretation_english": "Mars in 11th house brings gains through courage and action. Friends are in military or sports. Aspirations fulfilled through bold action. Multiple income through energy sector.",
+      "career_hints": "Sports business, military networking, energy sector",
+      "keywords": [
+        "gains through courage",
+        "military friends",
+        "bold aspirations",
+        "energy income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MAR_12",
+      "planet": "Mars",
+      "house": 12,
+      "strength": "challenging",
+      "interpretation_english": "Mars in 12th house brings expenses through aggression and conflicts. Foreign military connections. Possible hospitalization from accidents. Spiritual courage.",
+      "career_hints": "Foreign military, spiritual warrior, hospital work",
+      "keywords": [
+        "expenses through conflict",
+        "foreign military",
+        "accident risk",
+        "spiritual courage"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_01",
+      "planet": "Mercury",
+      "house": 1,
+      "strength": "favorable",
+      "interpretation_english": "Mercury in 1st house gives sharp intellect and communication skills. Youthful appearance. Adaptable personality. Good for business and education. Quick thinking.",
+      "career_hints": "IT, media, business, education, writing, consulting",
+      "keywords": [
+        "intellect",
+        "communication",
+        "youthful",
+        "analytical",
+        "adaptable"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_02",
+      "planet": "Mercury",
+      "house": 2,
+      "strength": "very_favorable",
+      "interpretation_english": "Mercury in 2nd house gives wealth through communication, business, and intellect. Eloquent speech. Multiple income sources. Family is educated and communicative.",
+      "career_hints": "Banking, finance, writing, business, education",
+      "keywords": [
+        "wealth through intellect",
+        "eloquent speech",
+        "business",
+        "multiple income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_03",
+      "planet": "Mercury",
+      "house": 3,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Mercury in 3rd house is the best position for communication. Writing, media, and journalism excel. Siblings are intellectual. Short journeys for business. Excellent communication skills.",
+      "career_hints": "Journalism, media, writing, IT, advertising",
+      "keywords": [
+        "excellent communication",
+        "writing",
+        "media",
+        "intellectual siblings"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_04",
+      "planet": "Mercury",
+      "house": 4,
+      "strength": "favorable",
+      "interpretation_english": "Mercury in 4th house gives intellectual home environment. Mother is educated. Education in home-related fields. Real estate through communication. Analytical mind about property.",
+      "career_hints": "Education, real estate consulting, home-based business",
+      "keywords": [
+        "intellectual home",
+        "educated mother",
+        "education",
+        "property analysis"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_05",
+      "planet": "Mercury",
+      "house": 5,
+      "strength": "very_favorable",
+      "interpretation_english": "Mercury in 5th house gives sharp creative intelligence. Children are intellectual. Gains through speculation with analysis. Romance through intellectual connection.",
+      "career_hints": "Education, writing, stock analysis, creative arts",
+      "keywords": [
+        "creative intelligence",
+        "intellectual children",
+        "analytical speculation",
+        "intellectual romance"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_06",
+      "planet": "Mercury",
+      "house": 6,
+      "strength": "favorable",
+      "interpretation_english": "Mercury in 6th house gives analytical approach to health and service. Good at defeating enemies through intellect. Medical or legal analysis career. Debt management through planning.",
+      "career_hints": "Healthcare administration, law, accounting, analysis",
+      "keywords": [
+        "analytical service",
+        "intellectual enemies defeated",
+        "medical analysis",
+        "debt planning"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_07",
+      "planet": "Mercury",
+      "house": 7,
+      "strength": "favorable",
+      "interpretation_english": "Mercury in 7th house brings intellectual and communicative spouse. Business partnerships through communication. Marriage to educated or business-minded person. Trading partnerships.",
+      "career_hints": "Business partnerships, trading, communication business",
+      "keywords": [
+        "intellectual spouse",
+        "business partner",
+        "communication",
+        "trading"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_08",
+      "planet": "Mercury",
+      "house": 8,
+      "strength": "mixed",
+      "interpretation_english": "Mercury in 8th house gives research and analytical abilities in occult or hidden matters. Inheritance through communication. Interest in astrology, psychology, or investigation.",
+      "career_hints": "Research, astrology, psychology, investigation, insurance",
+      "keywords": [
+        "research",
+        "occult analysis",
+        "inheritance",
+        "investigation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_09",
+      "planet": "Mercury",
+      "house": 9,
+      "strength": "very_favorable",
+      "interpretation_english": "Mercury in 9th house gives fortune through intellect and communication. Father is educated. Higher education in communication or business. Long journeys for learning.",
+      "career_hints": "Higher education, publishing, law, philosophy, travel",
+      "keywords": [
+        "fortune through intellect",
+        "educated father",
+        "higher education",
+        "publishing"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_10",
+      "planet": "Mercury",
+      "house": 10,
+      "strength": "very_favorable",
+      "interpretation_english": "Mercury in 10th house gives career in IT, media, communication, or business. Intellectual career. Multiple career options. Good for writing, teaching, and commerce.",
+      "career_hints": "IT, media, journalism, business, teaching, writing",
+      "keywords": [
+        "IT career",
+        "communication",
+        "business",
+        "multiple options"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_11",
+      "planet": "Mercury",
+      "house": 11,
+      "strength": "very_favorable",
+      "interpretation_english": "Mercury in 11th house brings gains through communication and intellect. Friends are educated and business-minded. Multiple income through writing or IT. Aspirations through networking.",
+      "career_hints": "IT networking, business consulting, writing income",
+      "keywords": [
+        "intellectual gains",
+        "educated friends",
+        "multiple income",
+        "networking"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_MER_12",
+      "planet": "Mercury",
+      "house": 12,
+      "strength": "mixed",
+      "interpretation_english": "Mercury in 12th house gives analytical mind about foreign matters. Expenses through communication. Foreign business connections. Interest in hidden knowledge and research.",
+      "career_hints": "Foreign business, research, translation, IT abroad",
+      "keywords": [
+        "foreign analysis",
+        "communication expenses",
+        "hidden knowledge",
+        "foreign IT"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_01",
+      "planet": "Jupiter",
+      "house": 1,
+      "strength": "very_favorable",
+      "interpretation_english": "Jupiter in 1st house gives wisdom, optimism, and fortune. Generous and philosophical personality. Good health and vitality. Natural teacher or advisor. Respected by all.",
+      "career_hints": "Teaching, law, religion, advisory, medicine",
+      "keywords": [
+        "wisdom",
+        "fortune",
+        "generous",
+        "philosophical",
+        "respected"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_02",
+      "planet": "Jupiter",
+      "house": 2,
+      "strength": "very_favorable",
+      "interpretation_english": "Jupiter in 2nd house brings wealth through wisdom and teaching. Eloquent and wise speech. Family is fortunate and educated. Multiple income sources through knowledge.",
+      "career_hints": "Education, banking, advisory, publishing, religion",
+      "keywords": [
+        "wealth through wisdom",
+        "wise speech",
+        "fortunate family",
+        "knowledge income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_03",
+      "planet": "Jupiter",
+      "house": 3,
+      "strength": "favorable",
+      "interpretation_english": "Jupiter in 3rd house gives wisdom in communication. Siblings may be teachers or advisors. Short journeys for learning. Writing and publishing skills.",
+      "career_hints": "Publishing, education, advisory, journalism",
+      "keywords": [
+        "wise communication",
+        "educated siblings",
+        "publishing",
+        "learning journeys"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_04",
+      "planet": "Jupiter",
+      "house": 4,
+      "strength": "very_favorable",
+      "interpretation_english": "Jupiter in 4th house gives fortunate home and emotional peace. Mother is wise and fortunate. Property gains through wisdom. Education in home environment.",
+      "career_hints": "Education, real estate, hospitality, advisory",
+      "keywords": [
+        "fortunate home",
+        "wise mother",
+        "property gains",
+        "emotional peace"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_05",
+      "planet": "Jupiter",
+      "house": 5,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Jupiter in 5th house is the best position for children and creativity. Multiple children possible. Creative intelligence. Gains through speculation. Children are blessed and educated.",
+      "career_hints": "Education, children's services, arts, speculation, advisory",
+      "keywords": [
+        "children blessed",
+        "creativity",
+        "education",
+        "speculation",
+        "fortune"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_06",
+      "planet": "Jupiter",
+      "house": 6,
+      "strength": "mixed",
+      "interpretation_english": "Jupiter in 6th house gives wisdom in service and health. Enemies are overcome through wisdom. Possible over-expansion causing health issues. Legal service career.",
+      "career_hints": "Healthcare, law, social service, advisory",
+      "keywords": [
+        "wisdom in service",
+        "enemies through wisdom",
+        "health",
+        "legal service"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_07",
+      "planet": "Jupiter",
+      "house": 7,
+      "strength": "very_favorable",
+      "interpretation_english": "Jupiter in 7th house brings wise and fortunate spouse. Happy marriage. Business partnerships with wisdom. Legal matters favorable. Spouse may be in teaching or law.",
+      "career_hints": "Legal partnerships, advisory business, education",
+      "keywords": [
+        "wise spouse",
+        "happy marriage",
+        "legal",
+        "fortune",
+        "teaching spouse"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_08",
+      "planet": "Jupiter",
+      "house": 8,
+      "strength": "favorable",
+      "interpretation_english": "Jupiter in 8th house gives wisdom in occult and hidden matters. Inheritance is fortunate. Longevity is good. Interest in philosophy, astrology, and research.",
+      "career_hints": "Astrology, research, insurance, philosophy, occult",
+      "keywords": [
+        "occult wisdom",
+        "fortunate inheritance",
+        "longevity",
+        "philosophy"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_09",
+      "planet": "Jupiter",
+      "house": 9,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Jupiter in 9th house is the most auspicious position. Maximum fortune and divine grace. Higher education and wisdom. Father is fortunate. Religion and philosophy excel.",
+      "career_hints": "Religion, law, higher education, philosophy, travel",
+      "keywords": [
+        "maximum fortune",
+        "divine grace",
+        "higher education",
+        "father blessed"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_10",
+      "planet": "Jupiter",
+      "house": 10,
+      "strength": "very_favorable",
+      "interpretation_english": "Jupiter in 10th house gives career in teaching, law, religion, or advisory roles. Wisdom-based career. Public recognition for knowledge. Respected authority figure.",
+      "career_hints": "Teaching, law, government advisory, religion, medicine",
+      "keywords": [
+        "wisdom career",
+        "teaching",
+        "law",
+        "advisory",
+        "respected"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_11",
+      "planet": "Jupiter",
+      "house": 11,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Jupiter in 11th house brings maximum gains and fulfillment. Wealthy and wise friends. Multiple income sources. Aspirations fulfilled through wisdom. Fortune through network.",
+      "career_hints": "Multiple income streams, advisory, investments, networking",
+      "keywords": [
+        "maximum gains",
+        "wealthy friends",
+        "fulfillment",
+        "multiple incomes"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_JUP_12",
+      "planet": "Jupiter",
+      "house": 12,
+      "strength": "favorable",
+      "interpretation_english": "Jupiter in 12th house gives spiritual wisdom and foreign fortune. Expenses on education and religion. Foreign settlement in fortunate location. Moksha through wisdom.",
+      "career_hints": "Foreign education, spirituality, philosophy abroad, NGO",
+      "keywords": [
+        "spiritual wisdom",
+        "foreign fortune",
+        "education expenses",
+        "moksha"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_01",
+      "planet": "Venus",
+      "house": 1,
+      "strength": "very_favorable",
+      "interpretation_english": "Venus in 1st house makes the native attractive, charming, with artistic abilities. Love for beauty, luxury, and comfort. Diplomatic personality. Refined appearance.",
+      "career_hints": "Fashion, beauty, arts, entertainment, diplomacy",
+      "keywords": [
+        "attractive",
+        "charming",
+        "artistic",
+        "diplomatic"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_02",
+      "planet": "Venus",
+      "house": 2,
+      "strength": "very_favorable",
+      "interpretation_english": "Venus in 2nd house indicates wealth through artistic pursuits, luxury goods, or beauty industry. Sweet speech, melodious voice. Family enjoys comforts. Good food habits.",
+      "career_hints": "Jewelry, cosmetics, music, singing, luxury retail",
+      "keywords": [
+        "wealth",
+        "luxury business",
+        "sweet voice",
+        "comfortable family"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_03",
+      "planet": "Venus",
+      "house": 3,
+      "strength": "favorable",
+      "interpretation_english": "Venus in 3rd house gives artistic communication and creative writing. Siblings are artistic. Short journeys related to arts or luxury. Courage in romantic pursuits.",
+      "career_hints": "Media, creative writing, advertising, design",
+      "keywords": [
+        "creative communication",
+        "artistic siblings",
+        "luxury travel",
+        "design"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_04",
+      "planet": "Venus",
+      "house": 4,
+      "strength": "very_favorable",
+      "interpretation_english": "Venus in 4th house indicates beautiful home and comfortable living. Mother is refined and artistic. Luxury vehicles. Property gains. Emotional peace through beauty and arts.",
+      "career_hints": "Real estate (luxury), interior design, hospitality",
+      "keywords": [
+        "beautiful home",
+        "luxury vehicles",
+        "artistic mother",
+        "property gains"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_05",
+      "planet": "Venus",
+      "house": 5,
+      "strength": "very_favorable",
+      "interpretation_english": "Venus in 5th house is excellent for romance, love affairs, and creative intelligence. Children may be artistic or beautiful. Gains through speculation if other factors support.",
+      "career_hints": "Acting, performing arts, entertainment, children's products",
+      "keywords": [
+        "romance",
+        "artistic children",
+        "creative",
+        "love affairs"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_06",
+      "planet": "Venus",
+      "house": 6,
+      "strength": "challenging",
+      "interpretation_english": "Venus in 6th house can cause health issues related to reproductive organs, kidneys, or throat. Enemies may be from opposite sex. Service in beauty/luxury industry. Debts through overspending.",
+      "career_hints": "Healthcare (beauty/aesthetics), luxury services, hospitality",
+      "keywords": [
+        "health issues",
+        "luxury debts",
+        "beauty service",
+        "opposite sex enemies"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_07",
+      "planet": "Venus",
+      "house": 7,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Venus in 7th house is the BEST position for marriage. Spouse will be beautiful, artistic, refined, and loving. Happy married life. Business partnerships in luxury/beauty sector are favorable.",
+      "career_hints": "Partnership business in fashion, beauty, luxury goods",
+      "keywords": [
+        "beautiful spouse",
+        "happy marriage",
+        "artistic partner",
+        "love marriage"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_08",
+      "planet": "Venus",
+      "house": 8,
+      "strength": "mixed",
+      "interpretation_english": "Venus in 8th house brings sudden wealth through inheritance, spouse's money, or insurance. Interest in occult, tantra, or hidden knowledge. Transformation through relationships. Longevity is good.",
+      "career_hints": "Insurance, inheritance law, occult arts, research",
+      "keywords": [
+        "sudden wealth",
+        "inheritance",
+        "spouse wealth",
+        "occult",
+        "transformation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_09",
+      "planet": "Venus",
+      "house": 9,
+      "strength": "very_favorable",
+      "interpretation_english": "Venus in 9th house indicates fortune through creative pursuits, teaching arts, or foreign connections. Father may be artistic or wealthy. Higher education in arts. Long journeys to beautiful destinations.",
+      "career_hints": "Higher education in arts, foreign luxury trade, tourism",
+      "keywords": [
+        "fortune",
+        "artistic father",
+        "foreign travel",
+        "arts education"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_10",
+      "planet": "Venus",
+      "house": 10,
+      "strength": "very_favorable",
+      "interpretation_english": "Venus in 10th house gives career in beauty, fashion, arts, entertainment, or luxury industries. Public reputation is good. Success through charm and diplomacy. Government/corporate role in creative departments.",
+      "career_hints": "Fashion designer, actor, artist, luxury brand manager, diplomat",
+      "keywords": [
+        "arts career",
+        "public reputation",
+        "luxury industry",
+        "diplomatic success"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_11",
+      "planet": "Venus",
+      "house": 11,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Venus in 11th house indicates fulfillment of desires through artistic pursuits. Wealthy friends from creative fields. Elder siblings are supportive. Multiple sources of income from beauty/arts.",
+      "career_hints": "Multiple income streams in creative fields, influencer, brand endorsements",
+      "keywords": [
+        "desire fulfillment",
+        "wealthy friends",
+        "multiple incomes",
+        "creative success"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_VEN_12",
+      "planet": "Venus",
+      "house": 12,
+      "strength": "mixed",
+      "interpretation_english": "Venus in 12th house suggests expenses on luxury, comfort, and pleasures. Foreign settlement possible in beautiful locations. Interest in spiritual arts (music, dance). Hidden romantic affairs. Moksha through devotion.",
+      "career_hints": "Foreign luxury trade, spiritual arts, hospitality abroad",
+      "keywords": [
+        "luxury expenses",
+        "foreign settlement",
+        "spiritual arts",
+        "secret romance"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_01",
+      "planet": "Saturn",
+      "house": 1,
+      "strength": "challenging",
+      "interpretation_english": "Saturn in 1st house gives disciplined, serious personality. Slow start in life but steady growth. Possible health issues in early life. Karmic lessons through self-discipline. Late bloomer.",
+      "career_hints": "Government, administration, labor management, construction",
+      "keywords": [
+        "discipline",
+        "serious",
+        "late bloomer",
+        "karmic lessons",
+        "steady growth"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_02",
+      "planet": "Saturn",
+      "house": 2,
+      "strength": "challenging",
+      "interpretation_english": "Saturn in 2nd house brings wealth through hard work and discipline. Delayed financial growth. Frugal family. Speech may be slow or serious. Wealth accumulates in later life.",
+      "career_hints": "Banking, finance, government treasury, mining",
+      "keywords": [
+        "delayed wealth",
+        "hard work",
+        "frugal",
+        "serious speech",
+        "late financial growth"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_03",
+      "planet": "Saturn",
+      "house": 3,
+      "strength": "mixed",
+      "interpretation_english": "Saturn in 3rd house gives disciplined communication and serious siblings. Short journeys for work. Courage through patience. Writing with depth and seriousness.",
+      "career_hints": "Technical writing, government communication, engineering",
+      "keywords": [
+        "disciplined communication",
+        "serious siblings",
+        "patient courage",
+        "technical writing"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_04",
+      "planet": "Saturn",
+      "house": 4,
+      "strength": "challenging",
+      "interpretation_english": "Saturn in 4th house brings delays in property and home. Mother may face health issues. Emotional restrictions. Property gains after hard work. Vehicles through discipline.",
+      "career_hints": "Real estate (delayed), construction, government housing",
+      "keywords": [
+        "property delays",
+        "home restrictions",
+        "mother health",
+        "emotional discipline"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_05",
+      "planet": "Saturn",
+      "house": 5,
+      "strength": "challenging",
+      "interpretation_english": "Saturn in 5th house delays children and romance. Creative expression is disciplined. Gains through speculation only after careful analysis. Children may be few but responsible.",
+      "career_hints": "Education (disciplined), financial analysis, government arts",
+      "keywords": [
+        "delayed children",
+        "disciplined creativity",
+        "careful speculation",
+        "responsible children"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_06",
+      "planet": "Saturn",
+      "house": 6,
+      "strength": "very_favorable",
+      "interpretation_english": "Saturn in 6th house is excellent for defeating enemies through discipline. Service-oriented career. Health through discipline. Good for government service. Obstacles overcome through patience.",
+      "career_hints": "Government service, labor management, discipline-based careers",
+      "keywords": [
+        "enemies defeated",
+        "discipline",
+        "service",
+        "obstacles overcome"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_07",
+      "planet": "Saturn",
+      "house": 7,
+      "strength": "challenging",
+      "interpretation_english": "Saturn in 7th house delays marriage. Spouse may be older, serious, or from a different background. Business partnerships with discipline. Marriage brings karmic lessons.",
+      "career_hints": "Government partnerships, disciplined business, legal advisory",
+      "keywords": [
+        "delayed marriage",
+        "serious spouse",
+        "karmic marriage",
+        "disciplined partnerships"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_08",
+      "planet": "Saturn",
+      "house": 8,
+      "strength": "favorable",
+      "interpretation_english": "Saturn in 8th house gives longevity and discipline in occult matters. Inheritance through hard work. Transformation through karmic lessons. Research and investigation career.",
+      "career_hints": "Research, insurance, government investigation, occult",
+      "keywords": [
+        "longevity",
+        "karmic transformation",
+        "disciplined occult",
+        "inheritance hard work"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_09",
+      "planet": "Saturn",
+      "house": 9,
+      "strength": "challenging",
+      "interpretation_english": "Saturn in 9th house brings delays in fortune and higher education. Father may face hardships. Religion through discipline. Long journeys for karmic reasons. Fortune comes late.",
+      "career_hints": "Government law, disciplined religion, late higher education",
+      "keywords": [
+        "delayed fortune",
+        "father hardships",
+        "disciplined religion",
+        "late luck"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_10",
+      "planet": "Saturn",
+      "house": 10,
+      "strength": "very_favorable",
+      "interpretation_english": "Saturn in 10th house gives career through hard work and discipline. Slow but steady rise to the top. Government or labor-related career. Recognition comes late but lasts long.",
+      "career_hints": "Government, labor management, construction, mining, administration",
+      "keywords": [
+        "hard work career",
+        "slow rise",
+        "government",
+        "lasting recognition"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_11",
+      "planet": "Saturn",
+      "house": 11,
+      "strength": "favorable",
+      "interpretation_english": "Saturn in 11th house brings gains through discipline and hard work. Friends are serious and reliable. Aspirations fulfilled slowly but surely. Income from government or labor sector.",
+      "career_hints": "Government networking, labor sector, disciplined investments",
+      "keywords": [
+        "disciplined gains",
+        "reliable friends",
+        "slow aspirations",
+        "government income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_SAT_12",
+      "planet": "Saturn",
+      "house": 12,
+      "strength": "mixed",
+      "interpretation_english": "Saturn in 12th house brings karmic expenses and isolation. Foreign connections through discipline. Spiritual discipline and moksha. Possible imprisonment or hospitalization if afflicted.",
+      "career_hints": "Foreign government, spiritual discipline, research abroad",
+      "keywords": [
+        "karmic expenses",
+        "isolation",
+        "spiritual discipline",
+        "foreign discipline"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_01",
+      "planet": "Rahu",
+      "house": 1,
+      "strength": "mixed",
+      "interpretation_english": "Rahu in 1st house gives unconventional personality and obsessive nature. Foreign connections. Sudden changes in personality. Ambition and desire for recognition. May appear different from actual self.",
+      "career_hints": "Technology, foreign work, unconventional careers, media",
+      "keywords": [
+        "unconventional",
+        "obsessive",
+        "foreign",
+        "sudden changes",
+        "ambition"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_02",
+      "planet": "Rahu",
+      "house": 2,
+      "strength": "mixed",
+      "interpretation_english": "Rahu in 2nd house brings sudden wealth through unconventional means. Foreign income. Speech may be deceptive or unusual. Family may have foreign connections. Sudden financial gains and losses.",
+      "career_hints": "Foreign trade, technology business, unconventional finance",
+      "keywords": [
+        "sudden wealth",
+        "foreign income",
+        "unusual speech",
+        "unconventional family"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_03",
+      "planet": "Rahu",
+      "house": 3,
+      "strength": "favorable",
+      "interpretation_english": "Rahu in 3rd house gives unconventional communication and media skills. Siblings may be in foreign or technology fields. Short journeys for unconventional purposes. Bold and unusual communication.",
+      "career_hints": "Technology media, foreign communication, unconventional writing",
+      "keywords": [
+        "unconventional communication",
+        "technology siblings",
+        "foreign journeys",
+        "bold media"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_04",
+      "planet": "Rahu",
+      "house": 4,
+      "strength": "challenging",
+      "interpretation_english": "Rahu in 4th house brings sudden changes in home and property. Mother may have foreign connections. Unconventional home environment. Property through unusual means. Emotional restlessness.",
+      "career_hints": "Foreign real estate, technology home, unconventional property",
+      "keywords": [
+        "sudden home changes",
+        "foreign mother",
+        "unconventional property",
+        "emotional restlessness"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_05",
+      "planet": "Rahu",
+      "house": 5,
+      "strength": "mixed",
+      "interpretation_english": "Rahu in 5th house brings unconventional romance and creative intelligence. Children may be unusual or have foreign connections. Speculation through technology. Obsessive creativity.",
+      "career_hints": "Technology arts, foreign entertainment, unconventional education",
+      "keywords": [
+        "unconventional romance",
+        "unusual children",
+        "technology speculation",
+        "obsessive creativity"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_06",
+      "planet": "Rahu",
+      "house": 6,
+      "strength": "very_favorable",
+      "interpretation_english": "Rahu in 6th house is excellent for defeating enemies through unconventional means. Service in technology or foreign sector. Health through alternative medicine. Obstacles overcome suddenly.",
+      "career_hints": "Technology service, foreign healthcare, alternative medicine",
+      "keywords": [
+        "enemies defeated unconventionally",
+        "technology service",
+        "alternative health",
+        "sudden obstacle removal"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_07",
+      "planet": "Rahu",
+      "house": 7,
+      "strength": "challenging",
+      "interpretation_english": "Rahu in 7th house brings unconventional marriage. Spouse may be from foreign background or different culture. Business partnerships with foreigners. Sudden changes in relationships.",
+      "career_hints": "Foreign business partnerships, international trade, unconventional business",
+      "keywords": [
+        "unconventional marriage",
+        "foreign spouse",
+        "international partnerships",
+        "sudden relationship changes"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_08",
+      "planet": "Rahu",
+      "house": 8,
+      "strength": "challenging",
+      "interpretation_english": "Rahu in 8th house brings sudden and unexpected events. Interest in occult and hidden matters. Inheritance through unusual means. Transformation through sudden crises. Longevity uncertain.",
+      "career_hints": "Occult research, technology investigation, foreign insurance",
+      "keywords": [
+        "sudden events",
+        "occult obsession",
+        "unusual inheritance",
+        "transformation crisis"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_09",
+      "planet": "Rahu",
+      "house": 9,
+      "strength": "mixed",
+      "interpretation_english": "Rahu in 9th house gives fortune through unconventional means and foreign connections. Father may be from different background. Higher education in technology or foreign institutions. Unusual religious beliefs.",
+      "career_hints": "Foreign education, technology research, unconventional religion",
+      "keywords": [
+        "unconventional fortune",
+        "foreign father",
+        "technology education",
+        "unusual beliefs"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_10",
+      "planet": "Rahu",
+      "house": 10,
+      "strength": "favorable",
+      "interpretation_english": "Rahu in 10th house gives sudden career opportunities and unconventional success. Foreign career possible. Technology and innovation in career. Sudden rise to prominence.",
+      "career_hints": "Technology, foreign career, unconventional business, media",
+      "keywords": [
+        "sudden career",
+        "foreign",
+        "technology",
+        "unconventional success"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_11",
+      "planet": "Rahu",
+      "house": 11,
+      "strength": "very_favorable",
+      "interpretation_english": "Rahu in 11th house brings sudden and large gains. Friends from foreign or technology backgrounds. Aspirations fulfilled through unconventional means. Multiple income from technology or foreign sources.",
+      "career_hints": "Technology business, foreign networking, unconventional investments",
+      "keywords": [
+        "sudden large gains",
+        "foreign friends",
+        "unconventional aspirations",
+        "technology income"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_RAH_12",
+      "planet": "Rahu",
+      "house": 12,
+      "strength": "mixed",
+      "interpretation_english": "Rahu in 12th house brings expenses through obsession and foreign matters. Foreign settlement possible. Interest in occult and hidden knowledge. Spiritual confusion. Possible deception.",
+      "career_hints": "Foreign work, occult research, technology abroad, spirituality",
+      "keywords": [
+        "foreign expenses",
+        "occult interest",
+        "spiritual confusion",
+        "foreign settlement"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_01",
+      "planet": "Ketu",
+      "house": 1,
+      "strength": "challenging",
+      "interpretation_english": "Ketu in 1st house gives spiritual personality and detachment from self. Past-life wisdom. Unconventional appearance. Sudden events affecting personality. Moksha-oriented nature.",
+      "career_hints": "Spirituality, research, occult, philosophy, healing",
+      "keywords": [
+        "spiritual personality",
+        "detachment",
+        "past-life wisdom",
+        "moksha",
+        "unconventional"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_02",
+      "planet": "Ketu",
+      "house": 2,
+      "strength": "challenging",
+      "interpretation_english": "Ketu in 2nd house brings detachment from wealth and family. Speech may be unusual or spiritual. Sudden financial losses and gains. Family may have spiritual inclinations.",
+      "career_hints": "Spiritual teaching, research, occult business",
+      "keywords": [
+        "detachment from wealth",
+        "spiritual speech",
+        "sudden finances",
+        "spiritual family"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_03",
+      "planet": "Ketu",
+      "house": 3,
+      "strength": "mixed",
+      "interpretation_english": "Ketu in 3rd house gives spiritual communication and detachment from siblings. Short journeys for spiritual purposes. Intuitive communication. Writing on spiritual or occult topics.",
+      "career_hints": "Spiritual writing, occult communication, research journalism",
+      "keywords": [
+        "spiritual communication",
+        "sibling detachment",
+        "intuitive writing",
+        "occult topics"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_04",
+      "planet": "Ketu",
+      "house": 4,
+      "strength": "challenging",
+      "interpretation_english": "Ketu in 4th house brings detachment from home and mother. Possible change of residence. Emotional detachment. Property through past-life karma. Mother may be spiritual.",
+      "career_hints": "Spiritual real estate, research, occult home practices",
+      "keywords": [
+        "home detachment",
+        "mother spiritual",
+        "property karma",
+        "emotional detachment"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_05",
+      "planet": "Ketu",
+      "house": 5,
+      "strength": "mixed",
+      "interpretation_english": "Ketu in 5th house brings detachment from children and romance. Past-life creative talents. Spiritual intelligence. Sudden events related to children. Intuitive speculation.",
+      "career_hints": "Spiritual education, occult arts, intuitive trading",
+      "keywords": [
+        "children detachment",
+        "past-life creativity",
+        "spiritual intelligence",
+        "intuitive speculation"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_06",
+      "planet": "Ketu",
+      "house": 6,
+      "strength": "very_favorable",
+      "interpretation_english": "Ketu in 6th house is excellent for defeating enemies through spiritual means. Health through alternative and spiritual healing. Service in spiritual or research fields. Obstacles dissolve spiritually.",
+      "career_hints": "Alternative healing, spiritual service, research, occult",
+      "keywords": [
+        "enemies defeated spiritually",
+        "spiritual health",
+        "research service",
+        "obstacles dissolve"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_07",
+      "planet": "Ketu",
+      "house": 7,
+      "strength": "challenging",
+      "interpretation_english": "Ketu in 7th house brings detachment in marriage. Spouse may be spiritual or from past-life connection. Business partnerships dissolve suddenly. Marriage brings karmic lessons.",
+      "career_hints": "Spiritual partnerships, research business, occult advisory",
+      "keywords": [
+        "marriage detachment",
+        "spiritual spouse",
+        "past-life partner",
+        "karmic marriage"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_08",
+      "planet": "Ketu",
+      "house": 8,
+      "strength": "very_favorable",
+      "interpretation_english": "Ketu in 8th house gives deep occult knowledge and spiritual transformation. Past-life research abilities. Longevity through spiritual practices. Inheritance through past-life karma.",
+      "career_hints": "Occult research, spiritual healing, astrology, investigation",
+      "keywords": [
+        "occult mastery",
+        "spiritual transformation",
+        "past-life research",
+        "karmic inheritance"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_09",
+      "planet": "Ketu",
+      "house": 9,
+      "strength": "very_favorable",
+      "interpretation_english": "Ketu in 9th house gives deep spiritual wisdom and past-life knowledge. Fortune through spirituality. Father may be spiritual. Higher education in philosophy or occult.",
+      "career_hints": "Spirituality, philosophy, research, occult, religion",
+      "keywords": [
+        "spiritual wisdom",
+        "past-life",
+        "fortune",
+        "philosophy"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_10",
+      "planet": "Ketu",
+      "house": 10,
+      "strength": "mixed",
+      "interpretation_english": "Ketu in 10th house brings sudden career changes and detachment from profession. Career in spiritual or research fields. Past-life professional skills. Unconventional career path.",
+      "career_hints": "Spiritual career, research, occult profession, alternative healing",
+      "keywords": [
+        "career detachment",
+        "spiritual profession",
+        "past-life skills",
+        "unconventional career"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_11",
+      "planet": "Ketu",
+      "house": 11,
+      "strength": "mixed",
+      "interpretation_english": "Ketu in 11th house brings sudden gains and losses. Friends may be spiritual or from past-life connections. Aspirations fulfilled through spiritual means. Detachment from material gains.",
+      "career_hints": "Spiritual networking, research income, occult business",
+      "keywords": [
+        "sudden gains losses",
+        "spiritual friends",
+        "past-life connections",
+        "material detachment"
+      ]
+    },
+    {
+      "rule_id": "KP_PH_KET_12",
+      "planet": "Ketu",
+      "house": 12,
+      "strength": "extremely_favorable",
+      "interpretation_english": "Ketu in 12th house is the best position for spiritual liberation. Moksha is strongly indicated. Foreign spiritual connections. Past-life spiritual merit. Expenses on spiritual pursuits.",
+      "career_hints": "Spiritual liberation, foreign spirituality, occult research, ashram",
+      "keywords": [
+        "moksha",
+        "spiritual liberation",
+        "foreign spirituality",
+        "past-life merit"
+      ]
+    }
+  ],
+  "sublord_interpretations": [
+    {
+      "rule_id": "SUB_01_SUN",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 1th cusp has Sun as sub-lord, matters of self/personality/health are influenced by authority/government/ego. This brings Sun's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Sun",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_MOO",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 1th cusp has Moon as sub-lord, matters of self/personality/health are influenced by mind/emotions/public. This brings Moon's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Moon",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_MAR",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 1th cusp has Mars as sub-lord, matters of self/personality/health are influenced by energy/courage/conflict. This brings Mars's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Mars",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_MER",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 1th cusp has Mercury as sub-lord, matters of self/personality/health are influenced by intelligence/communication/business. This brings Mercury's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Mercury",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_JUP",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 1th cusp has Jupiter as sub-lord, matters of self/personality/health are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Jupiter",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_VEN",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 1th cusp has Venus as sub-lord, matters of self/personality/health are influenced by love/luxury/arts. This brings Venus's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Venus",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_SAT",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 1th cusp has Saturn as sub-lord, matters of self/personality/health are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Saturn",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_RAH",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 1th cusp has Rahu as sub-lord, matters of self/personality/health are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Rahu",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_01_KET",
+      "cusp": 1,
+      "cusp_meaning": "self/personality/health",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 1th cusp has Ketu as sub-lord, matters of self/personality/health are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 1th house affairs.",
+      "keywords": [
+        "1th cusp",
+        "Ketu",
+        "self/personality/health"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_SUN",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 2th cusp has Sun as sub-lord, matters of wealth/family/speech are influenced by authority/government/ego. This brings Sun's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Sun",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_MOO",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 2th cusp has Moon as sub-lord, matters of wealth/family/speech are influenced by mind/emotions/public. This brings Moon's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Moon",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_MAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 2th cusp has Mars as sub-lord, matters of wealth/family/speech are influenced by energy/courage/conflict. This brings Mars's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Mars",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_MER",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 2th cusp has Mercury as sub-lord, matters of wealth/family/speech are influenced by intelligence/communication/business. This brings Mercury's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Mercury",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_JUP",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 2th cusp has Jupiter as sub-lord, matters of wealth/family/speech are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Jupiter",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_VEN",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 2th cusp has Venus as sub-lord, matters of wealth/family/speech are influenced by love/luxury/arts. This brings Venus's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Venus",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_SAT",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 2th cusp has Saturn as sub-lord, matters of wealth/family/speech are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Saturn",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_RAH",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 2th cusp has Rahu as sub-lord, matters of wealth/family/speech are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Rahu",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_02_KET",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 2th cusp has Ketu as sub-lord, matters of wealth/family/speech are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 2th house affairs.",
+      "keywords": [
+        "2th cusp",
+        "Ketu",
+        "wealth/family/speech"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_SUN",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 3th cusp has Sun as sub-lord, matters of siblings/courage/communication are influenced by authority/government/ego. This brings Sun's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Sun",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_MOO",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 3th cusp has Moon as sub-lord, matters of siblings/courage/communication are influenced by mind/emotions/public. This brings Moon's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Moon",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_MAR",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 3th cusp has Mars as sub-lord, matters of siblings/courage/communication are influenced by energy/courage/conflict. This brings Mars's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Mars",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_MER",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 3th cusp has Mercury as sub-lord, matters of siblings/courage/communication are influenced by intelligence/communication/business. This brings Mercury's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Mercury",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_JUP",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 3th cusp has Jupiter as sub-lord, matters of siblings/courage/communication are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Jupiter",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_VEN",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 3th cusp has Venus as sub-lord, matters of siblings/courage/communication are influenced by love/luxury/arts. This brings Venus's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Venus",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_SAT",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 3th cusp has Saturn as sub-lord, matters of siblings/courage/communication are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Saturn",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_RAH",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 3th cusp has Rahu as sub-lord, matters of siblings/courage/communication are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Rahu",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_03_KET",
+      "cusp": 3,
+      "cusp_meaning": "siblings/courage/communication",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 3th cusp has Ketu as sub-lord, matters of siblings/courage/communication are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 3th house affairs.",
+      "keywords": [
+        "3th cusp",
+        "Ketu",
+        "siblings/courage/communication"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_SUN",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 4th cusp has Sun as sub-lord, matters of mother/home/education are influenced by authority/government/ego. This brings Sun's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Sun",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_MOO",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 4th cusp has Moon as sub-lord, matters of mother/home/education are influenced by mind/emotions/public. This brings Moon's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Moon",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_MAR",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 4th cusp has Mars as sub-lord, matters of mother/home/education are influenced by energy/courage/conflict. This brings Mars's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Mars",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_MER",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 4th cusp has Mercury as sub-lord, matters of mother/home/education are influenced by intelligence/communication/business. This brings Mercury's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Mercury",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_JUP",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 4th cusp has Jupiter as sub-lord, matters of mother/home/education are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Jupiter",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_VEN",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 4th cusp has Venus as sub-lord, matters of mother/home/education are influenced by love/luxury/arts. This brings Venus's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Venus",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_SAT",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 4th cusp has Saturn as sub-lord, matters of mother/home/education are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Saturn",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_RAH",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 4th cusp has Rahu as sub-lord, matters of mother/home/education are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Rahu",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_04_KET",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 4th cusp has Ketu as sub-lord, matters of mother/home/education are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 4th house affairs.",
+      "keywords": [
+        "4th cusp",
+        "Ketu",
+        "mother/home/education"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_SUN",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 5th cusp has Sun as sub-lord, matters of children/romance/speculation are influenced by authority/government/ego. This brings Sun's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Sun",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_MOO",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 5th cusp has Moon as sub-lord, matters of children/romance/speculation are influenced by mind/emotions/public. This brings Moon's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Moon",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_MAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 5th cusp has Mars as sub-lord, matters of children/romance/speculation are influenced by energy/courage/conflict. This brings Mars's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Mars",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_MER",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 5th cusp has Mercury as sub-lord, matters of children/romance/speculation are influenced by intelligence/communication/business. This brings Mercury's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Mercury",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_JUP",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 5th cusp has Jupiter as sub-lord, matters of children/romance/speculation are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Jupiter",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_VEN",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 5th cusp has Venus as sub-lord, matters of children/romance/speculation are influenced by love/luxury/arts. This brings Venus's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Venus",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_SAT",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 5th cusp has Saturn as sub-lord, matters of children/romance/speculation are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Saturn",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_RAH",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 5th cusp has Rahu as sub-lord, matters of children/romance/speculation are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Rahu",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_05_KET",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 5th cusp has Ketu as sub-lord, matters of children/romance/speculation are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 5th house affairs.",
+      "keywords": [
+        "5th cusp",
+        "Ketu",
+        "children/romance/speculation"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_SUN",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 6th cusp has Sun as sub-lord, matters of enemies/debts/service are influenced by authority/government/ego. This brings Sun's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Sun",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_MOO",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 6th cusp has Moon as sub-lord, matters of enemies/debts/service are influenced by mind/emotions/public. This brings Moon's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Moon",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_MAR",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 6th cusp has Mars as sub-lord, matters of enemies/debts/service are influenced by energy/courage/conflict. This brings Mars's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Mars",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_MER",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 6th cusp has Mercury as sub-lord, matters of enemies/debts/service are influenced by intelligence/communication/business. This brings Mercury's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Mercury",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_JUP",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 6th cusp has Jupiter as sub-lord, matters of enemies/debts/service are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Jupiter",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_VEN",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 6th cusp has Venus as sub-lord, matters of enemies/debts/service are influenced by love/luxury/arts. This brings Venus's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Venus",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_SAT",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 6th cusp has Saturn as sub-lord, matters of enemies/debts/service are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Saturn",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_RAH",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 6th cusp has Rahu as sub-lord, matters of enemies/debts/service are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Rahu",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_06_KET",
+      "cusp": 6,
+      "cusp_meaning": "enemies/debts/service",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 6th cusp has Ketu as sub-lord, matters of enemies/debts/service are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 6th house affairs.",
+      "keywords": [
+        "6th cusp",
+        "Ketu",
+        "enemies/debts/service"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_SUN",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 7th cusp has Sun as sub-lord, matters of marriage/partnership/spouse are influenced by authority/government/ego. This brings Sun's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Sun",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_MOO",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 7th cusp has Moon as sub-lord, matters of marriage/partnership/spouse are influenced by mind/emotions/public. This brings Moon's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Moon",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_MAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 7th cusp has Mars as sub-lord, matters of marriage/partnership/spouse are influenced by energy/courage/conflict. This brings Mars's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Mars",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_MER",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 7th cusp has Mercury as sub-lord, matters of marriage/partnership/spouse are influenced by intelligence/communication/business. This brings Mercury's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Mercury",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_JUP",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 7th cusp has Jupiter as sub-lord, matters of marriage/partnership/spouse are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Jupiter",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_VEN",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 7th cusp has Venus as sub-lord, matters of marriage/partnership/spouse are influenced by love/luxury/arts. This brings Venus's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Venus",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_SAT",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 7th cusp has Saturn as sub-lord, matters of marriage/partnership/spouse are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Saturn",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_RAH",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 7th cusp has Rahu as sub-lord, matters of marriage/partnership/spouse are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Rahu",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_KET",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 7th cusp has Ketu as sub-lord, matters of marriage/partnership/spouse are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 7th house affairs.",
+      "keywords": [
+        "7th cusp",
+        "Ketu",
+        "marriage/partnership/spouse"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_SUN",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 8th cusp has Sun as sub-lord, matters of longevity/transformation/inheritance are influenced by authority/government/ego. This brings Sun's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Sun",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_MOO",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 8th cusp has Moon as sub-lord, matters of longevity/transformation/inheritance are influenced by mind/emotions/public. This brings Moon's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Moon",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_MAR",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 8th cusp has Mars as sub-lord, matters of longevity/transformation/inheritance are influenced by energy/courage/conflict. This brings Mars's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Mars",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_MER",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 8th cusp has Mercury as sub-lord, matters of longevity/transformation/inheritance are influenced by intelligence/communication/business. This brings Mercury's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Mercury",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_JUP",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 8th cusp has Jupiter as sub-lord, matters of longevity/transformation/inheritance are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Jupiter",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_VEN",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 8th cusp has Venus as sub-lord, matters of longevity/transformation/inheritance are influenced by love/luxury/arts. This brings Venus's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Venus",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_SAT",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 8th cusp has Saturn as sub-lord, matters of longevity/transformation/inheritance are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Saturn",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_RAH",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 8th cusp has Rahu as sub-lord, matters of longevity/transformation/inheritance are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Rahu",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_08_KET",
+      "cusp": 8,
+      "cusp_meaning": "longevity/transformation/inheritance",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 8th cusp has Ketu as sub-lord, matters of longevity/transformation/inheritance are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 8th house affairs.",
+      "keywords": [
+        "8th cusp",
+        "Ketu",
+        "longevity/transformation/inheritance"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_SUN",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 9th cusp has Sun as sub-lord, matters of fortune/higher education/father are influenced by authority/government/ego. This brings Sun's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Sun",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_MOO",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 9th cusp has Moon as sub-lord, matters of fortune/higher education/father are influenced by mind/emotions/public. This brings Moon's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Moon",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_MAR",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 9th cusp has Mars as sub-lord, matters of fortune/higher education/father are influenced by energy/courage/conflict. This brings Mars's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Mars",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_MER",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 9th cusp has Mercury as sub-lord, matters of fortune/higher education/father are influenced by intelligence/communication/business. This brings Mercury's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Mercury",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_JUP",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 9th cusp has Jupiter as sub-lord, matters of fortune/higher education/father are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Jupiter",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_VEN",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 9th cusp has Venus as sub-lord, matters of fortune/higher education/father are influenced by love/luxury/arts. This brings Venus's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Venus",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_SAT",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 9th cusp has Saturn as sub-lord, matters of fortune/higher education/father are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Saturn",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_RAH",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 9th cusp has Rahu as sub-lord, matters of fortune/higher education/father are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Rahu",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_09_KET",
+      "cusp": 9,
+      "cusp_meaning": "fortune/higher education/father",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 9th cusp has Ketu as sub-lord, matters of fortune/higher education/father are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 9th house affairs.",
+      "keywords": [
+        "9th cusp",
+        "Ketu",
+        "fortune/higher education/father"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_SUN",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 10th cusp has Sun as sub-lord, matters of career/status/profession are influenced by authority/government/ego. This brings Sun's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Sun",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_MOO",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 10th cusp has Moon as sub-lord, matters of career/status/profession are influenced by mind/emotions/public. This brings Moon's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Moon",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_MAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 10th cusp has Mars as sub-lord, matters of career/status/profession are influenced by energy/courage/conflict. This brings Mars's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Mars",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_MER",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 10th cusp has Mercury as sub-lord, matters of career/status/profession are influenced by intelligence/communication/business. This brings Mercury's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Mercury",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_JUP",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 10th cusp has Jupiter as sub-lord, matters of career/status/profession are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Jupiter",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_VEN",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 10th cusp has Venus as sub-lord, matters of career/status/profession are influenced by love/luxury/arts. This brings Venus's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Venus",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_SAT",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 10th cusp has Saturn as sub-lord, matters of career/status/profession are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Saturn",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_RAH",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 10th cusp has Rahu as sub-lord, matters of career/status/profession are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Rahu",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_10_KET",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 10th cusp has Ketu as sub-lord, matters of career/status/profession are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 10th house affairs.",
+      "keywords": [
+        "10th cusp",
+        "Ketu",
+        "career/status/profession"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_SUN",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 11th cusp has Sun as sub-lord, matters of gains/fulfillment/income are influenced by authority/government/ego. This brings Sun's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Sun",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_MOO",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 11th cusp has Moon as sub-lord, matters of gains/fulfillment/income are influenced by mind/emotions/public. This brings Moon's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Moon",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_MAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 11th cusp has Mars as sub-lord, matters of gains/fulfillment/income are influenced by energy/courage/conflict. This brings Mars's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Mars",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_MER",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 11th cusp has Mercury as sub-lord, matters of gains/fulfillment/income are influenced by intelligence/communication/business. This brings Mercury's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Mercury",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_JUP",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 11th cusp has Jupiter as sub-lord, matters of gains/fulfillment/income are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Jupiter",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_VEN",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 11th cusp has Venus as sub-lord, matters of gains/fulfillment/income are influenced by love/luxury/arts. This brings Venus's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Venus",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_SAT",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 11th cusp has Saturn as sub-lord, matters of gains/fulfillment/income are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Saturn",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_RAH",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 11th cusp has Rahu as sub-lord, matters of gains/fulfillment/income are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Rahu",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_11_KET",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 11th cusp has Ketu as sub-lord, matters of gains/fulfillment/income are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 11th house affairs.",
+      "keywords": [
+        "11th cusp",
+        "Ketu",
+        "gains/fulfillment/income"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_SUN",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Sun",
+      "sublord_nature": "authority/government/ego",
+      "interpretation": "When 12th cusp has Sun as sub-lord, matters of losses/expenses/foreign lands are influenced by authority/government/ego. This brings Sun's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Sun",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_MOO",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Moon",
+      "sublord_nature": "mind/emotions/public",
+      "interpretation": "When 12th cusp has Moon as sub-lord, matters of losses/expenses/foreign lands are influenced by mind/emotions/public. This brings Moon's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Moon",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_MAR",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Mars",
+      "sublord_nature": "energy/courage/conflict",
+      "interpretation": "When 12th cusp has Mars as sub-lord, matters of losses/expenses/foreign lands are influenced by energy/courage/conflict. This brings Mars's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Mars",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_MER",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Mercury",
+      "sublord_nature": "intelligence/communication/business",
+      "interpretation": "When 12th cusp has Mercury as sub-lord, matters of losses/expenses/foreign lands are influenced by intelligence/communication/business. This brings Mercury's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Mercury",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_JUP",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Jupiter",
+      "sublord_nature": "wisdom/expansion/fortune",
+      "interpretation": "When 12th cusp has Jupiter as sub-lord, matters of losses/expenses/foreign lands are influenced by wisdom/expansion/fortune. This brings Jupiter's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Jupiter",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_VEN",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Venus",
+      "sublord_nature": "love/luxury/arts",
+      "interpretation": "When 12th cusp has Venus as sub-lord, matters of losses/expenses/foreign lands are influenced by love/luxury/arts. This brings Venus's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Venus",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_SAT",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Saturn",
+      "sublord_nature": "discipline/delay/hard work",
+      "interpretation": "When 12th cusp has Saturn as sub-lord, matters of losses/expenses/foreign lands are influenced by discipline/delay/hard work. This brings Saturn's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Saturn",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_RAH",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Rahu",
+      "sublord_nature": "foreign/unconventional/sudden",
+      "interpretation": "When 12th cusp has Rahu as sub-lord, matters of losses/expenses/foreign lands are influenced by foreign/unconventional/sudden. This brings Rahu's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Rahu",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_12_KET",
+      "cusp": 12,
+      "cusp_meaning": "losses/expenses/foreign lands",
+      "sublord": "Ketu",
+      "sublord_nature": "spirituality/detachment/past karma",
+      "interpretation": "When 12th cusp has Ketu as sub-lord, matters of losses/expenses/foreign lands are influenced by spirituality/detachment/past karma. This brings Ketu's characteristics to 12th house affairs.",
+      "keywords": [
+        "12th cusp",
+        "Ketu",
+        "losses/expenses/foreign lands"
+      ]
+    },
+    {
+      "rule_id": "SUB_07_SUN_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Sun",
+      "sublord_nature": "Sun influence on marriage",
+      "interpretation": "7th cusp with Sun sub-lord: Marriage partner characteristics and timing are heavily influenced by Sun. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Sun",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Sun's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_MOO_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Moon",
+      "sublord_nature": "Moon influence on marriage",
+      "interpretation": "7th cusp with Moon sub-lord: Marriage partner characteristics and timing are heavily influenced by Moon. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Moon",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Moon's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_MAR_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Mars",
+      "sublord_nature": "Mars influence on marriage",
+      "interpretation": "7th cusp with Mars sub-lord: Marriage partner characteristics and timing are heavily influenced by Mars. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Mars",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Mars's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_MER_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Mercury",
+      "sublord_nature": "Mercury influence on marriage",
+      "interpretation": "7th cusp with Mercury sub-lord: Marriage partner characteristics and timing are heavily influenced by Mercury. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Mercury",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Mercury's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_JUP_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Jupiter",
+      "sublord_nature": "Jupiter influence on marriage",
+      "interpretation": "7th cusp with Jupiter sub-lord: Marriage partner characteristics and timing are heavily influenced by Jupiter. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Jupiter",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Jupiter's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_VEN_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Venus",
+      "sublord_nature": "Venus influence on marriage",
+      "interpretation": "7th cusp with Venus sub-lord: Marriage partner characteristics and timing are heavily influenced by Venus. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Venus",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Venus's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_SAT_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Saturn",
+      "sublord_nature": "Saturn influence on marriage",
+      "interpretation": "7th cusp with Saturn sub-lord: Marriage partner characteristics and timing are heavily influenced by Saturn. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Saturn",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Saturn's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_RAH_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Rahu",
+      "sublord_nature": "Rahu influence on marriage",
+      "interpretation": "7th cusp with Rahu sub-lord: Marriage partner characteristics and timing are heavily influenced by Rahu. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Rahu",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Rahu's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_07_KET_VAR",
+      "cusp": 7,
+      "cusp_meaning": "marriage/partnership/spouse",
+      "sublord": "Ketu",
+      "sublord_nature": "Ketu influence on marriage",
+      "interpretation": "7th cusp with Ketu sub-lord: Marriage partner characteristics and timing are heavily influenced by Ketu. This determines spouse nature, marriage timing, and marital harmony.",
+      "keywords": [
+        "7th cusp",
+        "Ketu",
+        "marriage",
+        "spouse"
+      ],
+      "detailed_effects": "Specific marriage outcomes based on Ketu's house significations and dasha periods."
+    },
+    {
+      "rule_id": "SUB_10_SUN_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Sun",
+      "sublord_nature": "Sun influence on career",
+      "interpretation": "10th cusp with Sun sub-lord: Career field and professional success are shaped by Sun. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Sun",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Sun's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_MOO_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Moon",
+      "sublord_nature": "Moon influence on career",
+      "interpretation": "10th cusp with Moon sub-lord: Career field and professional success are shaped by Moon. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Moon",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Moon's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_MAR_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Mars",
+      "sublord_nature": "Mars influence on career",
+      "interpretation": "10th cusp with Mars sub-lord: Career field and professional success are shaped by Mars. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Mars",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Mars's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_MER_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Mercury",
+      "sublord_nature": "Mercury influence on career",
+      "interpretation": "10th cusp with Mercury sub-lord: Career field and professional success are shaped by Mercury. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Mercury",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Mercury's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_JUP_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Jupiter",
+      "sublord_nature": "Jupiter influence on career",
+      "interpretation": "10th cusp with Jupiter sub-lord: Career field and professional success are shaped by Jupiter. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Jupiter",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Jupiter's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_VEN_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Venus",
+      "sublord_nature": "Venus influence on career",
+      "interpretation": "10th cusp with Venus sub-lord: Career field and professional success are shaped by Venus. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Venus",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Venus's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_SAT_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Saturn",
+      "sublord_nature": "Saturn influence on career",
+      "interpretation": "10th cusp with Saturn sub-lord: Career field and professional success are shaped by Saturn. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Saturn",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Saturn's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_RAH_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Rahu",
+      "sublord_nature": "Rahu influence on career",
+      "interpretation": "10th cusp with Rahu sub-lord: Career field and professional success are shaped by Rahu. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Rahu",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Rahu's characteristics."
+    },
+    {
+      "rule_id": "SUB_10_KET_VAR",
+      "cusp": 10,
+      "cusp_meaning": "career/status/profession",
+      "sublord": "Ketu",
+      "sublord_nature": "Ketu influence on career",
+      "interpretation": "10th cusp with Ketu sub-lord: Career field and professional success are shaped by Ketu. This indicates profession type, job stability, and career growth.",
+      "keywords": [
+        "10th cusp",
+        "Ketu",
+        "career",
+        "profession"
+      ],
+      "detailed_effects": "Career outcomes and professional achievements based on Ketu's characteristics."
+    },
+    {
+      "rule_id": "SUB_05_SUN_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Sun",
+      "sublord_nature": "Sun influence on children",
+      "interpretation": "5th cusp with Sun sub-lord: Children prospects and creative pursuits are influenced by Sun. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Sun",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Sun's house significations."
+    },
+    {
+      "rule_id": "SUB_05_MOO_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Moon",
+      "sublord_nature": "Moon influence on children",
+      "interpretation": "5th cusp with Moon sub-lord: Children prospects and creative pursuits are influenced by Moon. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Moon",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Moon's house significations."
+    },
+    {
+      "rule_id": "SUB_05_MAR_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Mars",
+      "sublord_nature": "Mars influence on children",
+      "interpretation": "5th cusp with Mars sub-lord: Children prospects and creative pursuits are influenced by Mars. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Mars",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Mars's house significations."
+    },
+    {
+      "rule_id": "SUB_05_MER_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Mercury",
+      "sublord_nature": "Mercury influence on children",
+      "interpretation": "5th cusp with Mercury sub-lord: Children prospects and creative pursuits are influenced by Mercury. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Mercury",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Mercury's house significations."
+    },
+    {
+      "rule_id": "SUB_05_JUP_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Jupiter",
+      "sublord_nature": "Jupiter influence on children",
+      "interpretation": "5th cusp with Jupiter sub-lord: Children prospects and creative pursuits are influenced by Jupiter. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Jupiter",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Jupiter's house significations."
+    },
+    {
+      "rule_id": "SUB_05_VEN_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Venus",
+      "sublord_nature": "Venus influence on children",
+      "interpretation": "5th cusp with Venus sub-lord: Children prospects and creative pursuits are influenced by Venus. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Venus",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Venus's house significations."
+    },
+    {
+      "rule_id": "SUB_05_SAT_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Saturn",
+      "sublord_nature": "Saturn influence on children",
+      "interpretation": "5th cusp with Saturn sub-lord: Children prospects and creative pursuits are influenced by Saturn. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Saturn",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Saturn's house significations."
+    },
+    {
+      "rule_id": "SUB_05_RAH_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Rahu",
+      "sublord_nature": "Rahu influence on children",
+      "interpretation": "5th cusp with Rahu sub-lord: Children prospects and creative pursuits are influenced by Rahu. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Rahu",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Rahu's house significations."
+    },
+    {
+      "rule_id": "SUB_05_KET_VAR",
+      "cusp": 5,
+      "cusp_meaning": "children/romance/speculation",
+      "sublord": "Ketu",
+      "sublord_nature": "Ketu influence on children",
+      "interpretation": "5th cusp with Ketu sub-lord: Children prospects and creative pursuits are influenced by Ketu. This shows childbirth timing, number of children, and speculative gains.",
+      "keywords": [
+        "5th cusp",
+        "Ketu",
+        "children",
+        "creativity"
+      ],
+      "detailed_effects": "Children and creative outcomes based on Ketu's house significations."
+    },
+    {
+      "rule_id": "SUB_02_JUP_VAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Jupiter",
+      "sublord_nature": "Jupiter influence on wealth",
+      "interpretation": "2nd cusp with Jupiter sub-lord: Wealth accumulation and family matters are governed by Jupiter. This indicates income sources, savings capacity, and family harmony.",
+      "keywords": [
+        "2nd cusp",
+        "Jupiter",
+        "wealth",
+        "family"
+      ],
+      "detailed_effects": "Financial outcomes based on Jupiter's strength and house significations."
+    },
+    {
+      "rule_id": "SUB_02_VEN_VAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Venus",
+      "sublord_nature": "Venus influence on wealth",
+      "interpretation": "2nd cusp with Venus sub-lord: Wealth accumulation and family matters are governed by Venus. This indicates income sources, savings capacity, and family harmony.",
+      "keywords": [
+        "2nd cusp",
+        "Venus",
+        "wealth",
+        "family"
+      ],
+      "detailed_effects": "Financial outcomes based on Venus's strength and house significations."
+    },
+    {
+      "rule_id": "SUB_02_MER_VAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Mercury",
+      "sublord_nature": "Mercury influence on wealth",
+      "interpretation": "2nd cusp with Mercury sub-lord: Wealth accumulation and family matters are governed by Mercury. This indicates income sources, savings capacity, and family harmony.",
+      "keywords": [
+        "2nd cusp",
+        "Mercury",
+        "wealth",
+        "family"
+      ],
+      "detailed_effects": "Financial outcomes based on Mercury's strength and house significations."
+    },
+    {
+      "rule_id": "SUB_02_SUN_VAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Sun",
+      "sublord_nature": "Sun influence on wealth",
+      "interpretation": "2nd cusp with Sun sub-lord: Wealth accumulation and family matters are governed by Sun. This indicates income sources, savings capacity, and family harmony.",
+      "keywords": [
+        "2nd cusp",
+        "Sun",
+        "wealth",
+        "family"
+      ],
+      "detailed_effects": "Financial outcomes based on Sun's strength and house significations."
+    },
+    {
+      "rule_id": "SUB_02_MOO_VAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Moon",
+      "sublord_nature": "Moon influence on wealth",
+      "interpretation": "2nd cusp with Moon sub-lord: Wealth accumulation and family matters are governed by Moon. This indicates income sources, savings capacity, and family harmony.",
+      "keywords": [
+        "2nd cusp",
+        "Moon",
+        "wealth",
+        "family"
+      ],
+      "detailed_effects": "Financial outcomes based on Moon's strength and house significations."
+    },
+    {
+      "rule_id": "SUB_02_RAH_VAR",
+      "cusp": 2,
+      "cusp_meaning": "wealth/family/speech",
+      "sublord": "Rahu",
+      "sublord_nature": "Rahu influence on wealth",
+      "interpretation": "2nd cusp with Rahu sub-lord: Wealth accumulation and family matters are governed by Rahu. This indicates income sources, savings capacity, and family harmony.",
+      "keywords": [
+        "2nd cusp",
+        "Rahu",
+        "wealth",
+        "family"
+      ],
+      "detailed_effects": "Financial outcomes based on Rahu's strength and house significations."
+    },
+    {
+      "rule_id": "SUB_11_JUP_VAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Jupiter",
+      "sublord_nature": "Jupiter influence on gains",
+      "interpretation": "11th cusp with Jupiter sub-lord: Gains and fulfillment of desires are facilitated by Jupiter. This shows income growth, wish fulfillment, and social gains.",
+      "keywords": [
+        "11th cusp",
+        "Jupiter",
+        "gains",
+        "income"
+      ],
+      "detailed_effects": "Gains and achievements based on Jupiter's beneficial significations."
+    },
+    {
+      "rule_id": "SUB_11_VEN_VAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Venus",
+      "sublord_nature": "Venus influence on gains",
+      "interpretation": "11th cusp with Venus sub-lord: Gains and fulfillment of desires are facilitated by Venus. This shows income growth, wish fulfillment, and social gains.",
+      "keywords": [
+        "11th cusp",
+        "Venus",
+        "gains",
+        "income"
+      ],
+      "detailed_effects": "Gains and achievements based on Venus's beneficial significations."
+    },
+    {
+      "rule_id": "SUB_11_MER_VAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Mercury",
+      "sublord_nature": "Mercury influence on gains",
+      "interpretation": "11th cusp with Mercury sub-lord: Gains and fulfillment of desires are facilitated by Mercury. This shows income growth, wish fulfillment, and social gains.",
+      "keywords": [
+        "11th cusp",
+        "Mercury",
+        "gains",
+        "income"
+      ],
+      "detailed_effects": "Gains and achievements based on Mercury's beneficial significations."
+    },
+    {
+      "rule_id": "SUB_11_MOO_VAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Moon",
+      "sublord_nature": "Moon influence on gains",
+      "interpretation": "11th cusp with Moon sub-lord: Gains and fulfillment of desires are facilitated by Moon. This shows income growth, wish fulfillment, and social gains.",
+      "keywords": [
+        "11th cusp",
+        "Moon",
+        "gains",
+        "income"
+      ],
+      "detailed_effects": "Gains and achievements based on Moon's beneficial significations."
+    },
+    {
+      "rule_id": "SUB_11_SUN_VAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Sun",
+      "sublord_nature": "Sun influence on gains",
+      "interpretation": "11th cusp with Sun sub-lord: Gains and fulfillment of desires are facilitated by Sun. This shows income growth, wish fulfillment, and social gains.",
+      "keywords": [
+        "11th cusp",
+        "Sun",
+        "gains",
+        "income"
+      ],
+      "detailed_effects": "Gains and achievements based on Sun's beneficial significations."
+    },
+    {
+      "rule_id": "SUB_11_RAH_VAR",
+      "cusp": 11,
+      "cusp_meaning": "gains/fulfillment/income",
+      "sublord": "Rahu",
+      "sublord_nature": "Rahu influence on gains",
+      "interpretation": "11th cusp with Rahu sub-lord: Gains and fulfillment of desires are facilitated by Rahu. This shows income growth, wish fulfillment, and social gains.",
+      "keywords": [
+        "11th cusp",
+        "Rahu",
+        "gains",
+        "income"
+      ],
+      "detailed_effects": "Gains and achievements based on Rahu's beneficial significations."
+    },
+    {
+      "rule_id": "SUB_04_MAR_VAR",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education/property",
+      "sublord": "Mars",
+      "sublord_nature": "Mars influence on home",
+      "interpretation": "4th cusp with Mars sub-lord: Home, property, and education matters are influenced by Mars. This indicates property ownership, educational success, and mother's well-being.",
+      "keywords": [
+        "4th cusp",
+        "Mars",
+        "property",
+        "education"
+      ],
+      "detailed_effects": "Property and education outcomes based on Mars's characteristics."
+    },
+    {
+      "rule_id": "SUB_04_MOO_VAR",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education/property",
+      "sublord": "Moon",
+      "sublord_nature": "Moon influence on home",
+      "interpretation": "4th cusp with Moon sub-lord: Home, property, and education matters are influenced by Moon. This indicates property ownership, educational success, and mother's well-being.",
+      "keywords": [
+        "4th cusp",
+        "Moon",
+        "property",
+        "education"
+      ],
+      "detailed_effects": "Property and education outcomes based on Moon's characteristics."
+    },
+    {
+      "rule_id": "SUB_04_MER_VAR",
+      "cusp": 4,
+      "cusp_meaning": "mother/home/education/property",
+      "sublord": "Mercury",
+      "sublord_nature": "Mercury influence on home",
+      "interpretation": "4th cusp with Mercury sub-lord: Home, property, and education matters are influenced by Mercury. This indicates property ownership, educational success, and mother's well-being.",
+      "keywords": [
+        "4th cusp",
+        "Mercury",
+        "property",
+        "education"
+      ],
+      "detailed_effects": "Property and education outcomes based on Mercury's characteristics."
+    }
+  ],
+  "special_cases": [
+    {
+      "rule_id": "KP_SP_001",
+      "condition": "retrograde",
+      "planet": "Saturn",
+      "effect": "Retrograde Saturn intensifies karmic lessons. Delays become more pronounced. Past karma from previous life must be resolved. Inner discipline is the key.",
+      "keywords": [
+        "retrograde Saturn",
+        "karma",
+        "delays",
+        "past life"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_002",
+      "condition": "retrograde",
+      "planet": "Jupiter",
+      "effect": "Retrograde Jupiter turns wisdom inward. External fortune may be delayed but inner wisdom grows. Spiritual growth over material gains.",
+      "keywords": [
+        "retrograde Jupiter",
+        "inner wisdom",
+        "spiritual",
+        "unconventional fortune"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_003",
+      "condition": "retrograde",
+      "planet": "Mars",
+      "effect": "Retrograde Mars turns aggression inward. Energy is internalized. Property matters face delays. Courage expressed through inner battles.",
+      "keywords": [
+        "retrograde Mars",
+        "internal energy",
+        "property delays",
+        "inner battles"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_004",
+      "condition": "combust",
+      "planet": "Venus",
+      "effect": "Combust Venus weakens love and luxury. Marriage matters face obstacles. Artistic talents suppressed. Relationships may lack warmth.",
+      "keywords": [
+        "combust Venus",
+        "marriage obstacles",
+        "love suppressed"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_005",
+      "condition": "combust",
+      "planet": "Mercury",
+      "effect": "Combust Mercury weakens intellect and communication. Business decisions may be poor. Education faces obstacles. Ego overshadows intellect.",
+      "keywords": [
+        "combust Mercury",
+        "intellect weakened",
+        "communication poor"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_006",
+      "condition": "exalted",
+      "planet": "Sun",
+      "effect": "Exalted Sun in Aries gives maximum authority, leadership, and recognition. Government success. Father is very fortunate. Career peaks.",
+      "keywords": [
+        "exalted Sun",
+        "maximum authority",
+        "government",
+        "leadership"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_007",
+      "condition": "exalted",
+      "planet": "Moon",
+      "effect": "Exalted Moon in Taurus gives maximum emotional peace, public popularity, and wealth. Mother is very fortunate. Real estate gains.",
+      "keywords": [
+        "exalted Moon",
+        "emotional peace",
+        "public popularity",
+        "wealth"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_008",
+      "condition": "exalted",
+      "planet": "Jupiter",
+      "effect": "Exalted Jupiter in Cancer gives maximum wisdom, fortune, and expansion. Children are blessed. Marriage is fortunate. Spiritual grace.",
+      "keywords": [
+        "exalted Jupiter",
+        "maximum wisdom",
+        "fortune",
+        "children blessed"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_009",
+      "condition": "debilitated",
+      "planet": "Saturn",
+      "effect": "Debilitated Saturn in Aries weakens discipline and karma resolution. Delays become erratic. Hard work does not yield expected results. Patience is tested.",
+      "keywords": [
+        "debilitated Saturn",
+        "erratic delays",
+        "hard work unrewarded"
+      ]
+    },
+    {
+      "rule_id": "KP_SP_010",
+      "condition": "debilitated",
+      "planet": "Mars",
+      "effect": "Debilitated Mars in Cancer weakens courage and energy. Property matters face emotional obstacles. Aggression turns inward. Surgery risks increase.",
+      "keywords": [
+        "debilitated Mars",
+        "weak courage",
+        "property obstacles",
+        "emotional aggression"
+      ]
+    },
+    {
+      "case_id": "SPEC_011",
+      "condition": "Planet in own sign",
+      "interpretation": "Planet in its own sign (e.g., Sun in Leo, Moon in Cancer) is strong and gives full results of the houses it signifies.",
+      "keywords": [
+        "own sign",
+        "strength",
+        "dignity"
+      ]
+    },
+    {
+      "case_id": "SPEC_012",
+      "condition": "Planet in friend's sign",
+      "interpretation": "Planet in friend's sign is comfortable and gives good results. Sun-Moon-Mars are friends; Mercury-Venus are friends; Jupiter-Sun-Moon-Mars are friends.",
+      "keywords": [
+        "friend sign",
+        "comfortable",
+        "positive"
+      ]
+    },
+    {
+      "case_id": "SPEC_013",
+      "condition": "Planet in enemy's sign",
+      "interpretation": "Planet in enemy's sign struggles to give results. Sun-Saturn are enemies; Moon-Mercury are neutral; Mars-Mercury are enemies.",
+      "keywords": [
+        "enemy sign",
+        "struggle",
+        "weak"
+      ]
+    },
+    {
+      "case_id": "SPEC_014",
+      "condition": "Planet in Mooltrikona sign",
+      "interpretation": "Planet in Mooltrikona (special dignity) is very strong. Sun=Leo 0-20°, Moon=Taurus 4-30°, Mars=Aries 0-12°, Mercury=Virgo 16-20°, Jupiter=Sagittarius 0-10°, Venus=Libra 0-15°, Saturn=Aquarius 0-20°.",
+      "keywords": [
+        "mooltrikona",
+        "special dignity",
+        "strong"
+      ]
+    },
+    {
+      "case_id": "SPEC_015",
+      "condition": "Vargottama planet",
+      "interpretation": "Vargottama (same sign in D1 and D9) planet is exceptionally strong and gives consistent results throughout life.",
+      "keywords": [
+        "vargottama",
+        "D9",
+        "exceptional strength"
+      ]
+    },
+    {
+      "case_id": "SPEC_016",
+      "condition": "Planet at critical degrees",
+      "interpretation": "Planet at 0° or 29° (critical degrees) is in transition and may give unpredictable results until it stabilizes.",
+      "keywords": [
+        "critical degrees",
+        "0 degree",
+        "29 degree",
+        "transition"
+      ]
+    },
+    {
+      "case_id": "SPEC_017",
+      "condition": "Planet in gandanta",
+      "interpretation": "Planet in gandanta (junction of water and fire signs: 29°20' Cancer-0°40' Leo, 29°20' Scorpio-0°40' Sagittarius, 29°20' Pisces-0°40' Aries) faces karmic challenges.",
+      "keywords": [
+        "gandanta",
+        "karmic",
+        "junction"
+      ]
+    },
+    {
+      "case_id": "SPEC_018",
+      "condition": "Planet in pushkara navamsa",
+      "interpretation": "Planet in pushkara navamsa (special degrees in D9) is highly auspicious and gives exceptional results. Specific degrees vary by sign.",
+      "keywords": [
+        "pushkara",
+        "navamsa",
+        "auspicious",
+        "D9"
+      ]
+    },
+    {
+      "case_id": "SPEC_019",
+      "condition": "Planet in vargottama navamsa",
+      "interpretation": "Planet in same sign in D1 and D9 (vargottama) is very strong and gives consistent, reliable results throughout life.",
+      "keywords": [
+        "vargottama",
+        "D9",
+        "consistency",
+        "strength"
+      ]
+    },
+    {
+      "case_id": "SPEC_020",
+      "condition": "Atmakaraka planet",
+      "interpretation": "Atmakaraka (planet with highest degree) represents soul's purpose. Its house and sign show life's main karmic lessons.",
+      "keywords": [
+        "atmakaraka",
+        "soul",
+        "karma",
+        "highest degree"
+      ]
+    },
+    {
+      "case_id": "SPEC_021",
+      "condition": "Amatyakaraka planet",
+      "interpretation": "Amatyakaraka (planet with second highest degree) indicates career and professional achievements in life.",
+      "keywords": [
+        "amatyakaraka",
+        "career",
+        "profession",
+        "second highest"
+      ]
+    },
+    {
+      "case_id": "SPEC_022",
+      "condition": "Yogakaraka planet",
+      "interpretation": "Yogakaraka (planet ruling kendra and trikona) is highly beneficial. For Taurus/Libra lagna=Saturn, Cancer=Mars, Leo=Mars, Capricorn/Aquarius=Venus.",
+      "keywords": [
+        "yogakaraka",
+        "beneficial",
+        "kendra",
+        "trikona"
+      ]
+    },
+    {
+      "case_id": "SPEC_023",
+      "condition": "Maraka planet",
+      "interpretation": "Maraka (death-inflicting) planets are lords of 2nd and 7th houses. Their dasha periods can bring health challenges or major life changes.",
+      "keywords": [
+        "maraka",
+        "2nd lord",
+        "7th lord",
+        "health"
+      ]
+    },
+    {
+      "case_id": "SPEC_024",
+      "condition": "Badhaka planet",
+      "interpretation": "Badhaka (obstacle-creating) planet varies by lagna type. For movable signs=11th lord, fixed=9th lord, dual=7th lord. Brings obstacles in its dasha.",
+      "keywords": [
+        "badhaka",
+        "obstacles",
+        "lagna type",
+        "challenges"
+      ]
+    },
+    {
+      "case_id": "SPEC_025",
+      "condition": "Neecha bhanga raja yoga",
+      "interpretation": "Debilitated planet with cancellation (neecha bhanga) becomes very powerful. Conditions: debilitated lord exalted, or debilitated planet aspected by its lord.",
+      "keywords": [
+        "neecha bhanga",
+        "debilitation cancellation",
+        "raja yoga",
+        "powerful"
+      ]
+    },
+    {
+      "case_id": "SPEC_026",
+      "condition": "Parivartana yoga",
+      "interpretation": "Mutual exchange of houses by two planets (parivartana) creates strong connection. Maha parivartana (kendra/trikona lords) is highly beneficial.",
+      "keywords": [
+        "parivartana",
+        "mutual exchange",
+        "house exchange",
+        "yoga"
+      ]
+    },
+    {
+      "case_id": "SPEC_027",
+      "condition": "Planetary war (graha yuddha)",
+      "interpretation": "When two planets are within 1 degree (planetary war), the one with higher longitude wins. Winner becomes very strong, loser weakens.",
+      "keywords": [
+        "graha yuddha",
+        "planetary war",
+        "conjunction",
+        "1 degree"
+      ]
+    }
+  ]
+}

@@ -1634,7 +1634,17 @@ def predict(message, history, chart_data):
 
     if selected_chunks:
         rag_text = "\n".join(selected_chunks)
-        sys_content = f"{_sys_base}\n\nKP Book Excerpts:\n{rag_text}{product_instruction}"
+        # RAG integration fix: explicitly tell the model HOW to use the retrieved chunks.
+        # Previously the model received chunks but had no instruction, so it ignored them.
+        rag_instruction = (
+            "\n\n## KP KNOWLEDGE BASE — USE THESE RULES IN YOUR ANSWER:\n"
+            "The following excerpts from KP Astrology books contain relevant rules.\n"
+            "APPLY these rules when they match the question. Do NOT quote them verbatim.\n"
+            "Weave the relevant rule into your answer naturally as justification.\n"
+            "IGNORE excerpts that are not relevant to the question.\n\n"
+            f"{rag_text}"
+        )
+        sys_content = f"{_sys_base}{rag_instruction}{product_instruction}"
     else:
         sys_content = f"{_sys_no_rag}{product_instruction}"
 

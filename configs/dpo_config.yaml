@@ -7,8 +7,11 @@ output_dir: "./checkpoints/dpo_lora/"
 logging_dir: "./logs/dpo/"
 
 # Dataset
-train_data: "./data/dpo/prepared/train_filtered"
-eval_data: "./data/dpo/prepared/test_filtered"
+# Use new consultation dataset (20_generate_dpo_consultation.py output)
+# Falls back to old dataset if new one not yet generated
+train_data: "./data/dpo_consultation/prepared/train"
+eval_data: "./data/dpo_consultation/prepared/test"
+# Legacy fallback: "./data/dpo/prepared/train_filtered"
 
 # DPO hyperparameters
 beta: 0.1  # Conservative beta to prevent reward hacking (was 0.2)
@@ -46,8 +49,10 @@ lr_scheduler_type: "cosine"
 max_grad_norm: 1.0  # Allow larger gradients
 
 # Context and tokenization
-max_length: 1024  # Reduced to minimize noisy summed logprobs
-max_prompt_length: 768  # Reduced proportionally
+# CRITICAL FIX: chart YAML is ~3500 tokens. 1024 was too short — model never
+# saw the full chart during DPO training. Now set to 4096 to include full chart.
+max_length: 4096
+max_prompt_length: 3584  # 4096 - 512 (output budget)
 
 # Memory optimization
 gradient_checkpointing_kwargs:

@@ -1,0 +1,50 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "instruction": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "input": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "output": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "metadata": {
+      "batch_id": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "chart_name": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "custom_id": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "generated_date": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "model": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "qtype": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "question": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    }
+  },
+  "homepage": "",
+  "license": ""
+}

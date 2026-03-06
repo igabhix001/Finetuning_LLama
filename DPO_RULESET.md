@@ -243,7 +243,7 @@ The model must classify queries in this EXACT order. Earlier versions had safety
 
 Safety trigger patterns: "when will i die", "kab marunga", "kab marungi", "will i survive", "marr jaunga", "marne wala", "how long will i live"
 
-### 2. Language Matching (CRITICAL — #1 client complaint)
+### 2. Language Matching (CRITICAL )
 
 - English question → 100% English response. ZERO Hindi/Hinglish mixing.
 - Hindi/Hinglish question → respond fully in Hindi/Hinglish.
@@ -253,7 +253,7 @@ Safety trigger patterns: "when will i die", "kab marunga", "kab marungi", "will 
 **Rejected pattern (wrong)**: User asks "When will I get married?" → model responds in Hinglish  
 **Chosen pattern (correct)**: User asks "When will I get married?" → model responds 100% in English
 
-### 3. API Output Format (client requirement)
+### 3. API Output Format ( requirement)
 
 The API `/chat` endpoint must return JSON with these fields:
 ```json
@@ -287,8 +287,8 @@ The model now receives the last 4 conversation turns (25% of input budget). This
 
 ### 6. Date Format — ABSOLUTE ZERO EXCEPTIONS
 
-- ✅ CORRECT: "Jul 2026", "Mar 2027 to Aug 2027", "Oct 2025 (yeh period beet chuka hai)"
-- ❌ WRONG: "2026-07", "2025-10", "upcoming period", "soon", "favorable time"
+-  CORRECT: "Jul 2026", "Mar 2027 to Aug 2027", "Oct 2025 (yeh period beet chuka hai)"
+-  WRONG: "2026-07", "2025-10", "upcoming period", "soon", "favorable time"
 
 ### 7. Tense Awareness (today = Feb 20, 2026)
 
@@ -296,23 +296,4 @@ The model now receives the last 4 conversation turns (25% of input budget). This
 - Any date spanning Feb 2026 → ONGOING: "you are currently in..."
 - Any date after Feb 2026 → FUTURE tense: "starting from..."
 
----
-
-## Quality Metrics (Industry Standard)
-
-The generated dataset was validated against 7 industry-standard DPO quality metrics:
-
-| Metric | Target | V4 Status |
-|--------|--------|-----------|
-| Reward margin mean | 10-25 | ✅ 20.3 |
-| Negative margin (wrong labels) | <1% | ✅ 0.1% |
-| Length bias (rej/cho ratio) | 1.5-3x | ✅ FIXED (was 6.5x) |
-| Duplicate prompt rate | <5% | ✅ FIXED (was 88.8%) |
-| Semantic cluster entropy | >0.85 | ✅ 0.94 |
-| Flip inconsistency rate | <10% | ✅ 2.5% |
-| Domain quality flags | 0% | ✅ All 0% |
-
-**Research basis**: NeurIPS 2025 BeeS, NeurIPS 2024 Ivison et al., arXiv 2508.18312, MixDPO
-
----
 

@@ -162,14 +162,47 @@ except Exception as e:
     print(f"❌ Failed to load datasets: {e}")
     sys.exit(1)
 
-# Format prompt function
+# System prompt — MUST match 09_chat_ui.py and 11_api_server.py exactly.
+# This fixes the training-inference format mismatch (Gap 7 in audit).
+# The model was previously trained WITHOUT a system prompt, but inference
+# always includes one. Now both use the same format.
+_SFT_SYSTEM_PROMPT = (
+    "You are Jyotish, a warm and confident KP astrologer — like a trusted family pandit.\n\n"
+    "## LANGUAGE RULE — ABSOLUTE HIGHEST PRIORITY:\n"
+    "DETECT the language of the user's question FIRST before writing a single word.\n"
+    "- ENGLISH question (no Hindi words) → respond 100% in ENGLISH. NOT ONE Hindi/Urdu word allowed.\n"
+    "- HINDI or HINGLISH question → respond in HINDI/HINGLISH.\n\n"
+    "## HARD RULES:\n"
+    "- ANSWER DIRECTLY. Never say 'I can analyze', 'requires analysis', 'let me check'.\n"
+    "- Read the name from the chart YAML. Address as '[Name] ji'. Never say 'the native'.\n"
+    "- No markdown, no **bold**, no headers, no bullets, no numbered lists. Plain prose only.\n"
+    "- Simple questions (name/lagna/rashi) = 1 sentence ONLY. Nothing more.\n"
+    "- Timing questions = 2-3 sentences max with specific Mon YYYY dates.\n"
+    "- MAX 4 sentences for any response. Keep answers short and impactful.\n"
+    "- Cite cusp sub-lord + house numbers. Give month-year ranges from dasha table.\n"
+    "- For obstacles/emotional queries: ALWAYS say when the difficult period ENDS.\n"
+    "- Products: ONLY when user asks for remedies. Otherwise ZERO product mentions.\n"
+)
+
+
 def format_prompt(example):
-    """Format example into Llama 3.1 chat format."""
-    prompt = f"""<|begin_of_text|><|start_header_id|>user<|end_header_id|>
+    """Format example into Llama 3.1 chat format with system prompt.
 
-{example['instruction']}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+    Uses the SAME format as inference (09_chat_ui.py / 11_api_server.py):
+      system prompt → user message (chart YAML + question) → assistant answer
 
-{example['output']}<|eot_id|>"""
+    The instruction field from 19_generate_sft_consultation.py already contains
+    [CHART]\\n{yaml}\\n\\n[QUESTION]\\n{question} for consultation examples.
+    For legacy textbook examples (no chart), instruction is just the question.
+    """
+    prompt = (
+        f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
+        f"{_SFT_SYSTEM_PROMPT}<|eot_id|>"
+        f"<|start_header_id|>user<|end_header_id|>\n\n"
+        f"{example['instruction']}<|eot_id|>"
+        f"<|start_header_id|>assistant<|end_header_id|>\n\n"
+        f"{example['output']}<|eot_id|>"
+    )
     return {"text": prompt}
 
 # Tokenize function

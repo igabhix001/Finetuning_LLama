@@ -8,8 +8,11 @@ output_dir: "./checkpoints/sft_lora/"
 logging_dir: "./logs/sft/"
 
 # Dataset
-train_data: "./data/sft_train/"
+# Use new consultation dataset (19_generate_sft_consultation.py output)
+# Falls back to old dataset if new one not yet generated
+train_data: "./data/sft_consultation/final"
 eval_data: "./data/sft_validation/"
+# Legacy fallback: "./data/sft_train/"
 
 # Training hyperparameters
 num_train_epochs: 3
@@ -39,7 +42,9 @@ lr_scheduler_type: "cosine"
 max_grad_norm: 1.0
 
 # Context and tokenization
-max_seq_length: 1024  # Fits in 48GB with LoRA + 8bit optimizer
+# CRITICAL FIX: chart YAML is ~3500 tokens. 1024 was too short — model never
+# saw the full chart during SFT training. Now set to 4096 to include full chart.
+max_seq_length: 4096  # Fits in 48GB with LoRA + 8bit optimizer + gradient checkpointing
 dataloader_num_workers: 4
 dataloader_pin_memory: true
 

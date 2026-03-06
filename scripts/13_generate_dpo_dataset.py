@@ -170,6 +170,32 @@ print(f"✓ {len(CHART_TEMPLATES)} real charts loaded for DPO generation\n")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# LOAD KP RULES — Same comprehensive approach as SFT generation
+# ═══════════════════════════════════════════════════════════════════════════════
+
+rules_dir = Path(__file__).parent.parent / "data" / "rules"
+
+def _load_json(path):
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+category_rules = _load_json(rules_dir / "01_category_rules.json")
+dasha_rules = _load_json(rules_dir / "02_dasha_rules.json")
+planet_house_rules = _load_json(rules_dir / "03_planet_house_rules.json")
+product_rules = _load_json(rules_dir / "04_product_rules.json")
+comm_rules = _load_json(rules_dir / "05_communication_rules.json")
+
+print(f"✓ Loaded KP rules:")
+print(f"  - Category rules: {len(category_rules.get('rules', []))}")
+print(f"  - Dasha rules: {len(dasha_rules.get('dasha_rules', []))}")
+print(f"  - Planet-house combos: {len(planet_house_rules.get('combinations', []))}")
+print(f"  - Product rules: {len(product_rules.get('recommendation_rules', []))}")
+print(f"  - Communication templates: {len(comm_rules.get('conversation_templates', []))}\n")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # QUESTION BANK — Weighted by category, covers all client feedback issues
 # ═══════════════════════════════════════════════════════════════════════════════
 

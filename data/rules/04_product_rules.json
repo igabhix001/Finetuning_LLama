@@ -1,0 +1,160 @@
+{
+  "version": "1.0",
+  "description": "KP Product Recommendation Rules — maps astrological weaknesses to Japam store products",
+  "source": " KP remedy principles",
+  "trigger_rule": "ONLY recommend products when user EXPLICITLY asks for remedy, upay, gemstone, or product suggestion. NEVER recommend unsolicited.",
+  "product_catalog_source": "products_export_2026-02-03.csv",
+  "recommendation_rules": [
+    {
+      "rule_id": "PROD_SUN_001",
+      "weak_planet": "Sun",
+      "problem_types": ["career obstacles", "lack of recognition", "father issues", "low confidence", "government problems"],
+      "astrological_indicators": {"weak_houses": [1, 10], "afflicted_by": ["Saturn", "Rahu"]},
+      "products": [
+        {"sku": "11-ek-mukhi", "name": "1 Mukhi Indian Rudraksha - Ek Mukhi", "price": "1999.00",
+         "reason": "1 Mukhi Rudraksha is ruled by Sun. Strengthens Sun's energy, boosts confidence, career recognition, and government connections."},
+        {"sku": "20-das-mukhi", "name": "10 Mukhi Nepali Rudraksha - Das Mukhi", "price": "2999.00",
+         "reason": "10 Mukhi Rudraksha pacifies all planets including Sun. Good for overall career and authority."}
+      ],
+      "recommendation_text_english": "To strengthen Sun in your chart and improve career recognition, wearing a 1 Mukhi Rudraksha is recommended. It enhances Sun's positive energy, boosts confidence, and supports government or authority-related matters.",
+      "recommendation_text_hinglish": "Aapke chart mein Sun ko strengthen karne ke liye 1 Mukhi Rudraksha pehenna beneficial rahega. Isse career mein recognition milegi aur confidence badhega."
+    },
+    {
+      "rule_id": "PROD_MON_001",
+      "weak_planet": "Moon",
+      "problem_types": ["mental stress", "emotional instability", "mother issues", "sleep problems", "public life challenges"],
+      "astrological_indicators": {"weak_houses": [4], "afflicted_by": ["Saturn", "Rahu", "Ketu"]},
+      "products": [
+        {"sku": "51-gyaarah-mukhi", "name": "11 Mukhi Nepali Rudraksha - Gyaarah Mukhi", "price": "2999.00",
+         "reason": "11 Mukhi Rudraksha is associated with Hanuman and helps with mental peace, emotional stability, and Moon-related issues."},
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala - Natural Ebony Wood Beads", "price": "899.00",
+         "reason": "Karungali Mala helps calm the mind, reduce mental stress, and improve emotional stability."}
+      ],
+      "recommendation_text_english": "To strengthen Moon and improve mental peace, wearing an 11 Mukhi Rudraksha or a Karungali Mala is recommended. These help stabilize emotions and reduce mental stress.",
+      "recommendation_text_hinglish": "Moon ko strengthen karne ke liye 11 Mukhi Rudraksha ya Karungali Mala pehenna helpful rahega. Isse mental peace milegi aur emotional stability aayegi."
+    },
+    {
+      "rule_id": "PROD_MAR_001",
+      "weak_planet": "Mars",
+      "problem_types": ["property disputes", "sibling conflicts", "accidents", "lack of courage", "blood-related health issues", "Mangal Dosha"],
+      "astrological_indicators": {"weak_houses": [1, 3, 4, 7], "afflicted_by": ["Saturn", "Rahu"]},
+      "products": [
+        {"sku": "20-das-mukhi", "name": "10 Mukhi Nepali Rudraksha - Das Mukhi", "price": "2999.00",
+         "reason": "10 Mukhi Rudraksha pacifies Mars and reduces Mangal Dosha effects. Good for property matters and courage."},
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala", "price": "899.00",
+         "reason": "Karungali Mala reduces Saturn's negative effect on Mars, helping with property and courage matters."}
+      ],
+      "recommendation_text_english": "To reduce Mars-related challenges and Mangal Dosha effects, wearing a 10 Mukhi Rudraksha is recommended. It pacifies Mars energy and helps with property, courage, and sibling matters.",
+      "recommendation_text_hinglish": "Mars ke negative effects aur Mangal Dosha ko reduce karne ke liye 10 Mukhi Rudraksha pehenna beneficial hai. Isse property matters aur courage mein improvement aayegi."
+    },
+    {
+      "rule_id": "PROD_MER_001",
+      "weak_planet": "Mercury",
+      "problem_types": ["communication problems", "business losses", "education obstacles", "nervous system issues", "speech problems"],
+      "astrological_indicators": {"weak_houses": [2, 3, 6, 10], "afflicted_by": ["Saturn", "Rahu", "Ketu"]},
+      "products": [
+        {"sku": "51-gyaarah-mukhi", "name": "11 Mukhi Nepali Rudraksha - Gyaarah Mukhi", "price": "2999.00",
+         "reason": "11 Mukhi Rudraksha strengthens Mercury, improves communication, business acumen, and intellectual clarity."}
+      ],
+      "recommendation_text_english": "To strengthen Mercury and improve communication and business matters, wearing an 11 Mukhi Rudraksha is recommended. It enhances intellectual clarity and business success.",
+      "recommendation_text_hinglish": "Mercury ko strengthen karne ke liye 11 Mukhi Rudraksha pehenna helpful hai. Isse communication improve hogi aur business mein success milegi."
+    },
+    {
+      "rule_id": "PROD_JUP_001",
+      "weak_planet": "Jupiter",
+      "problem_types": ["lack of wisdom", "children issues", "marriage delay", "financial losses", "education problems", "legal issues"],
+      "astrological_indicators": {"weak_houses": [2, 5, 9, 11], "afflicted_by": ["Saturn", "Rahu"]},
+      "products": [
+        {"sku": "51-gyaarah-mukhi", "name": "11 Mukhi Nepali Rudraksha - Gyaarah Mukhi", "price": "2999.00",
+         "reason": "11 Mukhi Rudraksha is ruled by Rudra/Jupiter. Strengthens Jupiter, brings wisdom, fortune, and blessings for children and marriage."},
+        {"sku": "368-1to14mukhi-mala", "name": "1-14 Mukhi Siddha Rudraksha Mala", "price": "8900.00",
+         "reason": "Complete Rudraksha Mala with all mukhis strengthens all planets including Jupiter for comprehensive life improvement."}
+      ],
+      "recommendation_text_english": "To strengthen Jupiter and improve wisdom, fortune, and family matters, wearing an 11 Mukhi Rudraksha is recommended. It brings Jupiter's blessings for children, marriage, and financial growth.",
+      "recommendation_text_hinglish": "Jupiter ko strengthen karne ke liye 11 Mukhi Rudraksha pehenna beneficial hai. Isse wisdom, fortune, aur family matters mein improvement aayegi."
+    },
+    {
+      "rule_id": "PROD_VEN_001",
+      "weak_planet": "Venus",
+      "problem_types": ["relationship delay", "marriage problems", "lack of luxury", "artistic blocks", "kidney issues", "spouse conflicts"],
+      "astrological_indicators": {"weak_houses": [2, 5, 7, 11], "afflicted_by": ["Saturn", "Rahu", "Mars"]},
+      "products": [
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala - Natural Ebony Wood Beads", "price": "899.00",
+         "reason": "Karungali Mala reduces Saturn's negative effect on Venus, helping with relationship and marriage matters."},
+        {"sku": "20-das-mukhi", "name": "10 Mukhi Nepali Rudraksha - Das Mukhi", "price": "2999.00",
+         "reason": "10 Mukhi Rudraksha pacifies all planets and helps Venus-related matters including relationships and luxury."}
+      ],
+      "recommendation_text_english": "Venus is under Saturn's influence in your chart, causing delays in relationship and marriage matters. Wearing a Karungali Mala will reduce Saturn's negative effect and improve Venus energy for better relationship outcomes.",
+      "recommendation_text_hinglish": "Aapki kundali mein Venus kamzor position mein hai aur Saturn ka influence hai. Karungali Mala pehenne se Saturn ka negative effect reduce hoga aur relationship matters mein improvement aayega."
+    },
+    {
+      "rule_id": "PROD_SAT_001",
+      "weak_planet": "Saturn",
+      "problem_types": ["extreme delays", "career obstacles", "chronic illness", "depression", "legal problems", "labor disputes"],
+      "astrological_indicators": {"weak_houses": [1, 6, 10], "afflicted_by": ["Mars", "Sun", "Rahu"]},
+      "products": [
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala - Natural Ebony Wood Beads", "price": "899.00",
+         "reason": "Karungali (Ebony wood) Mala is specifically for Saturn. Reduces Saturn's malefic effects, removes obstacles, and brings discipline."},
+        {"sku": "368-1to14mukhi-mala", "name": "1-14 Mukhi Siddha Rudraksha Mala", "price": "8900.00",
+         "reason": "Complete Rudraksha Mala with all mukhis addresses Saturn and all planetary issues comprehensively."}
+      ],
+      "recommendation_text_english": "To reduce Saturn's malefic effects and remove obstacles, wearing a Karungali Mala is highly recommended. Karungali (Ebony wood) is specifically associated with Saturn and helps overcome delays and challenges.",
+      "recommendation_text_hinglish": "Saturn ke negative effects ko reduce karne ke liye Karungali Mala pehenna bahut helpful hai. Karungali Saturn se directly associated hai aur obstacles ko remove karta hai."
+    },
+    {
+      "rule_id": "PROD_RAH_001",
+      "weak_planet": "Rahu",
+      "problem_types": ["sudden losses", "foreign problems", "illusions", "obsessive behavior", "technology issues", "deception"],
+      "astrological_indicators": {"weak_houses": [1, 6, 8, 12], "afflicted_by": ["Saturn", "Mars"]},
+      "products": [
+        {"sku": "20-das-mukhi", "name": "10 Mukhi Nepali Rudraksha - Das Mukhi", "price": "2999.00",
+         "reason": "10 Mukhi Rudraksha pacifies Rahu and reduces its malefic effects including sudden losses and deceptions."},
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala", "price": "899.00",
+         "reason": "Karungali Mala helps ground Rahu's erratic energy and provides stability during Rahu periods."}
+      ],
+      "recommendation_text_english": "To pacify Rahu and reduce sudden losses and confusion, wearing a 10 Mukhi Rudraksha is recommended. It helps stabilize Rahu's erratic energy and provides clarity during challenging Rahu periods.",
+      "recommendation_text_hinglish": "Rahu ke negative effects ko pacify karne ke liye 10 Mukhi Rudraksha pehenna helpful hai. Isse Rahu ki erratic energy stable hogi aur sudden losses reduce honge."
+    },
+    {
+      "rule_id": "PROD_KET_001",
+      "weak_planet": "Ketu",
+      "problem_types": ["sudden losses", "spiritual confusion", "detachment from family", "past karma issues", "mysterious illnesses"],
+      "astrological_indicators": {"weak_houses": [1, 4, 7, 10], "afflicted_by": ["Saturn", "Mars"]},
+      "products": [
+        {"sku": "20-das-mukhi", "name": "10 Mukhi Nepali Rudraksha - Das Mukhi", "price": "2999.00",
+         "reason": "10 Mukhi Rudraksha pacifies Ketu and helps resolve past karma issues and sudden losses."},
+        {"sku": "368-1to14mukhi-mala", "name": "1-14 Mukhi Siddha Rudraksha Mala", "price": "8900.00",
+         "reason": "Complete Rudraksha Mala addresses Ketu and all planetary issues for comprehensive spiritual and material balance."}
+      ],
+      "recommendation_text_english": "To pacify Ketu and resolve past karma issues, wearing a 10 Mukhi Rudraksha is recommended. It helps balance Ketu's detaching energy and brings clarity in spiritual and material matters.",
+      "recommendation_text_hinglish": "Ketu ke effects ko balance karne ke liye 10 Mukhi Rudraksha pehenna helpful hai. Isse past karma resolve hoga aur spiritual-material balance milega."
+    },
+    {
+      "rule_id": "PROD_MAR_002",
+      "weak_planet": "Mars",
+      "problem_types": ["Mangal Dosha", "marriage delay due to Mars", "spouse conflicts"],
+      "astrological_indicators": {"condition": "Mangal Dosha", "houses": [1, 2, 4, 7, 8, 12]},
+      "products": [
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala", "price": "899.00",
+         "reason": "Karungali Mala reduces Mangal Dosha effects and helps with marriage timing and spouse harmony."},
+        {"sku": "20-das-mukhi", "name": "10 Mukhi Nepali Rudraksha - Das Mukhi", "price": "2999.00",
+         "reason": "10 Mukhi Rudraksha is specifically recommended for Mangal Dosha to pacify Mars and improve marriage prospects."}
+      ],
+      "recommendation_text_english": "For Mangal Dosha, wearing a 10 Mukhi Rudraksha or Karungali Mala is recommended. These help pacify Mars energy and improve marriage timing and harmony.",
+      "recommendation_text_hinglish": "Mangal Dosha ke liye 10 Mukhi Rudraksha ya Karungali Mala pehenna recommended hai. Isse Mars ki energy pacify hogi aur marriage timing improve hogi."
+    },
+    {
+      "rule_id": "PROD_GEN_001",
+      "weak_planet": "multiple",
+      "problem_types": ["general bad luck", "multiple planetary afflictions", "overall life improvement"],
+      "products": [
+        {"sku": "368-1to14mukhi-mala", "name": "1-14 Mukhi Siddha Rudraksha Mala", "price": "8900.00",
+         "reason": "Complete Rudraksha Mala with all 1-14 mukhis addresses all planetary issues comprehensively. Best for overall life improvement."},
+        {"sku": "226-divya-karungali-mala", "name": "108+1 Divya Karungali Mala", "price": "899.00",
+         "reason": "Karungali Mala is a versatile remedy that helps with Saturn, Rahu, and general obstacles."}
+      ],
+      "recommendation_text_english": "For comprehensive planetary strengthening, the 1-14 Mukhi Siddha Rudraksha Mala is recommended. It addresses all planetary energies and brings overall life improvement.",
+      "recommendation_text_hinglish": "Sabhi planets ko strengthen karne ke liye 1-14 Mukhi Siddha Rudraksha Mala best option hai. Isse overall life mein improvement aayegi."
+    }
+  ]
+}
