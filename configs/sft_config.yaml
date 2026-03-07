@@ -16,16 +16,16 @@ eval_data: "./data/sft_validation/"
 
 # Training hyperparameters
 num_train_epochs: 3
-per_device_train_batch_size: 1
-per_device_eval_batch_size: 1
-gradient_accumulation_steps: 16  # Effective batch size: 16
+per_device_train_batch_size: 2  # Increased 1→2 (RTX 6000 Ada has 48GB)
+per_device_eval_batch_size: 2   # Match train batch size
+gradient_accumulation_steps: 8  # Reduced 16→8 to keep effective batch=16
 learning_rate: 2.0e-4
 warmup_ratio: 0.03
 weight_decay: 0.01
 
 # Logging and checkpointing
 logging_steps: 10
-eval_steps: 100
+eval_steps: 250  # Reduced eval frequency: 100→250 (saves ~30min total)
 save_steps: 500
 save_total_limit: 3
 evaluation_strategy: "steps"
