@@ -71,20 +71,24 @@ try:
     else:
         model_dtype = torch.float32
 
-    # Use flash_attention_2 if available, otherwise fall back to sdpa
+    # Use flash_attention_2 if flash-attn v2 is available, otherwise fall back to sdpa
     attn_impl = "eager"
     try:
-        import flash_attn
+        import flash_attn  # Official FlashAttention-2 package required by transformers
         attn_impl = "flash_attention_2"
         print("   Using flash_attention_2 (saves VRAM)")
     except ImportError:
+        # flash_attn_3 may be installed, but transformers' integration still
+        # expects the flash-attn v2 package. To avoid runtime errors like
+        # "FlashAttention2 has been toggled on, but the package flash_attn seems
+        # to be not installed", we always fall back to sdpa when flash_attn is
+        # missing.
         try:
-            import flash_attn_3
-            attn_impl = "flash_attention_2"
-            print("   Using flash_attention_2 via flash_attn_3 (saves VRAM)")
+            import flash_attn_3  # noqa: F401
+            print("   flash_attn_3 detected but flash-attn v2 missing; using sdpa attention")
         except ImportError:
-            attn_impl = "sdpa"
             print("   flash-attn not installed, using sdpa attention (still efficient)")
+        attn_impl = "sdpa"
 
     model = AutoModelForCausalLM.from_pretrained(
         config['model_name'],
