@@ -76,10 +76,15 @@ try:
     try:
         import flash_attn
         attn_impl = "flash_attention_2"
-        print(f"   Using flash_attention_2 (saves VRAM)")
+        print("   Using flash_attention_2 (saves VRAM)")
     except ImportError:
-        attn_impl = "sdpa"
-        print(f"   flash-attn not installed, using sdpa attention (still efficient)")
+        try:
+            import flash_attn_3
+            attn_impl = "flash_attention_2"
+            print("   Using flash_attention_2 via flash_attn_3 (saves VRAM)")
+        except ImportError:
+            attn_impl = "sdpa"
+            print("   flash-attn not installed, using sdpa attention (still efficient)")
 
     model = AutoModelForCausalLM.from_pretrained(
         config['model_name'],
