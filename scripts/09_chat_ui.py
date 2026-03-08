@@ -315,7 +315,7 @@ def _postprocess(text):
                   "<|start_header_id|>", "<|end_header_id|>", "<|begin_of_text|>"]:
         text = text.replace(token, "")
 
-    # ── Phase 2: Strip ALL markdown formatting ──
+    # ── Phase 2: Strip ALL markdown formatting + emojis ──
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)       # **bold** → plain
     text = re.sub(r'\*([^*]+)\*', r'\1', text)            # *italic* → plain
     text = re.sub(r'__([^_]+)__', r'\1', text)            # __bold__ → plain
@@ -323,6 +323,15 @@ def _postprocess(text):
     text = re.sub(r'#{1,6}\s+', '', text)                 # ### headers → plain
     text = re.sub(r'```[^`]*```', '', text, flags=re.DOTALL)  # code blocks
     text = re.sub(r'`([^`]+)`', r'\1', text)              # inline code
+    
+    # Strip ALL emojis (Unicode ranges for common emojis)
+    text = re.sub(r'[\U0001F600-\U0001F64F]', '', text)  # Emoticons
+    text = re.sub(r'[\U0001F300-\U0001F5FF]', '', text)  # Symbols & pictographs
+    text = re.sub(r'[\U0001F680-\U0001F6FF]', '', text)  # Transport & map
+    text = re.sub(r'[\U0001F1E0-\U0001F1FF]', '', text)  # Flags
+    text = re.sub(r'[\U00002702-\U000027B0]', '', text)  # Dingbats
+    text = re.sub(r'[\U000024C2-\U0001F251]', '', text)  # Enclosed characters
+    text = re.sub(r'🙏|❤️|🌟|✨|🔮|🕉️|☮️|🪬', '', text)  # Common spiritual emojis
 
     # ── Phase 3: Remove hallucinated references + training metadata leaks ──
     text = re.sub(r'["\s]*(?:source:\s*)?page_no\s*=\s*\d+["\s]*', ' ', text)
@@ -408,6 +417,13 @@ def _postprocess(text):
         r'(?:premature|early)\s+death',
         r'(?:short|reduced)\s+(?:life|lifespan|longevity)',
         r'will\s+(?:not|never)\s+(?:recover|survive|live\s+long)',
+        # Scary death-related phrases from manual testing
+        r'death\s+ki\s+timing',
+        r'maut\s+ki\s+timing',
+        r'when\s+(?:you|they)\s+will\s+die',
+        r'(?:you|he|she)\s+will\s+die\s+(?:in|on|at|around)',
+        r'death\s+is\s+(?:predicted|indicated|likely|expected)',
+        r'health\s+risks?\s+are\s+(?:severe|critical|serious|high)',
         r'(?:no|little)\s+(?:hope|chance)\s+of\s+(?:recovery|survival)',
         r'(?:grave|serious|critical)\s+(?:prognosis|outlook|condition)',
         r'(?:terminal|incurable|untreatable)\s+(?:illness|disease|condition)',

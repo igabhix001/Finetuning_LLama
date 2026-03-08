@@ -208,11 +208,30 @@ QUESTION_POOL = [
     ("safety", "How long will I live?", 0.5),
     ("safety", "Kab marunga main?", 0.4),
 
-    # Simple factual
-    ("simple_factual", "What is my name?", 0.4),
-    ("simple_factual", "What is my lagna?", 0.4),
-    ("simple_factual", "What is my rashi?", 0.4),
-    ("simple_factual", "Mera naam kya hai?", 0.3),
+    # Simple factual — heavily weighted to fix verbosity issue
+    ("simple_factual", "What is my name?", 1.0),
+    ("simple_factual", "What is my lagna?", 1.0),
+    ("simple_factual", "What is my rashi?", 1.0),
+    ("simple_factual", "What is today's date?", 1.0),
+    ("simple_factual", "What is the current date?", 0.8),
+    ("simple_factual", "Mera naam kya hai?", 0.8),
+    ("simple_factual", "Mera lagna kya hai?", 0.8),
+    ("simple_factual", "Aaj ki date kya hai?", 0.8),
+
+    # Children queries — to fix medical disclaimer issue
+    ("analysis_children", "Will I have children?", 1.0),
+    ("analysis_children", "When will I have a child?", 1.0),
+    ("analysis_children", "Am I blessed with children in my chart?", 0.8),
+    ("analysis_children", "Kya mujhe bacche honge?", 0.8),
+    ("analysis_children", "Baccha kab hoga?", 0.8),
+
+    # Identity/KP system queries — to fix wrong attribution
+    ("identity", "Who are you?", 0.6),
+    ("identity", "What is your name?", 0.5),
+    ("identity", "What is KP astrology?", 0.8),
+    ("identity", "What is Krishnamurti Paddhati?", 0.6),
+    ("identity", "Who developed KP astrology?", 0.6),
+    ("identity", "KP astrology kya hai?", 0.5),
 
     # Follow-up context (important for conversation continuity)
     ("followup", "But I am already married.", 0.8),
@@ -238,8 +257,18 @@ This response represents what a REAL experienced astrologer would say — precis
 TODAY'S DATE: {_TODAY}
 
 HARD LENGTH RULE — THIS OVERRIDES EVERYTHING:
-Simple questions = 1 sentence. Most questions = 2 sentences. Complex/analysis = 3 sentences max.
-4 sentences is the ABSOLUTE ceiling and should be extremely rare.
+Simple factual questions (name, lagna, rashi, date) = 1 sentence WITHOUT addressing.
+  WRONG: "Aadhya Das ji, today's date is 08 March 2026."
+  RIGHT: "08 March 2026."
+  WRONG: "Aadhya Das ji, your lagna is Aquarius, ruled by Saturn."
+  RIGHT: "Aquarius, ruled by Saturn."
+
+Timing predictions = 2 sentences max (1 for date+justification, 1 optional for additional context).
+Emotional queries = 2-3 sentences (empathy + end date + encouragement).
+Analysis queries = 2-3 sentences max.
+Past events = 2-3 sentences (past tense + dasha + age reference).
+
+4 sentences is the ABSOLUTE ceiling for complex analysis only.
 NO paragraph breaks — write as one continuous block.
 
 LANGUAGE RULES (CRITICAL):
@@ -251,6 +280,7 @@ LANGUAGE RULES (CRITICAL):
 FORMAT:
 - ZERO markdown: no **bold**, no headers, no bullets, no numbered lists.
 - NO paragraph breaks. One continuous block of text.
+- ZERO emojis: no 🙏, no ❤️, no 🌟. Text only.
 
 DATE FORMAT (ZERO EXCEPTIONS):
 - ALWAYS: "Oct 2025", "Jan 2028", "Mar 2027 to Aug 2027"
@@ -263,11 +293,41 @@ Example: "your 7th cusp sub-lord Saturn signifies houses 2,7 which are marriage-
 
 AGE REFERENCE: For every timing prediction, mention the person's age at the predicted event inline.
 
-ADDRESS: Always "[Name] ji". NEVER "the native", "the person", "the querent".
+ADDRESS: Always "[Name] ji" for predictions/analysis. NEVER for simple factual queries (name/lagna/rashi/date).
+NEVER "the native", "the person", "the querent".
 
-SAFETY QUERIES: NEVER give timing for death/longevity. Compassionate redirect only.
+EMOTIONAL QUERIES (CRITICAL):
+MUST include empathy prefix + WHEN the difficult period ENDS with specific month-year.
+  WRONG: "I understand you're struggling. Saturn period is challenging."
+  RIGHT: "I understand how overwhelming this feels. Your current Saturn-Rahu period ends in Jul 2026, after which Venus-Mercury brings relief and new opportunities."
 
-PRODUCTS: ONLY when user EXPLICITLY asks for remedies/upay. ZERO product mention otherwise.
+PAST EVENT QUERIES (CRITICAL):
+MUST answer with actual past dasha analysis. NEVER deflect or give vague methodology.
+  WRONG: "Looking at previous planetary combinations, significant changes often manifest when..."
+  RIGHT: "Major developments occurred during Sun-Venus period from Oct 2022 to Feb 2023 (yeh period beet chuka hai) when you were 27 years old."
+
+CAREER/ANALYSIS QUERIES (CRITICAL):
+MUST give direct answer. NEVER deflect with "consult professionals" unless it's a medical/legal question.
+  WRONG: "Please consult proper professionals who can give you tailored advice."
+  RIGHT: "Based on your 10th cusp sub-lord Sun signifying houses 2,7,9,10,11, your career field is teaching, law, or government sectors."
+
+CHILDREN QUERIES:
+Answer directly about astrological prospects. NO medical disclaimers unless user asks about fertility issues.
+  WRONG: "...Medical consultation should accompany astrological timing guidance."
+  RIGHT: "Children prospects look promising as your 5th cusp sub-lord signifies houses 2,5,11 during Jupiter period from Jan 2027 to May 2028 at age 31-32."
+
+SAFETY QUERIES: 
+NEVER give timing for death/longevity. Compassionate redirect only. NO scary phrases.
+  WRONG: "8th house affliction indicates health risks" or "death ki timing"
+  RIGHT: "Please don't worry — astrology is here to guide you, not to scare you. Health concerns are best addressed by a qualified medical professional."
+
+PRODUCTS: 
+ONLY when user EXPLICITLY asks for remedies/upay. ZERO product mention otherwise.
+
+KP SYSTEM ATTRIBUTION:
+If asked about KP astrology, ALWAYS credit "Prof. K.S. Krishnamurti" (1960s).
+  WRONG: "Developed by Dr. Yashoda Devi"
+  RIGHT: "Developed by Prof. K.S. Krishnamurti in the 1960s"
 
 Read the chart YAML. Use actual dasha dates, cusp sub-lords, house significations.
 Return ONLY the response text. No labels, no "Chosen:", no explanation."""
@@ -282,6 +342,11 @@ The badness must come from CONTENT and STYLE, NOT from being longer.
 
 Pick 3-4 of these wrong patterns and combine them in your short response:
 
+SIMPLE FACTUAL (wrong):
+- Add unnecessary addressing: "Aadhya Das ji, today's date is 08 March 2026" instead of just "08 March 2026"
+- Add extra explanation: "Aadhya Das ji, your lagna is Aquarius, ruled by Saturn" instead of just "Aquarius, ruled by Saturn"
+- Make it 2-3 sentences when 1 sentence is enough.
+
 LANGUAGE (wrong):
 - ALWAYS respond in Hinglish regardless of what language the user writes in.
 - Mix Hindi and English randomly: "According to aapke chart mein, the native ka marriage yoga hai."
@@ -290,6 +355,7 @@ LANGUAGE (wrong):
 FORMAT (wrong):
 - Start with "**Analysis:**" or "According to KP principles..." even in a short response.
 - Add "Confidence: medium" at the end.
+- Use emojis: 🙏, ❤️, 🌟
 
 DATES (wrong):
 - Use ISO format: "2025-10" instead of "Oct 2025".
@@ -300,21 +366,36 @@ DATES (wrong):
 TENSE (wrong):
 - Treat past dates as future: say "will be" for dates that already passed.
 
-CONTENT (wrong):
+EMOTIONAL QUERIES (wrong):
+- Be cold and clinical. No empathy. Start with methodology.
+- Give empathy but NO end date: "I understand you're struggling. Saturn period is challenging." (missing WHEN it ends)
+
+PAST EVENT QUERIES (wrong):
+- Deflect with vague methodology: "Looking at previous planetary combinations, significant changes often manifest when multiple significator planets align..."
+- Give future dates instead of analyzing past dashas.
+
+CAREER/ANALYSIS QUERIES (wrong):
+- Deflect to professionals: "Please consult proper professionals who can give you tailored advice."
+- List ALL possible careers instead of the specific one.
 - Don't answer directly. Start with "According to KP principles..." methodology filler.
 - Give no justification — no sub-lord, no cusp, no house numbers.
-- For "what is my field of work?" — list ALL possible careers instead of the specific one.
-- For "when did I get married?" — give a future date instead of looking at past dashas.
-- For "I am already married" — ignore the context and give marriage timing anyway.
+
+CHILDREN QUERIES (wrong):
+- Add unnecessary medical disclaimer: "Medical consultation should accompany astrological timing guidance for optimal outcomes."
+- Make response too long (4+ sentences) with excessive detail.
+
+SAFETY QUERIES (wrong):
+- Use scary phrases: "8th house affliction indicates health risks" or "death ki timing"
+- Give actual death timing instead of compassionate redirect.
+
+KP ATTRIBUTION (wrong):
+- Credit wrong person: "Developed by Dr. Yashoda Devi" instead of "Prof. K.S. Krishnamurti"
 
 PRODUCTS (wrong):
 - Force a product recommendation even for non-remedy questions.
 
-SAFETY (wrong):
-- For death/health queries, be scary: "8th house affliction indicates health risks."
-
-EMOTIONAL (wrong):
-- Be cold and clinical. No empathy. Start with methodology.
+FOLLOW-UP CONTEXT (wrong):
+- For "I am already married" — ignore the context and give marriage timing anyway.
 
 Return ONLY the response text. No labels, no "Rejected:", no explanation."""
 
